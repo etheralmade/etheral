@@ -20,6 +20,14 @@ const App = (props: any) => {
         dispatch(reset());
     };
 
+    const handleIncrementMultiple = () => {
+        dispatch(increment(3));
+    };
+
+    const handleDecrementMultiple = () => {
+        dispatch(decrement(4));
+    };
+
     return (
         <Layout>
             <SEO />
@@ -29,9 +37,9 @@ const App = (props: any) => {
                 }}
             >
                 <button onClick={handleIncrement}>Add one</button>
-                <button>Add </button>
+                <button onClick={handleIncrementMultiple}>Add 3</button>
                 <button onClick={handleDecrement}>Subtract one</button>
-                <button>Subtract </button>
+                <button onClick={handleDecrementMultiple}>Subtract 4</button>
                 <button onClick={handleReset}>Reset</button>
                 <h2>Number is {number}</h2>
             </div>

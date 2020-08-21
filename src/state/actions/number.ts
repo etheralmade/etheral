@@ -1,5 +1,4 @@
-import { RESET } from '@storybook/addon-knobs';
-import { DECREMENT, INCREMENT } from 'state/types/number';
+import { DECREMENT, INCREMENT, RESET } from 'state/types/number';
 import { Action } from '../reducers/number-reducer';
 
 export const increment = (num?: number): Action => {
