@@ -17,7 +17,7 @@ const Layout: React.FC = ({ children }) => {
         }
     `);
 
-    const { title, description } = data.site.siteMetadata;
+    // const { title, description } = data.site.siteMetadata;
 
     return (
         <ThemeProvider theme={theme}>

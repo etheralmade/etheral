@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 interface Props {
-        text: string
+    text: string;
 }
 
 const Paragraph: React.FC<Props> = ({ text }) => {
-        return <p>{text}</p>
-}
+    return <p>{text}</p>;
+};
 
-export default Paragraph
+export default Paragraph;
