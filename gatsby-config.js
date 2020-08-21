@@ -6,8 +6,10 @@ const siteUrl = 'https://gatsby-starter-typescript-deluxe.netlify.com';
 const siteImage = `${siteUrl}/icons/icon_512x512.png`;
 const siteKeywords = ['gatsby', 'typescript', 'starter', 'javascript', 'react'];
 
-const { dirname } = require('path');
 const path = require('path');
+
+// provide firebase on ssr.
+require('dotenv').config();
 
 module.exports = {
     siteMetadata: {
@@ -89,6 +91,7 @@ module.exports = {
                 pages: path.join(__dirname, 'src/pages'),
                 state: path.join(__dirname, 'src/state'),
                 styles: path.join(__dirname, 'src/styles'),
+                lib: path.join(__dirname, 'src/lib'),
             },
         },
     ],

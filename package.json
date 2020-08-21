@@ -27,6 +27,7 @@
     "update": "ncu -u"
   },
   "dependencies": {
+    "firebase": "^7.19.0",
     "framer-motion": "^1.9.1",
     "gatsby": "^2.19.32",
     "gatsby-image": "^2.2.43",
@@ -46,6 +47,7 @@
     "react-dom": "^16.13.0",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.2.1",
+    "reactfire": "^2.0.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "styled-components": "^5.0.1",

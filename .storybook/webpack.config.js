@@ -42,6 +42,7 @@ module.exports = ({ config }) => {
             pages: path.resolve(__dirname, '../src/pages'),
             state: path.resolve(__dirname, '../src/state'),
             styles: path.resolve(__dirname, '../src/styles'),
+            lib: path.resole(__dirname, '../src/lib'),
         },
     };
 
