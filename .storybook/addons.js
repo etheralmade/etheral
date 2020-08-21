@@ -1,10 +1,10 @@
-import "@storybook/addon-actions/register";
-import "@storybook/addon-links/register";
-import "@storybook/addon-knobs/register";
-import '@storybook/addon-a11y/register'
+import '@storybook/addon-actions/register';
+import '@storybook/addon-links/register';
+import '@storybook/addon-knobs/register';
+import '@storybook/addon-a11y/register';
 
-import { addParameters } from "@storybook/react"
+import { addParameters } from '@storybook/react';
 
 addParameters({
-        info: { inline: true }
-})
+    info: { inline: true },
+});
