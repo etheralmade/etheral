@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import React, { Suspense } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import { FirebaseAppProvider } from 'reactfire';
@@ -28,7 +28,9 @@ const Layout: React.FC = ({ children }) => {
             <GlobalStyles />
             <CSSDebugger />
             <FirebaseAppProvider firebaseApp={firebaseApp}>
-                <main>{children}</main>
+                <Suspense fallback={<></>}>
+                    <main>{children}</main>
+                </Suspense>
             </FirebaseAppProvider>
         </ThemeProvider>
     );
