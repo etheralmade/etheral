@@ -27,6 +27,7 @@
     "update": "ncu -u"
   },
   "dependencies": {
+    "emotion-theming": "^10.0.27",
     "firebase": "^7.19.0",
     "framer-motion": "^1.9.1",
     "gatsby": "^2.19.32",
@@ -42,12 +43,14 @@
     "gatsby-source-filesystem": "^2.1.50",
     "gatsby-transformer-sharp": "^2.3.17",
     "linked-list-typescript": "^1.0.15",
+    "lodash": "^4.17.20",
     "modern-css-reset": "^1.1.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.2.1",
     "reactfire": "^2.0.3",
+    "rebass": "^4.0.7",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "styled-components": "^5.0.1",

@@ -1,15 +1,18 @@
 import React from 'react';
-import { useFirestore } from 'reactfire';
-import { useDispatch } from 'react-redux';
+import { useFirestore, useStorage } from 'reactfire';
+import { useDispatch, connect } from 'react-redux';
+import { set } from 'lodash';
 
 import { fetchProducts, storeProducts } from 'state/actions/products';
 
 // Mock component to simulate how the data is being fetched from firebase (data is provided by flamelink and needed special
 // query)
-const Clicker = () => {
+const Clicker: React.FC<{ products: any }> = ({ products }) => {
     const db = useFirestore();
+    const storage = useStorage();
     const dispatch = useDispatch();
 
+    // Function to fetch data from the firestore AND transforming the refernce into an actual imguRl
     const fetchDatas = async () => {
         await dispatch(fetchProducts());
 
@@ -18,13 +21,38 @@ const Clicker = () => {
                 .collection('fl_content')
                 .where('_fl_meta_.schema', '==', 'product')
                 .get();
-            const rsp = await req.docs.map(doc => doc.data());
 
-            console.log(
-                '%c Here re your datas',
-                'color: #f2a1a9; font-weight: bold;'
+            const rsp = await Promise.all(
+                req.docs.map(async doc => {
+                    const data = doc.data();
+                    if (await data.productImage) {
+                        const reqImg = await Promise.all(
+                            data.productImage.map((ref: any) =>
+                                ref.get().then((imgDoc: any) => imgDoc.data())
+                            )
+                        );
+
+                        const imgDownloadUrls: any = await Promise.all(
+                            reqImg.map(async (ref: any) => {
+                                try {
+                                    const downloadUrlReq = await storage
+                                        .ref(`flamelink/media/${ref.file}`)
+                                        .getDownloadURL();
+
+                                    return await downloadUrlReq;
+                                } catch (err) {
+                                    console.log(err);
+                                    return '';
+                                }
+                            })
+                        );
+
+                        await set(data, 'productImage', imgDownloadUrls);
+                    }
+
+                    return data;
+                })
             );
-            console.log(rsp);
 
             await dispatch(storeProducts(rsp));
         } catch (err) {
@@ -33,7 +61,20 @@ const Clicker = () => {
         }
     };
 
-    return <button onClick={fetchDatas}>Fetch Datas</button>;
+    const transformImges = async () => {
+        console.log(products);
+    };
+
+    return (
+        <>
+            <button onClick={fetchDatas}>Fetch Datas</button>
+            <button onClick={transformImges}>Transform images</button>
+        </>
+    );
 };
 
-export default Clicker;
+const mapStateToProps = (state: any) => ({
+    products: state.productReducer.data,
+});
+
+export default connect(mapStateToProps)(Clicker);
