@@ -14,7 +14,7 @@ import { SEO } from '../components/seo';
   1. A basic styled component using the theme.
 */
 const StyledComponent1 = styled.p`
-    color: ${(props: any) => props.theme.colors.orange};
+    color: 'orange';
     font-size: 1.2rem;
 `;
 
@@ -23,8 +23,7 @@ const StyledComponent1 = styled.p`
   using the theme.
 */
 const StyledComponent2 = styled.p`
-    color: ${({ theme }: { theme: any }) =>
-        theme.screens.sm ? theme.colors.blue : theme.colors.orange};
+    color: 'orange';
     font-size: 1.2rem;
 `;
 
@@ -34,7 +33,7 @@ const StyledComponent2 = styled.p`
 */
 
 const OrangeBlock = styled(motion.div)`
-    background: ${(props: any) => props.theme.colors.orange};
+    background: 'orange';
     height: 100px;
     width: 100px;
     border-radius: 10px;
@@ -52,7 +51,7 @@ const BlueBlock = styled(motion.div).attrs(() => ({
     transition: { duration: 2 },
     whileHover: { scale: 0.8 },
 }))`
-    background: ${(props: any) => props.theme.colors.blue};
+    background: 'blue';
     height: 100px;
     width: 100px;
     border-radius: 10px;

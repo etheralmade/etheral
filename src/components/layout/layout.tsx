@@ -1,13 +1,14 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import { FirebaseAppProvider } from 'reactfire';
+// import firebase from 'firebase/app';
+// import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
 
 import { theme, GlobalStyles } from '../../styles';
 // Components
 import { CSSDebugger } from '../css-debugger';
-import firebaseConfig from 'lib/firebase-config';
+// import firebaseConfig from 'lib/firebase-config';
 
 const Layout: React.FC = ({ children }) => {
     const data = useStaticQuery(graphql`
@@ -23,15 +24,18 @@ const Layout: React.FC = ({ children }) => {
 
     // const { title, description } = data.site.siteMetadata;
 
+    // const firebaseApp = firebase.initializeApp(firebaseConfig);
+
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyles />
             <CSSDebugger />
-            <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-                <Suspense fallback={<></>}>
+            {/* <FirebaseAppProvider firebaseApp={firebaseApp}>
+                <SuspenseWithPerf fallback={<></>} traceId="0">
                     <main>{children}</main>
-                </Suspense>
-            </FirebaseAppProvider>
+                </SuspenseWithPerf>
+    </FirebaseAppProvider> */}
+            <main>{children}</main>
         </ThemeProvider>
     );
 };

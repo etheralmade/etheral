@@ -9329,6 +9329,11 @@ gatsby-page-utils@^0.2.20:
     lodash "^4.17.15"
     micromatch "^3.1.10"
 
+gatsby-plugin-firebase@^0.2.0-beta.4:
+  version "0.2.0-beta.4"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-firebase/-/gatsby-plugin-firebase-0.2.0-beta.4.tgz#a4d8bfdce8c65efa284d0c523f8524c28f4a786c"
+  integrity sha512-F1uh9T5dY38aeNvKzqj+3K655dce1QS70wuG4bhV9L3cnTJR2vitTWyIoCvRJJfPs7Xq7LgjUDmHDrEos4S3gQ==
+
 gatsby-plugin-manifest@^2.2.44:
   version "2.4.23"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-2.4.23.tgz#fb0ea242e1421c9d2d576b7cd2918da50bd9a557"
@@ -16357,14 +16362,6 @@ reactcss@^1.2.0:
   dependencies:
     lodash "^4.0.1"
 
-reactfire@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/reactfire/-/reactfire-2.0.3.tgz#5e791d786768d0134dc416ac912a5134c00d90ff"
-  integrity sha512-9QH2iUUPo5QUe8NJtKotBCztxDB7vGWfa7ldsWc9XswZ24YfDcLDZRdjjzb44BLqjqopNxK1ysrsQ08fuDS21w==
-  dependencies:
-    rxfire "^3.6.3"
-    rxjs "^6.4.0"
-
 read-chunk@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/read-chunk/-/read-chunk-3.2.0.tgz#2984afe78ca9bfbbdb74b19387bf9e86289c16ca"
@@ -17105,13 +17102,6 @@ rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
   integrity sha1-Cx4Rr4vESDbwSmQH6S2kJGe3lEQ=
-
-rxfire@^3.6.3:
-  version "3.13.5"
-  resolved "https://registry.yarnpkg.com/rxfire/-/rxfire-3.13.5.tgz#465a88561b1c139a383216efc2e156f85143fa19"
-  integrity sha512-NyGc9syGjx5W0I5L6c4YioXbjrJTXMSo74RWTiozunOAo04sD+LM/+vQ7HWk+XUZISC/Nk8s/NKo6+mkT0ov6w==
-  dependencies:
-    tslib "^1.11.1"
 
 rxjs@^6.4.0, rxjs@^6.5.2, rxjs@^6.6.0:
   version "6.6.2"

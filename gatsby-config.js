@@ -7,7 +7,6 @@ const siteImage = `${siteUrl}/icons/icon_512x512.png`;
 const siteKeywords = ['gatsby', 'typescript', 'starter', 'javascript', 'react'];
 
 const path = require('path');
-
 // provide firebase on ssr.
 require('dotenv').config();
 
@@ -92,6 +91,21 @@ module.exports = {
                 state: path.join(__dirname, 'src/state'),
                 styles: path.join(__dirname, 'src/styles'),
                 lib: path.join(__dirname, 'src/lib'),
+            },
+        },
+        {
+            resolve: 'gatsby-plugin-firebase',
+            options: {
+                credentials: {
+                    apiKey: process.env.GATSBY_FIREBASE_API_KEY,
+                    authDomain: process.env.GATSBY_FIREBASE_AUTH_DOMAIN,
+                    databaseURL: process.env.GATSBY_FIREBASE_DATABASE_URL,
+                    projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
+                    storageBucket: process.env.GATSBY_FIREBASE_STORAGE_BUCKET,
+                    messagingSenderId:
+                        process.env.GATSBY_FIREBASE_MESSAGING_SENDER_ID,
+                    appId: process.env.GATSBY_FIREBASE_APP_ID,
+                },
             },
         },
     ],

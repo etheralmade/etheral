@@ -1,15 +1,16 @@
 import React from 'react';
-import { useFirestore, useStorage } from 'reactfire';
+// import { useFirestore, useStorage } from 'reactfire';
 import { useDispatch, connect } from 'react-redux';
 import { set } from 'lodash';
+import firebase from 'gatsby-plugin-firebase';
 
 import { fetchProducts, storeProducts } from 'state/actions/products';
 
 // Mock component to simulate how the data is being fetched from firebase (data is provided by flamelink and needed special
 // query)
 const Clicker: React.FC<{ products: any }> = ({ products }) => {
-    const db = useFirestore();
-    const storage = useStorage();
+    const db = firebase.firestore;
+    const storage = firebase.storage;
     const dispatch = useDispatch();
 
     // Function to fetch data from the firestore AND transforming the refernce into an actual imguRl
@@ -17,7 +18,7 @@ const Clicker: React.FC<{ products: any }> = ({ products }) => {
         await dispatch(fetchProducts());
 
         try {
-            const req = await db
+            const req = await db()
                 .collection('fl_content')
                 .where('_fl_meta_.schema', '==', 'product')
                 .get();
@@ -25,9 +26,9 @@ const Clicker: React.FC<{ products: any }> = ({ products }) => {
             const rsp = await Promise.all(
                 req.docs.map(async doc => {
                     const data = doc.data();
-                    if (await data.productImage) {
+                    if (await data.image) {
                         const reqImg = await Promise.all(
-                            data.productImage.map((ref: any) =>
+                            data.image.map((ref: any) =>
                                 ref.get().then((imgDoc: any) => imgDoc.data())
                             )
                         );
@@ -35,7 +36,7 @@ const Clicker: React.FC<{ products: any }> = ({ products }) => {
                         const imgDownloadUrls: any = await Promise.all(
                             reqImg.map(async (ref: any) => {
                                 try {
-                                    const downloadUrlReq = await storage
+                                    const downloadUrlReq = await storage()
                                         .ref(`flamelink/media/${ref.file}`)
                                         .getDownloadURL();
 
