@@ -50,7 +50,8 @@ const App = (props: any) => {
 };
 
 const mapStateToProps = (state: any) => ({
-    number: state.numReducer.num,
+    number: state.numberReducer.num,
+    productsState: state.productReducer,
 });
 
 export default connect(mapStateToProps)(App);

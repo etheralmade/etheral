@@ -2,7 +2,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 // import combinedReducers from './reducers/root-reducer';
 // import { load, save } from 'redux-localstorage-simple';
 import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers/root-reducer';
+import rootReducer from './reducers';
 // import todosCustomMiddleware from './middlewares/todosCustomMiddleware';
 // import loginCustomMiddleware from './middlewares/loginCustomMiddleware';
 // import { ILoginState } from './reducers/login';
