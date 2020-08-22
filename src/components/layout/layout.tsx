@@ -7,7 +7,7 @@ import { FirebaseAppProvider } from 'reactfire';
 import { theme, GlobalStyles } from '../../styles';
 // Components
 import { CSSDebugger } from '../css-debugger';
-import { firebaseApp } from 'lib/firebase';
+import firebaseConfig from 'lib/firebase-config';
 
 const Layout: React.FC = ({ children }) => {
     const data = useStaticQuery(graphql`
@@ -27,7 +27,7 @@ const Layout: React.FC = ({ children }) => {
         <ThemeProvider theme={theme}>
             <GlobalStyles />
             <CSSDebugger />
-            <FirebaseAppProvider firebaseApp={firebaseApp}>
+            <FirebaseAppProvider firebaseConfig={firebaseConfig}>
                 <Suspense fallback={<></>}>
                     <main>{children}</main>
                 </Suspense>
