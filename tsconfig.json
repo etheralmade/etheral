@@ -17,6 +17,7 @@
             ".src/**/@types/"
         ],
         "strict": true,
-        "baseUrl": "./src"
+        "baseUrl": "./src",
+        "lib": ["ES2015.Promise", "DOM"]
     }
 }
