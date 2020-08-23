@@ -1,11 +1,12 @@
 export interface Product {
     name: string;
     pid: string;
+    amount: number;
+
     description?: string;
     category?: string;
     idrPrice?: number;
     image?: string;
-    amount: number;
     availableSizes?: string[];
     collection?: string;
 }
