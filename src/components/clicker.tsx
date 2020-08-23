@@ -4,6 +4,7 @@ import { useDispatch, connect } from 'react-redux';
 import { set } from 'lodash';
 import firebase from 'gatsby-plugin-firebase';
 
+// this package needs to be imported on every async function file.
 import 'regenerator-runtime/runtime';
 import { fetchProducts, storeProducts } from 'state/actions/products';
 
@@ -14,6 +15,7 @@ const Clicker: React.FC<{ products: any }> = ({ products }) => {
     const storage = firebase.storage;
     const dispatch = useDispatch();
 
+    // do i need this ??
     // Function to fetch data from the firestore AND transforming the refernce into an actual imguRl
     const fetchDatas = async () => {
         await dispatch(fetchProducts());
@@ -26,21 +28,24 @@ const Clicker: React.FC<{ products: any }> = ({ products }) => {
 
             const rsp = await Promise.all(
                 req.docs.map(async doc => {
-                    const data = doc.data();
+                    const data: firebase.firestore.DocumentData = doc.data();
+
                     if (await data.image) {
-                        const reqImg = await Promise.all(
-                            data.image.map((ref: any) =>
-                                ref.get().then((imgDoc: any) => imgDoc.data())
+                        const reqImg: firebase.firestore.DocumentData[] = await Promise.all(
+                            data.image.map(
+                                (ref: firebase.firestore.DocumentReference) =>
+                                    ref.get().then(imgDoc => imgDoc.data())
                             )
                         );
 
-                        const imgDownloadUrls: any = await Promise.all(
-                            reqImg.map(async (ref: any) => {
+                        // get download url from img reference object.
+                        const imgDownloadUrls: string[] = await Promise.all(
+                            reqImg.map(async ref => {
                                 try {
                                     const downloadUrlReq = await storage()
                                         .ref(`flamelink/media/${ref.file}`)
                                         .getDownloadURL();
-
+                                    // get download url should return a string.
                                     return await downloadUrlReq;
                                 } catch (err) {
                                     console.log(err);
@@ -49,7 +54,25 @@ const Clicker: React.FC<{ products: any }> = ({ products }) => {
                             })
                         );
 
-                        await set(data, 'productImage', imgDownloadUrls);
+                        await set(data, 'image', imgDownloadUrls);
+                    }
+
+                    // get collection's name from reference object referencing a collection.
+                    if (await data.collection) {
+                        try {
+                            const reqCollection: firebase.firestore.DocumentData = await data.collection
+                                .get()
+                                .then(
+                                    (
+                                        collectionDoc: firebase.firestore.DocumentData
+                                    ) => collectionDoc.data()
+                                );
+
+                            await set(data, 'collection', reqCollection.name);
+                        } catch (err) {
+                            console.log(err);
+                            return '';
+                        }
                     }
 
                     return data;

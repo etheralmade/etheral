@@ -1,3 +1,5 @@
+const firebaseApp = require('./src/lib/firebase');
+
 exports.modifyBabelrc = ({ babelrc }) => ({
     ...babelrc,
     // ...(process.env.NODE_ENV !== 'development' && {
@@ -11,3 +13,7 @@ exports.modifyBabelrc = ({ babelrc }) => ({
         'transform-runtime',
     ]),
 });
+
+exports.createPages = async ({ actions }) => {
+    const { createPage } = actions;
+};
