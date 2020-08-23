@@ -1,4 +1,5 @@
 const { set } = require('lodash');
+const path = require('path');
 require('dotenv').config();
 
 global.XMLHttpRequest = require('xhr2');
@@ -17,6 +18,12 @@ const firebaseApp = firebase.initializeApp({
     messagingSenderId: process.env.GATSBY_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.GATSBY_FIREBASE_APP_ID,
 });
+
+const nameToSlug = name =>
+    name
+        .toLowerCase()
+        .split(' ')
+        .join('-');
 
 exports.modifyBabelrc = ({ babelrc }) => ({
     ...babelrc,
@@ -47,7 +54,7 @@ exports.createSchemaCustomization = ({ actions }) => {
         type Collection implements Node {
             name: String,
             description: String,
-            releaseDate: Int,
+            releaseDate: Date,
             collectionPromotionalImages: [String],
             cid: String,
         }
@@ -127,7 +134,7 @@ exports.sourceNodes = async ({
                     availableSizes: data.availables,
                     collection: data.collection,
                     slug: data.collection
-                        ? `${data.collection}/${data.id}`
+                        ? `${nameToSlug(data.collection)}/${data.id}`
                         : `${noCollection}/${data.id}`,
                 };
 
@@ -195,4 +202,49 @@ exports.sourceNodes = async ({
 };
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
+
+    const result = await graphql(`
+        query {
+            products: allProduct {
+                edges {
+                    node {
+                        slug
+                    }
+                }
+            }
+            collections: allCollection {
+                edges {
+                    node {
+                        name
+                    }
+                }
+            }
+        }
+    `);
+
+    const { products, collections } = await result.data;
+
+    await console.log(JSON.stringify(result.data));
+
+    await products.edges.forEach(({ node }) => {
+        createPage({
+            path: node.slug,
+            component: path.resolve('./src/templates/products/index.tsx'),
+
+            context: {
+                slug: node.slug,
+            },
+        });
+    });
+
+    await collections.edges.forEach(({ node }) => {
+        createPage({
+            path: nameToSlug(node.name),
+            component: path.resolve('./src/templates/collections/index.tsx'),
+
+            context: {
+                name: node.name,
+            },
+        });
+    });
 };
