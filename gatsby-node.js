@@ -80,11 +80,13 @@ exports.sourceNodes = async ({
 
     const storage = firebaseApp.storage();
 
-    await products.get().then(docs => {
-        // create pages for all product docs!
+    let productDocs = await [];
+    let collectionDocs = await [];
 
-        docs.forEach(async doc => {
-            // create node if doc does exists.
+    const productReq = await products.get().then(async docs => docs);
+    await productReq.forEach(async doc => {
+        // create node if doc does exists.
+        try {
             if (doc.exists) {
                 const data = doc.data();
 
@@ -126,7 +128,7 @@ exports.sourceNodes = async ({
 
                 const noCollection = 'uncollection';
 
-                const nodeFields = {
+                const fields = await {
                     name: data.name,
                     pid: data.id,
                     amount: data.amount,
@@ -141,21 +143,32 @@ exports.sourceNodes = async ({
                         : `${noCollection}/${data.id}`,
                 };
 
-                createNode({
-                    // data for the node
-                    ...nodeFields,
-                    id: createNodeId(data.id),
-                    internal: {
-                        type: 'Product',
-                        contentDigest: createContentDigest(nodeFields),
-                    },
+                productDocs = await [...productDocs, fields];
+            }
+        } catch (e) {
+            console.log(e);
+        } finally {
+            if (productDocs.length === productReq.size) {
+                console.log('aa');
+                console.log(productDocs);
+                productDocs.forEach(product => {
+                    createNode({
+                        // data for the node
+                        ...product,
+                        id: createNodeId(product.pid),
+                        internal: {
+                            type: 'Product',
+                            contentDigest: createContentDigest(product),
+                        },
+                    });
                 });
             }
-        });
+        }
     });
 
-    await collections.get().then(docs => {
-        docs.forEach(async doc => {
+    const collectionReq = await collections.get().then(docs => docs);
+    await collectionReq.forEach(async doc => {
+        try {
             const data = doc.data();
             if (data.collectionPromotionalImages) {
                 const reqImg = await Promise.all(
@@ -189,16 +202,26 @@ exports.sourceNodes = async ({
                 cid: data.id,
             };
 
-            createNode({
-                // data for the node
-                ...nodeFields,
-                id: createNodeId(data.id),
-                internal: {
-                    type: 'Collection',
-                    contentDigest: createContentDigest(nodeFields),
-                },
-            });
-        });
+            collectionDocs = [...collectionDocs, nodeFields];
+        } catch (e) {
+            console.error(e);
+        } finally {
+            if (collectionDocs.length === collectionReq.size) {
+                console.log('bb');
+                console.log(collectionDocs);
+                collectionDocs.forEach(collection => {
+                    createNode({
+                        // data for the node
+                        ...collection,
+                        id: createNodeId(collection.cid),
+                        internal: {
+                            type: 'Collection',
+                            contentDigest: createContentDigest(collection),
+                        },
+                    });
+                });
+            }
+        }
     });
 
     return;

@@ -24,8 +24,6 @@ const Products: React.FC<Props> = ({
     const dispatch = useDispatch();
     const allFiles = useAllFiles();
 
-    console.log(allFiles);
-
     const handleClick = () => {
         dispatch(
             addToCart(
