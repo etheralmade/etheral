@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Img from 'gatsby-image';
+import { useDispatch } from 'react-redux';
 
 import { Product as ProductSchema } from 'helper/schema/product';
+import { addToCart } from 'state/actions/cart';
 
 type Props = ProductSchema;
 
@@ -14,9 +16,31 @@ const Products: React.FC<Props> = ({
     category,
     collection,
     productImages,
+    slug,
 }) => {
-    const addToCart = () => {
-        console.log('adding');
+    const [qty, setQty] = useState(1);
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(
+            addToCart(
+                {
+                    name,
+                    pid,
+                    description,
+                    idrPrice,
+                    amount,
+                    collection,
+                    slug,
+                    productImages,
+                },
+                qty !== 1 ? qty : undefined
+            )
+        );
+    };
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setQty(parseInt(event.target.value));
     };
 
     console.log(productImages);
@@ -45,7 +69,15 @@ const Products: React.FC<Props> = ({
             ) : (
                 <></>
             )}
-            <button onClick={addToCart}>Add to cart</button>
+            <label htmlFor="amount">Number of items to order</label>
+            <input
+                onChange={handleChange}
+                value={qty}
+                type="number"
+                placeholder="num"
+                id="amount"
+            />
+            <button onClick={handleClick}>Add to cart</button>
         </>
     );
 };
