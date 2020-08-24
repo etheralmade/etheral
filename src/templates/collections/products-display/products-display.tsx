@@ -10,7 +10,10 @@ type Props = {
 
 const ProductsDisplay: React.FC<Props> = ({ products }) => {
     const returnImage = (product: Product): React.ReactNode => {
-        if (product.productImages[0]) {
+        if (
+            product.productImages[0] &&
+            product.productImages[0].childImageSharp
+        ) {
             const mainImage = product.productImages[0].childImageSharp;
             if (mainImage.fixed) {
                 return <Img fixed={mainImage.fixed} />;

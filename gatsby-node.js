@@ -25,6 +25,34 @@ const nameToSlug = name =>
         .split(' ')
         .join('-');
 
+exports.createSchemaCustomization = ({ actions }) => {
+    const { createTypes } = actions;
+    createTypes(`
+        type Product implements Node {
+            name: String
+            pid: String
+            amount: Int
+            description: String
+            category: String
+            idrPrice: Int
+            urls: [String]
+            slug: String
+            availableSizes: [String]
+            collection: String
+        }
+    `);
+
+    createTypes(`
+        type Collection implements Node {
+            name: String
+            description: String
+            releaseDate: Date
+            urls: [String]
+            cid: String
+        }
+    `);
+};
+
 exports.modifyBabelrc = ({ babelrc }) => ({
     ...babelrc,
     plugins: babelrc.plugins.concat([
