@@ -1,3 +1,5 @@
+import { FixedObject, FluidObject } from 'gatsby-image';
+
 export interface Product {
     name: string;
     pid: string;
@@ -5,10 +7,15 @@ export interface Product {
     description?: string;
     category?: string;
     idrPrice?: number;
-    image?: string;
     availableSizes?: {
         S: boolean;
         M: boolean;
     };
     collection?: string;
+    productImages: {
+        childImageSharp: {
+            fixed?: FixedObject[] | FixedObject;
+            fluid?: FluidObject[] | FluidObject;
+        };
+    }[];
 }

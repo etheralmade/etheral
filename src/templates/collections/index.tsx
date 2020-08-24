@@ -1,17 +1,17 @@
 import React from 'react';
 import { PageProps, graphql } from 'gatsby';
 
+import { Collection as CollectionSchema } from 'helper/schema/collection';
+import Collection from './collections';
+
 const CollectionTemplate = (props: PageProps) => {
     const { data } = props;
-    const collectionData: Collection = (data as any).collection as Collection;
-    const { name, cid, releaseDate, description } = collectionData;
+    const collectionData: CollectionSchema = (data as any)
+        .collection as CollectionSchema;
 
     return (
         <>
-            <h1>Name is {name}</h1>
-            <h4>Collection ID: {cid}</h4>
-            <p>Release date: {releaseDate ? releaseDate : ''} </p>
-            <p>and here are some descriptions {description} </p>
+            <Collection {...collectionData} />
         </>
     );
 };
@@ -22,10 +22,16 @@ export const query = graphql`
     query($name: String) {
         collection(name: { eq: $name }) {
             cid
-            collectionPromotionalImages
             description
             name
             releaseDate
+            collectionImages {
+                childImageSharp {
+                    fixed {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
         }
     }
 `;

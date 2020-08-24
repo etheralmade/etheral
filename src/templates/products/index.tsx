@@ -1,5 +1,6 @@
 import React from 'react';
 import { PageProps, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 
 import { Product } from 'helper/schema/product';
 
@@ -9,14 +10,16 @@ const ProductsTemplate = (props: PageProps) => {
     const {
         name,
         pid,
-        image,
         description,
         idrPrice,
         amount,
         category,
         availableSizes,
+        productImages,
         collection,
     } = productData;
+
+    console.log(data);
 
     return (
         <>
@@ -31,7 +34,13 @@ const ProductsTemplate = (props: PageProps) => {
                 category: {category} collection: {collection}{' '}
             </p>
             <p>ssome img</p>
-            <img src={image[0]} />
+            {productImages[0] && productImages[0].childImageSharp.fluid ? (
+                <Img fluid={productImages[0].childImageSharp.fluid} />
+            ) : productImages[0].childImageSharp.fixed ? (
+                <Img fixed={productImages[0].childImageSharp.fixed} />
+            ) : (
+                <></>
+            )}
         </>
     );
 };
@@ -41,6 +50,7 @@ export default ProductsTemplate;
 export const query = graphql`
     query($slug: String) {
         product(slug: { eq: $slug }) {
+            pid
             slug
             amount
             availableSizes
@@ -48,7 +58,13 @@ export const query = graphql`
             collection
             description
             idrPrice
-            image
+            productImages {
+                childImageSharp {
+                    fixed {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
             name
         }
     }

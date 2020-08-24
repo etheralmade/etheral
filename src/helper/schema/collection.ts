@@ -1,3 +1,5 @@
+import { FixedObject, FluidObject } from 'gatsby-image';
+
 export interface Collection {
     name: string;
     description: string;
@@ -5,4 +7,10 @@ export interface Collection {
     releaseDate?: Date;
     collectionPromotionalImages: string[];
     cid: string;
+    collectionImages: {
+        childImageSharp: {
+            fixed?: FixedObject[] | FixedObject;
+            fluid?: FluidObject[] | FluidObject;
+        };
+    }[];
 }

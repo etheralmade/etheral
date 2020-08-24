@@ -186,7 +186,7 @@ module.exports = {
         radix: 2,
         'react-hooks/exhaustive-deps': 1,
         'react-hooks/rules-of-hooks': 2,
-        'react/jsx-props-no-spreading': 2,
+        'react/jsx-props-no-spreading': 0,
         'react/prop-types': 0, // Unnecessary as we use TypeScript for type definitions
         'sort-keys': 0,
         'space-before-function-paren': 0,
