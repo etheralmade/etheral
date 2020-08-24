@@ -4,13 +4,10 @@ import { PageProps, graphql } from 'gatsby';
 import { Product } from 'helper/schema/product';
 import Products from './products';
 import { Layout } from 'components/layout';
-import useAllProducts from 'helper/use-all-products';
 
 const ProductsTemplate = (props: PageProps) => {
     const { data } = props;
     const productData: Product = (data as any).product as Product;
-
-    console.log(data);
 
     return (
         <Layout>

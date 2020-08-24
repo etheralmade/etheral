@@ -229,31 +229,31 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const { products, collections } = await result.data;
 
-    if (products) {
-        await products.edges.forEach(({ node }) => {
-            createPage({
-                path: node.slug,
-                component: path.resolve('./src/templates/products/index.tsx'),
+    console.log(JSON.stringify(result.data));
 
-                context: {
-                    slug: node.slug,
-                },
-            });
+    // if (products) {
+    await products.edges.forEach(({ node }) => {
+        createPage({
+            path: node.slug,
+            component: path.resolve('./src/templates/products/index.tsx'),
+
+            context: {
+                slug: node.slug,
+            },
         });
-    }
+    });
+    // }
 
-    if (collections) {
-        await collections.edges.forEach(({ node }) => {
-            createPage({
-                path: nameToSlug(node.name),
-                component: path.resolve(
-                    './src/templates/collections/index.tsx'
-                ),
+    // if (collections) {
+    await collections.edges.forEach(({ node }) => {
+        createPage({
+            path: nameToSlug(node.name),
+            component: path.resolve('./src/templates/collections/index.tsx'),
 
-                context: {
-                    name: node.name,
-                },
-            });
+            context: {
+                name: node.name,
+            },
         });
-    }
+    });
+    // }
 };
