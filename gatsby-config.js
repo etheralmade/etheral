@@ -108,5 +108,29 @@ module.exports = {
                 },
             },
         },
+        {
+            resolve: `gatsby-plugin-remote-images`,
+            options: {
+                nodeType: 'Product',
+                // Making this plural (optional).
+                name: 'productImages',
+                // Path to the leaf node.
+                imagePath: 'image',
+                // Set type to array.
+                type: 'array',
+            },
+        },
+        {
+            resolve: `gatsby-plugin-remote-images`,
+            options: {
+                nodeType: 'Collection',
+                // Making this plural (optional).
+                name: 'collectionImages',
+                // Path to the leaf node.
+                imagePath: 'collectionPromotionalImages',
+                // Set type to array.
+                type: 'array',
+            },
+        },
     ],
 };
