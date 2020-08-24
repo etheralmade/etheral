@@ -1,5 +1,6 @@
 import React from 'react';
 import { PageProps, graphql } from 'gatsby';
+import { Layout } from 'components/layout';
 
 import { Collection as CollectionSchema } from 'helper/schema/collection';
 import Collection from './collections';
@@ -9,10 +10,12 @@ const CollectionTemplate = (props: PageProps) => {
     const collectionData: CollectionSchema = (data as any)
         .collection as CollectionSchema;
 
+    console.log(data);
+
     return (
-        <>
+        <Layout>
             <Collection {...collectionData} />
-        </>
+        </Layout>
     );
 };
 

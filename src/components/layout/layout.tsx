@@ -8,6 +8,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { theme, GlobalStyles } from '../../styles';
 // Components
 import { CSSDebugger } from '../css-debugger';
+import Cart from 'components/cart';
 // import firebaseConfig from 'lib/firebase-config';
 
 const Layout: React.FC = ({ children }) => {
@@ -35,7 +36,10 @@ const Layout: React.FC = ({ children }) => {
                     <main>{children}</main>
                 </SuspenseWithPerf>
     </FirebaseAppProvider> */}
-            <main>{children}</main>
+            <main>
+                <Cart />
+                {children}
+            </main>
         </ThemeProvider>
     );
 };

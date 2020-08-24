@@ -20,17 +20,22 @@ const Collection: React.FC<Props> = ({
         product => product.collection === name
     );
 
+    console.log(collectionImages);
+
     return (
         <>
             <h1>Name is {name}</h1>
             <h4>Collection ID: {cid}</h4>
             <p>Release date: {releaseDate ? releaseDate : ''} </p>
             <p>and here are some descriptions {description} </p>
-            {collectionImages.length > 0 &&
-            collectionImages[0].childImageSharp.fluid ? (
-                <Img fluid={collectionImages[0].childImageSharp.fluid} />
-            ) : collectionImages[0].childImageSharp.fixed ? (
-                <Img fixed={collectionImages[0].childImageSharp.fixed} />
+            {collectionImages[0] ? (
+                collectionImages[0].childImageSharp.fluid ? (
+                    <Img fluid={collectionImages[0].childImageSharp.fluid} />
+                ) : collectionImages[0].childImageSharp.fixed ? (
+                    <Img fixed={collectionImages[0].childImageSharp.fixed} />
+                ) : (
+                    <></>
+                )
             ) : (
                 <></>
             )}
