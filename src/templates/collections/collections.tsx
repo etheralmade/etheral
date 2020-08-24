@@ -2,6 +2,8 @@ import React from 'react';
 import Img from 'gatsby-image';
 
 import { Collection as CollectionSchema } from 'helper/schema/collection';
+import { Product } from 'helper/schema/product';
+import useAllProducts from 'helper/use-all-products';
 import ProductsDisplay from './products-display';
 
 type Props = CollectionSchema;
@@ -13,6 +15,11 @@ const Collection: React.FC<Props> = ({
     description,
     collectionImages,
 }) => {
+    const data = useAllProducts();
+    const displayProducts: Product[] = data.filter(
+        product => product.collection === name
+    );
+
     return (
         <>
             <h1>Name is {name}</h1>
@@ -28,7 +35,7 @@ const Collection: React.FC<Props> = ({
                 <></>
             )}
             <h3>Products are:</h3>
-            <ProductsDisplay collectionName={name} />
+            <ProductsDisplay products={displayProducts} />
         </>
     );
 };
