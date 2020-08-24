@@ -4,6 +4,8 @@ export interface Product {
     name: string;
     pid: string;
     amount: number;
+    // gatsby linking param
+    slug: string;
     description?: string;
     category?: string;
     idrPrice?: number;

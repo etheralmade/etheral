@@ -10,6 +10,8 @@ const useAllProducts = () => {
             allProduct {
                 edges {
                     node {
+                        pid
+                        amount
                         slug
                         category
                         collection
