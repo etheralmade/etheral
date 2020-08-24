@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { Product as ProductSchema } from 'helper/schema/product';
 import { addToCart } from 'state/actions/cart';
+import useAllFiles from 'helper/use-all-files';
 
 type Props = ProductSchema;
 
@@ -20,6 +21,9 @@ const Products: React.FC<Props> = ({
 }) => {
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
+    const allFiles = useAllFiles();
+
+    console.log(allFiles);
 
     const handleClick = () => {
         dispatch(
@@ -40,10 +44,8 @@ const Products: React.FC<Props> = ({
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQty(parseInt(event.target.value));
+        setQty(parseInt(event.target.value, 10));
     };
-
-    console.log(productImages);
 
     return (
         <>

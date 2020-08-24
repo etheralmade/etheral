@@ -58,6 +58,7 @@
     "rebass": "^4.0.7",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
+    "redux-sessionstorage": "^0.4.0",
     "styled-components": "^5.0.1",
     "use-media": "^1.4.0",
     "xhr2": "^0.2.0"

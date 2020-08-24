@@ -21,6 +21,30 @@ module.exports = {
     },
     plugins: [
         {
+            resolve: `gatsby-plugin-remote-images`,
+            options: {
+                nodeType: 'Product',
+                // Making this plural (optional).
+                name: 'productImages',
+                // Path to the leaf node.
+                imagePath: 'urls',
+                // Set type to array.
+                type: 'array',
+            },
+        },
+        {
+            resolve: `gatsby-plugin-remote-images`,
+            options: {
+                nodeType: 'Collection',
+                // Making this plural (optional).
+                name: 'collectionImages',
+                // Path to the leaf node.
+                imagePath: 'urls',
+                // Set type to array.
+                type: 'array',
+            },
+        },
+        {
             resolve: `gatsby-source-filesystem`,
             options: {
                 path: `${__dirname}/src/images`,
@@ -106,30 +130,6 @@ module.exports = {
                         process.env.GATSBY_FIREBASE_MESSAGING_SENDER_ID,
                     appId: process.env.GATSBY_FIREBASE_APP_ID,
                 },
-            },
-        },
-        {
-            resolve: `gatsby-plugin-remote-images`,
-            options: {
-                nodeType: 'Product',
-                // Making this plural (optional).
-                name: 'productImages',
-                // Path to the leaf node.
-                imagePath: 'image',
-                // Set type to array.
-                type: 'array',
-            },
-        },
-        {
-            resolve: `gatsby-plugin-remote-images`,
-            options: {
-                nodeType: 'Collection',
-                // Making this plural (optional).
-                name: 'collectionImages',
-                // Path to the leaf node.
-                imagePath: 'collectionPromotionalImages',
-                // Set type to array.
-                type: 'array',
             },
         },
     ],

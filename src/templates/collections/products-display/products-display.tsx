@@ -24,6 +24,8 @@ const ProductsDisplay: React.FC<Props> = ({ products }) => {
         }
     };
 
+    console.log(products);
+
     return (
         <>
             {products.map(product => (

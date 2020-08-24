@@ -14,7 +14,7 @@ const CollectionTemplate = (props: PageProps) => {
 
     return (
         <Layout>
-            <Collection {...collectionData} />
+            <Collection {...collectionData} />{' '}
         </Layout>
     );
 };
@@ -28,10 +28,12 @@ export const query = graphql`
             description
             name
             releaseDate
+            urls
             collectionImages {
+                absolutePath
                 childImageSharp {
                     fixed {
-                        ...GatsbyImageSharpFixed
+                        src
                     }
                 }
             }

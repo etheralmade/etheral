@@ -9,6 +9,8 @@ const firebase = require('firebase/app');
 require('firebase/firestore');
 require('firebase/storage');
 
+const { createRemoteFileNode } = require('gatsby-source-filesystem');
+
 const firebaseApp = firebase.initializeApp({
     apiKey: process.env.GATSBY_FIREBASE_API_KEY,
     authDomain: process.env.GATSBY_FIREBASE_AUTH_DOMAIN,
@@ -43,24 +45,27 @@ exports.createSchemaCustomization = ({ actions }) => {
             description: String
             category: String
             idrPrice: Int
-            image: [String]
+            urls: [String]
             slug: String
             availableSizes: [String]
             collection: String
+            images: [File] @link(from: "img___NODE")
         }
     `);
 
     createTypes(`
         type Collection implements Node {
-            name: String,
-            description: String,
-            releaseDate: Date,
-            collectionPromotionalImages: [String],
-            cid: String,
+            name: String
+            description: String
+            releaseDate: Date
+            urls: [String]
+            cid: String
+            images: [File] @link(from: "img___NODE")
         }
     `);
 };
 
+// source nodes from firebase docs
 exports.sourceNodes = async ({
     actions,
     createNodeId,
@@ -121,6 +126,8 @@ exports.sourceNodes = async ({
                     await set(data, 'collection', rspCollection.name);
                 }
 
+                // const nodeFieldImages =
+
                 const noCollection = 'uncollection';
 
                 const nodeFields = {
@@ -130,8 +137,8 @@ exports.sourceNodes = async ({
                     description: data.description,
                     category: data.category,
                     idrPrice: data.idrPrice,
-                    image: data.image,
-                    availableSizes: data.availables,
+                    urls: data.image,
+                    availableSizes: data.availableSizes,
                     collection: data.collection,
                     slug: data.collection
                         ? `${nameToSlug(data.collection)}/${data.id}`
@@ -182,7 +189,7 @@ exports.sourceNodes = async ({
                 name: data.name,
                 description: data.description,
                 releaseDate: data.releaseDate,
-                collectionPromotionalImages: data.collectionPromotionalImages,
+                urls: data.collectionPromotionalImages,
                 cid: data.id,
             };
 
@@ -200,6 +207,24 @@ exports.sourceNodes = async ({
 
     return;
 };
+// exports.onCreateNode = async ({
+//     node,
+//     actions,
+//     store,
+//     cache,
+//     createNodeId,
+//     createContentDigest,
+// }) => {
+//     if (
+//         node.internal.type === 'Product' ||
+//         node.internal.type === 'Collection'
+//     ) {
+//         console.log(node.name);
+//         console.log(node.images);
+//     }
+// };
+
+// create pages based on properties from nodes sourced from firebase
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
 
@@ -224,27 +249,31 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const { products, collections } = await result.data;
 
-    await console.log(JSON.stringify(result.data));
+    if (products) {
+        await products.edges.forEach(({ node }) => {
+            createPage({
+                path: node.slug,
+                component: path.resolve('./src/templates/products/index.tsx'),
 
-    await products.edges.forEach(({ node }) => {
-        createPage({
-            path: node.slug,
-            component: path.resolve('./src/templates/products/index.tsx'),
-
-            context: {
-                slug: node.slug,
-            },
+                context: {
+                    slug: node.slug,
+                },
+            });
         });
-    });
+    }
 
-    await collections.edges.forEach(({ node }) => {
-        createPage({
-            path: nameToSlug(node.name),
-            component: path.resolve('./src/templates/collections/index.tsx'),
+    if (collections) {
+        await collections.edges.forEach(({ node }) => {
+            createPage({
+                path: nameToSlug(node.name),
+                component: path.resolve(
+                    './src/templates/collections/index.tsx'
+                ),
 
-            context: {
-                name: node.name,
-            },
+                context: {
+                    name: node.name,
+                },
+            });
         });
-    });
+    }
 };

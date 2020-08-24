@@ -20,8 +20,6 @@ const Collection: React.FC<Props> = ({
         product => product.collection === name
     );
 
-    console.log(collectionImages);
-
     return (
         <>
             <h1>Name is {name}</h1>

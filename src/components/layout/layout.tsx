@@ -9,6 +9,7 @@ import { theme, GlobalStyles } from '../../styles';
 // Components
 import { CSSDebugger } from '../css-debugger';
 import Cart from 'components/cart';
+import Navigation from 'components/nav';
 // import firebaseConfig from 'lib/firebase-config';
 
 const Layout: React.FC = ({ children }) => {
@@ -37,6 +38,7 @@ const Layout: React.FC = ({ children }) => {
                 </SuspenseWithPerf>
     </FirebaseAppProvider> */}
             <main>
+                <Navigation />
                 <Cart />
                 {children}
             </main>

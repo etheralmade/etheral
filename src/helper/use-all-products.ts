@@ -18,6 +18,7 @@ const useAllProducts = () => {
                         name
                         idrPrice
                         productImages {
+                            absolutePath
                             childImageSharp {
                                 fixed {
                                     ...GatsbyImageSharpFixed

@@ -4,6 +4,7 @@ import { PageProps, graphql } from 'gatsby';
 import { Product } from 'helper/schema/product';
 import Products from './products';
 import { Layout } from 'components/layout';
+import useAllProducts from 'helper/use-all-products';
 
 const ProductsTemplate = (props: PageProps) => {
     const { data } = props;
@@ -26,12 +27,13 @@ export const query = graphql`
             pid
             slug
             amount
-            availableSizes
+            # availableSizes
             category
             collection
             description
             idrPrice
             productImages {
+                absolutePath
                 childImageSharp {
                     fixed {
                         ...GatsbyImageSharpFixed
