@@ -17,10 +17,10 @@ const ProductsDisplay: React.FC<Props> = ({ products }) => {
             } else if (mainImage.fluid) {
                 return <Img fluid={mainImage.fluid} />;
             } else {
-                return <></>;
+                return <img src={product.urls[0]} alt={product.name} />;
             }
         } else {
-            return <></>;
+            return <img src={product.urls[0]} alt={product.name} />;
         }
     };
 

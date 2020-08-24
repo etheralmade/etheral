@@ -14,6 +14,7 @@ const Collection: React.FC<Props> = ({
     releaseDate,
     description,
     collectionImages,
+    urls,
 }) => {
     const data = useAllProducts();
     const displayProducts: Product[] = data.filter(
@@ -32,10 +33,10 @@ const Collection: React.FC<Props> = ({
                 ) : collectionImages[0].childImageSharp.fixed ? (
                     <Img fixed={collectionImages[0].childImageSharp.fixed} />
                 ) : (
-                    <></>
+                    <img src={urls[0]} alt={name} />
                 )
             ) : (
-                <></>
+                <img src={urls[0]} alt={name} />
             )}
             <h3>Products are:</h3>
             <ProductsDisplay products={displayProducts} />

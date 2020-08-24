@@ -20,4 +20,5 @@ export interface Product {
             fluid?: FluidObject[] | FluidObject;
         };
     }[];
+    urls: string[];
 }

@@ -9,8 +9,6 @@ const firebase = require('firebase/app');
 require('firebase/firestore');
 require('firebase/storage');
 
-const { createRemoteFileNode } = require('gatsby-source-filesystem');
-
 const firebaseApp = firebase.initializeApp({
     apiKey: process.env.GATSBY_FIREBASE_API_KEY,
     authDomain: process.env.GATSBY_FIREBASE_AUTH_DOMAIN,
@@ -34,36 +32,6 @@ exports.modifyBabelrc = ({ babelrc }) => ({
         'transform-runtime',
     ]),
 });
-
-exports.createSchemaCustomization = ({ actions }) => {
-    const { createTypes } = actions;
-    createTypes(`
-        type Product implements Node {
-            name: String
-            pid: String
-            amount: Int
-            description: String
-            category: String
-            idrPrice: Int
-            urls: [String]
-            slug: String
-            availableSizes: [String]
-            collection: String
-            images: [File] @link(from: "img___NODE")
-        }
-    `);
-
-    createTypes(`
-        type Collection implements Node {
-            name: String
-            description: String
-            releaseDate: Date
-            urls: [String]
-            cid: String
-            images: [File] @link(from: "img___NODE")
-        }
-    `);
-};
 
 // source nodes from firebase docs
 exports.sourceNodes = async ({
@@ -207,22 +175,6 @@ exports.sourceNodes = async ({
 
     return;
 };
-// exports.onCreateNode = async ({
-//     node,
-//     actions,
-//     store,
-//     cache,
-//     createNodeId,
-//     createContentDigest,
-// }) => {
-//     if (
-//         node.internal.type === 'Product' ||
-//         node.internal.type === 'Collection'
-//     ) {
-//         console.log(node.name);
-//         console.log(node.images);
-//     }
-// };
 
 // create pages based on properties from nodes sourced from firebase
 exports.createPages = async ({ graphql, actions }) => {

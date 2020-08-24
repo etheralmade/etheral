@@ -28,6 +28,7 @@ export const query = graphql`
             slug
             amount
             # availableSizes
+            urls
             category
             collection
             description

@@ -17,6 +17,7 @@ const useAllProducts = () => {
                         collection
                         name
                         idrPrice
+                        urls
                         productImages {
                             absolutePath
                             childImageSharp {

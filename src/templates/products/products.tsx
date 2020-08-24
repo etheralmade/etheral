@@ -18,6 +18,7 @@ const Products: React.FC<Props> = ({
     collection,
     productImages,
     slug,
+    urls,
 }) => {
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const Products: React.FC<Props> = ({
                     collection,
                     slug,
                     productImages,
+                    urls,
                 },
                 qty !== 1 ? qty : undefined
             )
@@ -66,10 +68,10 @@ const Products: React.FC<Props> = ({
                 ) : productImages[0].childImageSharp.fixed ? (
                     <Img fixed={productImages[0].childImageSharp.fixed} />
                 ) : (
-                    <></>
+                    <img src={urls[0]} alt={name} />
                 )
             ) : (
-                <></>
+                <img src={urls[0]} alt={name} />
             )}
             <label htmlFor="amount">Number of items to order</label>
             <input

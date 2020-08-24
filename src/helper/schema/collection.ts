@@ -13,4 +13,5 @@ export interface Collection {
             fluid?: FluidObject[] | FluidObject;
         };
     }[];
+    urls: string[];
 }
