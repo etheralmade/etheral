@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 // import { load, save } from 'redux-localstorage-simple';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers';
+import { IState as ICartState } from './reducers/cart-reducer';
 // import todosCustomMiddleware from './middlewares/todosCustomMiddleware';
 // import loginCustomMiddleware from './middlewares/loginCustomMiddleware';
 // import { ILoginState } from './reducers/login';
@@ -12,6 +13,12 @@ import rootReducer from './reducers';
 //     loginReducer: ILoginState;
 //     todosReducer: ITodosState;
 // }
+
+export interface State {
+    numberReducer: any;
+    productReducer: any;
+    cartReducer: ICartState;
+}
 
 // export default (preloadedState: IState) => {
 //     return createStore(
@@ -27,7 +34,7 @@ import rootReducer from './reducers';
 //     );
 // };
 
-export default (prelodedState: any) => {
+export default (prelodedState: State) => {
     return createStore(rootReducer, prelodedState, composeWithDevTools());
 };
 

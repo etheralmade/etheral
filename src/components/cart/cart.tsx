@@ -5,7 +5,7 @@ import { Product } from 'helper/schema/product';
 
 type Props = {};
 
-const Cart: React.FC<Props> = () => {
+const Cart: React.FC<Props> = props => {
     const linkedList = new LinkedList<Product>();
     const [cart, setCart] = useState(linkedList);
 
