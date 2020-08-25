@@ -63,8 +63,8 @@ const reducer = (state: IState = initialState, action: Action): IState => {
                 const [index, doesExist] = checkIfExist(product);
 
                 if (doesExist) {
-                    const toRemove = amount ? amount : 1;
                     const item = state.cart[index];
+                    const toRemove = amount ? amount : item.amount;
 
                     // simply remove if the amount to be removed is same to the amount in cart
                     if (item.amount === toRemove) {

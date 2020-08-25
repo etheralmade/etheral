@@ -22,7 +22,6 @@ const Products: React.FC<Props> = ({
 }) => {
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
-    const allFiles = useAllFiles();
 
     const handleClick = () => {
         dispatch(
