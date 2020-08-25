@@ -48,7 +48,6 @@
     "gatsby-plugin-typescript": "^2.2.2",
     "gatsby-source-filesystem": "^2.1.50",
     "gatsby-transformer-sharp": "^2.3.17",
-    "linked-list": "^2.1.0",
     "linked-list-typescript": "^1.0.15",
     "lodash": "^4.17.20",
     "modern-css-reset": "^1.1.0",
