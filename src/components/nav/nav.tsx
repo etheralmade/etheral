@@ -12,6 +12,9 @@ const Navigation: React.FC<Props> = () => {
         <div style={{ display: 'flex' }}>
             <Link to="/collection1">Collection1</Link>
             <Link to="/collection2">Collection2</Link>
+            <Link to="/checkout">
+                <button>Go to checkout</button>
+            </Link>
         </div>
     );
 };

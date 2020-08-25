@@ -10,12 +10,16 @@ export type Props = {};
 const Cart: React.FC<Props & ICartState> = ({ cart }) => {
     const dispatch = useDispatch();
 
+    // option to remove the product from cart.
     const handleRemove = (product: Product) => {
         dispatch(removeFromCart(product));
     };
 
+    // display all products on cart.
     return (
         <>
+            <h1>Cart. Products: </h1>
+            {cart.length < 1 && <h2>No products in cart </h2>}
             {cart.map(cartItem => (
                 <React.Fragment key={cartItem.product.name}>
                     <h2>{cartItem.product.name}</h2>

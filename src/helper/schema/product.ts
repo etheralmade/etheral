@@ -8,7 +8,7 @@ export interface Product {
     slug: string;
     description?: string;
     category?: string;
-    idrPrice?: number;
+    idrPrice: number;
     availableSizes?: {
         S: boolean;
         M: boolean;
