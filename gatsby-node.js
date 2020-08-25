@@ -84,7 +84,7 @@ exports.sourceNodes = async ({
     let collectionDocs = await [];
 
     const productReq = await products.get().then(async docs => docs);
-    await productReq.forEach(async doc => {
+    const createNodesFromProducts = async () => productReq.forEach(async doc => {
         // create node if doc does exists.
         try {
             if (doc.exists) {
@@ -167,7 +167,7 @@ exports.sourceNodes = async ({
     });
 
     const collectionReq = await collections.get().then(docs => docs);
-    await collectionReq.forEach(async doc => {
+    const createNodesFromCollections = async () => collectionReq.forEach(async doc => {
         try {
             const data = doc.data();
             if (data.collectionPromotionalImages) {
@@ -224,7 +224,9 @@ exports.sourceNodes = async ({
         }
     });
 
-    return;
+    await Promise.all([createNodesFromProducts(), createNodesFromCollections()])
+
+    // return;
 };
 
 // create pages based on properties from nodes sourced from firebase
@@ -252,7 +254,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const { products, collections } = await result.data;
 
-    console.log(JSON.stringify(result.data));
+    console.log(`data: ${JSON.stringify(result.data)}`);
 
     // if (products) {
     await products.edges.forEach(({ node }) => {
