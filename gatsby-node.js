@@ -9,6 +9,9 @@ const firebase = require('firebase/app');
 require('firebase/firestore');
 require('firebase/storage');
 
+// oo list to save docref from firestore.
+const LinkedList = require('linked-list');
+
 const firebaseApp = firebase.initializeApp({
     apiKey: process.env.GATSBY_FIREBASE_API_KEY,
     authDomain: process.env.GATSBY_FIREBASE_AUTH_DOMAIN,
@@ -19,12 +22,14 @@ const firebaseApp = firebase.initializeApp({
     appId: process.env.GATSBY_FIREBASE_APP_ID,
 });
 
+// helper function to  create slugs
 const nameToSlug = name =>
     name
         .toLowerCase()
         .split(' ')
         .join('-');
 
+// create custom schema.
 exports.createSchemaCustomization = ({ actions }) => {
     const { createTypes } = actions;
     createTypes(`
@@ -53,6 +58,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     `);
 };
 
+// overpass the runtime error.
 exports.modifyBabelrc = ({ babelrc }) => ({
     ...babelrc,
     plugins: babelrc.plugins.concat([
@@ -80,20 +86,185 @@ exports.sourceNodes = async ({
 
     const storage = firebaseApp.storage();
 
-    let productDocs = await [];
-    let collectionDocs = await [];
+    // let productDocs = new LinkedList();
+    let collectionDocs = [];
 
-    const productReq = await products.get().then(async docs => docs);
-    const createNodesFromProducts = async () => productReq.forEach(async doc => {
-        // create node if doc does exists.
-        try {
+    let productDocs = [];
+
+    const productReq = await products.get().then(docs => {
+        docs.forEach(doc => {
             if (doc.exists) {
-                const data = doc.data();
+                productDocs.push(doc.data());
+            }
+        });
+    });
 
-                // data.image is an array reference to another document..
-                if (await data.image) {
+    const collectionReq = await collections.get().then(docs => {
+        docs.forEach(doc => {
+            if (doc.exists) {
+                collectionDocs.push(doc.data());
+            }
+        });
+    });
+
+    console.log(`product docs length: ${await productDocs.length}`);
+    console.log(`collection docs length: ${await collectionDocs.length}`);
+
+    // mapping all product docs and creating a node for each docs.
+    const createNodesProducts = await productDocs.map(async data => {
+        if (await data.image) {
+            const reqImg = await Promise.all(
+                data.image.map(async ref => {
+                    try {
+                        // get the filename from the referenced document.
+                        const req = await ref.get();
+                        const imgRef = await req.data().file;
+
+                        // then get the download url from google cloud storage based on its filename
+                        const imgDownloadUrl = await storage
+                            .ref(`flamelink/media/${imgRef}`)
+                            .getDownloadURL();
+
+                        // return the url
+                        return imgDownloadUrl;
+                    } catch (err) {
+                        console.error(err);
+                        return '';
+                    }
+                })
+            );
+            await set(data, 'image', reqImg);
+        }
+
+        if (await data.collection) {
+            // get the document then put the documents name into the data collection
+            const reqCollection = await data.collection.get();
+            const rspCollection = await reqCollection.data();
+
+            await set(data, 'collection', rspCollection.name);
+        }
+
+        const noCollection = 'uncollection';
+
+        const fields = await {
+            name: data.name,
+            pid: data.id,
+            amount: data.amount,
+            description: data.description,
+            category: data.category,
+            idrPrice: data.idrPrice,
+            urls: data.image,
+            availableSizes: data.availableSizes,
+            collection: data.collection,
+            slug: data.collection
+                ? `${nameToSlug(data.collection)}/${data.id}`
+                : `${noCollection}/${data.id}`,
+        };
+
+        return await createNode({
+            // data for the node
+            ...fields,
+            id: createNodeId(fields.pid),
+            internal: {
+                type: 'Product',
+                contentDigest: createContentDigest(fields),
+            },
+        });
+    });
+
+    await Promise.all(createNodesProducts);
+
+    /* const createNodesFromProducts = async () =>
+        await productReq.forEach(async doc => {
+            // create node if doc does exists.
+            try {
+                if (doc.exists) {
+                    const data = doc.data();
+
+                    // data.image is an array reference to another document..
+                    if (await data.image) {
+                        const reqImg = await Promise.all(
+                            data.image.map(async ref => {
+                                try {
+                                    // get the filename from the referenced document.
+                                    const req = await ref.get();
+                                    const imgRef = await req.data().file;
+
+                                    // then get the download url from google cloud storage based on its filename
+                                    const imgDownloadUrl = await storage
+                                        .ref(`flamelink/media/${imgRef}`)
+                                        .getDownloadURL();
+
+                                    // return the url
+                                    return imgDownloadUrl;
+                                } catch (err) {
+                                    console.error(err);
+                                    return '';
+                                }
+                            })
+                        );
+                        await set(data, 'image', reqImg);
+                    }
+
+                    // collection is also a reference
+                    if (await data.collection) {
+                        // get the document then put the documents name into the data collection
+                        const reqCollection = await data.collection.get();
+                        const rspCollection = await reqCollection.data();
+
+                        await set(data, 'collection', rspCollection.name);
+                    }
+
+                    // const nodeFieldImages =
+
+                    const noCollection = 'uncollection';
+
+                    const fields = await {
+                        name: data.name,
+                        pid: data.id,
+                        amount: data.amount,
+                        description: data.description,
+                        category: data.category,
+                        idrPrice: data.idrPrice,
+                        urls: data.image,
+                        availableSizes: data.availableSizes,
+                        collection: data.collection,
+                        slug: data.collection
+                            ? `${nameToSlug(data.collection)}/${data.id}`
+                            : `${noCollection}/${data.id}`,
+                    };
+
+                    productDocs.push(fields);
+                }
+            } catch (e) {
+                console.log(e);
+            } finally {
+                if (productDocs.length === productReq.size) {
+                    console.log('aa');
+                    console.log(productDocs);
+                    return productDocs.map(product => {
+                        createNode({
+                            // data for the node
+                            ...product,
+                            id: createNodeId(product.pid),
+                            internal: {
+                                type: 'Product',
+                                contentDigest: createContentDigest(product),
+                            },
+                        });
+                    });
+                }
+            }
+        });
+
+    const collectionReq = await collections.get().then(docs => docs);
+    const createNodesFromCollections = async () => {
+        try {
+            await collectionReq.forEach(async doc => {
+                const data = doc.data();
+                if (await data.collectionPromotionalImages) {
                     const reqImg = await Promise.all(
-                        data.image.map(async ref => {
+                        data.collectionPromotionalImages.map(async ref => {
                             try {
                                 // get the filename from the referenced document.
                                 const req = await ref.get();
@@ -112,121 +283,48 @@ exports.sourceNodes = async ({
                             }
                         })
                     );
-                    await set(data, 'image', reqImg);
+                    set(data, 'collectionPromotionalImages', reqImg);
                 }
 
-                // collection is also a reference
-                if (await data.collection) {
-                    // get the document then put the documents name into the data collection
-                    const reqCollection = await data.collection.get();
-                    const rspCollection = await reqCollection.data();
-
-                    await set(data, 'collection', rspCollection.name);
-                }
-
-                // const nodeFieldImages =
-
-                const noCollection = 'uncollection';
-
-                const fields = await {
+                const nodeFields = await {
                     name: data.name,
-                    pid: data.id,
-                    amount: data.amount,
                     description: data.description,
-                    category: data.category,
-                    idrPrice: data.idrPrice,
-                    urls: data.image,
-                    availableSizes: data.availableSizes,
-                    collection: data.collection,
-                    slug: data.collection
-                        ? `${nameToSlug(data.collection)}/${data.id}`
-                        : `${noCollection}/${data.id}`,
+                    releaseDate: data.releaseDate,
+                    urls: data.collectionPromotionalImages,
+                    cid: data.id,
                 };
 
-                productDocs = await [...productDocs, fields];
-            }
-        } catch (e) {
-            console.log(e);
-        } finally {
-            if (productDocs.length === productReq.size) {
-                console.log('aa');
-                console.log(productDocs);
-                productDocs.forEach(product => {
-                    createNode({
-                        // data for the node
-                        ...product,
-                        id: createNodeId(product.pid),
-                        internal: {
-                            type: 'Product',
-                            contentDigest: createContentDigest(product),
-                        },
-                    });
-                });
-            }
-        }
-    });
-
-    const collectionReq = await collections.get().then(docs => docs);
-    const createNodesFromCollections = async () => collectionReq.forEach(async doc => {
-        try {
-            const data = doc.data();
-            if (data.collectionPromotionalImages) {
-                const reqImg = await Promise.all(
-                    data.collectionPromotionalImages.map(async ref => {
-                        try {
-                            // get the filename from the referenced document.
-                            const req = await ref.get();
-                            const imgRef = await req.data().file;
-
-                            // then get the download url from google cloud storage based on its filename
-                            const imgDownloadUrl = await storage
-                                .ref(`flamelink/media/${imgRef}`)
-                                .getDownloadURL();
-
-                            // return the url
-                            return imgDownloadUrl;
-                        } catch (err) {
-                            console.error(err);
-                            return '';
-                        }
-                    })
-                );
-                await set(data, 'collectionPromotionalImages', reqImg);
-            }
-
-            const nodeFields = {
-                name: data.name,
-                description: data.description,
-                releaseDate: data.releaseDate,
-                urls: data.collectionPromotionalImages,
-                cid: data.id,
-            };
-
-            collectionDocs = [...collectionDocs, nodeFields];
+                await collectionDocs.push(nodeFields);
+                console.log(collectionDocs);
+            });
         } catch (e) {
             console.error(e);
         } finally {
-            if (collectionDocs.length === collectionReq.size) {
-                console.log('bb');
-                console.log(collectionDocs);
-                collectionDocs.forEach(collection => {
-                    createNode({
-                        // data for the node
-                        ...collection,
-                        id: createNodeId(collection.cid),
-                        internal: {
-                            type: 'Collection',
-                            contentDigest: createContentDigest(collection),
-                        },
-                    });
-                });
-            }
+            // if ((await collectionDocs.length) === collectionReq.size) {
+            //     console.log('bb');
+            //     console.log(collectionDocs);
+            //     return collectionDocs.map(collection => {
+            //         return createNode({
+            //             // data for the node
+            //             ...collection,
+            //             id: createNodeId(collection.cid),
+            //             internal: {
+            //                 type: 'Collection',
+            //                 contentDigest: createContentDigest(collection),
+            //             },
+            //         });
+            //     });
+            // }
+
+            console.log('collection docs', await collectionDocs);
         }
-    });
+    };
 
-    await Promise.all([createNodesFromProducts(), createNodesFromCollections()])
-
-    // return;
+    await Promise.all([
+        createNodesFromProducts(),
+        createNodesFromCollections(),
+    ]).then(console.log('end of sourcenodes.'));
+    // return; */
 };
 
 // create pages based on properties from nodes sourced from firebase
