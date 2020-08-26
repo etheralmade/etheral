@@ -1,5 +1,6 @@
-import { Cart, Props } from './cart';
 import { connect } from 'react-redux';
+
+import { Cart, Props } from './cart';
 import { State as ReduxState } from 'state/createStore';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 

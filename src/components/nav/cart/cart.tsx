@@ -5,9 +5,12 @@ import { IState as ICartState } from 'state/reducers/cart-reducer';
 import { Product } from 'helper/schema/product';
 import { removeFromCart } from 'state/actions/cart';
 
-export type Props = {};
+export type Props = {
+    user: firebase.User | null;
+    db: firebase.firestore.Firestore;
+};
 
-const Cart: React.FC<Props & ICartState> = ({ cart }) => {
+const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
     const dispatch = useDispatch();
 
     // option to remove the product from cart.

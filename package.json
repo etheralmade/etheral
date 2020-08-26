@@ -54,6 +54,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-helmet": "^5.2.1",
+    "react-hook-form": "^6.5.3",
     "react-redux": "^7.2.1",
     "rebass": "^4.0.7",
     "redux": "^4.0.5",
