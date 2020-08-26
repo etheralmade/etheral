@@ -1,9 +1,41 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 
-type Props = {};
+import { LoginProps } from '../auth';
 
-const Login: React.FC<Props> = () => {
-    return <></>;
+type Props = {
+    login: (args: LoginProps) => void;
+};
+
+type Inputs = {
+    loginEmail: string;
+    loginPassword: string;
+};
+
+const Login: React.FC<Props> = ({ login }) => {
+    const { register, handleSubmit } = useForm();
+
+    const submit = (data: Inputs) => console.log({ data });
+
+    return (
+        <form onSubmit={handleSubmit(submit)}>
+            <label htmlFor="login-email">Email</label>
+            <input
+                name="loginEmail"
+                id="login-email"
+                type="email"
+                ref={register}
+            />
+            <label htmlFor="login-password">Password</label>
+            <input
+                name="loginPassword"
+                id="login-password"
+                type="password"
+                ref={register}
+            />
+            <input type="submit" value="Login" />
+        </form>
+    );
 };
 
 export { Login };

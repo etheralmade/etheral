@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageProps } from 'gatsby';
 import { Layout } from 'components/layout';
-import Auth from 'components/auth/auth';
+import Auth from 'components/auth';
 
 const AuthPage = (props: PageProps) => {
     return (

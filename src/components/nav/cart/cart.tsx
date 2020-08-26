@@ -20,7 +20,7 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
 
     // display all products on cart.
     return (
-        <>
+        <div style={{ width: '100%' }}>
             <h1>Cart. Products: </h1>
             {cart.length < 1 && <h2>No products in cart </h2>}
             {cart.map(cartItem => (
@@ -38,7 +38,7 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
                     </h4>
                 </React.Fragment>
             ))}
-        </>
+        </div>
     );
 };
 

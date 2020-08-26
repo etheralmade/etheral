@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import { useStaticQuery } from 'gatsby';
 import { Link } from '@reach/router';
-import { Cart } from './cart/cart';
+import Cart from './cart';
 
 type Props = {
     auth: firebase.auth.Auth;
@@ -14,12 +14,17 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
 
     // mock links for testing purposes
     return (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <Link to="/collection1">Collection1</Link>
             <Link to="/collection2">Collection2</Link>
             <Link to="/checkout">
                 <button>Go to checkout</button>
             </Link>
+            {!user && (
+                <Link to="/auth">
+                    <button>Login</button>
+                </Link>
+            )}
             <Cart user={user} db={db} />
         </div>
     );
