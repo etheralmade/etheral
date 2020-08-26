@@ -19,12 +19,10 @@ const Login: React.FC<Props> = ({ login }) => {
     const debouncedLogin = debounce(login, 500);
 
     const submit = ({ loginEmail, loginPassword }: Inputs) => {
-        const datas: LoginProps = {
+        debouncedLogin({
             email: loginEmail,
             password: loginPassword,
-        };
-
-        debouncedLogin(datas);
+        });
     };
 
     return (
