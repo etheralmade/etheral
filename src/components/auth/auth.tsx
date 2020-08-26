@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Login from './login';
 import SignUp from './signup';
 
@@ -17,11 +17,12 @@ export type SignUpProps = LoginProps & {
     name: string;
 };
 
-const Auth: React.FC<Props> = () => {
+const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
+    const [uid, setUid] = useState('');
+    const [isNewUser, setIsNewUser] = useState(false);
+
     // user login
-    const loginWithEmail = ({ password, email }: LoginProps) => {
-        console.log({ password, email });
-    };
+    const loginWithEmail = async ({ password, email }: LoginProps) => {};
 
     // create new user
     const signupWithEmail = ({ name, password, email }: SignUpProps) => {
@@ -37,6 +38,7 @@ const Auth: React.FC<Props> = () => {
         <>
             <Login login={loginWithEmail} />
             <SignUp signup={signupWithEmail} />
+            <button onClick={withGoogle}>Sign in with google</button>
         </>
     );
 };

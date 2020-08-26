@@ -1,14 +1,21 @@
 import { findIndex, without } from 'lodash';
 
 import { Product } from 'helper/schema/product';
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../types/cart';
+import {
+    ADD_TO_CART,
+    REMOVE_FROM_CART,
+    CLEAR_CART,
+    SET_CART,
+} from '../types/cart';
+import { SetCartArgs } from 'state/actions/cart';
 
 // user should be able to add multiple amount of the same items to the cart.
 export interface Action {
     type: string;
     payload?: {
-        product: Product;
+        product?: Product;
         amount?: number;
+        cartItems?: SetCartArgs;
     };
 }
 
@@ -32,7 +39,7 @@ const reducer = (state: IState = initialState, action: Action): IState => {
     const { type, payload } = action;
     switch (type) {
         case ADD_TO_CART:
-            if (payload) {
+            if (payload && payload.product) {
                 const { product, amount } = payload;
 
                 const [index, doesExist] = checkIfExist(product);
@@ -58,7 +65,7 @@ const reducer = (state: IState = initialState, action: Action): IState => {
             }
 
         case REMOVE_FROM_CART:
-            if (payload) {
+            if (payload && payload.product) {
                 const { product, amount } = payload;
                 const [index, doesExist] = checkIfExist(product);
 
@@ -88,6 +95,13 @@ const reducer = (state: IState = initialState, action: Action): IState => {
             }
         case CLEAR_CART:
             return initialState;
+        case SET_CART:
+            if (payload && payload.cartItems) {
+                const { cartItems } = payload;
+                return { cart: cartItems };
+            } else {
+                return state;
+            }
         default:
             return state;
     }
