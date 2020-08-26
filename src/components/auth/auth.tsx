@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from '@reach/router';
-import { get } from 'lodash';
+import { compact, get } from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import Login from './login';
 import SignUp from './signup';
 import useAllProducts from 'helper/use-all-products';
-import { FirebaseUserData } from 'helper/schema/firebase-user';
+import { FirebaseUserData, InCart } from 'helper/schema/firebase-user';
+import { setCart } from 'state/actions/cart';
+import extractCartFirestore from 'helper/extract-cart-firestore';
 
 type Props = {
     auth: firebase.auth.Auth;
@@ -28,11 +31,16 @@ const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
 
     const navigate = useNavigate();
     const allProducts = useAllProducts();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // call this function just if user is logged in!
         if (auth.currentUser) {
             (async () => {
+                if (!uid) {
+                    await setUid(auth.currentUser.uid);
+                }
+
                 if (!isNewUser) {
                     await fetchCartItems();
                 } else {
@@ -63,7 +71,30 @@ const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
     };
 
     const fetchCartItems = async () => {
-        console.log('fetching cart item');
+        try {
+            const docRef = await db
+                .collection('user')
+                .doc(uid)
+                .get();
+
+            const userData = await docRef.data();
+
+            // fetch and checks for all undefined object.
+            if ((await docRef.exists) && userData) {
+                const inCart = (await (userData.inCart as any)) as InCart;
+
+                const filteredInCartData = await extractCartFirestore({
+                    firestoreCartData: inCart,
+                    allProducts,
+                });
+
+                console.log(inCart);
+
+                await dispatch(setCart(filteredInCartData));
+            }
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     // user login
