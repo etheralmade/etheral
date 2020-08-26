@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login component matches snapshot 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <label
+    htmlFor="login-email"
+  >
+    Email
+  </label>
+  <input
+    id="login-email"
+    name="loginEmail"
+    type="email"
+  />
+  <label
+    htmlFor="login-password"
+  >
+    Password
+  </label>
+  <input
+    id="login-password"
+    name="loginPassword"
+    type="password"
+  />
+  <input
+    type="submit"
+    value="Login"
+  />
+</form>
+`;

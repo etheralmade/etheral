@@ -3207,7 +3207,7 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@testing-library/dom@*":
+"@testing-library/dom@*", "@testing-library/dom@^7.22.6":
   version "7.22.6"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.22.6.tgz#a9466c564e9cccb56175ad2ff471aa4ba43ef0b7"
   integrity sha512-8703SWfapsEMwG10/c8AV7qK33zyy0NMDs0SbX9uEZnHWnxaNA5SnODuWS1PvFEjoNjBxfoxVZtw6uQAXO7tJw==

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { debounce } from 'lodash';
 
 import { LoginProps } from '../auth';
 
@@ -15,7 +16,16 @@ type Inputs = {
 const Login: React.FC<Props> = ({ login }) => {
     const { register, handleSubmit } = useForm();
 
-    const submit = (data: Inputs) => console.log({ data });
+    const debouncedLogin = debounce(login, 500);
+
+    const submit = ({ loginEmail, loginPassword }: Inputs) => {
+        const datas: LoginProps = {
+            email: loginEmail,
+            password: loginPassword,
+        };
+
+        debouncedLogin(datas);
+    };
 
     return (
         <form onSubmit={handleSubmit(submit)}>

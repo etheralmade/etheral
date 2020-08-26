@@ -19,7 +19,7 @@ export type SignUpProps = LoginProps & {
 const Auth: React.FC<Props> = () => {
     // user login
     const loginWithEmail = ({ password, email }: LoginProps) => {
-        return;
+        console.log({ password, email });
     };
 
     // create new user
