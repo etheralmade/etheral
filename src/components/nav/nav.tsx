@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// import { useStaticQuery } from 'gatsby';
+import { useDispatch } from 'react-redux';
 import { Link } from '@reach/router';
+
 import Cart from './cart';
+import { clearCart } from 'state/actions/cart';
 
 type Props = {
     auth: firebase.auth.Auth;
@@ -10,6 +12,7 @@ type Props = {
 
 const Navigation: React.FC<Props> = ({ auth, db }) => {
     const [user, setUser] = useState<firebase.User | null>(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (auth.currentUser) {
@@ -21,6 +24,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
         try {
             await auth.signOut();
             await setUser(null);
+            await dispatch(clearCart());
         } catch (e) {
             console.error(e);
         }

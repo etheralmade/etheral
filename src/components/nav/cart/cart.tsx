@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
@@ -11,7 +11,25 @@ export type Props = {
 };
 
 const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
+    const [cartSnapshot, setCartSnapshot] = useState(JSON.stringify(cart));
+
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        // sync with firestore just if the user is authenticated.
+        if (user) {
+            if (JSON.stringify(cart) !== cartSnapshot) {
+                db.collection('user')
+                    .doc(user.uid)
+                    .update({
+                        inCart: cart.map(cartItem => ({
+                            pid: cartItem.product.pid,
+                            amount: cartItem.amount,
+                        })),
+                    });
+            }
+        }
+    }, [cart]);
 
     // option to remove the product from cart.
     const handleRemove = (product: Product) => {
