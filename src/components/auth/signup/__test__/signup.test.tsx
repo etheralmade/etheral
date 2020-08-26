@@ -46,7 +46,7 @@ describe('Signup component', () => {
         userEvent.type(passwordInput, password);
         userEvent.type(nameInput, name);
 
-        const submitButton: HTMLElement = getByDisplayValue('Login');
+        const submitButton: HTMLElement = getByDisplayValue('Sign up');
         userEvent.click(submitButton);
 
         setTimeout(() => {

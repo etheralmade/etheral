@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './login';
+import SignUp from './signup';
 
 type Props = {
     auth: firebase.auth.Auth;
@@ -24,7 +25,7 @@ const Auth: React.FC<Props> = () => {
 
     // create new user
     const signupWithEmail = ({ name, password, email }: SignUpProps) => {
-        return;
+        console.log({ name, email, password });
     };
 
     // sign in/up with google
@@ -35,6 +36,7 @@ const Auth: React.FC<Props> = () => {
     return (
         <>
             <Login login={loginWithEmail} />
+            <SignUp signup={signupWithEmail} />
         </>
     );
 };

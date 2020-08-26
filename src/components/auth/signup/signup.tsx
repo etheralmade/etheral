@@ -36,21 +36,21 @@ const SignUp: React.FC<Props> = ({ signup }) => {
                 type="text"
                 ref={register}
             />
-            <label htmlFor="login-email">Email</label>
+            <label htmlFor="signup-email">Email</label>
             <input
                 name="signupEmail"
-                id="login-email"
+                id="signup-email"
                 type="email"
                 ref={register}
             />
-            <label htmlFor="login-password">Password</label>
+            <label htmlFor="signup-password">Password</label>
             <input
                 name="signupPassword"
-                id="login-password"
+                id="signup-password"
                 type="password"
                 ref={register}
             />
-            <input type="submit" value="Login" />
+            <input type="submit" value="Sign up" />
         </form>
     );
 };
