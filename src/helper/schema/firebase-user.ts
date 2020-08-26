@@ -8,7 +8,7 @@ export type Order = {
     date: Date;
 };
 
-export interface FirebaseUser {
+export interface FirebaseUserData {
     name: string;
     email: string;
     inCart: InCart[];

@@ -15,28 +15,28 @@ exports[`Signup component matches snapshot 1`] = `
     type="text"
   />
   <label
-    htmlFor="login-email"
+    htmlFor="signup-email"
   >
     Email
   </label>
   <input
-    id="login-email"
+    id="signup-email"
     name="signupEmail"
     type="email"
   />
   <label
-    htmlFor="login-password"
+    htmlFor="signup-password"
   >
     Password
   </label>
   <input
-    id="login-password"
+    id="signup-password"
     name="signupPassword"
     type="password"
   />
   <input
     type="submit"
-    value="Login"
+    value="Sign up"
   />
 </form>
 `;

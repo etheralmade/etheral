@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from '@reach/router';
+import { get } from 'lodash';
 
 import Login from './login';
 import SignUp from './signup';
 import useAllProducts from 'helper/use-all-products';
+import { FirebaseUserData } from 'helper/schema/firebase-user';
 
 type Props = {
     auth: firebase.auth.Auth;
@@ -43,7 +45,21 @@ const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
     }, [uid]);
 
     const createNewUser = async () => {
-        console.log('create new user');
+        try {
+            const userData: FirebaseUserData = {
+                name: get(auth, 'currentUser.displayName', ''),
+                email: get(auth, 'currentUser.email', ''),
+                inCart: [],
+                orders: [],
+            };
+
+            await db
+                .collection('user')
+                .doc(uid)
+                .set(userData);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     const fetchCartItems = async () => {
@@ -97,7 +113,9 @@ const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
             const { user } = await signinReq;
 
             if (user !== null) {
-                await setIsNewUser(signinReq.additionalUserInfo?.isNewUser);
+                if (signinReq.additionalUserInfo) {
+                    await setIsNewUser(signinReq.additionalUserInfo.isNewUser);
+                }
                 await setUid(user.uid);
             }
         } catch (e) {
