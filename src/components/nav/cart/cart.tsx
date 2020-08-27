@@ -3,7 +3,10 @@ import { useDispatch } from 'react-redux';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import { Product } from 'helper/schema/product';
-import { removeFromCart } from 'state/actions/cart';
+import { removeFromCart, setCart } from 'state/actions/cart';
+import useAllProducts from 'helper/use-all-products';
+import extractCartFirestore from 'helper/extract-cart-firestore';
+import { InCart } from 'helper/schema/firebase-user';
 
 export type Props = {
     user: firebase.User | null;
@@ -12,13 +15,55 @@ export type Props = {
 
 const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
     const [cartSnapshot, setCartSnapshot] = useState(JSON.stringify(cart));
+    const [isLoadingCart, setIsLoadingCart] = useState(false);
 
     const dispatch = useDispatch();
+    const allProducts = useAllProducts();
+
+    // check for new window -> if auth is provided -> load actual cart items!
+    useEffect(() => {
+        if (window !== undefined && user) {
+            const value = loadSessionStorage();
+            // new window -> fetch new items.
+            if (!value) {
+                // exactly the same function as auth.tsx -> fetchCartItems.
+                (async () => {
+                    try {
+                        await setIsLoadingCart(true);
+                        const docRef = await db
+                            .collection('user')
+                            .doc(user.uid)
+                            .get();
+
+                        const userData = await docRef.data();
+
+                        if ((await docRef.exists) && userData) {
+                            const inCart = (await (userData.inCart as any)) as InCart;
+
+                            const filteredInCartData = await extractCartFirestore(
+                                {
+                                    firestoreCartData: inCart,
+                                    allProducts,
+                                }
+                            );
+
+                            await dispatch(setCart(filteredInCartData));
+                        }
+                        await saveSessionStorage();
+                        await setIsLoadingCart(false);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                })();
+            }
+        }
+    }, []);
 
     useEffect(() => {
         // sync with firestore just if the user is authenticated.
         if (user) {
             if (JSON.stringify(cart) !== cartSnapshot) {
+                setIsLoadingCart(true);
                 db.collection('user')
                     .doc(user.uid)
                     .update({
@@ -26,10 +71,19 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
                             pid: cartItem.product.pid,
                             amount: cartItem.amount,
                         })),
+                    })
+                    .then(() => {
+                        setCartSnapshot(JSON.stringify(cart));
+                        setIsLoadingCart(false);
                     });
             }
         }
     }, [cart]);
+
+    const loadSessionStorage = () => sessionStorage.getItem('isNewWindow');
+
+    const saveSessionStorage = () =>
+        sessionStorage.setItem('isNewWindow', 'true');
 
     // option to remove the product from cart.
     const handleRemove = (product: Product) => {
@@ -39,7 +93,7 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
     // display all products on cart.
     return (
         <div style={{ width: '100%' }}>
-            <h1>Cart. Products: </h1>
+            {isLoadingCart ? <h1>Loading Cart!</h1> : <h1>Cart. Products: </h1>
             {cart.length < 1 && <h2>No products in cart </h2>}
             {cart.map(cartItem => (
                 <React.Fragment key={cartItem.product.name}>
@@ -55,7 +109,23 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
                         </button>
                     </h4>
                 </React.Fragment>
-            ))}
+            ))}<h1>Cart. Products: </h1>
+            {cart.length < 1 && <h2>No products in cart </h2>}
+            {cart.map(cartItem => (
+                <React.Fragment key={cartItem.product.name}>
+                    <h2>{cartItem.product.name}</h2>
+                    <h4>
+                        {cartItem.amount}{' '}
+                        <button
+                            onClick={() => {
+                                handleRemove(cartItem.product);
+                            }}
+                        >
+                            Remove all
+                        </button>
+                    </h4>
+                </React.Fragment>
+            ))}}
         </div>
     );
 };

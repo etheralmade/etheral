@@ -14,6 +14,7 @@ type Props = {
     auth: firebase.auth.Auth;
     db: firebase.firestore.Firestore;
     googleProvider: firebase.auth.GoogleAuthProvider;
+    authPersistence: string;
 };
 
 export type LoginProps = {
@@ -25,7 +26,12 @@ export type SignUpProps = LoginProps & {
     name: string;
 };
 
-const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
+const Auth: React.FC<Props> = ({
+    auth,
+    db,
+    googleProvider,
+    authPersistence,
+}) => {
     const [uid, setUid] = useState('');
     const [isNewUser, setIsNewUser] = useState(false);
 
@@ -33,12 +39,18 @@ const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
     const allProducts = useAllProducts();
     const dispatch = useDispatch();
 
+    // set auth persistence.
+    useEffect(() => {
+        auth.setPersistence(authPersistence);
+    }, []);
+
     useEffect(() => {
         // call this function just if user is logged in!
-        if (auth.currentUser) {
+        const currentUser = auth.currentUser;
+        if (currentUser !== null) {
             (async () => {
                 if (!uid) {
-                    await setUid(auth.currentUser.uid);
+                    await setUid(currentUser.uid);
                 }
 
                 if (!isNewUser) {
@@ -53,20 +65,23 @@ const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
     }, [uid]);
 
     const createNewUser = async () => {
-        try {
-            const userData: FirebaseUserData = {
-                name: get(auth, 'currentUser.displayName', ''),
-                email: get(auth, 'currentUser.email', ''),
-                inCart: [],
-                orders: [],
-            };
+        const currentUser = auth.currentUser;
+        if (currentUser !== null) {
+            try {
+                const userData: FirebaseUserData = {
+                    name: get(currentUser, 'displayName', ''),
+                    email: get(currentUser, 'email', ''),
+                    inCart: [],
+                    orders: [],
+                };
 
-            await db
-                .collection('user')
-                .doc(uid)
-                .set(userData);
-        } catch (e) {
-            console.error(e);
+                await db
+                    .collection('user')
+                    .doc(currentUser.uid)
+                    .set(userData);
+            } catch (e) {
+                console.error(e);
+            }
         }
     };
 
@@ -87,8 +102,6 @@ const Auth: React.FC<Props> = ({ auth, db, googleProvider }) => {
                     firestoreCartData: inCart,
                     allProducts,
                 });
-
-                console.log(inCart);
 
                 await dispatch(setCart(filteredInCartData));
             }
