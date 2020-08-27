@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from '@reach/router';
-import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 
 import Login from './login';
@@ -54,9 +53,9 @@ const Auth: React.FC<Props> = ({
                 }
 
                 if (!isNewUser) {
-                    await fetchCartItems();
+                    await fetchCartItems(currentUser);
                 } else {
-                    await createNewUser();
+                    await createNewUser(currentUser);
                 }
 
                 await navigate('/');
@@ -64,8 +63,7 @@ const Auth: React.FC<Props> = ({
         }
     }, [uid]);
 
-    const createNewUser = async () => {
-        const currentUser = auth.currentUser;
+    const createNewUser = async (currentUser: firebase.User) => {
         if (currentUser !== null) {
             try {
                 const userData: FirebaseUserData = {
@@ -87,28 +85,30 @@ const Auth: React.FC<Props> = ({
         }
     };
 
-    const fetchCartItems = async () => {
-        try {
-            const docRef = await db
-                .collection('user')
-                .doc(uid)
-                .get();
+    const fetchCartItems = async (currentUser: firebase.User) => {
+        if (currentUser) {
+            try {
+                const docRef = await db
+                    .collection('user')
+                    .doc(currentUser.uid)
+                    .get();
 
-            const userData = await docRef.data();
+                const userData = await docRef.data();
 
-            // fetch and checks for all undefined object.
-            if ((await docRef.exists) && userData) {
-                const inCart = (await (userData.inCart as any)) as InCart;
+                // fetch and checks for all undefined object.
+                if ((await docRef.exists) && userData) {
+                    const inCart = (await (userData.inCart as any)) as InCart;
 
-                const filteredInCartData = await extractCartFirestore({
-                    firestoreCartData: inCart,
-                    allProducts,
-                });
+                    const filteredInCartData = await extractCartFirestore({
+                        firestoreCartData: inCart,
+                        allProducts,
+                    });
 
-                await dispatch(setCart(filteredInCartData));
+                    await dispatch(setCart(filteredInCartData));
+                }
+            } catch (e) {
+                console.error(e);
             }
-        } catch (e) {
-            console.error(e);
         }
     };
 
