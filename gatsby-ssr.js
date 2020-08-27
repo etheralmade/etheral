@@ -1,4 +1,4 @@
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
+require('firebase/auth');
+require('firebase/firestore');
+require('firebase/storage');
 // import 'firebase/functions';

@@ -15,6 +15,19 @@ const CheckoutPage = (props: PageProps) => {
         0
     );
 
+    // basic formatting.
+    const formatPrice = (priceUnformatted: number): string => {
+        const matchPriceRegex = priceUnformatted
+            .toString()
+            .match(/.{1,3}(?=(.{3})+(?!.))|.{1,3}$/g);
+
+        if (matchPriceRegex !== null) {
+            return matchPriceRegex.join('.');
+        } else {
+            return priceUnformatted.toString();
+        }
+    };
+
     // pay here
     const handleClickPay = () => {
         // TODO: check for auth.
@@ -24,7 +37,7 @@ const CheckoutPage = (props: PageProps) => {
 
     return (
         <Layout>
-            <h2>Price: IDr {price} </h2>
+            <h2>Price: IDr {formatPrice(price)}</h2>
             <button onClick={handleClickPay}>Pay</button>
         </Layout>
     );

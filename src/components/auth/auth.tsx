@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from '@reach/router';
-import { compact, get } from 'lodash';
+import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 
 import Login from './login';
@@ -69,8 +69,10 @@ const Auth: React.FC<Props> = ({
         if (currentUser !== null) {
             try {
                 const userData: FirebaseUserData = {
-                    name: get(currentUser, 'displayName', ''),
-                    email: get(currentUser, 'email', ''),
+                    name: currentUser.displayName
+                        ? currentUser.displayName
+                        : '',
+                    email: currentUser.email ? currentUser.email : '',
                     inCart: [],
                     orders: [],
                 };

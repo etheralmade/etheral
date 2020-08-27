@@ -110,24 +110,6 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
                     </h4>
                 </React.Fragment>
             ))}
-            <h1>Cart. Products: </h1>
-            {cart.length < 1 && <h2>No products in cart </h2>}
-            {cart.map(cartItem => (
-                <React.Fragment key={cartItem.product.name}>
-                    <h2>{cartItem.product.name}</h2>
-                    <h4>
-                        {cartItem.amount}{' '}
-                        <button
-                            onClick={() => {
-                                handleRemove(cartItem.product);
-                            }}
-                        >
-                            Remove all
-                        </button>
-                    </h4>
-                </React.Fragment>
-            ))}
-            }
         </div>
     );
 };
