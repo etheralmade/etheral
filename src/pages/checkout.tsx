@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Layout } from 'components/layout';
 import { State } from 'state/createStore';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
+import initPayment from 'helper/payment';
 
 const CheckoutPage = (props: PageProps) => {
     // const { cart } = data as { cart: ICartState };
@@ -29,9 +30,26 @@ const CheckoutPage = (props: PageProps) => {
     };
 
     // pay here
-    const handleClickPay = () => {
+    const handleClickPay = async () => {
         // TODO: check for auth.
         // interact with 3rd party api for payment.
+        const successTransaction = await initPayment(
+            price,
+            'Louis',
+            '1234',
+            'eaa@gmail.com',
+            '1234',
+            'cstore',
+            'indomaret'
+            // cart.map(cartItem => cartItem.product.pid),
+            // cart.map(cartItem => cartItem.amount),
+            // 12344,
+            // 'Jalan mangga 24'
+        );
+
+        console.log(await successTransaction);
+        console.log(`va num: ${process.env.GATSBY_PAYMENT_VA_NUMBER}`);
+        console.log(`api key: ${process.env.GATSBY_PAYMENT_API_KEY}`);
         return;
     };
 
