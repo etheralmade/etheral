@@ -93,7 +93,7 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
     // display all products on cart.
     return (
         <div style={{ width: '100%' }}>
-            {isLoadingCart ? <h1>Loading Cart!</h1> : <h1>Cart. Products: </h1>
+            {isLoadingCart ? <h1>Loading Cart!</h1> : <h1>Cart. Products: </h1>}
             {cart.length < 1 && <h2>No products in cart </h2>}
             {cart.map(cartItem => (
                 <React.Fragment key={cartItem.product.name}>
@@ -109,7 +109,8 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
                         </button>
                     </h4>
                 </React.Fragment>
-            ))}<h1>Cart. Products: </h1>
+            ))}
+            <h1>Cart. Products: </h1>
             {cart.length < 1 && <h2>No products in cart </h2>}
             {cart.map(cartItem => (
                 <React.Fragment key={cartItem.product.name}>
@@ -125,7 +126,8 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
                         </button>
                     </h4>
                 </React.Fragment>
-            ))}}
+            ))}
+            }
         </div>
     );
 };
