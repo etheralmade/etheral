@@ -233,15 +233,8 @@ exports.sourceNodes = async ({
                     key: process.env.GATSBY_RAJA_ONGKIR_KEY,
                 },
             });
-            const res = await req.json();
 
-            //     type City implements Node {
-            //     name: String
-            //     provinceName: String
-            //     id: Int
-            //     provinceId: Int
-            //     postalCode: Int
-            // }
+            const res = await req.json();
 
             const results = await get(res, 'rajaongkir.results', []);
             const data = await results.map(resObject => ({
