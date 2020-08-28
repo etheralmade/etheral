@@ -124,6 +124,10 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
             const rsp = await req.data;
             const { rajaongkir } = await rsp;
             const statusCode = await get(rajaongkir, 'status.code', 400);
+
+            console.log(rajaongkir);
+            console.log(rsp);
+
             // status code is OK.
             if (statusCode < 299) {
                 const rspVariants = (await get(
