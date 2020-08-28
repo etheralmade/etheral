@@ -87,9 +87,9 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         }
     };
 
-    const generateOrderObject = () => {
-        return;
-    };
+    // const generateOrderObject = () => {
+    //     return;
+    // };
 
     const calculateShippingCost = async (
         {
@@ -149,24 +149,26 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         // TODO: check for auth.
         const oid = await generateOrderId();
         // interact with 3rd party api for payment.
-        const successTransaction = await initPayment(
-            price,
-            'Louis',
-            '081999501092',
-            'eaa@gmail.com',
-            oid,
-            'cstore',
-            'indomaret',
-            true // debug
-        );
+        if (userData) {
+            const successTransaction = await initPayment(
+                price,
+                userData.name,
+                userData.phone.toString(),
+                userData.email,
+                oid,
+                'cstore',
+                'indomaret',
+                true // debug
+            );
 
-        const { success } = await successTransaction;
-        if (success) {
-            // create new order object
-            console.log(`generating order, oid: ${oid}`);
-        } else {
-            // handle error
-            console.log('s');
+            const { success } = await successTransaction;
+            if (success) {
+                // create new order object
+                console.log(`generating order, oid: ${oid}`);
+            } else {
+                // handle error
+                console.log('s');
+            }
         }
     };
 
