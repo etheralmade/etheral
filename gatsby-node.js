@@ -1,5 +1,8 @@
 const { set, flatten } = require('lodash');
 const path = require('path');
+const fetch = require('node-fetch');
+const { get } = require('lodash');
+
 require('dotenv').config();
 
 global.XMLHttpRequest = require('xhr2');
@@ -51,6 +54,16 @@ exports.createSchemaCustomization = ({ actions }) => {
             releaseDate: Date
             urls: [String]
             cid: String
+        }
+    `);
+
+    createTypes(`
+        type City implements Node {
+            name: String
+            provinceName: String
+            cityId: Int
+            provinceId: Int
+            postalCode: Int
         }
     `);
 };
@@ -211,7 +224,57 @@ exports.sourceNodes = async ({
         });
     });
 
-    await Promise.all(flatten([createNodesProducts, createNodesCollections]));
+    // get all cities from rajaongkir.com
+    const requestCitiesCalculateShipping = async () => {
+        try {
+            const req = await fetch('https://api.rajaongkir.com/starter/city', {
+                method: 'GET',
+                headers: {
+                    key: process.env.GATSBY_RAJA_ONGKIR_KEY,
+                },
+            });
+            const res = await req.json();
+
+            //     type City implements Node {
+            //     name: String
+            //     provinceName: String
+            //     id: Int
+            //     provinceId: Int
+            //     postalCode: Int
+            // }
+
+            const results = await get(res, 'rajaongkir.results', []);
+            const data = await results.map(resObject => ({
+                name: resObject.city_name,
+                provinceName: resObject.province,
+                cityId: parseInt(resObject.city_id),
+                provinceId: parseInt(resObject.province_id),
+                postalCode: parseInt(resObject.postal_code),
+            }));
+
+            await data.map(dataItem =>
+                createNode({
+                    // data for the node
+                    ...dataItem,
+                    id: createNodeId(dataItem.postalCode),
+                    internal: {
+                        type: 'City',
+                        contentDigest: createContentDigest(dataItem),
+                    },
+                })
+            );
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    await Promise.all(
+        flatten([
+            createNodesProducts,
+            createNodesCollections,
+            requestCitiesCalculateShipping(),
+        ])
+    );
 };
 
 // create pages based on properties from nodes sourced from firebase
