@@ -1,4 +1,5 @@
 // import sha256, { hmac } from 'fast-sha256';
+import 'regenerator-runtime/runtime';
 import { sha256 } from 'js-sha256';
 
 // https://ipaymu-storage.s3.amazonaws.com/fdoc/api/payment-api-v2.pdf -> signature needed for ipaymu header request.

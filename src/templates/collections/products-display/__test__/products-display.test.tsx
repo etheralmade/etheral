@@ -25,6 +25,7 @@ describe('Products display on collection page', () => {
             },
         ],
         urls: [],
+        weight: 0,
     };
 
     afterEach(cleanup);
