@@ -1,15 +1,121 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
+import { uniqBy, findIndex, get } from 'lodash';
+import { useForm, Controller } from 'react-hook-form';
 
 import useAllCities from 'helper/use-all-cities';
+import { UserData, UserLocation } from '../checkout';
 
-type Props = {};
+type Props = {
+    getUserData: (data: UserData & UserLocation, origin: number) => void;
+};
 
-const Form: React.FC<Props> = () => {
-    const { allCities, filterByProvince, filterByStr } = useAllCities();
+type SelectProps = {
+    value: number;
+    label: string;
+};
 
-    console.log(allCities);
+const Form: React.FC<Props> = ({ getUserData }) => {
+    const [province, setProvince] = useState(-1);
+    const [selectCityOptions, setSelectCityOptions] = useState<SelectProps[]>(
+        []
+    );
+    const { allCities } = useAllCities();
+    const originCity = allCities.filter(
+        cityItem => cityItem.name.toUpperCase() === 'JAKARTA BARAT'
+    )[0];
 
-    return <></>;
+    const { control, handleSubmit, errors } = useForm();
+
+    const allProvinces = allCities.map(cityItem => ({
+        value: cityItem.provinceId,
+        label: cityItem.provinceName,
+    }));
+
+    useEffect(() => {
+        if (province === -1) {
+            setSelectCityOptions([]);
+        } else {
+            const options = allCities
+                .filter(cityItem => cityItem.provinceId === province)
+                .map(cityItem => ({
+                    value: cityItem.cityId,
+                    label: cityItem.name,
+                }));
+            setSelectCityOptions(options);
+        }
+    }, [province]);
+
+    const handleChangeProvince = ({ value }: SelectProps) => {
+        setProvince(value);
+    };
+
+    const cityValidation = ({ value }: SelectProps) => {
+        const cityOnFocusIndex = findIndex(allCities, o => o.cityId === value);
+        return allCities[cityOnFocusIndex].provinceId === province;
+    };
+
+    const submit = (data: any) => {
+        const userData: UserData & UserLocation = {
+            cityId: get(data, 'city.value', 0),
+            provinceId: get(data, 'province.value', 0),
+            name: 'Jane Doe',
+            email: 'Jane.doe@email.email',
+            address: 'Storkowerstrasse',
+            phone: 1231432123,
+            postal: 213456,
+        };
+
+        getUserData(userData, originCity.cityId);
+    };
+
+    return (
+        <form onSubmit={handleSubmit(submit)}>
+            <label htmlFor="province">Isi provinsi</label>
+            <Controller
+                control={control}
+                defaultValue={-1}
+                name="province"
+                id="province"
+                render={({ onChange, onBlur, value }) => (
+                    <Select
+                        onChange={e => {
+                            handleChangeProvince(e as SelectProps);
+                            onChange(e);
+                        }}
+                        onBlur={onBlur}
+                        selected={value}
+                        options={uniqBy(allProvinces, 'value')}
+                    />
+                )}
+            />
+            <label htmlFor="city">Isi kota</label>
+
+            <Controller
+                control={control}
+                name="city"
+                id="city"
+                defaultValue={-1}
+                rules={{
+                    validate: {
+                        provinceIncorrect: value => cityValidation(value),
+                    },
+                }}
+                render={({ onChange, onBlur, value }) => (
+                    <Select
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        selected={value}
+                        options={selectCityOptions}
+                    />
+                )}
+            />
+            {get(errors, 'city.type', '') === 'provinceIncorrect' && (
+                <p>Nama kota dan lokasi provinsi tidak tepat</p>
+            )}
+            <input type="submit" value="confirm details" />
+        </form>
+    );
 };
 
 export { Form };

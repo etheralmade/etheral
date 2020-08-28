@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import initPayment from 'helper/payment';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
@@ -10,7 +10,24 @@ type Props = {
     cartObj: ICartState;
 };
 
+export type UserData = {
+    name: string;
+    email: string;
+    phone: number;
+    address: string;
+    postal: number;
+};
+
+export type UserLocation = {
+    cityId: number;
+    provinceId: number;
+};
+
 const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
+    const [userData, setUserData] = useState<
+        (UserData & UserLocation) | undefined
+    >(undefined);
+
     const price: number = cart.reduce(
         (acc, current) => current.amount * current.product.idrPrice + acc,
         0
@@ -55,6 +72,53 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         return;
     };
 
+    const calculateShippingCost = async (
+        {
+            cityId,
+        }: {
+            cityId: number;
+        },
+        origin: number
+    ) => {
+        try {
+            const headers = new Headers();
+            headers.append('key', process.env.GATSBY_RAJA_ONGKIR_KEY || '');
+            headers.append('origin', origin.toString());
+            headers.append('destination', cityId.toString());
+            headers.append(
+                'weight',
+                cart
+                    .reduce((acc, current) => current.product.weight + acc, 0)
+                    .toString()
+            );
+            headers.append('courier', 'jne');
+
+            console.log(
+                cart.reduce((acc, current) => current.product.weight + acc, 0)
+            );
+
+            console.log(headers.get('weight'));
+            console.log(headers.get('key'));
+            console.log(headers.get('origin'));
+            console.log(headers.get('destination'));
+
+            const req = await fetch('https://api.rajaongkir.com/starter/city', {
+                method: 'GET',
+                mode: 'no-cors',
+                headers,
+            });
+
+            const rsp = await req.json();
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const getUserData = (data: UserData & UserLocation, origin: number) => {
+        setUserData(data);
+        calculateShippingCost(data, origin);
+    };
+
     // pay here
     const handleClickPay = async () => {
         // TODO: check for auth.
@@ -81,9 +145,11 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         }
     };
 
+    console.log(userData);
+
     return (
         <>
-            <Form />
+            <Form getUserData={getUserData} />
             <h2>Price: IDr {formatPrice(price)}</h2>
             <button onClick={handleClickPay}>Pay</button>
         </>
