@@ -114,6 +114,7 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
                 process.env.NODE_ENV === 'production'
                     ? '/.netlify/functions/get-shipping-cost'
                     : '/starter/cost';
+            // const url = '/get-shipping-cost/'; // debugging.
 
             const req = await axios.post(url, data, {
                 headers: {
@@ -124,10 +125,6 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
             const rsp = await req.data;
             const { rajaongkir } = await rsp;
             const statusCode = await get(rajaongkir, 'status.code', 400);
-
-            console.log(rajaongkir);
-            console.log(rsp);
-
             // status code is OK.
             if (statusCode < 299) {
                 const rspVariants = (await get(

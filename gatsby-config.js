@@ -11,10 +11,16 @@ const path = require('path');
 require('dotenv').config();
 
 module.exports = {
-    proxy: {
-        prefix: '/starter',
-        url: 'https://api.rajaongkir.com',
-    },
+    proxy: [
+        {
+            prefix: '/starter',
+            url: 'https://api.rajaongkir.com',
+        },
+        {
+            prefix: '/get-shipping-cost',
+            url: 'http://localhost:9000',
+        },
+    ],
     siteMetadata: {
         title: siteTitle,
         description: siteDescription,
