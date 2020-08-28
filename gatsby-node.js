@@ -42,6 +42,7 @@ exports.createSchemaCustomization = ({ actions }) => {
             idrPrice: Int
             urls: [String]
             slug: String
+            weight: Int
             availableSizes: [String]
             collection: String
         }
@@ -164,6 +165,7 @@ exports.sourceNodes = async ({
             urls: data.image,
             availableSizes: data.availableSizes,
             collection: data.collection,
+            weight: data.weight,
             slug: data.collection
                 ? `${nameToSlug(data.collection)}/${data.id}`
                 : `${noCollection}/${data.id}`,

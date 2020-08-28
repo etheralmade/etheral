@@ -18,6 +18,7 @@ const useAllProducts = () => {
                         name
                         idrPrice
                         urls
+                        weight
                         productImages {
                             absolutePath
                             childImageSharp {

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { get } from 'lodash';
 
 import initPayment from 'helper/payment';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
@@ -23,10 +25,27 @@ export type UserLocation = {
     provinceId: number;
 };
 
+// got from rajaongkir api
+type ShippingVars = {
+    cost: Shipping[];
+    service: string;
+    description: string;
+};
+
+type Shipping = {
+    etd: string;
+    value: number;
+};
+// end of rajaongir api types
+
 const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
     const [userData, setUserData] = useState<
         (UserData & UserLocation) | undefined
     >(undefined);
+    const [shippingVariants, setShippingVariants] = useState<ShippingVars[]>(
+        []
+    );
+    const [shipping, setShipping] = useState<Shipping | undefined>(undefined);
 
     const price: number = cart.reduce(
         (acc, current) => current.amount * current.product.idrPrice + acc,
@@ -81,34 +100,40 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         origin: number
     ) => {
         try {
-            const headers = new Headers();
-            headers.append('key', process.env.GATSBY_RAJA_ONGKIR_KEY || '');
-            headers.append('origin', origin.toString());
-            headers.append('destination', cityId.toString());
-            headers.append(
-                'weight',
-                cart
-                    .reduce((acc, current) => current.product.weight + acc, 0)
-                    .toString()
-            );
-            headers.append('courier', 'jne');
+            const data = {
+                origin,
+                destination: cityId,
+                weight: cart.reduce(
+                    (acc, current) => current.product.weight + acc,
+                    0
+                ),
+                courier: 'jne',
+            };
 
-            console.log(
-                cart.reduce((acc, current) => current.product.weight + acc, 0)
-            );
+            const url =
+                process.env.NODE_ENV === 'production'
+                    ? 'https://api.rajaongkir.com/starter/cost'
+                    : '/starter/cost';
 
-            console.log(headers.get('weight'));
-            console.log(headers.get('key'));
-            console.log(headers.get('origin'));
-            console.log(headers.get('destination'));
-
-            const req = await fetch('https://api.rajaongkir.com/starter/city', {
-                method: 'GET',
-                mode: 'no-cors',
-                headers,
+            const req = await axios.post(url, data, {
+                headers: {
+                    key: process.env.GATSBY_RAJA_ONGKIR_KEY || '',
+                },
             });
 
-            const rsp = await req.json();
+            const rsp = await req.data;
+            const { rajaongkir } = await rsp;
+            const statusCode = await get(rajaongkir, 'status.code', 400);
+            // status code is OK.
+            if (statusCode < 299) {
+                const rspVariants = (await get(
+                    rajaongkir,
+                    'results[0].costs',
+                    []
+                )) as ShippingVars[];
+
+                await setShippingVariants(rspVariants);
+            }
         } catch (e) {
             console.error(e);
         }
@@ -145,12 +170,40 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         }
     };
 
-    console.log(userData);
+    const handleChangeShipping = (variant: ShippingVars) => {
+        setShipping(variant.cost[0]);
+    };
 
     return (
         <>
             <Form getUserData={getUserData} />
+
+            {shippingVariants.length > 0 &&
+                shippingVariants.map(variant => (
+                    <React.Fragment key={variant.service}>
+                        <label htmlFor={variant.service}>
+                            {variant.description} ({variant.service}).
+                            <br />
+                            Harga: {variant.cost[0].value}
+                            Etd: {variant.cost[0].etd}
+                        </label>
+                        <input
+                            name="shipping"
+                            type="radio"
+                            value={variant.service}
+                            onChange={() => handleChangeShipping(variant)}
+                        />
+                    </React.Fragment>
+                ))}
             <h2>Price: IDr {formatPrice(price)}</h2>
+            {shipping && shipping.value ? (
+                <>
+                    <h2>Shipping cost: {formatPrice(shipping.value)}</h2>
+                    <h1>Subtotal: {formatPrice(price + shipping.value)}</h1>
+                </>
+            ) : (
+                <></>
+            )}
             <button onClick={handleClickPay}>Pay</button>
         </>
     );

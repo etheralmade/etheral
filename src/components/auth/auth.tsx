@@ -169,6 +169,8 @@ const Auth: React.FC<Props> = ({
         }
     };
 
+    console.log(allProducts);
+
     return (
         <>
             <Login login={loginWithEmail} />
