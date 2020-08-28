@@ -2,9 +2,11 @@ import React from 'react';
 
 import initPayment from 'helper/payment';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
+import Form from './form';
 
 type Props = {
     db: firebase.firestore.Firestore;
+    user: firebase.User | null;
     cartObj: ICartState;
 };
 
@@ -81,6 +83,7 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
 
     return (
         <>
+            <Form />
             <h2>Price: IDr {formatPrice(price)}</h2>
             <button onClick={handleClickPay}>Pay</button>
         </>

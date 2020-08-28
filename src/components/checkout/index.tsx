@@ -12,12 +12,14 @@ const Checkout: React.FC<Props & ICartState> = ({ cart }) => {
     const [db, setDb] = useState<firebase.firestore.Firestore | undefined>(
         undefined
     );
+    const [user, setUser] = useState<firebase.User | null>(null);
 
     useEffect(() => {
         setDb(firebase.firestore());
+        setUser(firebase.auth().currentUser);
     }, []);
 
-    return db ? <CheckoutEl db={db} cartObj={{ cart }} /> : <></>;
+    return db ? <CheckoutEl db={db} user={user} cartObj={{ cart }} /> : <></>;
 };
 
 const mapStateToProps = (state: ReduxState) => ({
