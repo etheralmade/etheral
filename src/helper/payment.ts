@@ -1,6 +1,7 @@
 // import sha256, { hmac } from 'fast-sha256';
 import 'regenerator-runtime/runtime';
 import { sha256 } from 'js-sha256';
+import axios from 'axios';
 
 // https://ipaymu-storage.s3.amazonaws.com/fdoc/api/payment-api-v2.pdf -> signature needed for ipaymu header request.
 
@@ -40,11 +41,12 @@ const initPayment = async (
         return { success: true };
     }
 
-    const sandboxUrl = 'http://sandbox.ipaymu.com/api/v2/payment/direct';
     const productionUrl = 'https://my.ipaymu.com/api/v2/payment/direct';
 
     const url =
-        process.env.NODE_ENV === 'production' ? productionUrl : sandboxUrl; // sandbox env
+        process.env.NODE_ENV === 'production'
+            ? productionUrl
+            : '/payment/direct'; // sandbox env
 
     const reqBody = {
         name,
@@ -57,24 +59,21 @@ const initPayment = async (
         paymentChannel,
     };
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('va', process.env.GATSBY_PAYMENT_VA_NUMBER || '');
-    headers.append('signature', generateSignature(reqBody));
-    headers.append('timestamp', new Date().getTime().toString()); // generate timestamp to now.
+    const headers = {
+        'Content-Type': 'application/json',
+        va: parseInt(process.env.GATSBY_PAYMENT_VA_NUMBER || '', 10),
+        signature: generateSignature(reqBody),
+        timestamp: new Date().getTime(),
+    };
 
     try {
-        const req = await fetch(url, {
-            method: 'POST',
-            mode: 'no-cors',
+        console.log(headers);
+
+        const req = await axios.post(url, reqBody, {
             headers,
-            body: JSON.stringify(reqBody),
         });
 
         console.log(req);
-        console.log(JSON.stringify(reqBody));
-        console.log(headers.get('signature'));
-        console.log(headers.get('va'));
 
         return {
             success: true,

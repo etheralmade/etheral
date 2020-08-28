@@ -158,7 +158,7 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
                 oid,
                 'cstore',
                 'indomaret',
-                true // debug
+                false // debug
             );
 
             const { success } = await successTransaction;

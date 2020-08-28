@@ -11,10 +11,16 @@ const path = require('path');
 require('dotenv').config();
 
 module.exports = {
-    proxy: {
-        prefix: '/starter',
-        url: 'https://api.rajaongkir.com',
-    },
+    proxy: [
+        {
+            prefix: '/starter',
+            url: 'https://api.rajaongkir.com',
+        },
+        {
+            prefix: '/payment',
+            url: 'http://sandbox.ipaymu.com/api/v2',
+        },
+    ],
     siteMetadata: {
         title: siteTitle,
         description: siteDescription,
