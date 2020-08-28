@@ -16,3 +16,4 @@ gatsby*.ts
 jest*.ts
 *.test.*
 *.spec.*
+functions
