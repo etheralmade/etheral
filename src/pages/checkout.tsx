@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageProps } from 'gatsby';
 import { connect } from 'react-redux';
+import firebase from 'gatsby-plugin-firebase';
 
 import { Layout } from 'components/layout';
 import { State } from 'state/createStore';
@@ -8,6 +9,7 @@ import { IState as ICartState } from 'state/reducers/cart-reducer';
 import initPayment from 'helper/payment';
 
 const CheckoutPage = (props: PageProps) => {
+    const db = firebase.firestore;
     // const { cart } = data as { cart: ICartState };
     const { cart } = (props as any) as ICartState;
 
@@ -29,28 +31,58 @@ const CheckoutPage = (props: PageProps) => {
         }
     };
 
+    const generateUniqueId = () =>
+        Math.random()
+            .toString(36)
+            .substr(2, 8);
+
+    const generateOrderId = async (): Promise<string> => {
+        const oid = `${generateUniqueId()}${generateUniqueId()}`;
+        const ref = db()
+            .collection('order')
+            .doc(oid);
+
+        try {
+            const doesExist = await ref.get().then(doc => doc.exists);
+            if (await doesExist) {
+                return generateOrderId(); // recursively calls itself if document exists -> regenerate id.
+            } else {
+                return oid;
+            }
+        } catch (e) {
+            console.error(e);
+            return generateOrderId(); // recursively calls itself on error -> regenerate id.
+        }
+    };
+
+    const generateOrderObject = () => {
+        return;
+    };
+
     // pay here
     const handleClickPay = async () => {
         // TODO: check for auth.
+        const oid = await generateOrderId();
         // interact with 3rd party api for payment.
         const successTransaction = await initPayment(
             price,
             'Louis',
-            '1234',
+            '081999501092',
             'eaa@gmail.com',
-            '1234',
+            oid,
             'cstore',
-            'indomaret'
-            // cart.map(cartItem => cartItem.product.pid),
-            // cart.map(cartItem => cartItem.amount),
-            // 12344,
-            // 'Jalan mangga 24'
+            'indomaret',
+            true // debug
         );
 
-        console.log(await successTransaction);
-        console.log(`va num: ${process.env.GATSBY_PAYMENT_VA_NUMBER}`);
-        console.log(`api key: ${process.env.GATSBY_PAYMENT_API_KEY}`);
-        return;
+        const { success } = await successTransaction;
+        if (success) {
+            // create new order object
+            console.log(`generating order, oid: ${oid}`);
+        } else {
+            // handle error
+            console.log('s');
+        }
     };
 
     return (

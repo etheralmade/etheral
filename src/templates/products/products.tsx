@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import { Product as ProductSchema } from 'helper/schema/product';
 import { addToCart } from 'state/actions/cart';
-import useAllFiles from 'helper/use-all-files';
 
 type Props = ProductSchema;
 
@@ -19,6 +18,7 @@ const Products: React.FC<Props> = ({
     productImages,
     slug,
     urls,
+    weight,
 }) => {
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const Products: React.FC<Props> = ({
                     slug,
                     productImages,
                     urls,
+                    weight,
                 },
                 qty !== 1 ? qty : undefined
             )

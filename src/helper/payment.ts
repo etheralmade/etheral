@@ -17,6 +17,10 @@ const generateSignature = (reqBody: any) => {
     );
 };
 
+export type initPaymentReturnVal = {
+    success: boolean;
+};
+
 const initPayment = async (
     price: number,
     name: string,
@@ -24,32 +28,32 @@ const initPayment = async (
     email: string,
     oid: string,
     paymentMethod: string,
-    paymentChannel: string
-    // product: string[], // string of pids.
-    // qty: number[], // arr of qtys
-    // deliveryArea: number,
-    // deliveryAddress: string
-) => {
+    paymentChannel: string,
+    debug?: boolean
+): Promise<initPaymentReturnVal> => {
     // fetch ipaymu!
     // link: https://my.ipaymu.com/api/v2/payment/direct
     // docs: https://documenter.getpostman.com/view/7508947/SWLfanD1?version=latest#1f2a5633-a988-4ada-baba-00200b67158e
 
-    const url = 'http://sandbox.ipaymu.com/api/v2/payment/direct'; // sandbox env
+    if (debug) {
+        return { success: true };
+    }
+
+    const sandboxUrl = 'http://sandbox.ipaymu.com/api/v2/payment/direct';
+    const productionUrl = 'https://my.ipaymu.com/api/v2/payment/direct';
+
+    const url =
+        process.env.NODE_ENV === 'production' ? productionUrl : sandboxUrl; // sandbox env
 
     const reqBody = {
         name,
         email,
         phone,
         amount: price,
-        notifyUrl: '', // set to webhook
+        notifyUrl: 'https://mywebsite.com', // set to webhook
         expired: 24,
-        // expiredType: 'hours', // expect payment max in a day
         paymentMethod,
         paymentChannel,
-        // product,
-        // qty,
-        // deliveryArea,
-        // deliveryAddress,
     };
 
     const headers = new Headers();
@@ -67,14 +71,18 @@ const initPayment = async (
         });
 
         console.log(req);
-        console.log(reqBody);
+        console.log(JSON.stringify(reqBody));
         console.log(headers.get('signature'));
         console.log(headers.get('va'));
 
-        return true;
+        return {
+            success: true,
+        };
     } catch (e) {
         console.error(e);
-        return false;
+        return {
+            success: false,
+        };
     }
 };
 
