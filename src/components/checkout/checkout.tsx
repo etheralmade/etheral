@@ -14,6 +14,7 @@ type Props = {
     db: firebase.firestore.Firestore;
     user: firebase.User | null;
     cartObj: ICartState;
+    firestoreFieldValue: { increment: any; arrayUnion: any };
 };
 
 export type UserData = {
@@ -42,7 +43,12 @@ type Shipping = {
 };
 // end of rajaongir api types
 
-const Checkout: React.FC<Props> = ({ db, user, cartObj: { cart } }) => {
+const Checkout: React.FC<Props> = ({
+    db,
+    user,
+    firestoreFieldValue,
+    cartObj: { cart },
+}) => {
     const [userData, setUserData] = useState<
         (UserData & UserLocation) | undefined
     >(undefined);
@@ -195,6 +201,9 @@ const Checkout: React.FC<Props> = ({ db, user, cartObj: { cart } }) => {
         if (userData) {
             try {
                 const docRef = db.collection('order').doc(oid);
+                const { increment, arrayUnion } = firestoreFieldValue;
+
+                const decrement = (num: number) => increment(-1 * num);
 
                 const order: Order = {
                     oid,
@@ -221,8 +230,28 @@ const Checkout: React.FC<Props> = ({ db, user, cartObj: { cart } }) => {
                     ...order,
                 });
 
+                // updating product amount here!
+                await Promise.all(
+                    cart.map(async cartItem =>
+                        db
+                            .collection('fl_content')
+                            .doc(cartItem.product.pid)
+                            .update({ amount: decrement(cartItem.amount) })
+                    )
+                );
+
+                // update user's firestore orders data.
+                if (user) {
+                    await db
+                        .collection('user')
+                        .doc(user.uid)
+                        .update({
+                            orders: arrayUnion(oid),
+                        });
+                }
+
                 await dispatch(clearCart());
-                await navigate('/'); // navigate to thank you page and use oid state!
+                await navigate('/thankyou', { state: { oid } }); // navigate to thank you page and use oid state!
             } catch (e) {
                 console.error(e);
             }
