@@ -51,8 +51,15 @@ const Form: React.FC<Props> = ({ getUserData }) => {
     };
 
     const cityValidation = ({ value }: SelectProps) => {
-        const cityOnFocusIndex = findIndex(allCities, o => o.cityId === value);
-        return allCities[cityOnFocusIndex].provinceId === province;
+        if (value) {
+            const cityOnFocusIndex = findIndex(
+                allCities,
+                o => o.cityId === value
+            );
+            return allCities[cityOnFocusIndex].provinceId === province;
+        } else {
+            return false;
+        }
     };
 
     const submit = (data: any) => {
@@ -88,6 +95,7 @@ const Form: React.FC<Props> = ({ getUserData }) => {
                         options={uniqBy(allProvinces, 'value')}
                     />
                 )}
+                rules={{ required: true }}
             />
             <label htmlFor="city">Isi kota</label>
 
@@ -97,6 +105,7 @@ const Form: React.FC<Props> = ({ getUserData }) => {
                 id="city"
                 defaultValue={-1}
                 rules={{
+                    required: true,
                     validate: {
                         provinceIncorrect: value => cityValidation(value),
                     },

@@ -19,4 +19,7 @@ export interface Order {
     channel?: string;
     paymentNo?: number;
     products: ProductWithAmount[];
+
+    paid: boolean;
+    delivered: boolean;
 }
