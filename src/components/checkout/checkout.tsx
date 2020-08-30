@@ -54,13 +54,14 @@ const Checkout: React.FC<Props> = ({ db, user, cartObj: { cart } }) => {
 
     const [errorShipping, setErrorShipping] = useState(false);
 
-    const msgErrorShipping = 'Please choose a shipping method';
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    const msgErrorShipping = 'Please choose a shipping method';
     const price: number = cart.reduce(
         (acc, current) => current.amount * current.product.idrPrice + acc,
         0
     );
-    const dispatch = useDispatch();
 
     useEffect(() => {
         if (shipping) {
