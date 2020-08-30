@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { get } from 'lodash';
 
-import initPayment from 'helper/payment';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Form from './form';
 
@@ -148,27 +147,47 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
     const handleClickPay = async () => {
         // TODO: check for auth.
         const oid = await generateOrderId();
+        console.log('clicking');
         // interact with 3rd party api for payment.
         if (userData) {
-            const successTransaction = await initPayment(
-                price,
-                userData.name,
-                userData.phone.toString(),
-                userData.email,
-                oid,
-                'cstore',
-                'indomaret',
-                false // debug
-            );
+            const paymentUrl = '/payment/';
+            const reqBody = {
+                name: userData.name,
+                email: userData.email,
+                phone: userData.phone.toString(),
+                amount: price,
+                notifyUrl: 'https://localhost:9000',
+                expired: 24,
+                paymentMethod: 'cstore',
+                paymentChannel: 'indomaret',
+                apiKey: process.env.GATSBY_PAYMENT_API_KEY,
+                vaNum: process.env.GATSBY_PAYMENT_VA_NUMBER,
+            };
 
-            const { success } = await successTransaction;
-            if (success) {
-                // create new order object
-                console.log(`generating order, oid: ${oid}`);
-            } else {
-                // handle error
-                console.log('s');
+            try {
+                const reqPayment = await axios.post(paymentUrl, reqBody);
+            } catch (e) {
+                console.error(e);
             }
+            // const successTransaction = await initPayment(
+            //     price,
+            //     userData.name,
+            //     userData.phone.toString(),
+            //     userData.email,
+            //     oid,
+            //     'cstore',
+            //     'indomaret',
+            //     false // debug
+            // );
+
+            // const { success } = await successTransaction;
+            // if (success) {
+            //     // create new order object
+            //     console.log(`generating order, oid: ${oid}`);
+            // } else {
+            //     // handle error
+            //     console.log('s');
+            // }
         }
     };
 
