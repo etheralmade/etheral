@@ -112,9 +112,8 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
 
             const url =
                 process.env.NODE_ENV === 'production'
-                    ? '/.netlify/functions/get-shipping-cost'
+                    ? '/.netlify/functions/get-shipping-cost' // cloud function.
                     : '/starter/cost';
-            // const url = '/get-shipping-cost/'; // debugging.
 
             const req = await axios.post(url, data, {
                 headers: {
