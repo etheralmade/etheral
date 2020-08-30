@@ -112,7 +112,7 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
 
             const url =
                 process.env.NODE_ENV === 'production'
-                    ? 'https://api.rajaongkir.com/starter/cost'
+                    ? '/.netlify/functions/get-shipping-cost' // cloud function.
                     : '/starter/cost';
 
             const req = await axios.post(url, data, {

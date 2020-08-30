@@ -16,10 +16,7 @@ module.exports = {
             prefix: '/starter',
             url: 'https://api.rajaongkir.com',
         },
-        {
-            prefix: '/payment',
-            url: 'http://sandbox.ipaymu.com/api/v2',
-        },
+        { prefix: '/get-shipping-cost', url: 'http://localhost:9000' },
     ],
     siteMetadata: {
         title: siteTitle,
