@@ -5,6 +5,8 @@ import renderer from 'react-test-renderer';
 import { render, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { sha256 } from 'js-sha256';
+
 import { Admin } from '../admin';
 
 describe('Admin page', () => {
@@ -20,7 +22,7 @@ describe('Admin page', () => {
                     get: jest.fn(() => {
                         if (
                             email === mockUserExist.email &&
-                            pass === mockUserExist.pass
+                            pass === sha256(mockUserExist.pass)
                         ) {
                             return {
                                 size: 1,

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { sha256 } from 'js-sha256';
 
 import Login from 'components/auth/login';
 import { LoginProps } from 'components/auth/auth';
@@ -16,7 +17,7 @@ const Admin: React.FC<Props> = ({ db }) => {
         // authenticate user first
         const adminUser = await adminUserDbRef
             .where('email', '==', email)
-            .where('password', '==', password)
+            .where('password', '==', sha256(password))
             .get();
 
         const adminUserExists = (await adminUser.size) > 0;
@@ -25,6 +26,7 @@ const Admin: React.FC<Props> = ({ db }) => {
             setIsAuthenticated(true);
         } else {
             console.log('unauthorized');
+            console.log(sha256(password));
         }
     };
 
