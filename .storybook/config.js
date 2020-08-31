@@ -4,11 +4,20 @@ import { withKnobs, optionsKnob } from '@storybook/addon-knobs';
 import { withSmartKnobs } from 'storybook-addon-smart-knobs';
 import { checkA11y } from '@storybook/addon-a11y';
 import { withInfo } from '@storybook/addon-info';
+import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { addParameters } from '@storybook/react';
 
 addDecorator(withSmartKnobs(optionsKnob));
 addDecorator(withKnobs);
 addDecorator(withInfo);
 addDecorator(checkA11y);
+
+addParameters({
+    info: { inline: true },
+    viewport: {
+        viewports: MINIMAL_VIEWPORTS,
+    },
+});
 
 // automatically import all files ending in *.stories.js
 const req = require.context('../src', true, /.stories.tsx$/);

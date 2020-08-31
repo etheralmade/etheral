@@ -34,15 +34,15 @@ module.exports = ({ config }) => {
     });
 
     config.resolve.extensions.push('.ts', '.tsx');
-    config.resole = {
-        ...config.resole,
+    config.resolve = {
+        ...config.resolve,
         alias: {
             components: path.resolve(__dirname, '../src/conponents'),
             helper: path.resolve(__dirname, '../src/helper'),
             pages: path.resolve(__dirname, '../src/pages'),
             state: path.resolve(__dirname, '../src/state'),
             styles: path.resolve(__dirname, '../src/styles'),
-            lib: path.resole(__dirname, '../src/lib'),
+            lib: path.resolve(__dirname, '../src/lib'),
         },
     };
 

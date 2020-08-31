@@ -9,7 +9,8 @@ type Props = {
 };
 
 const Admin: React.FC<Props> = ({ db }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // set defult to true -> development only
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
 
     const adminUserDbRef = db.collection('admin-user');
 
@@ -26,7 +27,6 @@ const Admin: React.FC<Props> = ({ db }) => {
             setIsAuthenticated(true);
         } else {
             console.log('unauthorized');
-            console.log(sha256(password));
         }
     };
 
