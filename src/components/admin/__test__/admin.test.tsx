@@ -16,17 +16,24 @@ describe('Admin page', () => {
     const mockDb = ({
         collection: jest.fn(() => ({
             where: jest.fn((str: string, comp: string, email: string) => ({
-                where: jest.fn((str: string, comp: string, pass: string) => {
-                    console.log({ str, comp });
-                    if (
-                        email === mockUserExist.email &&
-                        pass === mockUserExist.pass
-                    ) {
-                        return [{ exists: true }];
-                    } else {
-                        return [];
-                    }
-                }),
+                where: jest.fn((str: string, comp: string, pass: string) => ({
+                    get: jest.fn(() => {
+                        if (
+                            email === mockUserExist.email &&
+                            pass === mockUserExist.pass
+                        ) {
+                            return {
+                                size: 1,
+                            };
+                        } else {
+                            return {
+                                size: 0,
+                            };
+                        }
+                    }),
+                    str,
+                    comp,
+                })),
                 str,
                 comp,
             })),
@@ -53,12 +60,14 @@ describe('Admin page', () => {
 
         userEvent.click(submitInput);
 
-        const adminDashboard = queryByTestId('dashboard');
-        if (adminDashboard) {
-            fail();
-        } else {
-            expect(adminDashboard).toBeNull();
-        }
+        setTimeout(() => {
+            const adminDashboard = queryByTestId('dashboard');
+            if (adminDashboard) {
+                fail();
+            } else {
+                expect(adminDashboard).toBeNull();
+            }
+        }, 500);
     });
 
     it('should give access to admin dashboard if the user authenticated is on the admin-user database', () => {
@@ -72,12 +81,20 @@ describe('Admin page', () => {
 
         userEvent.click(submitInput);
 
-        const adminDashboard = queryByTestId('dashboard');
-        if (!adminDashboard) {
-            fail();
-        } else {
-            expect(adminDashboard).toBeInTheDocument();
-        }
+        setTimeout(() => {
+            const adminDashboard = queryByTestId('dashboard');
+
+            if (!adminDashboard) {
+                fail();
+            } else {
+                expect(adminDashboard).toBeInTheDocument();
+            }
+
+            const logoutButton = getByDisplayValue('Log out');
+            userEvent.click(logoutButton);
+
+            expect(adminDashboard).not.toBeInTheDocument();
+        }, 500);
     });
 
     it('matches snapshot', () => {

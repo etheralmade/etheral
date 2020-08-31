@@ -5,6 +5,7 @@ import { debounce } from 'lodash';
 import { LoginProps } from '../auth';
 
 type Props = {
+    submitValue?: string;
     login: (args: LoginProps) => void;
 };
 
@@ -13,7 +14,7 @@ type Inputs = {
     loginPassword: string;
 };
 
-const Login: React.FC<Props> = ({ login }) => {
+const Login: React.FC<Props> = ({ login, submitValue }) => {
     const { register, handleSubmit } = useForm();
 
     const debouncedLogin = debounce(login, 500);
@@ -41,7 +42,7 @@ const Login: React.FC<Props> = ({ login }) => {
                 type="password"
                 ref={register}
             />
-            <input type="submit" value="Login" />
+            <input type="submit" value={submitValue ? submitValue : 'Login'} />
         </form>
     );
 };
