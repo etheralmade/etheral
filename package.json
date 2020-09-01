@@ -25,8 +25,8 @@
         "build": "gatsby build",
         "build:storybook": "build-storybook",
         "update": "ncu -u",
-        "lambda-serve": "netlify-lambda serve functions",
-        "lambda-build": "netlify-lambda build functions"
+        "lambda-serve": "netlify-lambda serve functions --config functions/config/webpack.functions.js",
+        "lambda-build": "netlify-lambda build functions --config functions/config/webpack.functions.js"
     },
     "dependencies": {
         "@types/react-select": "^3.0.19",
@@ -61,6 +61,7 @@
         "lodash": "^4.17.20",
         "modern-css-reset": "^1.1.0",
         "netlify-lambda": "^2.0.1",
+        "nodemailer": "^6.4.11",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
         "react-helmet": "^5.2.1",
@@ -74,6 +75,7 @@
         "redux-sessionstorage": "^0.4.0",
         "styled-components": "^5.0.1",
         "use-media": "^1.4.0",
+        "webpack-node-externals": "^2.5.2",
         "xhr2": "^0.2.0"
     },
     "devDependencies": {

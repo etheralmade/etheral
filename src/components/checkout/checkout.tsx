@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { get } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from '@reach/router';
 
+<<<<<<< HEAD
+=======
+import initPayment from 'helper/payment';
+import { Order } from 'helper/schema/order';
+>>>>>>> master
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Form from './form';
+import { clearCart } from 'state/actions/cart';
 
 type Props = {
     db: firebase.firestore.Firestore;
     user: firebase.User | null;
     cartObj: ICartState;
+    firestoreFieldValue: { increment: any; arrayUnion: any };
 };
 
 export type UserData = {
@@ -37,7 +46,12 @@ type Shipping = {
 };
 // end of rajaongir api types
 
-const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
+const Checkout: React.FC<Props> = ({
+    db,
+    user,
+    firestoreFieldValue,
+    cartObj: { cart },
+}) => {
     const [userData, setUserData] = useState<
         (UserData & UserLocation) | undefined
     >(undefined);
@@ -45,11 +59,24 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         []
     );
     const [shipping, setShipping] = useState<Shipping | undefined>(undefined);
+    const [totalPrice, setTotalPrice] = useState(0);
 
+    const [errorShipping, setErrorShipping] = useState(false);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const msgErrorShipping = 'Please choose a shipping method';
     const price: number = cart.reduce(
         (acc, current) => current.amount * current.product.idrPrice + acc,
         0
     );
+
+    useEffect(() => {
+        if (shipping) {
+            setTotalPrice(price + shipping.value);
+        }
+    }, [shipping]);
 
     // basic formatting.
     const formatPrice = (priceUnformatted: number): string => {
@@ -69,6 +96,7 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
             .toString(36)
             .substr(2, 8);
 
+    // orderid -> document id on firestore order collection
     const generateOrderId = async (): Promise<string> => {
         const oid = `${generateUniqueId()}${generateUniqueId()}`;
         const ref = db.collection('order').doc(oid);
@@ -86,10 +114,7 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         }
     };
 
-    // const generateOrderObject = () => {
-    //     return;
-    // };
-
+    // calculate shipping cost -> shipping cost fetched from rajaongkir api.
     const calculateShippingCost = async (
         {
             cityId,
@@ -138,6 +163,7 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         }
     };
 
+    // simple user form for getting required informations
     const getUserData = (data: UserData & UserLocation, origin: number) => {
         setUserData(data);
         calculateShippingCost(data, origin);
@@ -149,6 +175,7 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         const oid = await generateOrderId();
         console.log('clicking');
         // interact with 3rd party api for payment.
+<<<<<<< HEAD
         if (userData) {
             const paymentUrl = '/payment-gateway/';
             // const reqBody = {
@@ -200,17 +227,105 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
             //     // handle error
             //     console.log('s');
             // }
+=======
+        if (userData && shipping) {
+            const successTransaction = await initPayment(
+                price,
+                userData.name,
+                userData.phone.toString(),
+                userData.email,
+                oid,
+                'cstore',
+                'indomaret',
+                true // debug
+            );
+
+            const { success } = await successTransaction;
+            if (success) {
+                // create new order object
+                createOrder(oid);
+            } else {
+                // handle error
+                console.log('s');
+            }
+        } else if (!shipping) {
+            setErrorShipping(true);
+        }
+    };
+
+    // create new order object
+    const createOrder = async (oid: string) => {
+        if (userData) {
+            try {
+                const docRef = db.collection('order').doc(oid);
+                const { increment, arrayUnion } = firestoreFieldValue;
+
+                const decrement = (num: number) => increment(-1 * num);
+
+                const order: Order = {
+                    oid,
+                    buyerName: userData.name,
+                    buyerEmail: userData.email,
+                    buyerPhone: userData.phone,
+                    buyerUId: user ? user.uid : 'admin',
+                    buyerAddr: userData.address,
+                    buyerPostal: userData.postal,
+
+                    total: totalPrice,
+                    fee: 0, // got from payment gateway
+                    currency: 'IDR', // temporary
+                    date: new Date(),
+                    products: cart.map(cartItem => ({
+                        pid: cartItem.product.pid,
+                        amount: cartItem.amount,
+                    })),
+                    paid: false,
+                    delivered: false,
+                };
+
+                await docRef.set({
+                    ...order,
+                });
+
+                // updating product amount here!
+                await Promise.all(
+                    cart.map(async cartItem =>
+                        db
+                            .collection('fl_content')
+                            .doc(cartItem.product.pid)
+                            .update({ amount: decrement(cartItem.amount) })
+                    )
+                );
+
+                // update user's firestore orders data.
+                if (user) {
+                    await db
+                        .collection('user')
+                        .doc(user.uid)
+                        .update({
+                            orders: arrayUnion(oid),
+                        });
+                }
+
+                await dispatch(clearCart());
+                await navigate('/thankyou', { state: { oid } }); // navigate to thank you page and use oid state!
+            } catch (e) {
+                console.error(e);
+            }
+>>>>>>> master
         }
     };
 
     const handleChangeShipping = (variant: ShippingVars) => {
+        if (errorShipping) {
+            setErrorShipping(false);
+        }
         setShipping(variant.cost[0]);
     };
 
     return (
         <>
             <Form getUserData={getUserData} />
-
             {shippingVariants.length > 0 &&
                 shippingVariants.map(variant => (
                     <React.Fragment key={variant.service}>
@@ -228,16 +343,18 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
                         />
                     </React.Fragment>
                 ))}
+            {errorShipping && <p>{msgErrorShipping} </p>}
             <h2>Price: IDr {formatPrice(price)}</h2>
             {shipping && shipping.value ? (
                 <>
                     <h2>Shipping cost: {formatPrice(shipping.value)}</h2>
-                    <h1>Subtotal: {formatPrice(price + shipping.value)}</h1>
+                    <h1>Subtotal: {formatPrice(totalPrice)}</h1>
                 </>
             ) : (
                 <></>
             )}
-            <button onClick={handleClickPay}>Pay</button>
+            {userData && <button onClick={handleClickPay}>Pay</button>}
+            {/* handle unclickable if shipping hasn't been selected */}
         </>
     );
 };

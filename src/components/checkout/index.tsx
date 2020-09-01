@@ -19,7 +19,16 @@ const Checkout: React.FC<Props & ICartState> = ({ cart }) => {
         setUser(firebase.auth().currentUser);
     }, []);
 
-    return db ? <CheckoutEl db={db} user={user} cartObj={{ cart }} /> : <></>;
+    return db ? (
+        <CheckoutEl
+            db={db}
+            user={user}
+            cartObj={{ cart }}
+            firestoreFieldValue={firebase.firestore.FieldValue}
+        />
+    ) : (
+        <></>
+    );
 };
 
 const mapStateToProps = (state: ReduxState) => ({
