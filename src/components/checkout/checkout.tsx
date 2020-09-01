@@ -271,8 +271,12 @@ const Checkout: React.FC<Props> = ({
                         });
                 }
 
+                const { paymentNo, paymentName, expired } = ipaymuData;
+
                 await dispatch(clearCart());
-                await navigate('/thankyou', { state: { oid } }); // navigate to thank you page and use oid state!
+                await navigate('/thankyou', {
+                    state: { oid, paymentNo, paymentName, expired, totalPrice },
+                }); // navigate to thank you page and use oid state!
             } catch (e) {
                 console.error(e);
             }
