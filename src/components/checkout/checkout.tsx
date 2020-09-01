@@ -150,16 +150,28 @@ const Checkout: React.FC<Props> = ({ db, cartObj: { cart } }) => {
         console.log('clicking');
         // interact with 3rd party api for payment.
         if (userData) {
-            const paymentUrl = '/payment/';
+            const paymentUrl = '/payment-gateway/';
+            // const reqBody = {
+            //     name: userData.name,
+            //     email: userData.email,
+            //     phone: userData.phone.toString(),
+            //     amount: price.toString(),
+            //     notifyUrl: 'https://localhost:9000',
+            //     expired: 24,
+            //     paymentMethod: 'cstore',
+            //     paymentChannel: 'indomaret',
+            //     apiKey: process.env.GATSBY_PAYMENT_API_KEY,
+            //     vaNum: process.env.GATSBY_PAYMENT_VA_NUMBER,
+            // };
+
             const reqBody = {
-                name: userData.name,
-                email: userData.email,
-                phone: userData.phone.toString(),
-                amount: price,
-                notifyUrl: 'https://localhost:9000',
-                expired: 24,
-                paymentMethod: 'cstore',
-                paymentChannel: 'indomaret',
+                name: 'Buyer Name',
+                email: 'buyermail@mail.com',
+                phone: '081223456789',
+                amount: '5000',
+                notifyUrl: 'https://yournotify.com',
+                paymentMethod: 'va',
+                paymentChannel: 'bni',
                 apiKey: process.env.GATSBY_PAYMENT_API_KEY,
                 vaNum: process.env.GATSBY_PAYMENT_VA_NUMBER,
             };
