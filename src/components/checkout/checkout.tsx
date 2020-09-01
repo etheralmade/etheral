@@ -4,14 +4,10 @@ import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from '@reach/router';
 
-<<<<<<< HEAD
-=======
-import initPayment from 'helper/payment';
-import { Order } from 'helper/schema/order';
->>>>>>> master
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Form from './form';
 import { clearCart } from 'state/actions/cart';
+import { Order, IpaymuData } from 'helper/schema/order';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -172,78 +168,46 @@ const Checkout: React.FC<Props> = ({
     // pay here
     const handleClickPay = async () => {
         // TODO: check for auth.
-        const oid = await generateOrderId();
-        console.log('clicking');
-        // interact with 3rd party api for payment.
-<<<<<<< HEAD
-        if (userData) {
-            const paymentUrl = '/payment-gateway/';
-            // const reqBody = {
-            //     name: userData.name,
-            //     email: userData.email,
-            //     phone: userData.phone.toString(),
-            //     amount: price.toString(),
-            //     notifyUrl: 'https://localhost:9000',
-            //     expired: 24,
-            //     paymentMethod: 'cstore',
-            //     paymentChannel: 'indomaret',
-            //     apiKey: process.env.GATSBY_PAYMENT_API_KEY,
-            //     vaNum: process.env.GATSBY_PAYMENT_VA_NUMBER,
-            // };
 
-            const reqBody = {
-                name: 'Buyer Name',
-                email: 'buyermail@mail.com',
-                phone: '081223456789',
-                amount: '5000',
-                notifyUrl: 'https://yournotify.com',
+        const paymentUrl =
+            process.env.NODE_ENV === 'production' ? '' : '/payment/';
+
+        const oid = await generateOrderId();
+        // interact with 3rd party api for payment.
+        if (userData && shipping) {
+            const bodyReq = await {
+                name: userData.name,
+                phone: userData.phone.toString(),
+                email: userData.email,
+                amount: totalPrice,
                 paymentMethod: 'va',
                 paymentChannel: 'bni',
-                apiKey: process.env.GATSBY_PAYMENT_API_KEY,
-                vaNum: process.env.GATSBY_PAYMENT_VA_NUMBER,
+                oid,
             };
 
-            try {
-                const reqPayment = await axios.post(paymentUrl, reqBody);
-            } catch (e) {
-                console.error(e);
-            }
-            // const successTransaction = await initPayment(
-            //     price,
-            //     userData.name,
-            //     userData.phone.toString(),
-            //     userData.email,
-            //     oid,
-            //     'cstore',
-            //     'indomaret',
-            //     false // debug
-            // );
+            const req = await axios.post(paymentUrl, bodyReq);
 
-            // const { success } = await successTransaction;
-            // if (success) {
-            //     // create new order object
-            //     console.log(`generating order, oid: ${oid}`);
-            // } else {
-            //     // handle error
-            //     console.log('s');
-            // }
-=======
-        if (userData && shipping) {
-            const successTransaction = await initPayment(
-                price,
-                userData.name,
-                userData.phone.toString(),
-                userData.email,
-                oid,
-                'cstore',
-                'indomaret',
-                true // debug
-            );
+            const { status, data } = await req;
 
-            const { success } = await successTransaction;
-            if (success) {
+            if ((await status) < 299) {
+                const {
+                    SessionId,
+                    PaymentNo,
+                    PaymentName,
+                    Expired,
+                    Fee,
+                } = data;
+
+                const ipaymuData: IpaymuData = {
+                    sessionId: SessionId,
+                    paymentNo: PaymentNo,
+                    paymentName: PaymentName,
+                    expired: Expired,
+                    fee: Fee,
+                };
+
                 // create new order object
-                createOrder(oid);
+                createOrder(oid, ipaymuData);
             } else {
                 // handle error
                 console.log('s');
@@ -254,7 +218,7 @@ const Checkout: React.FC<Props> = ({
     };
 
     // create new order object
-    const createOrder = async (oid: string) => {
+    const createOrder = async (oid: string, ipaymuData: IpaymuData) => {
         if (userData) {
             try {
                 const docRef = db.collection('order').doc(oid);
@@ -272,7 +236,6 @@ const Checkout: React.FC<Props> = ({
                     buyerPostal: userData.postal,
 
                     total: totalPrice,
-                    fee: 0, // got from payment gateway
                     currency: 'IDR', // temporary
                     date: new Date(),
                     products: cart.map(cartItem => ({
@@ -281,6 +244,7 @@ const Checkout: React.FC<Props> = ({
                     })),
                     paid: false,
                     delivered: false,
+                    transactionData: ipaymuData,
                 };
 
                 await docRef.set({
@@ -312,7 +276,6 @@ const Checkout: React.FC<Props> = ({
             } catch (e) {
                 console.error(e);
             }
->>>>>>> master
         }
     };
 
