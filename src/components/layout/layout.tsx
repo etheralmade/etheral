@@ -1,11 +1,8 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
+import { ThemeProvider } from 'emotion-theming';
 
-// import firebase from 'firebase/app';
-// import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
-
-import { theme, GlobalStyles } from '../../styles';
+import { theme, GlobalStyles } from 'styles';
 // Components
 import { CSSDebugger } from '../css-debugger';
 import Navigation from 'components/nav';

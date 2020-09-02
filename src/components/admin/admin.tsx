@@ -3,6 +3,7 @@ import { sha256 } from 'js-sha256';
 
 import Login from 'components/auth/login';
 import { LoginProps } from 'components/auth/auth';
+import Dashboard from './dashboard';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -10,7 +11,7 @@ type Props = {
 
 const Admin: React.FC<Props> = ({ db }) => {
     // set defult to true -> development only
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const adminUserDbRef = db.collection('admin-user');
 
@@ -33,16 +34,7 @@ const Admin: React.FC<Props> = ({ db }) => {
     return (
         <>
             {isAuthenticated ? (
-                <div data-testid="dashboard">
-                    <h2>Welcome to admin dashboard</h2>
-                    <button
-                        onClick={() => {
-                            setIsAuthenticated(false);
-                        }}
-                    >
-                        Log out
-                    </button>
-                </div>
+                <Dashboard />
             ) : (
                 <Login login={login} submitValue="Login as admin" />
             )}

@@ -1,12 +1,14 @@
 import React from 'react';
+import { Flex, Box } from 'rebass';
 
 type Props = {};
 
 const Dashboard: React.FC<Props> = () => {
     return (
-        <>
-            <h1>Dashboard</h1>
-        </>
+        <Flex data-testid="dashboard">
+            <Box></Box>
+            <Box></Box>
+        </Flex>
     );
 };
 
