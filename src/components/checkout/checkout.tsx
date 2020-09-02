@@ -31,14 +31,19 @@ export type UserLocation = {
 
 // got from rajaongkir api
 type ShippingVars = {
-    cost: Shipping[];
+    cost: ShippingCost[];
     service: string;
     description: string;
 };
 
-type Shipping = {
+type ShippingCost = {
     etd: string;
     value: number;
+};
+
+type Shipping = {
+    value: number;
+    service: string;
 };
 // end of rajaongir api types
 
@@ -245,6 +250,7 @@ const Checkout: React.FC<Props> = ({
                     paid: false,
                     delivered: false,
                     transactionData: ipaymuData,
+                    shippingMethod: shipping ? shipping.service : '',
                 };
 
                 await docRef.set({
@@ -287,7 +293,7 @@ const Checkout: React.FC<Props> = ({
         if (errorShipping) {
             setErrorShipping(false);
         }
-        setShipping(variant.cost[0]);
+        setShipping({ value: variant.cost[0].value, service: variant.service });
     };
 
     return (

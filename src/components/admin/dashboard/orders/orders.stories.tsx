@@ -22,7 +22,7 @@ export const mockOrders: Order[] = [
         via: 'va',
         channel: 'bni',
         products: [{ pid: '1234', amount: 12 }],
-        paid: true,
+        paid: false,
         delivered: false,
         transactionData: {
             sessionId: '1234',

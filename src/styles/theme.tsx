@@ -1,4 +1,7 @@
-// TODO: add theming!
+import variants from './variants';
+import text from './texts';
+import buttons from './buttons';
+
 export type Theme = {
     breakpoints: string[];
     fontSizes: number[];
@@ -25,68 +28,28 @@ export type Theme = {
     };
     variants: any; // add more on development
     text: any; // same as variants
-    buttons: ButtonVariants;
+    buttons: any;
 };
 
 export type ColorTheme = {
     blue: string;
     lightGray: string;
     brown: string[];
-};
-
-type ButtonVariants = {
-    adminLink: any;
-    adminLinkActive: any;
+    badges: string[];
 };
 
 const colors: ColorTheme = {
     blue: '#07c',
     lightGray: '#f6f6ff',
-    brown: ['#E2DAD0', '#CAB8AA'],
-};
-
-const buttons: ButtonVariants = {
-    adminLink: {
-        fontFamily: 'heading',
-        fontWeight: 'medium',
-        fontSize: [2, 2, 3],
-        transition: '0.2s',
-        width: '100%',
-        color: 'brown.1',
-        bg: '#fff',
-        textAlign: 'left',
-        outline: 'none',
-        '&: hover': {
-            color: 'brown.0',
-            bg: 'brown.1',
-        },
-        '& > svg': {
-            mr: [2],
-        },
-        borderRadius: 0,
-    },
-    adminLinkActive: {
-        fontFamily: 'heading',
-        fontWeight: 'medium',
-        fontSize: [2, 2, 3],
-        transition: '0.2s',
-        width: '100%',
-        color: '#fff',
-        bg: 'brown.1',
-        textAlign: 'left',
-        outline: 'none',
-        '& > svg': {
-            mr: [2],
-        },
-        borderRadius: 0,
-    },
+    brown: ['#E2DAD0', '#CAB8AA', '#C8B8A9', '#553517'],
+    badges: ['#ff6961', '#77dd77'],
 };
 
 const theme: Theme = {
     breakpoints: ['40em', '52em', '64em'],
     fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
     colors,
-    space: [0, 4, 8, 16, 32, 64, 128, 256],
+    space: [0, 4, 6, 8, 12, 16, 24, 32, 64, 128, 256],
     fonts: {
         body: "'Montserrat', sans-serif",
         heading: "'Raleway', sans-serif",
@@ -106,8 +69,8 @@ const theme: Theme = {
         small: '0 0 4px rgba(0, 0, 0, .125)',
         large: '0 0 24px rgba(0, 0, 0, .125)',
     },
-    variants: {},
-    text: {},
+    variants,
+    text,
     buttons,
 };
 
