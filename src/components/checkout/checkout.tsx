@@ -4,11 +4,10 @@ import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from '@reach/router';
 
-import initPayment from 'helper/payment';
-import { Order } from 'helper/schema/order';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Form from './form';
 import { clearCart } from 'state/actions/cart';
+import { Order, IpaymuData } from 'helper/schema/order';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -169,24 +168,46 @@ const Checkout: React.FC<Props> = ({
     // pay here
     const handleClickPay = async () => {
         // TODO: check for auth.
+
+        const paymentUrl =
+            process.env.NODE_ENV === 'production' ? '' : '/payment/';
+
         const oid = await generateOrderId();
         // interact with 3rd party api for payment.
         if (userData && shipping) {
-            const successTransaction = await initPayment(
-                price,
-                userData.name,
-                userData.phone.toString(),
-                userData.email,
+            const bodyReq = await {
+                name: userData.name,
+                phone: userData.phone.toString(),
+                email: userData.email,
+                amount: totalPrice,
+                paymentMethod: 'va',
+                paymentChannel: 'bni',
                 oid,
-                'cstore',
-                'indomaret',
-                true // debug
-            );
+            };
 
-            const { success } = await successTransaction;
-            if (success) {
+            const req = await axios.post(paymentUrl, bodyReq);
+
+            const { status, data } = await req;
+
+            if ((await status) < 299) {
+                const {
+                    SessionId,
+                    PaymentNo,
+                    PaymentName,
+                    Expired,
+                    Fee,
+                } = data;
+
+                const ipaymuData: IpaymuData = {
+                    sessionId: SessionId,
+                    paymentNo: PaymentNo,
+                    paymentName: PaymentName,
+                    expired: Expired,
+                    fee: Fee,
+                };
+
                 // create new order object
-                createOrder(oid);
+                createOrder(oid, ipaymuData);
             } else {
                 // handle error
                 console.log('s');
@@ -197,7 +218,7 @@ const Checkout: React.FC<Props> = ({
     };
 
     // create new order object
-    const createOrder = async (oid: string) => {
+    const createOrder = async (oid: string, ipaymuData: IpaymuData) => {
         if (userData) {
             try {
                 const docRef = db.collection('order').doc(oid);
@@ -215,7 +236,6 @@ const Checkout: React.FC<Props> = ({
                     buyerPostal: userData.postal,
 
                     total: totalPrice,
-                    fee: 0, // got from payment gateway
                     currency: 'IDR', // temporary
                     date: new Date(),
                     products: cart.map(cartItem => ({
@@ -224,6 +244,7 @@ const Checkout: React.FC<Props> = ({
                     })),
                     paid: false,
                     delivered: false,
+                    transactionData: ipaymuData,
                 };
 
                 await docRef.set({
@@ -250,8 +271,12 @@ const Checkout: React.FC<Props> = ({
                         });
                 }
 
+                const { paymentNo, paymentName, expired } = ipaymuData;
+
                 await dispatch(clearCart());
-                await navigate('/thankyou', { state: { oid } }); // navigate to thank you page and use oid state!
+                await navigate('/thankyou', {
+                    state: { oid, paymentNo, paymentName, expired, totalPrice },
+                }); // navigate to thank you page and use oid state!
             } catch (e) {
                 console.error(e);
             }

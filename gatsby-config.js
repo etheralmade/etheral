@@ -16,10 +16,8 @@ module.exports = {
             prefix: '/starter',
             url: 'https://api.rajaongkir.com',
         },
-        {
-            prefix: '/get-shipping-cost',
-            url: 'http://localhost:9000',
-        },
+        { prefix: '/get-shipping-cost', url: 'http://localhost:9000' },
+        { prefix: '/payment', url: 'http://localhost:9000' },
     ],
     siteMetadata: {
         title: siteTitle,
