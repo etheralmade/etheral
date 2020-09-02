@@ -6,6 +6,7 @@ import { theme, GlobalStyles } from 'styles';
 // Components
 import { CSSDebugger } from '../css-debugger';
 import Navigation from 'components/nav';
+import useFonts from 'helper/use-fonts';
 // import firebaseConfig from 'lib/firebase-config';
 
 const Layout: React.FC = ({ children }) => {
@@ -23,6 +24,8 @@ const Layout: React.FC = ({ children }) => {
     // const { title, description } = data.site.siteMetadata;
 
     // const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+    useFonts();
 
     return (
         <ThemeProvider theme={theme}>

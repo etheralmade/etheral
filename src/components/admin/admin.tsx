@@ -31,10 +31,14 @@ const Admin: React.FC<Props> = ({ db }) => {
         }
     };
 
+    const logout = () => {
+        setIsAuthenticated(false);
+    };
+
     return (
         <>
             {isAuthenticated ? (
-                <Dashboard />
+                <Dashboard logout={logout} />
             ) : (
                 <Login login={login} submitValue="Login as admin" />
             )}

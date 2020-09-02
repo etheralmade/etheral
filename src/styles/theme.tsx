@@ -24,16 +24,55 @@ export type Theme = {
     };
     variants: any; // add more on development
     text: any; // same as variants
+    buttons: ButtonVariants;
 };
 
 export type ColorTheme = {
     blue: string;
     lightGray: string;
+    brown: string[];
+};
+
+type ButtonVariants = {
+    adminLink: any;
+    adminLinkActive: any;
 };
 
 const colors: ColorTheme = {
     blue: '#07c',
     lightGray: '#f6f6ff',
+    brown: ['#E2DAD0', '#CAB8AA'],
+};
+
+const buttons: ButtonVariants = {
+    adminLink: {
+        fontFamily: 'heading',
+        fontWeight: 'bold',
+        transition: '0.2s',
+        width: '100%',
+        color: 'brown.1',
+        bg: '#fff',
+        '&: hover': {
+            color: 'brown.0',
+            bg: 'brown.1',
+        },
+        '& > svg': {
+            mr: [1],
+        },
+        borderRadius: 0,
+    },
+    adminLinkActive: {
+        fontFamily: 'heading',
+        transition: '0.2s',
+        width: '100%',
+        fontWeight: 'bold',
+        color: '#fff',
+        bg: 'brown.1',
+        '& > svg': {
+            mr: [1, 1, 2],
+        },
+        borderRadius: 0,
+    },
 };
 
 const theme: Theme = {
@@ -42,8 +81,8 @@ const theme: Theme = {
     colors,
     space: [0, 4, 8, 16, 32, 64, 128, 256],
     fonts: {
-        body: 'system-ui, sans-serif',
-        heading: 'inherit',
+        body: "'Montserrat', sans-serif",
+        heading: "'Raleway', sans-serif",
         monospace: 'Menlo, monospace',
     },
     fontWeights: {
@@ -61,12 +100,7 @@ const theme: Theme = {
     },
     variants: {},
     text: {},
-    // buttons: {
-    //     primary: {
-    //         color: 'white',
-    //         bg: 'primary',
-    //     },
-    // },
+    buttons,
 };
 
 export { theme };

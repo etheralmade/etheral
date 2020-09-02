@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Flex, Box } from 'rebass';
 
-type Props = {};
+type Props = {
+    logout: () => void;
+};
 
-const Dashboard: React.FC<Props> = () => {
+export enum StateViews {
+    ORDERS,
+    ADMINS,
+    LINKS,
+    NONE,
+}
+
+const Dashboard: React.FC<Props> = ({ logout }) => {
+    const [view, setView] = useState<StateViews>(StateViews.NONE);
+
+    const changeView = (viewName: StateViews) => {
+        setView(viewName);
+    };
+
     return (
         <Flex data-testid="dashboard">
             <Box></Box>

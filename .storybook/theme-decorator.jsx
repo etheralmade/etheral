@@ -2,10 +2,10 @@ import React from 'react';
 import { ThemeProvider } from 'emotion-theming';
 
 import { theme, GlobalStyles } from '../src/styles';
-// import useGoogleFonts from '../src/helper/useGoogleFonts';
+import useFonts from '../src/helper/use-fonts';
 
 const ThemeDecorator = storyFn => {
-    // useGoogleFonts();
+    useFonts();
 
     return (
         <>
