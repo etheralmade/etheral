@@ -5,6 +5,7 @@ import Orders from './orders';
 import Navigation from './navigation';
 
 type Props = {
+    db: firebase.firestore.Firestore;
     logout: () => void;
 };
 
@@ -15,7 +16,7 @@ export enum StateViews {
     NONE,
 }
 
-const Dashboard: React.FC<Props> = ({ logout }) => {
+const Dashboard: React.FC<Props> = ({ logout, db }) => {
     const [view, setView] = useState<StateViews>(StateViews.NONE);
 
     const changeView = (viewName: StateViews) => {
@@ -26,7 +27,7 @@ const Dashboard: React.FC<Props> = ({ logout }) => {
     let toRender;
     switch (view) {
         case StateViews.ORDERS:
-            toRender = <Orders />;
+            toRender = <Orders db={db} />;
             break;
         case StateViews.ADMINS:
             toRender = <h1>Admins</h1>;

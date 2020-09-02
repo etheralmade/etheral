@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { OrderItem as OrderItemEl } from './order-item';
-import firebase from 'gatsby-plugin-firebase';
 
 import { Order } from 'helper/schema/order';
 import useAllProducts from 'helper/use-all-products';
@@ -8,18 +7,11 @@ import { Inputs } from './ship-confirm';
 
 type Props = {
     order: Order;
+    db: firebase.firestore.Firestore;
 };
 
-const OrderItem: React.FC<Props> = ({ order }) => {
-    const [db, setDb] = useState<firebase.firestore.Firestore | undefined>(
-        undefined
-    );
-
+const OrderItem: React.FC<Props> = ({ order, db }) => {
     const allProducts = useAllProducts();
-
-    useEffect(() => {
-        setDb(firebase.firestore());
-    }, []);
 
     const updateShipping = (data: Inputs) => {
         if (db) {

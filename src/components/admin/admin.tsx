@@ -42,7 +42,7 @@ const Admin: React.FC<Props> = ({ db }) => {
         <ThemeProvider theme={theme}>
             <GlobalStyles />
             {isAuthenticated ? (
-                <Dashboard logout={logout} />
+                <Dashboard db={db} logout={logout} />
             ) : (
                 <Login login={login} submitValue="Login as admin" />
             )}

@@ -5,18 +5,18 @@ import { set } from 'lodash';
 import { Orders as OrdersEl } from './orders';
 import { Order } from 'helper/schema/order';
 
-const Orders = () => {
+type Props = {
+    db: firebase.firestore.Firestore;
+};
+
+const Orders: React.FC<Props> = ({ db }) => {
     const [orders, setOrders] = useState<Order[] | undefined>(undefined);
-    const [db, setDb] = useState<firebase.firestore.Firestore | undefined>(
-        undefined
-    );
 
     useEffect(() => {
         (async () => {
-            const dbRef = firebase.firestore();
             // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-let
             let ordersContainer: Order[] = [];
-            const reqOrders = await dbRef.collection('order').get();
+            const reqOrders = await db.collection('order').get();
 
             await reqOrders.forEach(doc => {
                 const orderData: Order = doc.data() as Order;
@@ -41,11 +41,10 @@ const Orders = () => {
             });
 
             setOrders(await ordersContainer);
-            setDb(dbRef);
         })();
     }, []);
 
-    return orders ? <OrdersEl orders={orders} /> : <></>;
+    return orders ? <OrdersEl orders={orders} db={db} /> : <></>;
 };
 
 export default Orders;
