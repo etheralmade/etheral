@@ -11,6 +11,7 @@ export type Theme = {
     };
     fontWeights: {
         body: number;
+        medium: number;
         heading: number;
         bold: number;
     };
@@ -47,7 +48,8 @@ const colors: ColorTheme = {
 const buttons: ButtonVariants = {
     adminLink: {
         fontFamily: 'heading',
-        fontWeight: 'bold',
+        fontWeight: 'medium',
+        fontSize: [2, 2, 3],
         transition: '0.2s',
         width: '100%',
         color: 'brown.1',
@@ -65,9 +67,10 @@ const buttons: ButtonVariants = {
     },
     adminLinkActive: {
         fontFamily: 'heading',
+        fontWeight: 'medium',
+        fontSize: [2, 2, 3],
         transition: '0.2s',
         width: '100%',
-        fontWeight: 'bold',
         color: '#fff',
         bg: 'brown.1',
         textAlign: 'left',
@@ -91,6 +94,7 @@ const theme: Theme = {
     },
     fontWeights: {
         body: 400,
+        medium: 500,
         heading: 700,
         bold: 700,
     },

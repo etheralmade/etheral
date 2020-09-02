@@ -53,56 +53,56 @@ describe('Admin page', () => {
 
     // debug -> pass tests
 
-    // it('should not give access to admin dashboard if the user authenticated is not on the admin-user database', () => {
-    //     const { queryByTestId, getByLabelText, getByDisplayValue } = render(el);
-    //     const adminEmailInput = getByLabelText('Email');
-    //     const adminPassInput = getByLabelText('Password');
-    //     const submitInput = getByDisplayValue('Login as admin');
+    it('should not give access to admin dashboard if the user authenticated is not on the admin-user database', () => {
+        const { queryByTestId, getByLabelText, getByDisplayValue } = render(el);
+        const adminEmailInput = getByLabelText('Email');
+        const adminPassInput = getByLabelText('Password');
+        const submitInput = getByDisplayValue('Login as admin');
 
-    //     userEvent.type(adminEmailInput, 'nonexistent@email.com');
-    //     userEvent.type(adminPassInput, 'wrongpassword');
+        userEvent.type(adminEmailInput, 'nonexistent@email.com');
+        userEvent.type(adminPassInput, 'wrongpassword');
 
-    //     userEvent.click(submitInput);
+        userEvent.click(submitInput);
 
-    //     setTimeout(() => {
-    //         const adminDashboard = queryByTestId('dashboard');
-    //         if (adminDashboard) {
-    //             fail();
-    //         } else {
-    //             expect(adminDashboard).toBeNull();
-    //         }
-    //     }, 500);
-    // });
+        setTimeout(() => {
+            const adminDashboard = queryByTestId('dashboard');
+            if (adminDashboard) {
+                fail();
+            } else {
+                expect(adminDashboard).toBeNull();
+            }
+        }, 500);
+    });
 
-    // it('should give access to admin dashboard if the user authenticated is on the admin-user database', () => {
-    //     const { queryByTestId, getByLabelText, getByDisplayValue } = render(el);
-    //     const adminEmailInput = getByLabelText('Email');
-    //     const adminPassInput = getByLabelText('Password');
-    //     const submitInput = getByDisplayValue('Login as admin');
+    it('should give access to admin dashboard if the user authenticated is on the admin-user database', () => {
+        const { queryByTestId, getByLabelText, getByDisplayValue } = render(el);
+        const adminEmailInput = getByLabelText('Email');
+        const adminPassInput = getByLabelText('Password');
+        const submitInput = getByDisplayValue('Login as admin');
 
-    //     userEvent.type(adminEmailInput, mockUserExist.email);
-    //     userEvent.type(adminPassInput, mockUserExist.pass);
+        userEvent.type(adminEmailInput, mockUserExist.email);
+        userEvent.type(adminPassInput, mockUserExist.pass);
 
-    //     userEvent.click(submitInput);
+        userEvent.click(submitInput);
 
-    //     setTimeout(() => {
-    //         const adminDashboard = queryByTestId('dashboard');
+        setTimeout(() => {
+            const adminDashboard = queryByTestId('dashboard');
 
-    //         if (!adminDashboard) {
-    //             fail();
-    //         } else {
-    //             expect(adminDashboard).toBeInTheDocument();
-    //         }
+            if (!adminDashboard) {
+                fail();
+            } else {
+                expect(adminDashboard).toBeInTheDocument();
+            }
 
-    //         const logoutButton = getByDisplayValue('Log out');
-    //         userEvent.click(logoutButton);
+            const logoutButton = getByDisplayValue('Log out');
+            userEvent.click(logoutButton);
 
-    //         expect(adminDashboard).not.toBeInTheDocument();
-    //     }, 500);
-    // });
+            expect(adminDashboard).not.toBeInTheDocument();
+        }, 500);
+    });
 
-    // it('matches snapshot', () => {
-    //     const tree = renderer.create(el).toJSON();
-    //     expect(tree).toMatchSnapshot();
-    // });
+    it('matches snapshot', () => {
+        const tree = renderer.create(el).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 });

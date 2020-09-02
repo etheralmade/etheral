@@ -23,7 +23,6 @@ export interface Order {
     date: Date;
     via?: string;
     channel?: string;
-    paymentNo?: number;
     products: ProductWithAmount[];
 
     paid: boolean;

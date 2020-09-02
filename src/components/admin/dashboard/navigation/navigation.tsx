@@ -3,6 +3,7 @@ import { Flex, Box, Button } from 'rebass';
 import { InlineIcon } from '@iconify/react';
 import filePaper2Fill from '@iconify/icons-ri/file-paper-2-fill';
 import linksLine from '@iconify/icons-ri/links-line';
+import fileList3Line from '@iconify/icons-ri/file-list-3-line';
 import user3Line from '@iconify/icons-ri/user-3-line';
 import logoutBoxLine from '@iconify/icons-ri/logout-box-line';
 
@@ -27,7 +28,7 @@ const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
                     changeView(StateViews.ORDERS);
                 }}
             >
-                <InlineIcon icon={filePaper2Fill} />
+                <InlineIcon icon={fileList3Line} />
                 Orders
             </Button>
             <Button

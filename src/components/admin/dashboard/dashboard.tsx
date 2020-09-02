@@ -43,7 +43,7 @@ const Dashboard: React.FC<Props> = ({ logout }) => {
     return (
         <Flex data-testid="dashboard" min-height="100vh">
             {/* Navigation */}
-            <Box position="sticky">
+            <Box sx={{ position: 'sticky' }}>
                 <Navigation
                     logout={logout}
                     changeView={changeView}
