@@ -29,6 +29,7 @@
         "lambda-build": "netlify-lambda build functions --config functions/config/webpack.functions.js"
     },
     "dependencies": {
+        "@rebass/forms": "^4.0.6",
         "@types/react-select": "^3.0.19",
         "@types/rebass": "^4.0.6",
         "axios": "^0.20.0",
@@ -102,6 +103,7 @@
         "@types/react-helmet": "^5.0.15",
         "@types/react-redux": "^7.1.9",
         "@types/react-test-renderer": "^16.9.3",
+        "@types/rebass__forms": "^4.0.2",
         "@types/styled-components": "^5.0.1",
         "@typescript-eslint/eslint-plugin": "^2.22.0",
         "@typescript-eslint/eslint-plugin-tslint": "^2.22.0",

@@ -10,11 +10,21 @@ import { OrderItem } from '../order-item';
 import { mockOrder, mockOrderShipped, mockProducts } from 'helper/const';
 
 describe('OrderItem Component', () => {
+    const mockUpdateShipping = jest.fn(() => {});
+
     const el: React.ReactElement = (
-        <OrderItem order={mockOrder} allProducts={mockProducts} />
+        <OrderItem
+            order={mockOrder}
+            allProducts={mockProducts}
+            updateShipping={mockUpdateShipping}
+        />
     );
     const elShipped: React.ReactElement = (
-        <OrderItem order={mockOrderShipped} allProducts={mockProducts} />
+        <OrderItem
+            order={mockOrderShipped}
+            allProducts={mockProducts}
+            updateShipping={mockUpdateShipping}
+        />
     );
 
     afterEach(cleanup);
@@ -25,17 +35,20 @@ describe('OrderItem Component', () => {
     });
 
     it('should display a form asking for shipping info whenever admin checked the delivered checkbox', () => {
-        const { queryByLabelText, queryByTestId } = render(el);
-        const ShippedCheckbox = queryByLabelText('shipped') as HTMLInputElement;
+        const { queryByText, queryByTestId, getByRole } = render(el);
+        const NotShippedKeyword = queryByText(
+            'Status: Not shipped'
+        ) as HTMLInputElement;
 
-        if (ShippedCheckbox) {
-            expect(ShippedCheckbox.checked).toBe(false);
-            expect(ShippedCheckbox).toBeInTheDocument();
+        if (NotShippedKeyword) {
+            expect(NotShippedKeyword).toBeInTheDocument();
         } else {
             fail();
         }
 
-        userEvent.click(ShippedCheckbox);
+        const ConfirmShipButton = getByRole('button');
+
+        userEvent.click(ConfirmShipButton);
 
         setTimeout(() => {
             const ShippingDataForm = queryByTestId('shipping-info-form');

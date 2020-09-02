@@ -49,7 +49,7 @@ export const mockOrderShipped: Order = {
     delivered: true,
     shippingData: {
         shippedDate: new Date(),
-        trackingCode: '12342',
+        trackingNum: '12342',
         shippedBy: 'admin1',
     },
 };

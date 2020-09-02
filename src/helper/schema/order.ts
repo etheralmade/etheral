@@ -10,7 +10,7 @@ export type IpaymuData = {
 
 export type ShippingData = {
     shippedDate: Date;
-    trackingCode: string;
+    trackingNum: string;
     shippedBy: string;
 };
 

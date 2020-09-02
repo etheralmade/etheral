@@ -11,13 +11,15 @@ import { Order } from 'helper/schema/order';
 import { Product } from 'helper/schema/product';
 import { getDate } from 'helper/get-date';
 import { InCart } from 'helper/schema/firebase-user';
+import ShippingConfirmation, { Inputs } from './ship-confirm';
 
 type Props = {
     order: Order;
     allProducts: Product[];
+    updateShipping: (data: Inputs) => void;
 };
 
-const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
+const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
     const {
         oid,
         buyerName,
@@ -58,6 +60,14 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
         fontWeight: 400,
     };
 
+    const headingStyle = {
+        my: [2, 2, 3],
+    };
+
+    const infoStyle = {
+        mb: [5, 5, 6],
+    };
+
     return (
         <Flex width="100%">
             <Box width="100%">
@@ -66,7 +76,7 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
                     justifyContent="space-between"
                     flexWrap="wrap"
                 >
-                    <Heading variant="h3" color="brown.2">
+                    <Heading as="h3" variant="h3" color="brown.2">
                         OrderId: <span style={{ color: '#553517' }}>{oid}</span>
                     </Heading>
                     <Box variant={paid ? 'paidBadge' : 'notPaidBadge'}>
@@ -77,8 +87,10 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
                     </Box>
                 </Flex>
 
-                <Heading variant="h4">Buyer&apos;s info</Heading>
-                <Box>
+                <Heading as="h4" variant="h4" {...headingStyle}>
+                    Buyer&apos;s info
+                </Heading>
+                <Box {...infoStyle}>
                     <Text variant="bodyMedium">
                         Name: <span style={spanStyle}>{buyerName}</span>
                     </Text>
@@ -98,8 +110,10 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
 
                 {/* Order infos. */}
 
-                <Heading variant="h4">Order info</Heading>
-                <Box>
+                <Heading as="h4" variant="h4" {...headingStyle}>
+                    Order info
+                </Heading>
+                <Box {...infoStyle}>
                     <Text variant="bodyMedium">
                         Order made on{' '}
                         <span style={spanStyle}>{getDate(date)}</span>. Payment
@@ -108,7 +122,9 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
                             {via} - {channel}
                         </span>
                     </Text>
-                    <Heading variant="h5">Products</Heading>
+                    <Heading as="h5" variant="h5">
+                        Products
+                    </Heading>
                     <Box>
                         {products.map(product => (
                             <React.Fragment key={product.pid}>
@@ -128,8 +144,14 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
 
                 {/* transaction infos. */}
 
-                <Flex alignItems="center" justifyContent="space-between">
-                    <Heading variant="h4">Transaction Info</Heading>
+                <Flex
+                    alignItems="center"
+                    justifyContent="space-between"
+                    {...headingStyle}
+                >
+                    <Heading as="h4" variant="h4">
+                        Transaction Info
+                    </Heading>
                     <Flex
                         variant="center"
                         css={`
@@ -141,7 +163,7 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
                         <Icon icon={arrowDownSFill} />
                     </Flex>
                 </Flex>
-                <Box>
+                <Box {...infoStyle}>
                     <Text variant="bodyMedium">
                         Session ID: <span style={spanStyle}>{sessionId}</span>
                     </Text>
@@ -162,8 +184,10 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
 
                 {/* Ship-to infos. */}
 
-                <Heading variant="h4">Ship to</Heading>
-                <Box>
+                <Heading as="h4" variant="h4" {...headingStyle}>
+                    Ship to
+                </Heading>
+                <Box {...infoStyle}>
                     <Text variant="bodyMedium">
                         Address: <span style={spanStyle}>{buyerAddr}</span>
                     </Text>
@@ -176,6 +200,42 @@ const OrderItem: React.FC<Props> = ({ order, allProducts }) => {
                         <span style={spanStyle}>{shippingMethod}</span>
                     </Text>
                 </Box>
+
+                <Heading as="h4" variant="h4" my={[4, 4, 5]}>
+                    Status: {delivered ? `Shipped ` : 'Not shipped'}{' '}
+                    <InlineIcon
+                        icon={delivered ? checkboxCircleFill : closeCircleLine}
+                    />
+                </Heading>
+                {delivered && shippingData ? (
+                    <>
+                        <Heading as="h4" variant="h4" {...headingStyle}>
+                            Shiping Informations
+                        </Heading>
+                        <Box data-testid="shipping-info">
+                            <Text variant="bodyMedium">
+                                Shipped date:{' '}
+                                <span style={spanStyle}>
+                                    {getDate(shippingData.shippedDate)}
+                                </span>
+                            </Text>
+                            <Text variant="bodyMedium">
+                                Tracking number:{' '}
+                                <span style={spanStyle}>
+                                    {shippingData.trackingNum}
+                                </span>
+                            </Text>
+                            <Text variant="bodyMedium">
+                                Shipped by:{' '}
+                                <span style={spanStyle}>
+                                    {shippingData.shippedBy}
+                                </span>
+                            </Text>
+                        </Box>
+                    </>
+                ) : (
+                    <ShippingConfirmation updateShipping={updateShipping} />
+                )}
             </Box>
         </Flex>
     );

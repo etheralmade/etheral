@@ -7,6 +7,7 @@ export default {
     },
     h4: {
         color: '#000',
+        fontSize: [3, 3, 4],
     },
     h5: {
         fontSize: [2, 2, 3],
