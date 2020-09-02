@@ -5,11 +5,12 @@ export default {
         fontSize: [4, 4, 5],
         color: 'brown.3',
     },
-
     h4: {
         color: '#000',
     },
-
+    h5: {
+        fontSize: [2, 2, 3],
+    },
     body: {
         fontFamily: 'body',
     },

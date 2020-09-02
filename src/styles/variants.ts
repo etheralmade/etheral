@@ -17,4 +17,8 @@ export default {
         ...badgeStyle,
         bg: 'badges.0',
     },
+    center: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 };

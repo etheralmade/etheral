@@ -7,23 +7,14 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
 import { OrderItem } from '../order-item';
-import { mockOrders } from '../../orders.stories';
-import { Order } from 'helper/schema/order';
+import { mockOrder, mockOrderShipped, mockProducts } from 'helper/const';
 
 describe('OrderItem Component', () => {
-    const mockOrderShipped: Order = {
-        ...mockOrders[0],
-        delivered: true,
-        shippingData: {
-            shippedDate: new Date(),
-            trackingCode: '12342',
-            shippedBy: 'admin1',
-        },
-    };
-
-    const el: React.ReactElement = <OrderItem order={mockOrders[0]} />;
+    const el: React.ReactElement = (
+        <OrderItem order={mockOrder} allProducts={mockProducts} />
+    );
     const elShipped: React.ReactElement = (
-        <OrderItem order={mockOrderShipped} />
+        <OrderItem order={mockOrderShipped} allProducts={mockProducts} />
     );
 
     afterEach(cleanup);
