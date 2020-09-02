@@ -16,7 +16,7 @@ type Props = {
 
 const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
     return (
-        <Flex flexDirection="column" alignItems="flex-start" height="100%">
+        <Flex flexDirection="column" alignItems="flex-start" height="100vh">
             <Button
                 variant={
                     inView === StateViews.ORDERS

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Admin navigation component matches snapshot 1`] = `
+<div
+  className="css-1b6hbl9"
+>
+  <button
+    className="css-vhv7r1"
+    onClick={[Function]}
+  >
+    <svg
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path d=\\"M20 2a3 3 0 0 1 3 3v2h-2v12a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3v-2h16v2a1 1 0 0 0 .883.993L18 20a1 1 0 0 0 .993-.883L19 19v-4H3V5a3 3 0 0 1 3-3h14z\\" fill=\\"currentColor\\"/>",
+        }
+      }
+      focusable={false}
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+          "verticalAlign": "-0.125em",
+        }
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+    Orders
+  </button>
+  <button
+    className="css-vhv7r1"
+    onClick={[Function]}
+  >
+    <svg
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path d=\\"M13.06 8.11l1.415 1.415a7 7 0 0 1 0 9.9l-.354.353a7 7 0 0 1-9.9-9.9l1.415 1.415a5 5 0 1 0 7.071 7.071l.354-.354a5 5 0 0 0 0-7.07l-1.415-1.415l1.415-1.414zm6.718 6.011l-1.414-1.414a5 5 0 1 0-7.071-7.071l-.354.354a5 5 0 0 0 0 7.07l1.415 1.415l-1.415 1.414l-1.414-1.414a7 7 0 0 1 0-9.9l.354-.353a7 7 0 0 1 9.9 9.9z\\" fill=\\"currentColor\\"/>",
+        }
+      }
+      focusable={false}
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+          "verticalAlign": "-0.125em",
+        }
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+    Links
+  </button>
+  <button
+    className="css-vhv7r1"
+    onClick={[Function]}
+  >
+    <svg
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path d=\\"M20 22h-2v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12a6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8a4 4 0 0 0 0 8z\\" fill=\\"currentColor\\"/>",
+        }
+      }
+      focusable={false}
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+          "verticalAlign": "-0.125em",
+        }
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+    Admin users
+  </button>
+  <div
+    className="css-gi5z2v"
+  />
+  <button
+    className="css-vhv7r1"
+    onClick={[MockFunction]}
+  >
+    <svg
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path d=\\"M4 18h2v2h12V4H6v2H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3zm2-7h7v2H6v3l-5-4l5-4v3z\\" fill=\\"currentColor\\"/>",
+        }
+      }
+      focusable={false}
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+          "verticalAlign": "-0.125em",
+        }
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+    Log out
+  </button>
+</div>
+`;

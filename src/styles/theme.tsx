@@ -52,12 +52,14 @@ const buttons: ButtonVariants = {
         width: '100%',
         color: 'brown.1',
         bg: '#fff',
+        textAlign: 'left',
+        outline: 'none',
         '&: hover': {
             color: 'brown.0',
             bg: 'brown.1',
         },
         '& > svg': {
-            mr: [1],
+            mr: [2],
         },
         borderRadius: 0,
     },
@@ -68,8 +70,10 @@ const buttons: ButtonVariants = {
         fontWeight: 'bold',
         color: '#fff',
         bg: 'brown.1',
+        textAlign: 'left',
+        outline: 'none',
         '& > svg': {
-            mr: [1, 1, 2],
+            mr: [2],
         },
         borderRadius: 0,
     },
