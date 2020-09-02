@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { sha256 } from 'js-sha256';
 
+import { ThemeProvider } from 'emotion-theming';
+
 import Login from 'components/auth/login';
 import { LoginProps } from 'components/auth/auth';
 import Dashboard from './dashboard';
+import { theme, GlobalStyles } from 'styles';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -36,13 +39,14 @@ const Admin: React.FC<Props> = ({ db }) => {
     };
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
+            <GlobalStyles />
             {isAuthenticated ? (
                 <Dashboard logout={logout} />
             ) : (
                 <Login login={login} submitValue="Login as admin" />
             )}
-        </>
+        </ThemeProvider>
     );
 };
 

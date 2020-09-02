@@ -28,7 +28,9 @@ const OrderItem: React.FC<Props> = ({ order }) => {
                 .update({
                     shippingData: {
                         ...data,
+                        shippingDate: new Date(data.shippingDate),
                     },
+                    delivered: true,
                 });
         }
     };

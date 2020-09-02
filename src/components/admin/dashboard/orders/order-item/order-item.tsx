@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { findIndex } from 'lodash';
 
 import { Box, Flex, Heading, Text } from 'rebass';
@@ -20,6 +20,7 @@ type Props = {
 };
 
 const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
+    const [orderState, setOrderState] = useState<Order>(order);
     const {
         oid,
         buyerName,
@@ -39,7 +40,7 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
         delivered,
         transactionData,
         shippingData,
-    } = order;
+    } = orderState;
 
     const renderProduct = (product: InCart) => {
         const index = findIndex(allProducts, o => o.pid === product.pid);
@@ -51,6 +52,18 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
         ) : (
             <></>
         );
+    };
+
+    const confirmShipping = (data: Inputs) => {
+        setOrderState(prev => ({
+            ...prev,
+            shippingData: {
+                ...data,
+                shippingDate: new Date(data.shippingDate),
+            },
+            delivered: true,
+        }));
+        updateShipping(data);
     };
 
     const { sessionId, paymentNo, paymentName, expired, fee } = transactionData;
@@ -68,7 +81,9 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
         mb: [5, 5, 6],
     };
 
-    return (
+    console.log(shippingData);
+
+    return orderState ? (
         <Flex width="100%">
             <Box width="100%">
                 <Flex
@@ -213,12 +228,14 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                             Shiping Informations
                         </Heading>
                         <Box data-testid="shipping-info">
-                            <Text variant="bodyMedium">
-                                Shipped date:{' '}
-                                <span style={spanStyle}>
-                                    {getDate(shippingData.shippedDate)}
-                                </span>
-                            </Text>
+                            {shippingData.shippingDate && (
+                                <Text variant="bodyMedium">
+                                    Shipped date:{' '}
+                                    <span style={spanStyle}>
+                                        {getDate(shippingData.shippingDate)}
+                                    </span>
+                                </Text>
+                            )}
                             <Text variant="bodyMedium">
                                 Tracking number:{' '}
                                 <span style={spanStyle}>
@@ -234,10 +251,12 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                         </Box>
                     </>
                 ) : (
-                    <ShippingConfirmation updateShipping={updateShipping} />
+                    <ShippingConfirmation confirmShipping={confirmShipping} />
                 )}
             </Box>
         </Flex>
+    ) : (
+        <></>
     );
 };
 

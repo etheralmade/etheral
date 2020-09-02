@@ -5,7 +5,7 @@ import { Box, Button } from 'rebass';
 import { Input, Label } from '@rebass/forms';
 
 type Props = {
-    updateShipping: (data: Inputs) => void;
+    confirmShipping: (data: Inputs) => void;
 };
 
 export type Inputs = {
@@ -14,12 +14,13 @@ export type Inputs = {
     shippedBy: string;
 };
 
-const ShippingConfirmation: React.FC<Props> = ({ updateShipping }) => {
+const ShippingConfirmation: React.FC<Props> = ({ confirmShipping }) => {
     const [viewForm, setViewForm] = useState(false);
     const { register, handleSubmit } = useForm();
 
     const submit = (data: Inputs) => {
-        updateShipping(data);
+        confirmShipping(data);
+        setViewForm(false);
     };
 
     return viewForm ? (

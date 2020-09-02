@@ -1,4 +1,7 @@
 export default {
+    h1: {
+        fontSize: [5, 5, 6],
+    },
     h3: {
         fontFamily: 'heading',
         fontWeight: 'bold',

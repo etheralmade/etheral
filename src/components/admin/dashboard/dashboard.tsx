@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Flex, Box } from 'rebass';
+
+import Orders from './orders';
 import Navigation from './navigation';
 
 type Props = {
@@ -24,7 +26,7 @@ const Dashboard: React.FC<Props> = ({ logout }) => {
     let toRender;
     switch (view) {
         case StateViews.ORDERS:
-            toRender = <h1>Orders</h1>;
+            toRender = <Orders />;
             break;
         case StateViews.ADMINS:
             toRender = <h1>Admins</h1>;
@@ -50,7 +52,7 @@ const Dashboard: React.FC<Props> = ({ logout }) => {
                     inView={view}
                 />
             </Box>
-            <Box>{toRender}</Box>
+            <Box width="100%">{toRender}</Box>
         </Flex>
     );
 };
