@@ -53,6 +53,17 @@ module.exports = {
             },
         },
         {
+            resolve: `gatsby-plugin-remote-images`,
+            options: {
+                nodeType: 'Homepage',
+                // Making this plural (optional).
+                name: 'imgs',
+                // Path to the leaf node.
+                imagePath: 'urls',
+                type: 'array',
+            },
+        },
+        {
             resolve: `gatsby-source-filesystem`,
             options: {
                 path: `${__dirname}/src/images`,
