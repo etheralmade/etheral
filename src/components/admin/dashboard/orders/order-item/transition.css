@@ -1,0 +1,14 @@
+.info-enter {
+    opacity: 0;
+    max-height: 0;
+}
+.info-enter-active {
+    opacity: 1;
+    max-height: 0;
+}
+.info-exit {
+    opacity: 1;
+}
+.info-exit-active {
+    opacity: 0;
+}

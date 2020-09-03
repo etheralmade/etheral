@@ -11,6 +11,7 @@ export type Theme = {
         body: string;
         heading: string;
         monospace: string;
+        serif: string;
     };
     fontWeights: {
         body: number;
@@ -36,13 +37,15 @@ export type ColorTheme = {
     lightGray: string;
     brown: string[];
     badges: string[];
+    white: string[];
 };
 
 const colors: ColorTheme = {
     blue: '#07c',
     lightGray: '#f6f6ff',
-    brown: ['#E2DAD0', '#CAB8AA', '#C8B8A9', '#553517'],
-    badges: ['#ff6961', '#77dd77'],
+    brown: ['#E2DAD0', '#593614', '#C8B8A9', '#553517'],
+    badges: ['#FF9292', '#9BEBA3'],
+    white: ['#FEFEFE'],
 };
 
 const theme: Theme = {
@@ -54,6 +57,7 @@ const theme: Theme = {
         body: "'Montserrat', sans-serif",
         heading: "'Raleway', sans-serif",
         monospace: 'Menlo, monospace',
+        serif: "'Cormorant Garamond', serif",
     },
     fontWeights: {
         body: 400,

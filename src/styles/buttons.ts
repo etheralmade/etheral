@@ -2,6 +2,7 @@ const buttonBaseStyle = {
     fontFamily: 'body',
     outline: 'none',
     borderRadius: 0,
+    whiteSpace: 'nowrap',
     '&: hover': {
         cursor: 'pointer',
     },
@@ -10,35 +11,42 @@ const buttonBaseStyle = {
 const buttonAdminLinkStyle = {
     ...buttonBaseStyle,
     fontFamily: 'heading',
-    fontWeight: 'medium',
-    fontSize: [2, 2, 3],
+    fontWeight: 'body',
+    fontSize: [1, 1, 2],
     transition: '0.2s',
-    width: '100%',
+    width: ['25%', '25%', '100%'],
     textAlign: 'left',
+    display: ['flex', 'flex', 'block'],
+    alignItems: ['center', 'center', 'unset'],
+    justifyContent: ['center', 'center', 'unset'],
+    py: [4, 4, 2],
+    px: [4, 4, 7],
+    bg: 'brown.0',
     '&: hover': {
-        color: 'brown.0',
-        bg: 'brown.1',
+        color: 'brown.3',
         cursor: 'pointer',
     },
     '& > svg': {
-        mr: [2],
+        mr: [0, 0, 4],
+        transform: ['scale(1.6) !important', 'scale(1.6) !important', ''],
     },
 };
 
 export default {
     adminLink: {
         ...buttonAdminLinkStyle,
-        color: 'brown.1',
-        bg: '#fff',
+        color: 'brown.2',
     },
     adminLinkActive: {
         ...buttonAdminLinkStyle,
-        color: '#fff',
-        bg: 'brown.1',
+        color: 'brown.3',
+        fontWeight: 'bold',
     },
     primary: {
         ...buttonBaseStyle,
-        bg: 'brown.2',
-        color: '#fff',
+        bg: 'brown.0',
+        color: 'brown.3',
+        fontFamily: 'body',
+        fontWeight: 600,
     },
 };

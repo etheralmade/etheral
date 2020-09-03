@@ -1,8 +1,9 @@
 const badgeStyle = {
-    fontSize: [2, 2, 3],
+    fontSize: [1, 1, 2],
     fontFamily: 'body',
     color: '#fff',
     p: 2,
+    display: 'inline-block',
     '& > svg': {
         mr: 2,
     },

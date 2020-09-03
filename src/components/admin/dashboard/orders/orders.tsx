@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading } from 'rebass';
+import { Card, Heading } from 'rebass';
 
 import { Order } from 'helper/schema/order';
 import OrderItem from './order-item';
@@ -11,14 +11,26 @@ type Props = {
 
 const Orders: React.FC<Props> = ({ orders, db }) => {
     return (
-        <Box width="100%" p={[3, 3, 5]}>
-            <Heading as="h1" variant="h1">
+        <>
+            <Heading as="h1" variant="headingAdmin">
                 Orders
             </Heading>
-            {orders.map(order => (
-                <OrderItem key={order.oid} order={order} db={db} />
-            ))}
-        </Box>
+            <Card
+                mt={[3, 3, 6]}
+                py={[4]}
+                px={[4]}
+                width={[1]}
+                bg="#f9f9f9"
+                css={`
+                    border-radius: 4px;
+                    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.125);
+                `}
+            >
+                {orders.map(order => (
+                    <OrderItem key={order.oid} order={order} db={db} />
+                ))}
+            </Card>
+        </>
     );
 };
 

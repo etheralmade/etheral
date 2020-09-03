@@ -48,7 +48,7 @@ export const mockOrderShipped: Order = {
     ...mockOrder,
     delivered: true,
     shippingData: {
-        shippedDate: new Date(),
+        shippingDate: new Date(),
         trackingNum: '12342',
         shippedBy: 'admin1',
     },

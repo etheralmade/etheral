@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Button } from 'rebass';
+import { Flex, Box, Button, Text } from 'rebass';
 import { InlineIcon } from '@iconify/react';
 import linksLine from '@iconify/icons-ri/links-line';
 import fileList3Line from '@iconify/icons-ri/file-list-3-line';
@@ -7,6 +7,7 @@ import user3Line from '@iconify/icons-ri/user-3-line';
 import logoutBoxLine from '@iconify/icons-ri/logout-box-line';
 
 import { StateViews } from '../dashboard';
+import { theme } from 'styles';
 
 type Props = {
     inView: StateViews;
@@ -16,7 +17,13 @@ type Props = {
 
 const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
     return (
-        <Flex flexDirection="column" alignItems="flex-start" height="100vh">
+        <Flex
+            flexDirection={['row', 'row', 'column']}
+            alignItems="flex-start"
+            height={['fit-content', 'fit-content', '100vh']}
+            // px={[0, 0, 4]}
+            width={['100%', '100%', 'fit-content']}
+        >
             <Button
                 variant={
                     inView === StateViews.ORDERS
@@ -28,7 +35,9 @@ const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
                 }}
             >
                 <InlineIcon icon={fileList3Line} />
-                Orders
+                <Text display={['none', 'none', 'unset']} as="span">
+                    Orders
+                </Text>
             </Button>
             <Button
                 variant={
@@ -41,7 +50,9 @@ const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
                 }}
             >
                 <InlineIcon icon={linksLine} />
-                Links
+                <Text display={['none', 'none', 'unset']} as="span">
+                    Links
+                </Text>
             </Button>
             <Button
                 variant={
@@ -54,12 +65,16 @@ const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
                 }}
             >
                 <InlineIcon icon={user3Line} />
-                Admin users
+                <Text display={['none', 'none', 'unset']} as="span">
+                    Admin
+                </Text>
             </Button>
             <Box my="auto" />
             <Button variant={'adminLink'} onClick={logout}>
                 <InlineIcon icon={logoutBoxLine} />
-                Log out
+                <Text display={['none', 'none', 'unset']} as="span">
+                    Log out
+                </Text>
             </Button>
         </Flex>
     );
