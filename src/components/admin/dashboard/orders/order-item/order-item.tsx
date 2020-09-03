@@ -96,11 +96,15 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
     return orderState ? (
         <Card
             width="100%"
-            p={[3]}
-            my={[2]}
+            px={[3]}
+            py={[4]}
+            // my={[2]}
             css={`
-                border: 2px solid ${theme.colors.brown[2]};
-                border-radius: 4px;
+                border: none;
+                border-color: ${theme.colors.brown[2]};
+                border-width: 0px;
+                border-style: solid;
+                border-bottom-width: 2px;
                 background-color: #fff;
                 /* box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.125); */
                 & svg {
