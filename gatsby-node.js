@@ -129,9 +129,6 @@ exports.sourceNodes = async ({
         }
     });
 
-    console.log(`product docs length: ${await productDocs.length}`);
-    console.log(`collection docs length: ${await collectionDocs.length}`);
-
     // mapping all product docs and creating a node for each docs.
     const createNodesProducts = await productDocs.map(async data => {
         if (await data.image) {
@@ -180,8 +177,8 @@ exports.sourceNodes = async ({
             collection: data.collection,
             weight: data.weight,
             slug: data.collection
-                ? `${nameToSlug(data.collection)}/${data.id}`
-                : `${noCollection}/${data.id}`,
+                ? `${nameToSlug(data.collection)}/${nameToSlug(data.name)}`
+                : `${noCollection}/${nameToSlug(data.name)}`,
         };
 
         return await createNode({

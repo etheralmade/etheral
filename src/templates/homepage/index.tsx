@@ -6,9 +6,9 @@ import { FluidData, HomePageData } from 'pages';
 
 export type Props = {
     homepageData: HomePageData;
-    imgS: FluidData;
-    imgM: FluidData;
-    imgL: FluidData;
+    imgS: FluidData[];
+    imgM: FluidData[];
+    imgL: FluidData[];
 };
 
 const Homepage: React.FC<Props> = props => {

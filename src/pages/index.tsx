@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import { FluidObject, FixedObject } from 'gatsby-image';
 
 import { Layout } from '../components/layout';
 import { SEO } from '../components/seo';
@@ -17,14 +17,11 @@ export type HomePageData = {
         buttonLink: string;
         buttonText: string;
     }[];
-    imgs: {
-        absolutePath: string;
-    }[];
     products: string[];
 };
 
 export type FluidData = {
-    absolutePath: string;
+    url: string;
     childImageSharp: {
         fluid: FluidObject | FluidObject[] | undefined;
     };
@@ -37,9 +34,9 @@ const App = (props: PageProps) => {
     const dataAsAny = data as any;
 
     const homepageData: HomePageData = dataAsAny.homepageData as HomePageData;
-    const imgS: FluidData = dataAsAny.imgS.imgs;
-    const imgM: FluidData = dataAsAny.imgM.imgs;
-    const imgL: FluidData = dataAsAny.imgL.imgs;
+    const imgS: FluidData[] = dataAsAny.imgS.imgs;
+    const imgM: FluidData[] = dataAsAny.imgM.imgs;
+    const imgL: FluidData[] = dataAsAny.imgL.imgs;
 
     return (
         <Layout>
@@ -69,14 +66,11 @@ export const query = graphql`
                 buttonLink
                 buttonText
             }
-            imgs {
-                absolutePath
-            }
             products
         }
         imgS: homepage {
             imgs {
-                absolutePath
+                url
                 childImageSharp {
                     fluid(maxWidth: 600) {
                         ...GatsbyImageSharpFluid
@@ -86,7 +80,7 @@ export const query = graphql`
         }
         imgM: homepage {
             imgs {
-                absolutePath
+                url
                 childImageSharp {
                     fluid(maxWidth: 1040) {
                         ...GatsbyImageSharpFluid
@@ -96,7 +90,7 @@ export const query = graphql`
         }
         imgL: homepage {
             imgs {
-                absolutePath
+                url
                 childImageSharp {
                     fluid(maxWidth: 1920) {
                         ...GatsbyImageSharpFluid
