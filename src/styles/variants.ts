@@ -27,6 +27,7 @@ export default {
     outerWrapper: {
         ...flexCenterBase,
         width: '100%',
+        my: [7, 7, 8],
     },
     innerWrapper: {
         maxWidth: ['100%', '38em', '62em', '80%'],

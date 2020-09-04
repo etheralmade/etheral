@@ -20,7 +20,7 @@ type Props = {
 
 const Campaign: React.FC<Props> = ({ campaignData }) => {
     return (
-        <Flex variant="outerWrapper" my={[7, 7, 8]}>
+        <Flex variant="outerWrapper">
             <Box variant="innerWrapper">
                 <Heading
                     textAlign="center"

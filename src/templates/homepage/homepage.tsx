@@ -1,15 +1,26 @@
 import React from 'react';
-import { findIndex } from 'lodash';
+import { findIndex, intersectionBy } from 'lodash';
 
 import { FluidObject, FixedObject } from 'gatsby-image';
 
-import { Props as InitialProps } from '.';
-import { FluidData, FixedData } from 'pages';
+import { FluidData, FixedData, HomePageData } from 'pages';
 import Hero from './hero';
 import Campaign from './campaign';
+import useAllProducts from 'helper/use-all-products';
+import HomepageProducts from './homepage-products';
 
-type Props = InitialProps & {
-    db: firebase.firestore.Firestore;
+type Props = {
+    homepageData: HomePageData;
+    heroImages: {
+        imgS: FluidData[];
+        imgM: FluidData[];
+        imgL: FluidData[];
+    };
+    campaignImages: {
+        imgS: FixedData[];
+        imgM: FixedData[];
+        imgL: FixedData[];
+    };
 };
 
 const extractImagesFromUrl = (
@@ -34,13 +45,12 @@ const Homepage: React.FC<Props> = ({
     homepageData,
     heroImages,
     campaignImages,
-    db,
 }) => {
     // query on index.ts => maxWidth: 600, 1040, 1920
-    const { homepageImages, campaigns } = homepageData;
+    const { homepageImages, campaigns, products } = homepageData;
+    const allProducts = useAllProducts();
 
     // extract hero data
-
     // image list should be on the same order
     const heroImgS = extractImagesFromUrl(homepageImages, heroImages.imgS);
     const heroImgM = extractImagesFromUrl(homepageImages, heroImages.imgM);
@@ -91,6 +101,11 @@ const Homepage: React.FC<Props> = ({
     }));
 
     // extract products to show on homepage
+    const productsToShow = intersectionBy(
+        allProducts,
+        products.map(productStr => ({ pid: productStr })),
+        'pid'
+    );
 
     // extract mailing-list image
 
@@ -99,6 +114,7 @@ const Homepage: React.FC<Props> = ({
             <h1>This is homepage!</h1>
             <Hero heroData={heroData} />
             <Campaign campaignData={campaignData} />
+            <HomepageProducts products={productsToShow} />
         </>
     );
 };

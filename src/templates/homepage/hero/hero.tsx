@@ -43,6 +43,7 @@ const Hero: React.FC<Props> = ({ heroData }) => {
                 isPlaying={true}
                 interval={5000}
                 dragEnabled={false}
+                infinite={true}
                 className="carousel"
             >
                 <Slider className="carousel-slide">
