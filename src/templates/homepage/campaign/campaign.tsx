@@ -35,6 +35,7 @@ const Campaign: React.FC<Props> = ({ campaignData }) => {
                     flexWrap="wrap"
                     className="wrap"
                     justifyContent="space-evenly"
+                    alignItems="center"
                 >
                     {campaignData.map(campaign => (
                         <Link

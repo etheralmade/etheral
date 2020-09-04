@@ -29,7 +29,7 @@ export type FluidData = {
 
 export type FixedData = {
     url: string;
-    childImgeSharp: {
+    childImageSharp: {
         fixed: FixedObject | FixedObject[] | undefined;
     };
 };

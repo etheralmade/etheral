@@ -51,4 +51,14 @@ export default {
         textDecoration: 'none',
         color: '#fff',
     },
+    productPrice: {
+        fontFamily: 'body',
+        fontWeight: 500,
+        color: '#000',
+    },
+    productName: {
+        fontFamily: 'heading',
+        fontWeight: 'bold',
+        color: '#000',
+    },
 };
