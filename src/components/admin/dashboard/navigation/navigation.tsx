@@ -7,7 +7,6 @@ import user3Line from '@iconify/icons-ri/user-3-line';
 import logoutBoxLine from '@iconify/icons-ri/logout-box-line';
 
 import { StateViews } from '../dashboard';
-import { theme } from 'styles';
 
 type Props = {
     inView: StateViews;
@@ -21,7 +20,6 @@ const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
             flexDirection={['row', 'row', 'column']}
             alignItems="flex-start"
             height={['fit-content', 'fit-content', '100vh']}
-            // px={[0, 0, 4]}
             width={['100%', '100%', 'fit-content']}
         >
             <Button

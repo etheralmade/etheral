@@ -134,6 +134,7 @@ module.exports = {
                 state: path.join(__dirname, 'src/state'),
                 styles: path.join(__dirname, 'src/styles'),
                 lib: path.join(__dirname, 'src/lib'),
+                templates: path.join(__dirname, 'src/templates'),
             },
         },
         {
