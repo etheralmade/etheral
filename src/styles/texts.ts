@@ -20,6 +20,11 @@ export default {
         fontWeight: 600,
         color: 'brown.1',
     },
+    h2: {
+        fontFamily: 'heading',
+        fontWeight: 'heading',
+        fontSize: [4, 4, 5],
+    },
     h3: {
         fontFamily: 'heading',
         fontWeight: 'bold',
@@ -42,7 +47,7 @@ export default {
     },
     tileText: {
         fontFamily: 'heading',
-        fontWeight: 'medium',
+        fontWeight: 400,
         textDecoration: 'none',
         color: '#fff',
     },

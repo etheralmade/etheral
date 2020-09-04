@@ -20,9 +20,14 @@ type Props = {
 
 const Campaign: React.FC<Props> = ({ campaignData }) => {
     return (
-        <Flex variant="outerWrapper" my={[7]}>
+        <Flex variant="outerWrapper" my={[7, 7, 8]}>
             <Box variant="innerWrapper">
-                <Heading textAlign="center" as="h2" variant="h2" mb={[5]}>
+                <Heading
+                    textAlign="center"
+                    as="h2"
+                    variant="h2"
+                    mb={[5, 5, 6, 7]}
+                >
                     Explore
                 </Heading>
                 <Flex
@@ -44,7 +49,8 @@ const Campaign: React.FC<Props> = ({ campaignData }) => {
                                 overflow="hidden"
                                 width="100%"
                                 mb={[5]}
-                                height={['90vw', '80vw', 320, '38.4vw']}
+                                height={['90vw', '80vw', 320, '32vw']}
+                                maxHeight={['unset', 'unset', 'unset', 640]}
                             />
                         </Link>
                     ))}
