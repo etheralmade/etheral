@@ -12,6 +12,10 @@
         }
     }
 
+    .carousel-slide {
+        outline: none;
+    }
+
     button.carousel-button {
         background: none;
         border: none;
@@ -37,9 +41,9 @@
 
     // theme breakpoint[0]
     @media screen and (min-width: 40em) {
-        // .carousel-dot {
-        //     bottom: 4%;
-        // }
+        .carousel-dot {
+            transform: translateX(-50%) scale(1.5);
+        }
 
         button.carousel-button > svg {
             height: 48px;

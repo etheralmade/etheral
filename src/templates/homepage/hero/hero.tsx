@@ -42,9 +42,10 @@ const Hero: React.FC<Props> = ({ heroData }) => {
                 totalSlides={heroData.length}
                 isPlaying={true}
                 interval={5000}
+                dragEnabled={false}
                 className="carousel"
             >
-                <Slider>
+                <Slider className="carousel-slide">
                     {heroData.map((data, i) => (
                         <Slide index={i} key={i}>
                             <HeroImage {...data} />
