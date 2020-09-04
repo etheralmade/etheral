@@ -1,7 +1,7 @@
 import { Product } from './schema/product';
 import { Order } from './schema/order';
 
-const mockProduct1: Product = {
+export const mockProduct1: Product = {
     pid: '1234',
     name: 'Mock product',
     slug: 'ctg1/product1',

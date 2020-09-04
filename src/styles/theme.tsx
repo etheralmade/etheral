@@ -49,15 +49,15 @@ const colors: ColorTheme = {
 };
 
 const theme: Theme = {
-    breakpoints: ['40em', '52em', '64em'],
+    breakpoints: ['24em', '48em', '64em'],
     fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
     colors,
-    space: [0, 4, 6, 8, 12, 16, 24, 32, 64, 128, 256],
+    space: [0, 4, 6, 8, 12, 16, 24, 32, 48, 64, 128, 256],
     fonts: {
-        body: "'Montserrat', sans-serif",
-        heading: "'Raleway', sans-serif",
+        body: 'Syne, sans-serif',
+        heading: 'Raleway, sans-serif',
         monospace: 'Menlo, monospace',
-        serif: "'Cormorant Garamond', serif",
+        serif: 'Cormorant Garamond, serif',
     },
     fontWeights: {
         body: 400,

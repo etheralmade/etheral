@@ -2,18 +2,19 @@
 
 exports[`OrderItem Component matches snapshot 1`] = `
 <div
-  className="css-knfhfe"
+  className="css-1nh1uvi"
 >
   <div
-    className="css-16vu25q"
+    className="css-1b3c84b"
   >
     <div
-      className="css-con1pb"
+      className="css-l9s608"
     >
       <h3
         className="css-ytgaz"
       >
-        OrderId: 
+        OrderId:
+         
         <span
           style={
             Object {
@@ -25,7 +26,7 @@ exports[`OrderItem Component matches snapshot 1`] = `
         </span>
       </h3>
       <div
-        className="css-vurnku"
+        className="css-1a2mf0e"
       >
         <svg
           dangerouslySetInnerHTML={
@@ -49,335 +50,14 @@ exports[`OrderItem Component matches snapshot 1`] = `
         Not paid
       </div>
     </div>
-    <h4
-      className="css-1p3pfjd"
-    >
-      Buyer's info
-    </h4>
     <div
-      className="css-nee1o5"
+      className="css-1y35514"
+      onClick={[Function]}
     >
-      <div
-        className="css-vurnku"
-      >
-        Name: 
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          Jane Doe
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Email: 
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          jane@doe
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Phone: 
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          123412412
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Buyer UserID:
-         
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          None
-        </span>
-      </div>
-    </div>
-    <h4
-      className="css-1p3pfjd"
-    >
-      Order info
-    </h4>
-    <div
-      className="css-nee1o5"
-    >
-      <div
-        className="css-vurnku"
-      >
-        Order made on
-         
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          2020-09-02 25:18
-        </span>
-        . Payment via
-         
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          va
-           - 
-          bni
-        </span>
-      </div>
-      <h5
-        className="css-qjyand"
-      >
-        Products
-      </h5>
-      <div
-        className="css-vurnku"
-      >
-        <div
-          className="css-vurnku"
-        >
-          12
-           x
-          <span
-            style={
-              Object {
-                "fontWeight": 400,
-                "marginLeft": "12px",
-              }
-            }
-          >
-            Mock product
-          </span>
-        </div>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Subtotal:
-         
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          IDR
-            
-          32000
-        </span>
-      </div>
-    </div>
-    <div
-      className="css-cb7ikp"
-    >
-      <h4
-        className="css-qjyand"
-      >
-        Transaction Info
-      </h4>
-      <div
-        className="css-zmozvd"
-      >
-        <svg
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<path d=\\"M12 16l-6-6h12z\\" fill=\\"currentColor\\"/>",
-            }
-          }
-          focusable={false}
-          height="1em"
-          preserveAspectRatio="xMidYMid meet"
-          style={
-            Object {
-              "transform": "rotate(360deg)",
-            }
-          }
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-      </div>
-    </div>
-    <div
-      className="css-nee1o5"
-    >
-      <div
-        className="css-vurnku"
-      >
-        Session ID: 
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          1234
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Payment no: 
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          12
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Payment name:
-         
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          Jane Doe - BNI
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Expired on: 
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          1231241412
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Fee: 
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          3000
-        </span>
-      </div>
-    </div>
-    <h4
-      className="css-1p3pfjd"
-    >
-      Ship to
-    </h4>
-    <div
-      className="css-nee1o5"
-    >
-      <div
-        className="css-vurnku"
-      >
-        Address: 
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          Storkowerstrasse
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Postal code:
-         
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          1234143
-        </span>
-      </div>
-      <div
-        className="css-vurnku"
-      >
-        Shipping method:
-         
-        <span
-          style={
-            Object {
-              "fontWeight": 400,
-              "marginLeft": "12px",
-            }
-          }
-        >
-          OKE
-        </span>
-      </div>
-    </div>
-    <h4
-      className="css-186ndm0"
-    >
-      Status: 
-      Not shipped
-       
       <svg
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path d=\\"M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10zm0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16zm0-9.414l2.828-2.829l1.415 1.415L13.414 12l2.829 2.828l-1.415 1.415L12 13.414l-2.828 2.829l-1.415-1.415L10.586 12L7.757 9.172l1.415-1.415L12 10.586z\\" fill=\\"currentColor\\"/>",
+            "__html": "<path d=\\"M12 13.172l4.95-4.95l1.414 1.414L12 16L5.636 9.636L7.05 8.222z\\" fill=\\"currentColor\\"/>",
           }
         }
         focusable={false}
@@ -386,20 +66,13 @@ exports[`OrderItem Component matches snapshot 1`] = `
         style={
           Object {
             "transform": "rotate(360deg)",
-            "verticalAlign": "-0.125em",
           }
         }
         viewBox="0 0 24 24"
         width="1em"
         xmlns="http://www.w3.org/2000/svg"
       />
-    </h4>
-    <button
-      className="css-vhv7r1"
-      onClick={[Function]}
-    >
-      Confirm Shipping
-    </button>
+    </div>
   </div>
 </div>
 `;

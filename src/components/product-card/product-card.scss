@@ -1,0 +1,19 @@
+.product-img {
+    position: relative;
+
+    .hide-on-hover {
+        transition: 0.2s;
+        z-index: 2;
+
+        &:hover {
+            opacity: 0;
+        }
+    }
+
+    .show-on-hover {
+        position: absolute !important;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+}

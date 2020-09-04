@@ -20,6 +20,11 @@ export default {
         fontWeight: 600,
         color: 'brown.1',
     },
+    h2: {
+        fontFamily: 'heading',
+        fontWeight: 'heading',
+        fontSize: [4, 4, 5],
+    },
     h3: {
         fontFamily: 'heading',
         fontWeight: 'bold',
@@ -39,5 +44,21 @@ export default {
     bodyMedium: {
         fontFamily: 'body',
         fontWeight: 'medium',
+    },
+    tileText: {
+        fontFamily: 'heading',
+        fontWeight: 400,
+        textDecoration: 'none',
+        color: '#fff',
+    },
+    productPrice: {
+        fontFamily: 'body',
+        fontWeight: 500,
+        color: '#000',
+    },
+    productName: {
+        fontFamily: 'heading',
+        fontWeight: 'bold',
+        color: '#000',
     },
 };

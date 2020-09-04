@@ -1,57 +1,149 @@
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { decrement, increment, reset } from 'state/actions/number';
+import { graphql, PageProps } from 'gatsby';
+import { FluidObject, FixedObject } from 'gatsby-image';
 
 import { Layout } from '../components/layout';
 import { SEO } from '../components/seo';
-import Clicker from 'components/clicker';
+import Homepage from 'templates/homepage';
 
-const App = (props: any) => {
+export type HomePageData = {
+    campaigns: {
+        url: string;
+        campaignLink: string;
+        campaignName: string;
+    }[];
+    homepageImages: {
+        url: string;
+        buttonLink: string;
+        buttonText: string;
+    }[];
+    products: string[];
+};
+
+export type FluidData = {
+    url: string;
+    childImageSharp: {
+        fluid: FluidObject | FluidObject[] | undefined;
+    };
+};
+
+export type FixedData = {
+    url: string;
+    childImageSharp: {
+        fixed: FixedObject | FixedObject[] | undefined;
+    };
+};
+
+const App = (props: PageProps) => {
     // eslint-disable-next-line @typescript-eslint/tslint/config
-    const { number } = props;
-    const dispatch = useDispatch();
 
-    const handleIncrement = () => {
-        dispatch(increment());
-    };
-    const handleDecrement = () => {
-        dispatch(decrement());
-    };
-    const handleReset = () => {
-        dispatch(reset());
-    };
+    const { data } = props;
+    const dataAsAny = data as any;
 
-    const handleIncrementMultiple = () => {
-        dispatch(increment(3));
-    };
+    const homepageData: HomePageData = dataAsAny.homepageData as HomePageData;
+    const heroImgS: FluidData[] = dataAsAny.imgS.imgs;
+    const heroImgM: FluidData[] = dataAsAny.imgM.imgs;
+    const heroImgL: FluidData[] = dataAsAny.imgL.imgs;
 
-    const handleDecrementMultiple = () => {
-        dispatch(decrement(4));
+    const campaignImgS: FixedData[] = dataAsAny.campaignImgS.imgs;
+    const campaignImgM: FixedData[] = dataAsAny.campaignImgM.imgs;
+    const campaignImgL: FixedData[] = dataAsAny.campaignImgL.imgs;
+
+    const heroImages = { imgS: heroImgS, imgM: heroImgM, imgL: heroImgL };
+    const campaignImages = {
+        imgS: campaignImgS,
+        imgM: campaignImgM,
+        imgL: campaignImgL,
     };
 
     return (
         <Layout>
             <SEO />
-            <div
-                style={{
-                    display: 'flex',
-                }}
-            >
-                <button onClick={handleIncrement}>Add one</button>
-                <button onClick={handleIncrementMultiple}>Add 3</button>
-                <button onClick={handleDecrement}>Subtract one</button>
-                <button onClick={handleDecrementMultiple}>Subtract 4</button>
-                <button onClick={handleReset}>Reset</button>
-                <h2>Number is {number}</h2>
-            </div>
-            <Clicker />
+            <Homepage
+                homepageData={homepageData}
+                heroImages={heroImages}
+                campaignImages={campaignImages}
+            />
         </Layout>
     );
 };
 
-const mapStateToProps = (state: any) => ({
-    number: state.numberReducer.num,
-    productsState: state.productReducer,
-});
+export default App;
 
-export default connect(mapStateToProps)(App);
+export const query = graphql`
+    query {
+        homepageData: homepage {
+            campaigns {
+                url
+                campaignLink
+                campaignName
+            }
+            homepageImages {
+                url
+                buttonLink
+                buttonText
+            }
+            products
+        }
+        imgS: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fluid(maxWidth: 600, maxHeight: 400, quality: 100) {
+                        ...GatsbyImageSharpFluid
+                    }
+                }
+            }
+        }
+        imgM: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fluid(maxWidth: 1040, quality: 100) {
+                        ...GatsbyImageSharpFluid
+                    }
+                }
+            }
+        }
+        imgL: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fluid(maxWidth: 1920, quality: 100) {
+                        ...GatsbyImageSharpFluid
+                    }
+                }
+            }
+        }
+        campaignImgS: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fixed(width: 375, height: 375, quality: 100) {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
+        }
+        campaignImgM: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fixed(width: 600, height: 600, quality: 100) {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
+        }
+        campaignImgL: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fixed(height: 640, width: 640, quality: 100) {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
+        }
+    }
+`;

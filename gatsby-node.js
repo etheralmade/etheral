@@ -94,11 +94,16 @@ exports.sourceNodes = async ({
         .firestore()
         .collection('fl_content')
         .where('_fl_meta_.schema', '==', 'collection');
+    const homepage = firebaseApp
+        .firestore()
+        .collection('fl_content')
+        .where('_fl_meta_.schema', '==', 'homepage');
 
     const storage = firebaseApp.storage();
 
     let collectionDocs = [];
     let productDocs = [];
+    let homepageDoc;
 
     await products.get().then(docs => {
         docs.forEach(doc => {
@@ -116,8 +121,13 @@ exports.sourceNodes = async ({
         });
     });
 
-    console.log(`product docs length: ${await productDocs.length}`);
-    console.log(`collection docs length: ${await collectionDocs.length}`);
+    await homepage.get().then(docs => {
+        if (docs.size > 0) {
+            docs.forEach(doc => {
+                homepageDoc = doc.data();
+            });
+        }
+    });
 
     // mapping all product docs and creating a node for each docs.
     const createNodesProducts = await productDocs.map(async data => {
@@ -167,8 +177,8 @@ exports.sourceNodes = async ({
             collection: data.collection,
             weight: data.weight,
             slug: data.collection
-                ? `${nameToSlug(data.collection)}/${data.id}`
-                : `${noCollection}/${data.id}`,
+                ? `${nameToSlug(data.collection)}/${nameToSlug(data.name)}`
+                : `${noCollection}/${nameToSlug(data.name)}`,
         };
 
         return await createNode({
@@ -226,6 +236,79 @@ exports.sourceNodes = async ({
         });
     });
 
+    const createNodeHomepage = async () => {
+        const campaigns = await Promise.all(
+            homepageDoc.campaigns.campaign.map(async campaignItem => {
+                const req = await campaignItem.image[0].get();
+                const imgRef = await req.data().file;
+
+                const imgDownloadUrl = await storage
+                    .ref(`flamelink/media/${imgRef}`)
+                    .getDownloadURL();
+
+                const { campaignLink, campaignName } = campaignItem;
+
+                return await {
+                    campaignLink,
+                    campaignName,
+                    url: imgDownloadUrl,
+                };
+            })
+        );
+
+        const homepageImages = await Promise.all(
+            homepageDoc.homepageImages.map(async homepageImg => {
+                const req = await homepageImg.image[0].get();
+                const imgRef = await req.data().file;
+
+                const imgDownloadUrl = await storage
+                    .ref(`flamelink/media/${imgRef}`)
+                    .getDownloadURL();
+
+                const { buttonLink, buttonText } = homepageImg;
+
+                return await {
+                    buttonLink,
+                    buttonText,
+                    url: imgDownloadUrl,
+                };
+            })
+        );
+
+        const products = await Promise.all(
+            homepageDoc.products.map(async productItem => {
+                const req = await productItem.product
+                    .get()
+                    .then(product => product.data());
+                return await req.id;
+            })
+        );
+
+        const urls = await [
+            ...campaigns.map(campaign => campaign.url),
+            ...homepageImages.map(homepageImage => homepageImage.url),
+        ];
+
+        console.log(await urls.length);
+
+        const nodeFields = await {
+            campaigns,
+            homepageImages,
+            products,
+            urls,
+        };
+
+        return await createNode({
+            // data for the node
+            ...nodeFields,
+            id: createNodeId('homepage'),
+            internal: {
+                type: 'Homepage',
+                contentDigest: createContentDigest(nodeFields),
+            },
+        });
+    };
+
     // get all cities from rajaongkir.com
     const requestCitiesCalculateShipping = async () => {
         try {
@@ -268,6 +351,7 @@ exports.sourceNodes = async ({
             createNodesProducts,
             createNodesCollections,
             requestCitiesCalculateShipping(),
+            createNodeHomepage(),
         ])
     );
 };

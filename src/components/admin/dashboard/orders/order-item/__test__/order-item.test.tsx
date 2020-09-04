@@ -34,41 +34,51 @@ describe('OrderItem Component', () => {
         ReactDOM.render(el, div);
     });
 
+    // behaviorial tests => provide set timeout to give element some time to render.
+
     it('should display a form asking for shipping info whenever admin checked the delivered checkbox', () => {
         const { queryByText, queryByTestId, getByRole } = render(el);
-        const NotShippedKeyword = queryByText(
-            'Status: Not shipped'
-        ) as HTMLInputElement;
-
-        if (NotShippedKeyword) {
-            expect(NotShippedKeyword).toBeInTheDocument();
-        } else {
-            fail();
-        }
-
-        const ConfirmShipButton = getByRole('button');
-
-        userEvent.click(ConfirmShipButton);
-
-        setTimeout(() => {
+        const checkShippingInfoForm = () => {
             const ShippingDataForm = queryByTestId('shipping-info-form');
             if (ShippingDataForm) {
                 expect(ShippingDataForm).toBeInTheDocument();
             } else {
                 fail();
             }
-        }, 300);
+        };
+
+        const checkForShippingConfirmation = () => {
+            const NotShippedKeyword = queryByText(
+                'Status: Not shipped'
+            ) as HTMLInputElement;
+
+            if (NotShippedKeyword) {
+                expect(NotShippedKeyword).toBeInTheDocument();
+            } else {
+                fail();
+            }
+
+            const ConfirmShipButton = getByRole('button');
+
+            userEvent.click(ConfirmShipButton);
+
+            setTimeout(checkShippingInfoForm, 300);
+        };
+
+        setTimeout(checkForShippingConfirmation, 300);
     });
 
     it('should not display the shipping infos if the order has already shipped', () => {
         const { queryByTestId } = render(elShipped);
-        const ShippingInfoCard = queryByTestId('shipping-info');
+        setTimeout(() => {
+            const ShippingInfoCard = queryByTestId('shipping-info');
 
-        if (!ShippingInfoCard) {
-            fail();
-        } else {
-            expect(ShippingInfoCard).toBeInTheDocument();
-        }
+            if (!ShippingInfoCard) {
+                fail();
+            } else {
+                expect(ShippingInfoCard).toBeInTheDocument();
+            }
+        }, 300);
     });
 
     it('matches snapshot', () => {

@@ -2,7 +2,7 @@
 
 exports[`Admin navigation component matches snapshot 1`] = `
 <div
-  className="css-1b6hbl9"
+  className="css-wbroqy"
 >
   <button
     className="css-vhv7r1"
@@ -27,7 +27,11 @@ exports[`Admin navigation component matches snapshot 1`] = `
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
     />
-    Orders
+    <span
+      className="css-k07cjd"
+    >
+      Orders
+    </span>
   </button>
   <button
     className="css-vhv7r1"
@@ -52,7 +56,11 @@ exports[`Admin navigation component matches snapshot 1`] = `
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
     />
-    Links
+    <span
+      className="css-k07cjd"
+    >
+      Links
+    </span>
   </button>
   <button
     className="css-vhv7r1"
@@ -77,7 +85,11 @@ exports[`Admin navigation component matches snapshot 1`] = `
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
     />
-    Admin users
+    <span
+      className="css-k07cjd"
+    >
+      Admin
+    </span>
   </button>
   <div
     className="css-gi5z2v"
@@ -154,7 +166,11 @@ exports[`Admin navigation component matches snapshot 1`] = `
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
     />
-    Log out
+    <span
+      className="css-k07cjd"
+    >
+      Log out
+    </span>
   </button>
 </div>
 `;
