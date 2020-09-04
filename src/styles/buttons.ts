@@ -46,7 +46,8 @@ export default {
         ...buttonBaseStyle,
         bg: 'brown.0',
         color: 'brown.3',
-        fontFamily: 'body',
-        fontWeight: 600,
+        fontFamily: 'heading',
+        fontWeight: 'heading',
+        fontSize: [0, 0, 1],
     },
 };

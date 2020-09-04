@@ -35,7 +35,7 @@ export type Props = {
 const Hero: React.FC<Props> = ({ heroData }) => {
     // add responsive height here on mobile devices.
     return (
-        <Box height={['30vh', '100vh']} width="100vw">
+        <Box height={'fit-content'} width="100vw">
             <CarouselProvider
                 naturalSlideHeight={1280}
                 naturalSlideWidth={1920}

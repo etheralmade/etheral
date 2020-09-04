@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import { FluidObject, FixedObject } from 'gatsby-image';
 
 import { Layout } from '../components/layout';
 import { SEO } from '../components/seo';
@@ -27,6 +27,13 @@ export type FluidData = {
     };
 };
 
+export type FixedData = {
+    url: string;
+    childImgeSharp: {
+        fixed: FixedObject | FixedObject[] | undefined;
+    };
+};
+
 const App = (props: PageProps) => {
     // eslint-disable-next-line @typescript-eslint/tslint/config
 
@@ -34,18 +41,28 @@ const App = (props: PageProps) => {
     const dataAsAny = data as any;
 
     const homepageData: HomePageData = dataAsAny.homepageData as HomePageData;
-    const imgS: FluidData[] = dataAsAny.imgS.imgs;
-    const imgM: FluidData[] = dataAsAny.imgM.imgs;
-    const imgL: FluidData[] = dataAsAny.imgL.imgs;
+    const heroImgS: FluidData[] = dataAsAny.imgS.imgs;
+    const heroImgM: FluidData[] = dataAsAny.imgM.imgs;
+    const heroImgL: FluidData[] = dataAsAny.imgL.imgs;
+
+    const campaignImgS: FixedData[] = dataAsAny.campaignImgS.imgs;
+    const campaignImgM: FixedData[] = dataAsAny.campaignImgM.imgs;
+    const campaignImgL: FixedData[] = dataAsAny.campaignImgL.imgs;
+
+    const heroImages = { imgS: heroImgS, imgM: heroImgM, imgL: heroImgL };
+    const campaignImages = {
+        imgS: campaignImgS,
+        imgM: campaignImgM,
+        imgL: campaignImgL,
+    };
 
     return (
         <Layout>
             <SEO />
             <Homepage
                 homepageData={homepageData}
-                imgS={imgS}
-                imgM={imgM}
-                imgL={imgL}
+                heroImages={heroImages}
+                campaignImages={campaignImages}
             />
         </Layout>
     );
@@ -94,6 +111,36 @@ export const query = graphql`
                 childImageSharp {
                     fluid(maxWidth: 1920) {
                         ...GatsbyImageSharpFluid
+                    }
+                }
+            }
+        }
+        campaignImgS: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fixed(width: 375, height: 375) {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
+        }
+        campaignImgM: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fixed(width: 480, height: 480) {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
+        }
+        campaignImgL: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fixed(height: 640, width: 640) {
+                        ...GatsbyImageSharpFixed
                     }
                 }
             }

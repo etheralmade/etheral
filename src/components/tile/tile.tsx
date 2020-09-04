@@ -1,5 +1,5 @@
 import React from 'react';
-import Img, { FluidObject } from 'gatsby-image';
+import Img, { FluidObject, FixedObject } from 'gatsby-image';
 
 import { Box, Flex, FlexProps, Heading } from 'rebass';
 
@@ -7,9 +7,10 @@ type Props = FlexProps & {
     url: string;
     imgAlt: string;
     img?: {
-        sources: FluidObject | FluidObject[];
+        sources: FluidObject | FluidObject[] | FixedObject | FixedObject[];
     };
     tileOnText?: string;
+    imageIsFluid?: boolean;
 };
 
 const Tile: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const Tile: React.FC<Props> = ({
     tileOnText,
     url,
     imgAlt,
+    imageIsFluid,
     css,
     ...rest
 }) => {
@@ -33,10 +35,20 @@ const Tile: React.FC<Props> = ({
             <Box
                 height="100%"
                 width="100%"
-                sx={{ position: 'absolute', top: 0, left: 0 }}
+                sx={{ position: 'absolute', top: 0, left: 0, zIndex: -1 }}
             >
                 {img ? (
-                    <Img fluid={img.sources} alt={imgAlt} />
+                    imageIsFluid ? (
+                        <Img
+                            fluid={img.sources as FluidObject | FluidObject[]}
+                            alt={imgAlt}
+                        />
+                    ) : (
+                        <Img
+                            fixed={img.sources as FixedObject | FixedObject[]}
+                            alt={imgAlt}
+                        />
+                    )
                 ) : (
                     <img src={url} alt={imgAlt} />
                 )}

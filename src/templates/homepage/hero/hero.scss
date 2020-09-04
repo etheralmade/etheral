@@ -1,6 +1,11 @@
 .carousel {
     position: relative;
 
+    & div,
+    & button:focus {
+        outline: none;
+    }
+
     .carousel-dot {
         position: absolute;
         bottom: 3%;
@@ -10,10 +15,6 @@
         button.carousel__dot {
             margin: 0 4px;
         }
-    }
-
-    .carousel-slide {
-        outline: none;
     }
 
     button.carousel-button {

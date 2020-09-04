@@ -1,0 +1,14 @@
+.wrap {
+    a {
+        width: 100%;
+        text-decoration: none;
+
+        @media (min-width: 48em) {
+            width: 320px;
+        }
+
+        @media (min-width: 64em) {
+            width: 48%;
+        }
+    }
+}

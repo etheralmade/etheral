@@ -6,7 +6,7 @@ exports[`Tile component matches snapshot 1`] = `
   data-testid="tile-container"
 >
   <div
-    className="css-1s1ejcu"
+    className="css-oryowi"
   >
     <img
       alt="mockAltImage"

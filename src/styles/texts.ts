@@ -40,4 +40,10 @@ export default {
         fontFamily: 'body',
         fontWeight: 'medium',
     },
+    tileText: {
+        fontFamily: 'heading',
+        fontWeight: 'medium',
+        textDecoration: 'none',
+        color: '#fff',
+    },
 };

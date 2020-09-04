@@ -2,13 +2,20 @@ import React, { useState, useEffect } from 'react';
 import firebase from 'gatsby-plugin-firebase';
 
 import { Homepage as HomepageEl } from './homepage';
-import { FluidData, HomePageData } from 'pages';
+import { FluidData, HomePageData, FixedData } from 'pages';
 
 export type Props = {
     homepageData: HomePageData;
-    imgS: FluidData[];
-    imgM: FluidData[];
-    imgL: FluidData[];
+    heroImages: {
+        imgS: FluidData[];
+        imgM: FluidData[];
+        imgL: FluidData[];
+    };
+    campaignImages: {
+        imgS: FixedData[];
+        imgM: FixedData[];
+        imgL: FixedData[];
+    };
 };
 
 const Homepage: React.FC<Props> = props => {
