@@ -31,7 +31,7 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                         productImages {
                             url
                             childImageSharp {
-                                fixed(width: 240, height: 240) {
+                                fixed(width: 240, height: 240, quality: 100) {
                                     ...GatsbyImageSharpFixed
                                 }
                             }
@@ -46,7 +46,7 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                         productImages {
                             url
                             childImageSharp {
-                                fixed(height: 300, width: 300) {
+                                fixed(height: 300, width: 300, quality: 100) {
                                     ...GatsbyImageSharpFixed
                                 }
                             }
@@ -61,7 +61,7 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                         productImages {
                             url
                             childImageSharp {
-                                fixed(height: 240, width: 240) {
+                                fixed(height: 260, width: 260, quality: 100) {
                                     ...GatsbyImageSharpFixed
                                 }
                             }
@@ -144,6 +144,7 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                                 product={product}
                                 imgs={extractImgs(product)}
                                 mb={[7]}
+                                mx={[1]}
                                 width={['100%', '100%', 'fit-content']}
                             />
                         </Link>

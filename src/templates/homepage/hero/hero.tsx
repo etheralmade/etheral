@@ -48,7 +48,7 @@ const Hero: React.FC<Props> = ({ heroData }) => {
             >
                 <Slider className="carousel-slide">
                     {heroData.map((data, i) => (
-                        <Slide index={i} key={i}>
+                        <Slide index={i} key={i} innerClassName="slide">
                             <HeroImage {...data} />
                         </Slide>
                     ))}

@@ -1,6 +1,11 @@
 .carousel {
     position: relative;
 
+    .carousel-slide,
+    .slide {
+        max-height: 100vh;
+    }
+
     & div,
     & button:focus {
         outline: none;
