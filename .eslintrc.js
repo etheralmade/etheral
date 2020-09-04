@@ -113,7 +113,7 @@ module.exports = {
                             multiline: {
                                 arrays: 'ignore',
                                 functions: 'ignore',
-                                objects: 'always',
+                                objects: 'ignore',
                                 typeLiterals: 'ignore',
                             },
                         },
