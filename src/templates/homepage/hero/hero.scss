@@ -1,0 +1,49 @@
+.carousel {
+    position: relative;
+
+    .carousel-dot {
+        position: absolute;
+        bottom: 3%;
+        left: 50%;
+        transform: translateX(-50%) scale(1.3);
+
+        button.carousel__dot {
+            margin: 0 4px;
+        }
+    }
+
+    button.carousel-button {
+        background: none;
+        border: none;
+
+        position: absolute;
+        opacity: 0.7;
+        top: 50%;
+        transform: translateY(-50%);
+
+        & > svg {
+            height: 36px;
+            width: 36px;
+        }
+
+        &.carousel-next {
+            right: 2%;
+        }
+
+        &.carousel-back {
+            left: 2%;
+        }
+    }
+
+    // theme breakpoint[0]
+    @media screen and (min-width: 40em) {
+        // .carousel-dot {
+        //     bottom: 4%;
+        // }
+
+        button.carousel-button > svg {
+            height: 48px;
+            width: 48px;
+        }
+    }
+}

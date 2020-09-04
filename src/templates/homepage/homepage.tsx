@@ -1,6 +1,8 @@
 import React from 'react';
 import { findIndex } from 'lodash';
 
+import { FluidObject } from 'gatsby-image';
+
 import { Props as InitialProps } from '.';
 import { FluidData } from 'pages';
 import Hero from './hero';
@@ -26,8 +28,6 @@ const extractFluidFromUrl = (
 
 const Homepage: React.FC<Props> = ({ homepageData, imgS, imgM, imgL, db }) => {
     // query on index.ts => maxWidth: 600, 1040, 1920
-    console.log(homepageData);
-
     const { homepageImages } = homepageData;
 
     // extract hero data
@@ -44,15 +44,15 @@ const Homepage: React.FC<Props> = ({ homepageData, imgS, imgM, imgL, db }) => {
                 {
                     ...heroImgS[index].childImageSharp.fluid,
                     media: '(max-width: 600px)',
-                },
+                } as FluidObject,
                 {
                     ...heroImgM[index].childImageSharp.fluid,
                     media: '(max-width: 1040px)',
-                },
+                } as FluidObject,
                 {
                     ...heroImgL[index].childImageSharp.fluid,
                     media: '(max-width: 1920px)',
-                },
+                } as FluidObject,
             ],
         },
     }));

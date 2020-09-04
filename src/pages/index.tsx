@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import { FluidObject, FixedObject } from 'gatsby-image';
+import { FluidObject } from 'gatsby-image';
 
 import { Layout } from '../components/layout';
 import { SEO } from '../components/seo';
@@ -72,7 +72,7 @@ export const query = graphql`
             imgs {
                 url
                 childImageSharp {
-                    fluid(maxWidth: 600) {
+                    fluid(maxWidth: 600, maxHeight: 400) {
                         ...GatsbyImageSharpFluid
                     }
                 }

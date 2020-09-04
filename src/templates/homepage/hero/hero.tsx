@@ -1,25 +1,64 @@
 import React from 'react';
-import Img, { FluidObject, FixedObject } from 'gatsby-image';
+import { FluidObject } from 'gatsby-image';
+import {
+    CarouselProvider,
+    Slider,
+    Slide,
+    ButtonBack,
+    ButtonNext,
+    DotGroup,
+} from 'pure-react-carousel';
 
 import { Box } from 'rebass';
+import { Icon } from '@iconify/react';
+import arrowRightSLine from '@iconify/icons-ri/arrow-right-s-line';
+import arrowLeftSLine from '@iconify/icons-ri/arrow-left-s-line';
+
+import HeroImage from './hero-img';
+
+import 'pure-react-carousel/dist/react-carousel.es.css';
+import './hero.scss';
+
+export type HeroData = {
+    img: {
+        sources: FluidObject | FluidObject[];
+    };
+    url: string;
+    buttonLink: string;
+    buttonText: string;
+};
 
 export type Props = {
-    heroData: {
-        img: {
-            sources: FluidObject | FluidObject[];
-        };
-        url: string;
-        buttonLink: string;
-        buttonText: string;
-    }[];
+    heroData: HeroData[];
 };
 
 const Hero: React.FC<Props> = ({ heroData }) => {
-    console.log(heroData);
-
+    // add responsive height here on mobile devices.
     return (
-        <Box height="100vh" width="100vw">
-            <Img fluid={heroData[0].img.sources} />
+        <Box height={['30vh', '100vh']} width="100vw">
+            <CarouselProvider
+                naturalSlideHeight={1280}
+                naturalSlideWidth={1920}
+                totalSlides={heroData.length}
+                isPlaying={true}
+                interval={5000}
+                className="carousel"
+            >
+                <Slider>
+                    {heroData.map((data, i) => (
+                        <Slide index={i} key={i}>
+                            <HeroImage {...data} />
+                        </Slide>
+                    ))}
+                </Slider>
+                <ButtonBack className="carousel-button carousel-back">
+                    <Icon icon={arrowLeftSLine} color="#f0f0f0" />
+                </ButtonBack>
+                <ButtonNext className="carousel-button carousel-next">
+                    <Icon icon={arrowRightSLine} color="#f0f0f0" />
+                </ButtonNext>
+                <DotGroup className="carousel-dot" />
+            </CarouselProvider>
         </Box>
     );
 };

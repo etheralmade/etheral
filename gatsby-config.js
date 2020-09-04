@@ -112,6 +112,7 @@ module.exports = {
             },
         },
         `gatsby-plugin-offline`,
+        `gatsby-plugin-sass`,
         {
             resolve: `gatsby-plugin-react-redux`,
             options: {

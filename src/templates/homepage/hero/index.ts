@@ -1,5 +1,5 @@
-import { Hero, Props } from './hero';
+import { Hero, Props, HeroData } from './hero';
 
-export { Props };
+export { Props, HeroData };
 
 export default Hero;
