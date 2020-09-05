@@ -40,26 +40,37 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
 
         return (
             <Box
-                height={['92vh', '92vh', '92vh', 'fit-content']}
-                width={['100%', '100%', '100%', '100vw']}
-                py={[4, 4, 4, 4]}
-                px={[6, 6, 6, '15vw']}
+                height={['92vh', '92vh', 'fit-content']}
+                width={['100%', '100%', '100vw']}
+                py={[4, 4, 9]}
+                px={[6, '10vwv', 8, '15vw']}
                 id="dropdown"
-                bg={['brown.0', 'brown.0', 'brown.0', '#fff']}
+                bg={['brown.0', 'brown.0', '#fff']}
                 css={`
                     position: absolute;
                     left: 0;
                     top: 8vh;
                     z-index: 2;
 
-                    @media (min-width: 64em) {
+                    #go-back-dropdown {
+                        svg {
+                            margin-right: 12px;
+                            transform: translateY(1px) !important;
+                        }
+                    }
+
+                    @media (min-width: 48em) {
                         #go-back-dropdown {
                             display: none;
                         }
 
                         top: 10vh;
-                        left: -10%;
-                        transform: translateX(-8%);
+                        transform: translateX(-5%);
+                        border: 1px solid black;
+                    }
+
+                    @media (min-width: 64em) {
+                        left: -14.5%;
                     }
                 `}
             >
@@ -69,11 +80,30 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                         Menu
                     </Text>
                 </Box>
-                <Flex>
-                    <Flex>
-                        <Box>
-                            <Text>Collections</Text>
-                            <Box ml={[4]}>
+                <Flex ml={[6, 6, 0]}>
+                    <Flex
+                        flexDirection={['column', 'row', 'row']}
+                        flexWrap="wrap"
+                    >
+                        <Box className="others" my={[5, 5, 0]}>
+                            <Link to="/">
+                                <Text variant="link">Shop all</Text>
+                            </Link>
+                            <Link to="/">
+                                <Text variant="link">New arrivals</Text>
+                            </Link>
+                            <Link to="/">
+                                <Text variant="link">Best sellers</Text>
+                            </Link>
+                            <Link to="/">
+                                <Text variant="link">Sale?</Text>
+                            </Link>
+                        </Box>
+                        <Box className="collections" ml={[0, 7]}>
+                            <Text as="h3" variant="h3" mb={[3, 3, 5]}>
+                                Collections
+                            </Text>
+                            <Box ml={[4, 4, 0, 0]} mb={[4, 4, 0, 0]}>
                                 {collections.map(collection => (
                                     <Link
                                         key={collection}
@@ -92,6 +122,22 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                                         </Text>
                                     </Link>
                                 ))}
+                            </Box>
+                        </Box>
+                        <Box className="categories" ml={[0, 7]}>
+                            <Text as="h3" variant="h3" mb={[3, 3, 5]}>
+                                Categories
+                            </Text>
+                            <Box ml={[4, 4, 0]} mb={[4, 4, 0]}>
+                                <Link to="/">
+                                    <Text variant="link">Bracelets</Text>
+                                </Link>
+                                <Link to="/">
+                                    <Text variant="link">Necklaces</Text>
+                                </Link>
+                                <Link to="/">
+                                    <Text variant="link">Rings</Text>
+                                </Link>
                             </Box>
                         </Box>
                     </Flex>

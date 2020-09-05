@@ -49,7 +49,7 @@ const colors: ColorTheme = {
 };
 
 const theme: Theme = {
-    breakpoints: ['24em', '48em', '64em'],
+    breakpoints: ['27em', '48em', '64em'],
     fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
     colors,
     space: [0, 4, 6, 8, 12, 16, 24, 32, 48, 64, 128, 256],

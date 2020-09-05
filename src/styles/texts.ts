@@ -1,8 +1,8 @@
 const baseLink = {
     fontFamily: 'body',
-    fontSize: [3, 3, 3, 2],
+    fontSize: [3, 3, 2],
     fontWeight: 'medium',
-    mr: [0, 0, 0, 5],
+    mr: [0, 0, 5],
 };
 
 export default {

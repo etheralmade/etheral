@@ -1,29 +1,46 @@
-//import React from 'react'
-//import ReactDOM from 'react-dom'
-//import renderer from 'react-test-renderer'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 
-//import { render, cleanup } from '@testing-library/react'
+import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
+import { Dropdown } from '../dropdown';
+
+import * as Gatsby from 'gatsby';
+
 describe('Dropdown element', () => {
-    //afterEach(cleanup)
+    const useStaticQuery = jest.spyOn(Gatsby, 'useStaticQuery');
 
-    it('should always passes', () => {});
+    beforeEach(() => {
+        useStaticQuery.mockImplementationOnce(() => {
+            return {
+                allCollection: {
+                    edges: [
+                        {
+                            node: {
+                                name: 'Collection1',
+                            },
+                        },
+                    ],
+                },
+            };
+        });
+    });
 
-    /* 	it('renders without crashing', () => {
+    const element = (
+        <Dropdown currLocation="/about" goBack={jest.fn(() => {})} />
+    );
 
-        const div = document.createElement('div')
-        ReactDOM.render(, div)
-    })
+    afterEach(cleanup);
 
-    it('renders correctly', () => {
-
-        const { getByTestId } = render()
-    })
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        ReactDOM.render(element, div);
+    });
 
     it('matches snapshot', () => {
-
-        const tree = renderer.create().toJSON()
-        expect(tree).toMatchSnapshot()
-    }) */
+        const tree = renderer.create(element).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 });

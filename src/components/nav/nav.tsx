@@ -74,7 +74,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
             <Box variant="innerWrapper">
                 <Flex
                     width="100%"
-                    height={['8vh', '8vh', '8vh', '10vh']}
+                    height={['8vh', '8vh', '10vh']}
                     alignItems="center"
                     css={`
                         position: relative;
@@ -83,7 +83,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                             display: none;
                         }
 
-                        @media (min-width: 64em) {
+                        @media (min-width: 48em) {
                             #links-L {
                                 display: flex;
                             }
@@ -118,7 +118,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                                 </Text>
                                 <CSSTransition
                                     in={showDropdownL}
-                                    timeout={100}
+                                    timeout={200}
                                     unmountOnExit={true}
                                     classNames="dropdown"
                                 >
@@ -172,7 +172,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                     unmountOnExit={true}
                     classNames="links"
                 >
-                    <Box id="links-S" height={['92vh']} p={5}>
+                    <Box id="links-S" minHeight={['92vh']} p={5}>
                         <Link to="/about">
                             <Text
                                 variant={
@@ -180,12 +180,15 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                                         ? 'linkActive'
                                         : 'link'
                                 }
+                                my={[2]}
                             >
                                 About
                             </Text>
                         </Link>
                         <Box onClick={() => setShowDropdown(prev => !prev)}>
-                            <Text variant="link">Shop</Text>
+                            <Text variant="link" my={[2]}>
+                                Shop
+                            </Text>
                         </Box>
                         <Link to="/blog">
                             <Text
@@ -194,6 +197,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                                         ? 'linkActive'
                                         : 'link'
                                 }
+                                my={[2]}
                             >
                                 Blog
                             </Text>

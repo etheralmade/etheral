@@ -1,6 +1,9 @@
 nav {
-    transition: 0.2s;
+    transition: 0.1s;
     margin: 0 !important;
+
+    position: fixed;
+    z-index: 2;
 
     a {
         text-decoration: none;
@@ -40,34 +43,28 @@ nav {
         transition: transform 200ms, opacity 100ms;
     }
 
-    @media (min-width: 64em) {
+    @media (min-width: 48em) {
         a {
             height: 100%;
         }
 
         .dropdown-enter {
-            height: 0;
-            overflow: hidden;
             opacity: 0;
-            transform: translateX(-8%);
+            transform: translate(-5%);
         }
         .dropdown-enter-active {
-            height: fit-content;
             opacity: 1;
-            transition: opacity 100ms;
-            transform: translateX(-8%);
+            transition: opacity 200ms;
+            transform: translate(-5%);
         }
         .dropdown-exit {
-            height: fit-content;
             opacity: 1;
-            transform: translateX(-8%);
+            transform: translate(-5%);
         }
         .dropdown-exit-active {
-            height: 0;
-            overflow: hidden;
             opacity: 0;
-            transition: opacity 100ms;
-            transform: translateX(-8%);
+            transition: opacity 200ms;
+            transform: translate(-5%);
         }
     }
 }
