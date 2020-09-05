@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from '@reach/router';
 
+import { Text } from 'rebass';
+
 import Cart from './cart';
 import { clearCart } from 'state/actions/cart';
 
@@ -33,11 +35,9 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
     // mock links for testing purposes
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <Link to="/collection1">Collection1</Link>
-            <Link to="/collection2">Collection2</Link>
-            <Link to="/checkout">
-                <button>Go to checkout</button>
-            </Link>
+            <Link to="/about">About</Link>
+            <Text>Shop</Text>
+            <Link to="/blog">Blog</Link>
             {!user ? (
                 <Link to="/auth">
                     <button>Login</button>
