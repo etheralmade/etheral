@@ -1,3 +1,10 @@
+const baseLink = {
+    fontFamily: 'body',
+    fontSize: [3, 3, 3, 2],
+    fontWeight: 'medium',
+    mr: [0, 0, 0, 5],
+};
+
 export default {
     h1: {
         fontSize: [5, 5, 6],
@@ -60,5 +67,14 @@ export default {
         fontFamily: 'heading',
         fontWeight: 'bold',
         color: '#000',
+    },
+    link: {
+        ...baseLink,
+        color: '#555',
+    },
+    linkActive: {
+        ...baseLink,
+        color: '#000',
+        fontWeight: 'bold',
     },
 };
