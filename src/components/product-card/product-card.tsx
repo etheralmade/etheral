@@ -23,7 +23,7 @@ const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
     if (imgs) {
         return (
             <Box {...rest}>
-                <Box bg="brown.0" p={[2]} width="fit-content" mb={[3]}>
+                <Box width="fit-content" mb={[3]}>
                     <Box className="product-img">
                         <Img
                             fixed={imgs[0].sources}

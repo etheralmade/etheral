@@ -61,7 +61,7 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                         productImages {
                             url
                             childImageSharp {
-                                fixed(height: 260, width: 260, quality: 100) {
+                                fixed(height: 200, width: 200, quality: 100) {
                                     ...GatsbyImageSharpFixed
                                 }
                             }
