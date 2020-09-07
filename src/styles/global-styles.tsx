@@ -10,6 +10,42 @@ const GlobalStyles = createGlobalStyle`
     body {
       max-width: 100vw;
       overflow-x: hidden;
+
+      main {
+        position: relative;
+        top: 8vh;
+
+        header {
+          top: 0;
+        }
+
+        @media screen and (min-width: 27em) {
+          top: calc(8vh + 32px);
+        }
+
+        @media screen and (min-width: 48em) {
+          top: 0;
+
+          header {
+            top: 2vh;
+          }
+        }
+
+        @media screen and (min-width: 64em) {
+          header {
+            top: 0;
+          }
+        }
+      }
+
+      .top {
+
+        @media screen and (min-width: 64em) {
+          position: relative;
+          top: 10vh;
+        }
+        
+      }
     }
 `;
 

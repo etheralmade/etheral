@@ -42,8 +42,9 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
             <Box
                 height={['92vh', '92vh', 'fit-content']}
                 width={['100%', '100%', '100vw']}
-                py={[4, 4, 9]}
-                px={[6, '10vwv', 8, '15vw']}
+                pt={[4, 4, 5]}
+                pb={[4, 4, 9]}
+                px={[6, '10vw', 8, '15vw']}
                 id="dropdown"
                 bg={['brown.0', 'brown.0', '#fff']}
                 css={`
@@ -57,6 +58,10 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                             margin-right: 12px;
                             transform: translateY(1px) !important;
                         }
+                    }
+
+                    @media (min-width: 24em) {
+                        top: 15vh;
                     }
 
                     @media (min-width: 48em) {

@@ -11,6 +11,7 @@ import { removeFromCart, setCart } from 'state/actions/cart';
 import useAllProducts from 'helper/use-all-products';
 import extractCartFirestore from 'helper/extract-cart-firestore';
 import { InCart } from 'helper/schema/firebase-user';
+import CartBadge from './cart-badge';
 
 export type Props = {
     user: firebase.User | null;
@@ -98,13 +99,10 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
             variant="center"
             css={`
                 position: relative;
-                & > svg {
-                    height: 24px;
-                    width: 24px;
-                }
             `}
         >
-            <Icon icon={shoppingCart2Line} />
+            <Icon className="icons" icon={shoppingCart2Line} />
+            {cart.length > 0 && <CartBadge length={cart.length} />}
         </Flex>
     );
 };

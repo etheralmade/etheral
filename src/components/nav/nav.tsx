@@ -13,6 +13,7 @@ import Dropdown from './dropdown';
 import Logo from 'components/logo';
 
 import './nav.scss';
+import Account from './account';
 
 type Props = {
     auth: firebase.auth.Auth;
@@ -71,35 +72,57 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
     // mock links for testing purposes
     return (
         <Flex variant="outerWrapper" as="header" bg={bg}>
-            <Box variant="innerWrapper" my={[0, 5, 0]}>
-                {/* Logo */}
-                <Flex
-                    variant="center"
-                    css={`
-                        overflow: hidden;
-                        position: absolute;
+            <Box
+                variant="innerWrapper"
+                my={[0, 5, 0]}
+                css={`
+                    & .icons {
+                        height: 16px;
+                        width: 16px;
 
-                        left: 50%;
-                        transform: translate(-50%, 0);
-
-                        & > svg {
-                            height: 8vh;
-                            width: 20vw;
+                        @media screen and (min-width: 27em) {
+                            height: 20px;
+                            width: 20px;
                         }
 
                         @media screen and (min-width: 48em) {
-                            transform: translate(-50%, 8px);
-                            width: 15vw;
+                            height: 24px;
+                            width: 24px;
                         }
+                    }
+                `}
+            >
+                {/* Logo */}
+                <Link to="/">
+                    <Flex
+                        variant="center"
+                        css={`
+                            position: absolute;
+                            z-index: 2;
 
-                        @media screen and (min-width: 64em) {
-                            width: 10vw;
-                            transform: translate(-50%, 8px);
-                        }
-                    `}
-                >
-                    <Logo />
-                </Flex>
+                            left: 50%;
+                            transform: translate(-50%, 0);
+
+                            & svg {
+                                height: 8vh;
+                                width: 20vw;
+                            }
+
+                            @media screen and (min-width: 48em) {
+                                transform: translate(-50%, 8px);
+                                width: 15vw;
+                            }
+
+                            @media screen and (min-width: 64em) {
+                                width: 10vw;
+                                transform: translate(-50%, 8px);
+                            }
+                        `}
+                    >
+                        <Logo />
+                    </Flex>
+                </Link>
+
                 <Flex
                     width="100%"
                     height={['8vh', '8vh', '10vh']}
@@ -123,74 +146,68 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                         }
                     `}
                 >
-                    {/* Links */}
-                    <>
-                        <Flex id="links-L" alignItems="center">
-                            <Link to="/about">
-                                <Text
-                                    variant={
-                                        currLocation.includes('about')
-                                            ? 'linkActive'
-                                            : 'link'
-                                    }
-                                    py={[0, 0, '5vh']}
-                                >
-                                    About
-                                </Text>
-                            </Link>
-                            <Box
-                                onMouseEnter={() => setShowDropdownL(true)}
-                                onMouseLeave={() => setShowDropdownL(false)}
-                            >
-                                <Text variant="link" py={[0, 0, '5vh']}>
-                                    Shop
-                                </Text>
-                                <CSSTransition
-                                    in={showDropdownL}
-                                    timeout={200}
-                                    unmountOnExit={true}
-                                    classNames="dropdown"
-                                >
-                                    <Dropdown
-                                        goBack={() => setShowDropdown(false)}
-                                        currLocation={currLocation}
-                                    />
-                                </CSSTransition>
-                            </Box>
-                            <Link to="/blog">
-                                <Text
-                                    variant={
-                                        currLocation.includes('blog')
-                                            ? 'linkActive'
-                                            : 'link'
-                                    }
-                                    py={[0, 0, '5vh']}
-                                >
-                                    Blog
-                                </Text>
-                            </Link>
-                        </Flex>
-                        <Box onClick={handleMenuMobile} id="menu-mobile">
-                            <Icon icon={menuFill} />
-                        </Box>
-                    </>
+                    {/* Links for desktop */}
 
-                    {/* Auth */}
-                    <Box>
-                        <Flex>
-                            {/* !user ? (
-                                <Link to="/auth">
-                                    <button>Login</button>
-                                </Link>
-                            ) : (
-                                <>
-                                    <button onClick={logout}>Log out</button>
-                                    <h3>User name: {user.displayName}</h3>
-                                </>
-                            ) */}
-                            <Cart user={user} db={db} />
-                        </Flex>
-                    </Box>
+                    <Flex id="links-L" alignItems="center">
+                        <Link to="/about">
+                            <Text
+                                variant={
+                                    currLocation.includes('about')
+                                        ? 'linkActive'
+                                        : 'link'
+                                }
+                                py={[0, 0, '5vh']}
+                            >
+                                About
+                            </Text>
+                        </Link>
+                        <Box
+                            onMouseEnter={() => setShowDropdownL(true)}
+                            onMouseLeave={() => setShowDropdownL(false)}
+                        >
+                            <Text variant="link" py={[0, 0, '5vh']}>
+                                Shop
+                            </Text>
+                            <CSSTransition
+                                in={showDropdownL}
+                                timeout={200}
+                                unmountOnExit={true}
+                                classNames="dropdown"
+                            >
+                                <Dropdown
+                                    goBack={() => setShowDropdown(false)}
+                                    currLocation={currLocation}
+                                />
+                            </CSSTransition>
+                        </Box>
+                        <Link to="/blog">
+                            <Text
+                                variant={
+                                    currLocation.includes('blog')
+                                        ? 'linkActive'
+                                        : 'link'
+                                }
+                                py={[0, 0, '5vh']}
+                            >
+                                Blog
+                            </Text>
+                        </Link>
+                    </Flex>
+
+                    {/* menu toggle button for mobile */}
+                    <Flex
+                        variant="center"
+                        onClick={handleMenuMobile}
+                        id="menu-mobile"
+                    >
+                        <Icon icon={menuFill} className="icons" />
+                    </Flex>
+
+                    {/* Auth and cart */}
+                    <Flex alignItems="center">
+                        <Account desktop={true} user={user} />
+                        <Cart user={user} db={db} />
+                    </Flex>
                 </Flex>
 
                 {/* Menu on mobile devices */}
@@ -201,6 +218,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                     classNames="links"
                 >
                     <Box id="links-S" minHeight={['92vh']} p={5}>
+                        <Account user={user} desktop={false} />
                         <Link to="/about">
                             <Text
                                 variant={
