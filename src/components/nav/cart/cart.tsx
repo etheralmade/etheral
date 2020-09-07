@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { Flex } from 'rebass';
 import shoppingCart2Line from '@iconify/icons-ri/shopping-cart-2-line';
+import closeLine from '@iconify/icons-ri/close-line';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
-import { Product } from 'helper/schema/product';
-import { removeFromCart, setCart } from 'state/actions/cart';
+import { setCart } from 'state/actions/cart';
 import useAllProducts from 'helper/use-all-products';
 import extractCartFirestore from 'helper/extract-cart-firestore';
 import { InCart } from 'helper/schema/firebase-user';
@@ -16,9 +16,17 @@ import CartBadge from './cart-badge';
 export type Props = {
     user: firebase.User | null;
     db: firebase.firestore.Firestore;
+    showCart: boolean;
+    toggleShowCart: () => void;
 };
 
-const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
+const Cart: React.FC<Props & ICartState> = ({
+    cart,
+    user,
+    db,
+    showCart,
+    toggleShowCart,
+}) => {
     const [cartSnapshot, setCartSnapshot] = useState(JSON.stringify(cart));
     const [isLoadingCart, setIsLoadingCart] = useState(false);
 
@@ -89,21 +97,32 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
 
     const saveSessionStorage = () =>
         sessionStorage.setItem('isNewWindow', 'true');
-
-    // option to remove the product from cart.
-    const handleRemove = (product: Product) => {
-        dispatch(removeFromCart(product));
-    };
     return (
-        <Flex
-            variant="center"
-            css={`
-                position: relative;
-            `}
-        >
-            <Icon className="icons" icon={shoppingCart2Line} />
-            {cart.length > 0 && <CartBadge length={cart.length} />}
-        </Flex>
+        <>
+            <Flex
+                variant="center"
+                css={`
+                    position: relative;
+
+                    & > svg {
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                `}
+                onClick={toggleShowCart}
+            >
+                <Icon
+                    className="icons"
+                    icon={showCart ? closeLine : shoppingCart2Line}
+                />
+                {cart.length > 0 && !showCart ? (
+                    <CartBadge cart={cart} />
+                ) : (
+                    <></>
+                )}
+            </Flex>
+        </>
     );
 };
 

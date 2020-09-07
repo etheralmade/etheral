@@ -16,8 +16,6 @@ export type Props = BoxProps & {
 };
 
 const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
-    console.log(css);
-
     const { name, idrPrice, urls } = product;
 
     if (imgs) {

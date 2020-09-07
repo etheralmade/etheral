@@ -43,6 +43,25 @@ header {
         transition: transform 200ms, opacity 100ms;
     }
 
+    .cart-items-enter {
+        transform: translateX(50%);
+        opacity: 0;
+    }
+    .cart-items-enter-active {
+        transform: translateX(0);
+        opacity: 1;
+        transition: transform 200ms, opacity 100ms;
+    }
+    .cart-items-exit {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    .cart-items-exit-active {
+        transform: translateX(50%);
+        opacity: 0;
+        transition: transform 200ms, opacity 100ms;
+    }
+
     @media (min-width: 48em) {
         a {
             height: 100%;

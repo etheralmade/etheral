@@ -6,26 +6,30 @@ import { Text, Flex, Box } from 'rebass';
 import { Icon } from '@iconify/react';
 import menuFill from '@iconify/icons-ri/menu-fill';
 import { CSSTransition } from 'react-transition-group';
+import closeLine from '@iconify/icons-ri/close-line';
 
 import Cart from './cart';
 import { clearCart } from 'state/actions/cart';
 import Dropdown from './dropdown';
 import Logo from 'components/logo';
+import CartItems from './cart-items';
 
 import './nav.scss';
 import Account from './account';
+import { IState as ICartState } from 'state/reducers/cart-reducer';
 
-type Props = {
+export type Props = {
     auth: firebase.auth.Auth;
     db: firebase.firestore.Firestore;
 };
 
-const Navigation: React.FC<Props> = ({ auth, db }) => {
+const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
     // states for ui changes
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showDropdownL, setShowDropdownL] = useState(false);
     const [currLocation, setCurrLocation] = useState('/');
+    const [showCart, setShowCart] = useState(false);
 
     const [user, setUser] = useState<firebase.User | null>(null);
     const dispatch = useDispatch();
@@ -54,7 +58,17 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
         if (showDropdown) {
             setShowDropdown(false);
         }
+        if (showCart) {
+            setShowCart(false);
+        }
         setShowMenuMobile(prev => !prev);
+    };
+
+    const toggleShowCart = () => {
+        if (showMenuMobile) {
+            setShowMenuMobile(false);
+        }
+        setShowCart(prev => !prev);
     };
 
     // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
@@ -62,7 +76,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
     if (showMenuMobile) {
         bg = 'brown.0';
     } else {
-        if (showDropdownL) {
+        if (showDropdownL || showCart) {
             bg = '#fff';
         } else {
             bg = 'rgba(0, 0, 0, 0)';
@@ -200,13 +214,22 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                         onClick={handleMenuMobile}
                         id="menu-mobile"
                     >
-                        <Icon icon={menuFill} className="icons" />
+                        <Icon
+                            icon={showMenuMobile ? closeLine : menuFill}
+                            className="icons"
+                        />
                     </Flex>
 
                     {/* Auth and cart */}
                     <Flex alignItems="center">
                         <Account desktop={true} user={user} />
-                        <Cart user={user} db={db} />
+                        <Cart
+                            toggleShowCart={toggleShowCart}
+                            showCart={showCart}
+                            user={user}
+                            db={db}
+                            cart={cart}
+                        />
                     </Flex>
                 </Flex>
 
@@ -262,6 +285,15 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                         goBack={() => setShowDropdown(false)}
                         currLocation={currLocation}
                     />
+                </CSSTransition>
+
+                <CSSTransition
+                    in={showCart}
+                    timeout={100}
+                    unmountOnExit={true}
+                    classNames="cart-items"
+                >
+                    <CartItems cart={{ cart }} />
                 </CSSTransition>
             </Box>
         </Flex>
