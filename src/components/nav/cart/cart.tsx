@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { Icon } from '@iconify/react';
+import { Flex } from 'rebass';
+import shoppingCart2Line from '@iconify/icons-ri/shopping-cart-2-line';
+
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import { Product } from 'helper/schema/product';
 import { removeFromCart, setCart } from 'state/actions/cart';
@@ -89,31 +93,20 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
     const handleRemove = (product: Product) => {
         dispatch(removeFromCart(product));
     };
-
-    // display all products on cart.
-    // return (
-    //     <div style={{ width: '100%' }}>
-    //         {isLoadingCart ? <h1>Loading Cart!</h1> : <h1>Cart. Products: </h1>}
-    //         {cart.length < 1 && <h2>No products in cart </h2>}
-    //         {cart.map(cartItem => (
-    //             <React.Fragment key={cartItem.product.name}>
-    //                 <h2>{cartItem.product.name}</h2>
-    //                 <h4>
-    //                     {cartItem.amount}{' '}
-    //                     <button
-    //                         onClick={() => {
-    //                             handleRemove(cartItem.product);
-    //                         }}
-    //                     >
-    //                         Remove all
-    //                     </button>
-    //                 </h4>
-    //             </React.Fragment>
-    //         ))}
-    //     </div>
-    // );
-
-    return <h3>{cart.length}</h3>;
+    return (
+        <Flex
+            variant="center"
+            css={`
+                position: relative;
+                & > svg {
+                    height: 24px;
+                    width: 24px;
+                }
+            `}
+        >
+            <Icon icon={shoppingCart2Line} />
+        </Flex>
+    );
 };
 
 export { Cart };

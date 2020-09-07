@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from '@reach/router';
-import { debounce } from 'lodash';
 
 import { Text, Flex, Box } from 'rebass';
 import { Icon } from '@iconify/react';
@@ -11,6 +10,7 @@ import { CSSTransition } from 'react-transition-group';
 import Cart from './cart';
 import { clearCart } from 'state/actions/cart';
 import Dropdown from './dropdown';
+import Logo from 'components/logo';
 
 import './nav.scss';
 
@@ -70,12 +70,41 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
 
     // mock links for testing purposes
     return (
-        <Flex variant="outerWrapper" as="nav" bg={bg}>
-            <Box variant="innerWrapper">
+        <Flex variant="outerWrapper" as="header" bg={bg}>
+            <Box variant="innerWrapper" my={[0, 5, 0]}>
+                {/* Logo */}
+                <Flex
+                    variant="center"
+                    css={`
+                        overflow: hidden;
+                        position: absolute;
+
+                        left: 50%;
+                        transform: translate(-50%, 0);
+
+                        & > svg {
+                            height: 8vh;
+                            width: 20vw;
+                        }
+
+                        @media screen and (min-width: 48em) {
+                            transform: translate(-50%, 8px);
+                            width: 15vw;
+                        }
+
+                        @media screen and (min-width: 64em) {
+                            width: 10vw;
+                            transform: translate(-50%, 8px);
+                        }
+                    `}
+                >
+                    <Logo />
+                </Flex>
                 <Flex
                     width="100%"
                     height={['8vh', '8vh', '10vh']}
                     alignItems="center"
+                    justifyContent="space-between"
                     css={`
                         position: relative;
 
@@ -95,7 +124,7 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                     `}
                 >
                     {/* Links */}
-                    <Box>
+                    <>
                         <Flex id="links-L" alignItems="center">
                             <Link to="/about">
                                 <Text
@@ -144,25 +173,24 @@ const Navigation: React.FC<Props> = ({ auth, db }) => {
                         <Box onClick={handleMenuMobile} id="menu-mobile">
                             <Icon icon={menuFill} />
                         </Box>
-                    </Box>
-
-                    {/* Logo */}
-                    <Flex width="auto" height="100%" flex="1" bg="brown" />
+                    </>
 
                     {/* Auth */}
-                    <Flex>
-                        {!user ? (
-                            <Link to="/auth">
-                                <button>Login</button>
-                            </Link>
-                        ) : (
-                            <>
-                                <button onClick={logout}>Log out</button>
-                                <h3>User name: {user.displayName}</h3>
-                            </>
-                        )}
-                        <Cart user={user} db={db} />
-                    </Flex>
+                    <Box>
+                        <Flex>
+                            {/* !user ? (
+                                <Link to="/auth">
+                                    <button>Login</button>
+                                </Link>
+                            ) : (
+                                <>
+                                    <button onClick={logout}>Log out</button>
+                                    <h3>User name: {user.displayName}</h3>
+                                </>
+                            ) */}
+                            <Cart user={user} db={db} />
+                        </Flex>
+                    </Box>
                 </Flex>
 
                 {/* Menu on mobile devices */}

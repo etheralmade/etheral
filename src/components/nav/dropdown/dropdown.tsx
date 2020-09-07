@@ -66,7 +66,6 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
 
                         top: 10vh;
                         transform: translateX(-5%);
-                        border: 1px solid black;
                     }
 
                     @media (min-width: 64em) {

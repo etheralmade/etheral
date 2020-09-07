@@ -30,7 +30,7 @@ const Layout: React.FC = ({ children }) => {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyles />
-            <CSSDebugger />
+            {/* <CSSDebugger />  */}
             {/* <FirebaseAppProvider firebaseApp={firebaseApp}>
                 <SuspenseWithPerf fallback={<></>} traceId="0">
                     <main>{children}</main>

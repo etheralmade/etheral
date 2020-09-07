@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown element matches snapshot 1`] = `
+<div
+  className="css-ihrthb"
+  id="dropdown"
+>
+  <div
+    className="css-vurnku"
+    id="go-back-dropdown"
+    onClick={[MockFunction]}
+  >
+    <div
+      className="css-vurnku"
+    >
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M7.828 11H20v2H7.828l5.364 5.364l-1.414 1.414L4 12l7.778-7.778l1.414 1.414z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+            "verticalAlign": "-0.125em",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      Menu
+    </div>
+  </div>
+  <div
+    className="css-1g2286p"
+  >
+    <div
+      className="css-qtqxoh"
+    >
+      <div
+        className="others css-1dbwkht"
+      >
+        <a
+          aria-current="page"
+          href="/"
+          onClick={[Function]}
+        >
+          <div
+            className="css-vurnku"
+          >
+            Shop all
+          </div>
+        </a>
+        <a
+          aria-current="page"
+          href="/"
+          onClick={[Function]}
+        >
+          <div
+            className="css-vurnku"
+          >
+            New arrivals
+          </div>
+        </a>
+        <a
+          aria-current="page"
+          href="/"
+          onClick={[Function]}
+        >
+          <div
+            className="css-vurnku"
+          >
+            Best sellers
+          </div>
+        </a>
+        <a
+          aria-current="page"
+          href="/"
+          onClick={[Function]}
+        >
+          <div
+            className="css-vurnku"
+          >
+            Sale?
+          </div>
+        </a>
+      </div>
+      <div
+        className="collections css-1skn4m0"
+      >
+        <h3
+          className="css-13qynyj"
+        >
+          Collections
+        </h3>
+        <div
+          className="css-1pgcd23"
+        >
+          <a
+            href="/collection1"
+            onClick={[Function]}
+          >
+            <div
+              className="css-vurnku"
+            >
+              Collection1
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        className="categories css-1skn4m0"
+      >
+        <h3
+          className="css-13qynyj"
+        >
+          Categories
+        </h3>
+        <div
+          className="css-1g9axto"
+        >
+          <a
+            aria-current="page"
+            href="/"
+            onClick={[Function]}
+          >
+            <div
+              className="css-vurnku"
+            >
+              Bracelets
+            </div>
+          </a>
+          <a
+            aria-current="page"
+            href="/"
+            onClick={[Function]}
+          >
+            <div
+              className="css-vurnku"
+            >
+              Necklaces
+            </div>
+          </a>
+          <a
+            aria-current="page"
+            href="/"
+            onClick={[Function]}
+          >
+            <div
+              className="css-vurnku"
+            >
+              Rings
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
