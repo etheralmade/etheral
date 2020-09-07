@@ -15,12 +15,11 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
         <Flex
             height={['92vh', '92vh', 'fit-content']}
             maxHeight={['92vh', '92vh', '50vh']}
-            width={['100vw', '100%', '50vw', '30vw']}
+            width={['100vw', '100%', '50vw', '25vw']}
             pt={[4, 4, 5]}
             pb={[4, 4, 5]}
             px={[6, 6, 8]}
             flexDirection="column"
-            alignItems={['unset', 'unset', 'flex-start']}
             id="cart"
             bg={['#fff']}
             css={`
@@ -35,6 +34,10 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
                     top: 10vh;
                     left: auto;
                     right: 0;
+                }
+
+                @media (min-width: 64em) {
+                    right: 10vw;
                 }
             `}
         >

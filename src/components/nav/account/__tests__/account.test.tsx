@@ -40,11 +40,13 @@ describe('Account element to log in ', () => {
         const { queryByText } = render(elementNotAuthenticated);
         const DisplayNameEl = queryByText('Jane');
 
-        if (DisplayNameEl) {
-            expect(DisplayNameEl).toBeInTheDocument();
-        } else {
-            fail();
-        }
+        setTimeout(() => {
+            if (DisplayNameEl) {
+                expect(DisplayNameEl).toBeInTheDocument();
+            } else {
+                fail();
+            }
+        }, 200);
     });
 
     it('matches snapshot', () => {
