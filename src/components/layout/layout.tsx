@@ -7,6 +7,7 @@ import { theme, GlobalStyles } from 'styles';
 import { CSSDebugger } from '../css-debugger';
 import Navigation from 'components/nav';
 import useFonts from 'helper/use-fonts';
+import Footer from 'components/foot';
 // import firebaseConfig from 'lib/firebase-config';
 
 const Layout: React.FC = ({ children }) => {
@@ -39,6 +40,7 @@ const Layout: React.FC = ({ children }) => {
             <main>
                 <Navigation />
                 {children}
+                <Footer />
             </main>
         </ThemeProvider>
     );
