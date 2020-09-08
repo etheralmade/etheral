@@ -104,17 +104,15 @@ const Cart: React.FC<Props & ICartState> = ({
                 css={`
                     position: relative;
 
-                    & > svg {
-                        &:hover {
-                            cursor: pointer;
-                        }
+                    &:hover {
+                        cursor: pointer;
                     }
                 `}
                 onClick={toggleShowCart}
             >
                 <Icon
-                    className="icons"
                     icon={showCart ? closeLine : shoppingCart2Line}
+                    className={`icons ${showCart ? 'bigger' : ''}`}
                 />
                 {cart.length > 0 && !showCart ? (
                     <CartBadge cart={cart} />

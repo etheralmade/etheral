@@ -94,9 +94,19 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                         height: 16px;
                         width: 16px;
 
+                        &.bigger {
+                            height: 20px;
+                            width: 20px;
+                        }
+
                         @media screen and (min-width: 27em) {
                             height: 20px;
                             width: 20px;
+
+                            &.bigger {
+                                height: 24px;
+                                width: 24px;
+                            }
                         }
 
                         @media screen and (min-width: 48em) {
@@ -216,7 +226,9 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                     >
                         <Icon
                             icon={showMenuMobile ? closeLine : menuFill}
-                            className="icons"
+                            className={`icons ${
+                                showMenuMobile ? 'bigger' : ''
+                            }`}
                         />
                     </Flex>
 

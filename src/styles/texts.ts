@@ -5,6 +5,11 @@ const baseLink = {
     mr: [0, 0, 5],
 };
 
+const linkActiveAttrs = {
+    color: '#000',
+    fontWeight: 'bold',
+};
+
 export default {
     h1: {
         fontSize: [5, 5, 6],
@@ -71,10 +76,14 @@ export default {
     link: {
         ...baseLink,
         color: '#555',
+        transition: '0.2s',
+        '&:hover': {
+            ...linkActiveAttrs,
+            fontWeight: 'body',
+        },
     },
     linkActive: {
         ...baseLink,
-        color: '#000',
-        fontWeight: 'bold',
+        ...linkActiveAttrs,
     },
 };
