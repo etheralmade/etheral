@@ -50,4 +50,12 @@ export default {
         fontWeight: 600,
         fontSize: [0, 0, 1],
     },
+    secondary: {
+        ...buttonBaseStyle,
+        bg: 'brown.2',
+        color: 'brown.3',
+        fontFamily: 'body',
+        fontWeight: 600,
+        fontSize: [0, 0, 1],
+    },
 };

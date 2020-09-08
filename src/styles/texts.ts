@@ -82,6 +82,16 @@ export default {
             fontWeight: 'body',
         },
     },
+    linkSmall: {
+        ...baseLink,
+        color: '#555',
+        transition: '0.2s',
+        fontSize: [2],
+        '&:hover': {
+            ...linkActiveAttrs,
+            fontWeight: 'body',
+        },
+    },
     linkActive: {
         ...baseLink,
         ...linkActiveAttrs,

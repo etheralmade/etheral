@@ -15,15 +15,7 @@ const flexCenterBase = {
 };
 
 export default {
-    paidBadge: {
-        ...badgeStyle,
-        bg: 'badges.1',
-    },
-    notPaidBadge: {
-        ...badgeStyle,
-        bg: 'badges.0',
-    },
-    center: flexCenterBase,
+    // wrapper styles
     outerWrapper: {
         ...flexCenterBase,
         width: '100%',
@@ -33,5 +25,16 @@ export default {
         maxWidth: ['100%', '38em', '62em', '80%'],
         width: '100%',
         px: ['5%', '5%'],
+    },
+    center: flexCenterBase,
+
+    // badge styles
+    paidBadge: {
+        ...badgeStyle,
+        bg: 'badges.1',
+    },
+    notPaidBadge: {
+        ...badgeStyle,
+        bg: 'badges.0',
     },
 };
