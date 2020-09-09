@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import { Icon } from '@iconify/react';
 import { Flex } from 'rebass';
-import shoppingCart2Line from '@iconify/icons-ri/shopping-cart-2-line';
 import closeLine from '@iconify/icons-ri/close-line';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
@@ -12,6 +11,7 @@ import useAllProducts from 'helper/use-all-products';
 import extractCartFirestore from 'helper/extract-cart-firestore';
 import { InCart } from 'helper/schema/firebase-user';
 import CartBadge from './cart-badge';
+import CartIcon from '../assets/cart';
 
 export type Props = {
     user: firebase.User | null;
@@ -110,10 +110,11 @@ const Cart: React.FC<Props & ICartState> = ({
                 `}
                 onClick={toggleShowCart}
             >
-                <Icon
-                    icon={showCart ? closeLine : shoppingCart2Line}
-                    className={`icons ${showCart ? 'bigger' : ''}`}
-                />
+                {showCart ? (
+                    <Icon icon={closeLine} className="icons bigger" />
+                ) : (
+                    <CartIcon className="icons" />
+                )}
                 {cart.length > 0 && !showCart ? (
                     <CartBadge cart={cart} />
                 ) : (

@@ -232,7 +232,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                         />
                     </Flex>
 
-                    {/* Auth and cart */}
+                    {/* Auth and cart. Always show auth component, as it is not in the menu */}
                     <Flex alignItems="center">
                         <Account desktop={true} user={user} />
                         <Cart
@@ -253,7 +253,6 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                     classNames="links"
                 >
                     <Box id="links-S" minHeight={['92vh']} p={5}>
-                        <Account user={user} desktop={false} />
                         <Link to="/about">
                             <Text
                                 variant={
@@ -283,6 +282,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                 Blog
                             </Text>
                         </Link>
+                        <Account user={user} desktop={false} />
                     </Box>
                 </CSSTransition>
 

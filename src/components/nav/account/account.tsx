@@ -1,43 +1,34 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import { Flex, Text } from 'rebass';
-import { Icon } from '@iconify/react';
-import user3Line from '@iconify/icons-ri/user-3-line';
+import UserIcon from '../assets/account';
+import CartIcon from '../assets/cart';
 
 type Props = {
     user: firebase.User | null;
-    desktop: boolean;
+    desktop: boolean; // two different components on nav! this attr is used to differentiate between desktop and mobile comp
 };
 
 const Account: React.FC<Props> = ({ user, desktop }) => {
+    console.log(user);
+
     return (
-        <Flex
-            alignItems="center"
-            mb={[4, 4, 0]}
-            mr={[0, 0, 4]}
+        <Link
+            to={'auth'}
             css={`
-                display: ${desktop ? 'none' : 'flex'} !important;
+                text-align: left;
+                display: ${desktop ? 'none' : 'inline-block'};
 
                 @media screen and (min-width: 48em) {
                     display: ${!desktop ? 'none' : 'flex'} !important;
+                    align-items: center;
+                    margin-right: 16px;
+                    margin-bottom: 0;
                 }
             `}
         >
-            <Icon className="icons" icon={user3Line} />
-            <Link to={'auth'}>
-                <Text
-                    variant="link"
-                    ml={[3]}
-                    pl={[3]}
-                    css={`
-                        border-left: 1px solid black;
-                    `}
-                >
-                    {user ? user.displayName : 'LOGIN'}
-                </Text>
-            </Link>
-        </Flex>
+            <UserIcon className={desktop ? 'icons' : 'icons bigger'} />
+        </Link>
     );
 };
 
