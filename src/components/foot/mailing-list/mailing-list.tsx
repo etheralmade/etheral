@@ -22,6 +22,7 @@ const MailingList: React.FC<Props> = () => {
                         & > input[type='email'] {
                             font-family: Syne, sans-serif;
                             margin-bottom: 8px;
+                            background-color: #fff;
 
                             @media screen and (min-width: 27em) {
                                 margin-bottom: 0;

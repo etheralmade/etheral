@@ -17,23 +17,30 @@ type Props = {
 };
 
 const HomepageProducts: React.FC<Props> = ({ products }) => {
-    const { extractImgs } = useAllProductImages();
+    const { extractImgs, s } = useAllProductImages();
 
     return (
         <Box variant="outerWrapper">
-            <Heading textAlign="center" as="h2" variant="h2" mb={[5, 5, 6, 7]}>
-                New Arrivals
+            <Heading
+                textAlign="center"
+                as="h2"
+                variant="h2"
+                mb={[5, 5, 6, 7]}
+                fontWeight="body"
+            >
+                NEW ARRIVALS
             </Heading>
             <Flex
                 flexDirection={['column', 'column', 'row']}
-                alignItems={['center', 'center']}
+                alignItems={['flex-start']}
                 flexWrap="wrap"
                 justifyContent={['space-evenly']}
+                px={[6]}
             >
                 {products.map(product => {
                     const props: ProductCardProps = {
                         product,
-                        imgs: extractImgs(product, true),
+                        imgs: extractImgs(product, true, true),
                     } as ProductCardProps;
                     return (
                         <Link
@@ -45,7 +52,7 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                                 {...props}
                                 css={``}
                                 mb={[7]}
-                                mx={[1]}
+                                // mx={[1, 1, 5]}
                                 width="100%"
                             />
                         </Link>

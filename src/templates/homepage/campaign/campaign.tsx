@@ -30,6 +30,7 @@ const Campaign: React.FC<Props> = ({ campaignData }) => {
                 className="wrap"
                 justifyContent="space-evenly"
                 alignItems="center"
+                px={[4, 4, 0]}
             >
                 {campaignData.map(campaign => (
                     <Link
@@ -37,13 +38,13 @@ const Campaign: React.FC<Props> = ({ campaignData }) => {
                         to={campaign.campaignLink}
                     >
                         <Tile
-                            tileOnText={campaign.campaignName}
+                            tileOnText={campaign.campaignName.toUpperCase()}
                             img={campaign.img}
                             imgAlt={campaign.campaignName}
                             url={campaign.url}
                             overflow="hidden"
                             width="100%"
-                            mb={[5]}
+                            mb={[3, 3, 5]}
                             height={['90vw', '80vw', 320, '32vw', '46vw']}
                             maxHeight={['unset', 'unset', 'unset', 640, 720]}
                         />

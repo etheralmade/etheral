@@ -66,11 +66,13 @@ export default {
     productPrice: {
         fontFamily: 'body',
         fontWeight: 500,
+        fontSize: [2, 3, 2, 3],
         color: '#000',
     },
     productName: {
         fontFamily: 'heading',
         fontWeight: 'bold',
+        fontSize: [2, 3, 2, 3],
         color: '#000',
     },
     link: {

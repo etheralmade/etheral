@@ -13,8 +13,10 @@
 
     .show-on-hover {
         position: absolute !important;
+        height: 99%;
+        width: 99%;
         z-index: 1;
-        top: 0;
-        left: 0;
+        top: 1%;
+        left: 1%;
     }
 }

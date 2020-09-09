@@ -121,7 +121,7 @@ export const query = graphql`
             imgs {
                 url
                 childImageSharp {
-                    fixed(width: 375, height: 375, quality: 100) {
+                    fixed(width: 400, height: 400, quality: 100) {
                         ...GatsbyImageSharpFixed
                     }
                 }

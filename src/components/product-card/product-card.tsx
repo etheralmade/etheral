@@ -1,5 +1,5 @@
 import React from 'react';
-import Img, { FixedObject } from 'gatsby-image';
+import Img, { FluidObject } from 'gatsby-image';
 
 import { Box, BoxProps, Text } from 'rebass';
 
@@ -10,8 +10,11 @@ import './product-card.scss';
 
 export type Props = BoxProps & {
     product: Product;
+    // imgs?: {
+    //     sources: FixedObject | FixedObject[];
+    // }[];
     imgs?: {
-        sources: FixedObject | FixedObject[];
+        sources: FluidObject | FluidObject[];
     }[];
 };
 
@@ -24,7 +27,7 @@ const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
                 <Box width="100%" mb={[3]}>
                     <Box className="product-img">
                         <Img
-                            fixed={imgs[0].sources}
+                            fluid={imgs[0].sources}
                             alt={name}
                             className={`product-main${
                                 imgs.length > 1 ? ' hide-on-hover' : ''
@@ -32,7 +35,7 @@ const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
                         />
                         {imgs.length > 1 && (
                             <Img
-                                fixed={imgs[1].sources}
+                                fluid={imgs[1].sources}
                                 alt={`${name}-second-view`}
                                 className="show-on-hover"
                             />
@@ -40,7 +43,7 @@ const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
                     </Box>
                 </Box>
 
-                <Text variant="productName" width="100%">
+                <Text variant="productName" width="100%" my={[3, 3, 2]}>
                     {name}
                 </Text>
                 <Text variant="productPrice" width="100%">

@@ -1,22 +1,29 @@
 import { useEffect, useState } from 'react';
 import { findIndex } from 'lodash';
 import { useStaticQuery, graphql } from 'gatsby';
-import { FixedObject } from 'gatsby-image';
+import { FixedObject, FluidObject } from 'gatsby-image';
 
-import { FixedData as FixedDataPages } from 'pages';
 import { Product } from './schema/product';
 
-export type FixedData = {
+export type Data = {
     pid: string;
-    img: FixedDataPages[];
+    img: FluidFixedUnion[];
+};
+
+type FluidFixedUnion = {
+    childImageSharp: {
+        fluid: FluidObject | FluidObject[];
+        fixed: FixedObject | FixedObject[];
+    };
+    url: string;
 };
 
 const useAllProductImages = () => {
-    const [imgXS, setImgXS] = useState<FixedData[]>([]);
-    const [imgS, setImgS] = useState<FixedData[]>([]);
-    const [imgM, setImgM] = useState<FixedData[]>([]);
-    const [imgL, setImgL] = useState<FixedData[]>([]);
-    const [imgXL, setImgXL] = useState<FixedData[]>([]);
+    const [imgXS, setImgXS] = useState<Data[]>([]);
+    const [imgS, setImgS] = useState<Data[]>([]);
+    const [imgM, setImgM] = useState<Data[]>([]);
+    const [imgL, setImgL] = useState<Data[]>([]);
+    const [imgXL, setImgXL] = useState<Data[]>([]);
 
     const data = useStaticQuery(graphql`
         query {
@@ -29,6 +36,13 @@ const useAllProductImages = () => {
                             childImageSharp {
                                 fixed(width: 60, height: 60, quality: 100) {
                                     ...GatsbyImageSharpFixed
+                                }
+                                fluid(
+                                    maxWidth: 60
+                                    maxHeight: 60
+                                    quality: 100
+                                ) {
+                                    ...GatsbyImageSharpFluid
                                 }
                             }
                         }
@@ -45,6 +59,13 @@ const useAllProductImages = () => {
                                 fixed(width: 240, height: 240, quality: 100) {
                                     ...GatsbyImageSharpFixed
                                 }
+                                fluid(
+                                    maxWidth: 240
+                                    maxHeight: 240
+                                    quality: 100
+                                ) {
+                                    ...GatsbyImageSharpFluid
+                                }
                             }
                         }
                     }
@@ -59,6 +80,13 @@ const useAllProductImages = () => {
                             childImageSharp {
                                 fixed(height: 300, width: 300, quality: 100) {
                                     ...GatsbyImageSharpFixed
+                                }
+                                fluid(
+                                    maxWidth: 300
+                                    maxHeight: 300
+                                    quality: 100
+                                ) {
+                                    ...GatsbyImageSharpFluid
                                 }
                             }
                         }
@@ -75,6 +103,13 @@ const useAllProductImages = () => {
                                 fixed(height: 200, width: 200, quality: 100) {
                                     ...GatsbyImageSharpFixed
                                 }
+                                fluid(
+                                    maxWidth: 420
+                                    maxHeight: 420
+                                    quality: 100
+                                ) {
+                                    ...GatsbyImageSharpFluid
+                                }
                             }
                         }
                     }
@@ -90,6 +125,13 @@ const useAllProductImages = () => {
                                 fixed(height: 280, width: 280, quality: 100) {
                                     ...GatsbyImageSharpFixed
                                 }
+                                fluid(
+                                    maxWidth: 420
+                                    maxHeight: 420
+                                    quality: 100
+                                ) {
+                                    ...GatsbyImageSharpFluid
+                                }
                             }
                         }
                     }
@@ -99,25 +141,25 @@ const useAllProductImages = () => {
     `);
 
     useEffect(() => {
-        const queryImgXS: FixedData[] = data.imgXS.edges.map((edge: any) => ({
+        const queryImgXS: Data[] = data.imgXS.edges.map((edge: any) => ({
             pid: edge.node.pid,
-            img: edge.node.productImages as FixedDataPages[],
+            img: edge.node.productImages as FluidFixedUnion,
         }));
-        const queryImgS: FixedData[] = data.imgS.edges.map((edge: any) => ({
+        const queryImgS: Data[] = data.imgS.edges.map((edge: any) => ({
             pid: edge.node.pid,
-            img: edge.node.productImages as FixedDataPages[],
+            img: edge.node.productImages as FluidFixedUnion,
         }));
-        const queryImgM: FixedData[] = data.imgM.edges.map((edge: any) => ({
+        const queryImgM: Data[] = data.imgM.edges.map((edge: any) => ({
             pid: edge.node.pid,
-            img: edge.node.productImages as FixedDataPages[],
+            img: edge.node.productImages as FluidFixedUnion,
         }));
-        const queryImgL: FixedData[] = data.imgL.edges.map((edge: any) => ({
+        const queryImgL: Data[] = data.imgL.edges.map((edge: any) => ({
             pid: edge.node.pid,
-            img: edge.node.productImages as FixedDataPages[],
+            img: edge.node.productImages as FluidFixedUnion,
         }));
-        const queryImgXL: FixedData[] = data.imgXL.edges.map((edge: any) => ({
+        const queryImgXL: Data[] = data.imgXL.edges.map((edge: any) => ({
             pid: edge.node.pid,
-            img: edge.node.productImages as FixedDataPages[],
+            img: edge.node.productImages as FluidFixedUnion,
         }));
 
         setImgXS(queryImgXS);
@@ -127,7 +169,7 @@ const useAllProductImages = () => {
         setImgXL(queryImgXL);
     }, []);
 
-    const extractImgs = (product: Product, sources = false) => {
+    const extractImgs = (product: Product, sources = false, fluid = false) => {
         const sourceBreakpoints = {
             s: '320px',
             m: '600px',
@@ -147,27 +189,54 @@ const useAllProductImages = () => {
         if (sources) {
             const imgs = product.urls.map(url => {
                 const index = findIndex(productImgS.img, o => o.url === url);
-                return {
-                    sources: [
-                        productImgXS,
-                        {
-                            ...productImgS.img[index].childImageSharp.fixed,
-                            media: `(max-width: ${sourceBreakpoints.s})`,
-                        } as FixedObject,
-                        {
-                            ...productImgM.img[index].childImageSharp.fixed,
-                            media: `(max-width: ${sourceBreakpoints.m})`,
-                        } as FixedObject,
-                        {
-                            ...productImgL.img[index].childImageSharp.fixed,
-                            media: `(max-width: ${sourceBreakpoints.l})`,
-                        } as FixedObject,
-                        {
-                            ...productImgXL.img[index].childImageSharp.fixed,
-                            media: `(max-width: ${sourceBreakpoints.xl})`,
-                        } as FixedObject,
-                    ],
-                };
+
+                if (fluid) {
+                    return {
+                        sources: [
+                            productImgXS,
+                            {
+                                ...productImgS.img[index].childImageSharp.fluid,
+                                media: `(max-width: ${sourceBreakpoints.s})`,
+                            } as FluidObject,
+                            {
+                                ...productImgM.img[index].childImageSharp.fluid,
+                                media: `(max-width: ${sourceBreakpoints.m})`,
+                            } as FluidObject,
+                            {
+                                ...productImgL.img[index].childImageSharp.fluid,
+                                media: `(max-width: ${sourceBreakpoints.l})`,
+                            } as FluidObject,
+                            {
+                                ...productImgXL.img[index].childImageSharp
+                                    .fluid,
+                                media: `(max-width: ${sourceBreakpoints.xl})`,
+                            } as FluidObject,
+                        ],
+                    };
+                } else {
+                    return {
+                        sources: [
+                            productImgXS,
+                            {
+                                ...productImgS.img[index].childImageSharp.fixed,
+                                media: `(max-width: ${sourceBreakpoints.s})`,
+                            } as FixedObject,
+                            {
+                                ...productImgM.img[index].childImageSharp.fixed,
+                                media: `(max-width: ${sourceBreakpoints.m})`,
+                            } as FixedObject,
+                            {
+                                ...productImgL.img[index].childImageSharp.fixed,
+                                media: `(max-width: ${sourceBreakpoints.l})`,
+                            } as FixedObject,
+                            {
+                                ...productImgXL.img[index].childImageSharp
+                                    .fixed,
+                                media: `(max-width: ${sourceBreakpoints.xl})`,
+                            } as FixedObject,
+                        ],
+                    };
+                }
             });
             return imgs;
         } else {
@@ -180,6 +249,8 @@ const useAllProductImages = () => {
             };
         }
     };
+
+    console.log({ imgXS, imgS, imgM, imgL, imgXL });
 
     return {
         xs: imgXS,

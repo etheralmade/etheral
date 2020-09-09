@@ -19,7 +19,7 @@ export default {
     outerWrapper: {
         ...flexCenterBase,
         width: '100%',
-        my: [7, 7, 8],
+        my: [5, 5, 6],
     },
     innerWrapper: {
         maxWidth: ['100%', '38em', '62em', '90%'],
