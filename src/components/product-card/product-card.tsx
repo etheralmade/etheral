@@ -21,7 +21,7 @@ const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
     if (imgs) {
         return (
             <Box {...rest}>
-                <Box width="fit-content" mb={[3]}>
+                <Box width="100%" mb={[3]}>
                     <Box className="product-img">
                         <Img
                             fixed={imgs[0].sources}
@@ -40,8 +40,12 @@ const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
                     </Box>
                 </Box>
 
-                <Text variant="productName">{name}</Text>
-                <Text variant="productPrice">IDR {idrPrice}</Text>
+                <Text variant="productName" width="100%">
+                    {name}
+                </Text>
+                <Text variant="productPrice" width="100%">
+                    IDR {idrPrice}
+                </Text>
             </Box>
         );
     } else {

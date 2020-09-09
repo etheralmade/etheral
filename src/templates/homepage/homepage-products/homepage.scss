@@ -1,3 +1,7 @@
 .product-link {
     text-decoration: none;
+
+    @media screen and (min-width: 48em) {
+        width: 24%;
+    }
 }

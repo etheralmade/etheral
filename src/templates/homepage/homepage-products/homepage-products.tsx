@@ -20,45 +20,39 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
     const { extractImgs } = useAllProductImages();
 
     return (
-        <Flex variant="outerWrapper">
-            <Box variant="innerWrapper">
-                <Heading
-                    textAlign="center"
-                    as="h2"
-                    variant="h2"
-                    mb={[5, 5, 6, 7]}
-                >
-                    New Arrivals
-                </Heading>
-                <Flex
-                    flexDirection={['column', 'column', 'row']}
-                    alignItems={['center', 'center']}
-                    flexWrap="wrap"
-                    justifyContent={['space-evenly']}
-                >
-                    {products.map(product => (
+        <Box variant="outerWrapper">
+            <Heading textAlign="center" as="h2" variant="h2" mb={[5, 5, 6, 7]}>
+                New Arrivals
+            </Heading>
+            <Flex
+                flexDirection={['column', 'column', 'row']}
+                alignItems={['center', 'center']}
+                flexWrap="wrap"
+                justifyContent={['space-evenly']}
+            >
+                {products.map(product => {
+                    const props: ProductCardProps = {
+                        product,
+                        imgs: extractImgs(product, true),
+                    } as ProductCardProps;
+                    return (
                         <Link
                             key={product.pid}
                             to={product.slug}
                             className="product-link"
                         >
                             <ProductCard
-                                product={product}
-                                imgs={
-                                    extractImgs(
-                                        product,
-                                        true
-                                    ) as ProductCardProps
-                                }
+                                {...props}
+                                css={``}
                                 mb={[7]}
                                 mx={[1]}
-                                width={['100%', '100%', 'fit-content']}
+                                width="100%"
                             />
                         </Link>
-                    ))}
-                </Flex>
-            </Box>
-        </Flex>
+                    );
+                })}
+            </Flex>
+        </Box>
     );
 };
 
