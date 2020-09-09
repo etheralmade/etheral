@@ -20,6 +20,7 @@ type Props = {
         imgS: FixedData[];
         imgM: FixedData[];
         imgL: FixedData[];
+        imgXL: FixedData[];
     };
 };
 
@@ -80,6 +81,7 @@ const Homepage: React.FC<Props> = ({
     const campaignImgS = extractImagesFromUrl(campaigns, campaignImages.imgS);
     const campaignImgM = extractImagesFromUrl(campaigns, campaignImages.imgM);
     const campaignImgL = extractImagesFromUrl(campaigns, campaignImages.imgL);
+    const campaignImgXL = extractImagesFromUrl(campaigns, campaignImages.imgXL);
     const campaignData = campaigns.map((campaign, index) => ({
         ...campaign,
         img: {
@@ -94,8 +96,9 @@ const Homepage: React.FC<Props> = ({
                 } as FixedObject,
                 {
                     ...campaignImgL[index].childImageSharp.fixed,
-                    media: '(max-width: 1920px)',
+                    media: '(max-width: 1440px)',
                 } as FixedObject,
+                campaignImgXL[index].childImageSharp.fixed,
             ],
         },
     }));

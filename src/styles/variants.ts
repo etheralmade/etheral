@@ -22,7 +22,7 @@ export default {
         my: [7, 7, 8],
     },
     innerWrapper: {
-        maxWidth: ['100%', '38em', '62em', '80%'],
+        maxWidth: ['100%', '38em', '62em', '90%'],
         width: '100%',
         px: ['5%', '5%'],
     },

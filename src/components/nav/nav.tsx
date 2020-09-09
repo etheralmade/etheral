@@ -133,13 +133,13 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             }
 
                             @media screen and (min-width: 48em) {
-                                transform: translate(-50%, 8px);
-                                width: 15vw;
+                                width: 12vw;
+                                transform: translate(-55%, 8px);
                             }
 
                             @media screen and (min-width: 64em) {
-                                width: 10vw;
-                                transform: translate(-50%, 8px);
+                                width: 8vw;
+                                transform: translate(-60%, 8px);
                             }
                         `}
                     >

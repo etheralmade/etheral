@@ -48,12 +48,14 @@ const App = (props: PageProps) => {
     const campaignImgS: FixedData[] = dataAsAny.campaignImgS.imgs;
     const campaignImgM: FixedData[] = dataAsAny.campaignImgM.imgs;
     const campaignImgL: FixedData[] = dataAsAny.campaignImgL.imgs;
+    const campaignImgXL: FixedData[] = dataAsAny.campaignImgXL.imgs;
 
     const heroImages = { imgS: heroImgS, imgM: heroImgM, imgL: heroImgL };
     const campaignImages = {
         imgS: campaignImgS,
         imgM: campaignImgM,
         imgL: campaignImgL,
+        imgXL: campaignImgXL,
     };
 
     return (
@@ -140,6 +142,16 @@ export const query = graphql`
                 url
                 childImageSharp {
                     fixed(height: 640, width: 640, quality: 100) {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
+        }
+        campaignImgXL: homepage {
+            imgs {
+                url
+                childImageSharp {
+                    fixed(height: 1024, width: 1024, quality: 100) {
                         ...GatsbyImageSharpFixed
                     }
                 }

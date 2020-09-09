@@ -44,7 +44,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                 width={['100%', '100%', '100vw']}
                 pt={[4, 4, 5]}
                 pb={[4, 4, 9]}
-                px={[6, '10vw', 8, '15vw']}
+                px={[6, '10vw', 8, '10vw']}
                 id="dropdown"
                 bg={['brown.0', 'brown.0', '#fff']}
                 css={`
@@ -74,7 +74,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                     }
 
                     @media (min-width: 64em) {
-                        left: -14.5%;
+                        left: -7%;
                     }
                 `}
             >
