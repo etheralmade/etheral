@@ -6,7 +6,6 @@ const baseLink = {
 };
 
 const linkActiveAttrs = {
-    color: '#000',
     fontWeight: 'bold',
 };
 
@@ -76,6 +75,15 @@ export default {
         color: '#000',
     },
     link: {
+        ...baseLink,
+        color: '#555',
+        transition: '0.2s',
+        '&:hover': {
+            ...linkActiveAttrs,
+            fontWeight: 'body',
+        },
+    },
+    linkWhite: {
         ...baseLink,
         color: '#555',
         transition: '0.2s',

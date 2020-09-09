@@ -275,6 +275,18 @@ exports.sourceNodes = async ({
             })
         );
 
+        const getNavigationImage = async () => {
+            const req = await homepageDoc.navigationImage[0].get();
+            const imgRef = await req.data().file;
+
+            const imgDownloadUrl = await storage
+                .ref(`flamelink/media/${imgRef}`)
+                .getDownloadURL();
+            return await imgDownloadUrl;
+        };
+
+        const navigationImage = await getNavigationImage();
+
         const products = await Promise.all(
             homepageDoc.products.map(async productItem => {
                 const req = await productItem.product
@@ -287,16 +299,20 @@ exports.sourceNodes = async ({
         const urls = await [
             ...campaigns.map(campaign => campaign.url),
             ...homepageImages.map(homepageImage => homepageImage.url),
+            navigationImage,
         ];
-
-        console.log(await urls.length);
 
         const nodeFields = await {
             campaigns,
             homepageImages,
             products,
             urls,
+            navigationImage,
+            homepageProductsDisplayText:
+                homepageDoc.homepageProductsDisplayText,
         };
+
+        console.log(JSON.stringify(nodeFields));
 
         return await createNode({
             // data for the node

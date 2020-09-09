@@ -130,6 +130,10 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             & svg {
                                 height: 8vh;
                                 width: 20vw;
+
+                                path {
+                                    fill: ${showDropdownL ? '#000' : '#fff'};
+                                }
                             }
 
                             @media screen and (min-width: 48em) {
@@ -180,6 +184,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                         ? 'linkActive'
                                         : 'link'
                                 }
+                                color={showDropdownL ? '#000' : '#fff'}
                                 py={[0, 0, '5vh']}
                             >
                                 About
@@ -189,7 +194,11 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             onMouseEnter={() => setShowDropdownL(true)}
                             onMouseLeave={() => setShowDropdownL(false)}
                         >
-                            <Text variant="link" py={[0, 0, '5vh']}>
+                            <Text
+                                variant="link"
+                                py={[0, 0, '5vh']}
+                                color={showDropdownL ? '#000' : '#fff'}
+                            >
                                 Shop
                             </Text>
                             <CSSTransition
@@ -211,6 +220,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                         ? 'linkActive'
                                         : 'link'
                                 }
+                                color={showDropdownL ? '#000' : '#fff'}
                                 py={[0, 0, '5vh']}
                             >
                                 Blog

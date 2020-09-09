@@ -86,6 +86,7 @@ export const query = graphql`
                 buttonText
             }
             products
+            homepageProductsDisplayText
         }
         imgS: homepage {
             imgs {
