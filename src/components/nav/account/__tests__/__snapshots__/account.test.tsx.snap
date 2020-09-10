@@ -5,11 +5,11 @@ exports[`Account element to log in  matches snapshot 1`] = `
   css="
                 text-align: left;
                 display: none;
+                margin-right: 16px;
 
                 @media screen and (min-width: 48em) {
                     display: flex !important;
                     align-items: center;
-                    margin-right: 16px;
                     margin-bottom: 0;
                 }
             "
@@ -17,7 +17,7 @@ exports[`Account element to log in  matches snapshot 1`] = `
   onClick={[Function]}
 >
   <svg
-    className="icons black-on-dropdown-stroke"
+    className="icons black-on-dropdown-stroke hide-on-mobile"
     fill="none"
     height="1em"
     viewBox="0 0 995 1038"

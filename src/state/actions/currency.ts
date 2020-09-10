@@ -1,4 +1,4 @@
-import { Currencies, Action } from 'state/reducers/currency';
+import { Currencies, Action } from 'state/reducers/currency-reducer';
 import { CHANGE_CURRENCY } from 'state/types/currency';
 
 export const changeCurrency = (currency: Currencies): Action => ({

@@ -41,7 +41,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
         return (
             <Box
                 height={['92vh', '92vh', 'fit-content']}
-                width={['100%', '100%', '100vw']}
+                width={['100%', '100%', '101vw']}
                 pt={[4, 4, 5]}
                 pb={[4, 4, 9]}
                 px={[6, '10vw', 8, '10vw']}
@@ -70,7 +70,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                         }
 
                         top: 9vh;
-                        transform: translateX(-4.5%);
+                        transform: translateX(-5%);
                     }
 
                     @media (min-width: 64em) {

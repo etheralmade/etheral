@@ -13,10 +13,11 @@ import { clearCart } from 'state/actions/cart';
 import Dropdown from './dropdown';
 import Logo from 'components/logo';
 import CartItems from './cart-items';
+import CurrencySelector from './currency-selector';
+import { IState as ICartState } from 'state/reducers/cart-reducer';
+import Account from './account';
 
 import './nav.scss';
-import Account from './account';
-import { IState as ICartState } from 'state/reducers/cart-reducer';
 
 export type Props = {
     auth: firebase.auth.Auth;
@@ -90,6 +91,20 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                 variant="innerWrapper"
                 my={[0, 5, 0]}
                 css={`
+                    .hide-on-mobile {
+                        display: none;
+                    }
+
+                    @media screen and (min-width: 48em) {
+                        .hide-on-mobile {
+                            display: block;
+                        }
+
+                        .hide-on-desktop {
+                            display: none;
+                        }
+                    }
+
                     & .icons {
                         height: 16px;
                         width: 16px;
@@ -114,11 +129,15 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             width: 24px;
 
                             &.black-on-dropdown path {
-                                fill: ${showDropdownL ? '#000' : '#fff'};
+                                fill: ${showDropdownL || showCart
+                                    ? '#000'
+                                    : '#fff'};
                             }
 
                             &.black-on-dropdown-stroke path {
-                                stroke: ${showDropdownL ? '#000' : '#fff'};
+                                stroke: ${showDropdownL || showCart
+                                    ? '#000'
+                                    : '#fff'};
                             }
                         }
                     }
@@ -146,7 +165,9 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                 transform: translate(-55%, 8px);
 
                                 & svg path {
-                                    fill: ${showDropdownL ? '#000' : '#fff'};
+                                    fill: ${showDropdownL || showCart
+                                        ? '#000'
+                                        : '#fff'};
                                 }
                             }
 
@@ -193,7 +214,9 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                         ? 'linkActive'
                                         : 'link'
                                 }
-                                color={showDropdownL ? '#000' : '#fff'}
+                                color={
+                                    showDropdownL || showCart ? '#000' : '#fff'
+                                }
                                 py={[0, 0, '5vh']}
                             >
                                 ABOUT
@@ -206,7 +229,9 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             <Text
                                 variant="link"
                                 py={[0, 0, '5vh']}
-                                color={showDropdownL ? '#000' : '#fff'}
+                                color={
+                                    showDropdownL || showCart ? '#000' : '#fff'
+                                }
                             >
                                 SHOP
                             </Text>
@@ -229,7 +254,9 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                         ? 'linkActive'
                                         : 'link'
                                 }
-                                color={showDropdownL ? '#000' : '#fff'}
+                                color={
+                                    showDropdownL || showCart ? '#000' : '#fff'
+                                }
                                 py={[0, 0, '5vh']}
                             >
                                 BLOG
@@ -253,6 +280,10 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
 
                     {/* Auth and cart. Always show auth component, as it is not in the menu */}
                     <Flex alignItems="center">
+                        <CurrencySelector
+                            showDropdown={showDropdownL || showCart}
+                            desktop={true}
+                        />
                         <Account desktop={true} user={user} />
                         <Cart
                             toggleShowCart={toggleShowCart}
@@ -272,7 +303,13 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                     classNames="links"
                 >
                     <Box id="links-S" minHeight={['92vh']} p={5}>
-                        <Account user={user} desktop={false} />
+                        <Flex alignItems="center">
+                            <Account user={user} desktop={false} />
+                            <CurrencySelector
+                                showDropdown={true}
+                                desktop={false}
+                            />
+                        </Flex>
                         <Link to="/about">
                             <Text
                                 variant={
