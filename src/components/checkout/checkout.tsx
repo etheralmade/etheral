@@ -8,6 +8,7 @@ import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Form from './form';
 import { clearCart } from 'state/actions/cart';
 import { Order, IpaymuData } from 'helper/schema/order';
+import { Currencies } from 'state/reducers/currency';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -241,7 +242,7 @@ const Checkout: React.FC<Props> = ({
                     buyerPostal: userData.postal,
 
                     total: totalPrice,
-                    currency: 'IDR', // temporary
+                    currency: Currencies.IDR, // temporary
                     date: new Date(),
                     products: cart.map(cartItem => ({
                         pid: cartItem.product.pid,

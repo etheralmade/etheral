@@ -9,6 +9,8 @@ export interface Product {
     description?: string;
     category?: string;
     idrPrice: number;
+    ausPrice: number;
+    usdPrice: number;
     availableSizes?: {
         S: boolean;
         M: boolean;
