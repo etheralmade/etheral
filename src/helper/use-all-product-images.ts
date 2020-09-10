@@ -60,8 +60,8 @@ const useAllProductImages = () => {
                                     ...GatsbyImageSharpFixed
                                 }
                                 fluid(
-                                    maxWidth: 240
-                                    maxHeight: 240
+                                    maxWidth: 250
+                                    maxHeight: 250
                                     quality: 100
                                 ) {
                                     ...GatsbyImageSharpFluid
@@ -82,8 +82,8 @@ const useAllProductImages = () => {
                                     ...GatsbyImageSharpFixed
                                 }
                                 fluid(
-                                    maxWidth: 300
-                                    maxHeight: 300
+                                    maxWidth: 310
+                                    maxHeight: 310
                                     quality: 100
                                 ) {
                                     ...GatsbyImageSharpFluid
@@ -104,8 +104,8 @@ const useAllProductImages = () => {
                                     ...GatsbyImageSharpFixed
                                 }
                                 fluid(
-                                    maxWidth: 420
-                                    maxHeight: 420
+                                    maxWidth: 430
+                                    maxHeight: 430
                                     quality: 100
                                 ) {
                                     ...GatsbyImageSharpFluid
@@ -126,8 +126,8 @@ const useAllProductImages = () => {
                                     ...GatsbyImageSharpFixed
                                 }
                                 fluid(
-                                    maxWidth: 420
-                                    maxHeight: 420
+                                    maxWidth: 440
+                                    maxHeight: 440
                                     quality: 100
                                 ) {
                                     ...GatsbyImageSharpFluid

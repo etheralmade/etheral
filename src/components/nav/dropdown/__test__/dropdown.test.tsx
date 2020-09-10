@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { FluidObject } from 'gatsby-image';
 
 import { Dropdown } from '../dropdown';
 
@@ -15,7 +16,7 @@ describe('Dropdown element', () => {
     beforeEach(() => {
         useStaticQuery.mockImplementationOnce(() => {
             return {
-                allCollection: {
+                collections: {
                     edges: [
                         {
                             node: {
@@ -24,10 +25,21 @@ describe('Dropdown element', () => {
                         },
                     ],
                 },
+                navImg: {
+                    navigationImage: 'url',
+                    imgs: [
+                        {
+                            childImageSharp: {
+                                fluid: {} as FluidObject,
+                            },
+                            url: 'url',
+                        },
+                    ],
+                },
             };
         });
     });
-
+    
     const element = (
         <Dropdown currLocation="/about" goBack={jest.fn(() => {})} />
     );

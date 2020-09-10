@@ -116,7 +116,10 @@ const Homepage: React.FC<Props> = ({
         <>
             <Hero heroData={heroData} />
             <Campaign campaignData={campaignData} />
-            <HomepageProducts products={productsToShow} />
+            <HomepageProducts
+                products={productsToShow}
+                displayText={homepageData.homepageProductsDisplayText}
+            />
         </>
     );
 };

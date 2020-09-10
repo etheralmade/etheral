@@ -4,7 +4,6 @@ import { Link } from '@reach/router';
 import { Flex, Box, Heading } from 'rebass';
 
 import { Product } from 'helper/schema/product';
-import { FixedData as FixedDataPages } from 'pages';
 import ProductCard, {
     Props as ProductCardProps,
 } from 'components/product-card';
@@ -14,10 +13,11 @@ import './homepage.scss';
 
 type Props = {
     products: Product[];
+    displayText: string;
 };
 
-const HomepageProducts: React.FC<Props> = ({ products }) => {
-    const { extractImgs, s } = useAllProductImages();
+const HomepageProducts: React.FC<Props> = ({ products, displayText }) => {
+    const { extractImgs } = useAllProductImages();
 
     return (
         <Box variant="outerWrapper">
@@ -28,7 +28,7 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                 mb={[5, 5, 6, 7]}
                 fontWeight="body"
             >
-                NEW ARRIVALS
+                {displayText.toUpperCase()}
             </Heading>
             <Flex
                 flexDirection={['column', 'column', 'row']}
@@ -44,7 +44,7 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                     } as ProductCardProps;
                     return (
                         <Link
-                            key={product.pid}
+                            key={`homepage-${product.pid}`}
                             to={product.slug}
                             className="product-link"
                         >
@@ -52,7 +52,6 @@ const HomepageProducts: React.FC<Props> = ({ products }) => {
                                 {...props}
                                 css={``}
                                 mb={[7]}
-                                // mx={[1, 1, 5]}
                                 width="100%"
                             />
                         </Link>

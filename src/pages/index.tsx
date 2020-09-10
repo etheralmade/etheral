@@ -18,6 +18,7 @@ export type HomePageData = {
         buttonText: string;
     }[];
     products: string[];
+    homepageProductsDisplayText: string;
 };
 
 export type FluidData = {

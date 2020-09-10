@@ -1,6 +1,8 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Link } from '@reach/router';
+import { findIndex } from 'lodash';
+import Img, { FluidObject } from 'gatsby-image';
 
 import { Box, Flex, Text } from 'rebass';
 import { InlineIcon } from '@iconify/react';
@@ -21,22 +23,41 @@ const nameToSlug = (name: string) =>
 const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
     const data = useStaticQuery(graphql`
         query {
-            allCollection {
+            collections: allCollection {
                 edges {
                     node {
                         name
                     }
                 }
             }
+            navImg: homepage {
+                navigationImage
+                imgs {
+                    childImageSharp {
+                        fluid(maxWidth: 600, maxHeight: 300, quality: 100) {
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                    url
+                }
+            }
         }
     `);
 
-    const { allCollection } = data;
+    const { collections: allCollection, navImg } = data;
+
+    const { navigationImage, imgs } = navImg as any;
+
+    const navImgIndex = findIndex(imgs, (o: any) => o.url === navigationImage);
 
     if (allCollection) {
         const collections: string[] = allCollection.edges.map(
             (edge: any) => edge.node.name
         );
+
+        const navImgFluid = imgs[navImgIndex].childImageSharp.fluid as
+            | FluidObject
+            | FluidObject[];
 
         return (
             <Box
@@ -84,11 +105,16 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                         Menu
                     </Text>
                 </Box>
-                <Flex ml={[6, 6, 0]}>
-                    <Flex
-                        flexDirection={['column', 'row', 'row']}
-                        flexWrap="wrap"
-                    >
+                <Flex
+                    ml={[6, 6, 0]}
+                    justifyContent={[
+                        'space-between',
+                        'space-between',
+                        'space-between',
+                        'flex-start',
+                    ]}
+                >
+                    <Flex flexDirection={['column', 'row', 'row']}>
                         <Box className="others" my={[5, 5, 0]}>
                             <Link to="/">
                                 <Text variant="link">Shop all</Text>
@@ -145,6 +171,34 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                             </Box>
                         </Box>
                     </Flex>
+                    <Box
+                        ml={[0, 0, 0, 8, 10]}
+                        mt={[0, 0, 10, 8]}
+                        css={`
+                            display: none;
+
+                            @media screen and (min-width: 48em) {
+                                display: block;
+                                width: 300px;
+                                height: 150px;
+                                overflow: hidden;
+                            }
+
+                            @media screen and (min-width: 64em) {
+                                width: 400px;
+                                height: 200px;
+                            }
+
+                            @media screen and (min-width: 90em) {
+                                width: 600px;
+                                img {
+                                    transform: translateY(-50px) !important;
+                                }
+                            }
+                        `}
+                    >
+                        <Img fluid={navImgFluid} />
+                    </Box>
                 </Flex>
             </Box>
         );

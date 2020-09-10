@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from '@reach/router';
+import { FluidObject } from 'gatsby-image';
 
 import { Text, Flex, Box } from 'rebass';
 import { Icon } from '@iconify/react';
@@ -22,13 +23,14 @@ import './nav.scss';
 export type Props = {
     auth: firebase.auth.Auth;
     db: firebase.firestore.Firestore;
+    navigationImage: FluidObject | FluidObject[];
 };
 
 const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
     // states for ui changes
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showDropdownL, setShowDropdownL] = useState(false);
+    const [showDropdownL, setShowDropdownL] = useState(true);
     const [currLocation, setCurrLocation] = useState('/');
     const [showCart, setShowCart] = useState(false);
 
