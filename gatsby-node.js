@@ -172,6 +172,8 @@ exports.sourceNodes = async ({
             description: data.description,
             category: data.category,
             idrPrice: data.idrPrice,
+            ausPrice: data.ausPrice,
+            usdPrice: data.usdPrice,
             urls: data.image,
             availableSizes: data.availableSizes,
             collection: data.collection,

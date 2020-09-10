@@ -7,6 +7,8 @@ export const mockProduct1: Product = {
     slug: 'ctg1/product1',
     category: 'ctg1',
     idrPrice: 23000,
+    usdPrice: 23,
+    ausPrice: 21,
     collection: 'fall',
     productImages: [],
     urls: [],

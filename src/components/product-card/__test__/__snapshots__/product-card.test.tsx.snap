@@ -1,31 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`product card component matches snapshot 1`] = `
-<div
-  className="css-vurnku"
->
+Array [
   <div
-    className="css-12w9nlj"
-    data-testid="tile-container"
+    className="css-vurnku"
   >
     <div
-      className="css-oryowi"
+      className="css-12w9nlj"
+      data-testid="tile-container"
     >
-      <img
-        alt="Mock product"
-      />
+      <div
+        className="css-oryowi"
+      >
+        <img
+          alt="Mock product"
+        />
+      </div>
     </div>
-  </div>
-  <div
-    className="css-vurnku"
-  >
-    Mock product
-  </div>
-  <div
-    className="css-vurnku"
-  >
-    IDR 
-    23000
-  </div>
-</div>
+    <div
+      className="css-vurnku"
+    >
+      Mock product
+    </div>
+    <div
+      className="css-vurnku"
+    >
+      IDR 
+      23000
+    </div>
+  </div>,
+  ";",
+]
 `;

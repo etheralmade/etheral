@@ -5,6 +5,10 @@ import { Box, BoxProps, Text } from 'rebass';
 
 import { Product } from 'helper/schema/product';
 import Tile from 'components/tile';
+import {
+    IState as ICurrencyState,
+    Currencies,
+} from 'state/reducers/currency-reducer';
 
 import './product-card.scss';
 
@@ -18,8 +22,32 @@ export type Props = BoxProps & {
     }[];
 };
 
-const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
-    const { name, idrPrice, urls } = product;
+const ProductCard: React.FC<ICurrencyState & Props> = ({
+    product,
+    imgs,
+    css,
+    currency,
+    ...rest
+}) => {
+    const { name, idrPrice, ausPrice, usdPrice, urls } = product;
+
+    // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
+    let price;
+
+    switch (currency) {
+        case Currencies.IDR:
+            price = `IDR ${idrPrice}`;
+            break;
+        case Currencies.AUD:
+            price = `AUD ${ausPrice}`;
+            break;
+        case Currencies.USD:
+            price = `USD ${usdPrice}`;
+            break;
+        default:
+            price = `IDR ${idrPrice}`;
+            break;
+    }
 
     if (imgs) {
         return (
@@ -47,7 +75,7 @@ const ProductCard: React.FC<Props> = ({ product, imgs, css, ...rest }) => {
                     {name}
                 </Text>
                 <Text variant="productPrice" width="100%">
-                    IDR {idrPrice}
+                    {price}
                 </Text>
             </Box>
         );

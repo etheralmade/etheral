@@ -5,18 +5,33 @@ import renderer from 'react-test-renderer';
 // import { render, cleanup } from '@testing-library/react'
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
+// mock store
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 import { Currencies } from 'state/reducers/currency-reducer';
-import { CurrencySelector } from '../currency-selector';
+import CurrencySelector from '..';
 
 describe('CurrencySelector', () => {
-    const Element = (
-        <CurrencySelector
-            currency={Currencies.IDR}
-            showDropdown={true}
-            desktop={true}
-        />
-    );
+    const mockStore = configureStore([]);
+
+    let store;
+    let Element: any;
+    beforeEach(() => {
+        store = mockStore({
+            currencyReducer: {
+                currency: Currencies.IDR,
+            },
+        });
+
+        store.dispatch = jest.fn();
+
+        Element = (
+            <Provider store={store}>
+                <CurrencySelector showDropdown={true} desktop={true} />
+            </Provider>
+        );
+    });
 
     afterEach(cleanup);
 
@@ -25,12 +40,8 @@ describe('CurrencySelector', () => {
         ReactDOM.render(Element, div);
     });
 
-    /* it('renders correctly', () => {
-		const { getByTestId } = render()
-	}) */
-
     it('matches snapshot', () => {
-        const run = false;
+        const run = true;
 
         if (run) {
             const tree = renderer.create(Element).toJSON();
