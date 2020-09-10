@@ -1,37 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Account element to log in  matches snapshot 1`] = `
-<div
-  className="css-4vz6jx"
+<a
+  css="
+                text-align: left;
+                display: none;
+
+                @media screen and (min-width: 48em) {
+                    display: flex !important;
+                    align-items: center;
+                    margin-right: 16px;
+                    margin-bottom: 0;
+                }
+            "
+  href="/auth"
+  onClick={[Function]}
 >
   <svg
-    className="icons"
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path d=\\"M20 22h-2v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12a6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8a4 4 0 0 0 0 8z\\" fill=\\"currentColor\\"/>",
-      }
-    }
-    focusable={false}
+    className="icons black-on-dropdown-stroke"
+    fill="none"
     height="1em"
-    preserveAspectRatio="xMidYMid meet"
-    style={
-      Object {
-        "transform": "rotate(360deg)",
-      }
-    }
-    viewBox="0 0 24 24"
+    viewBox="0 0 995 1038"
     width="1em"
-    xmlns="http://www.w3.org/2000/svg"
-  />
-  <a
-    href="/auth"
-    onClick={[Function]}
   >
-    <div
-      className="css-193p5vv"
-    >
-      Jane
-    </div>
-  </a>
-</div>
+    <path
+      d="M492.6 522.8c131.941 0 238.9-106.959 238.9-238.9S624.541 45 492.6 45 253.7 151.959 253.7 283.9s106.959 238.9 238.9 238.9z"
+      stroke="#000"
+      strokeMiterlimit={10}
+      strokeWidth={88.041}
+    />
+    <path
+      d="M492.7 1002.5h466.8c0-234.224-215.566-468.5-466.8-468.5S36 768.276 36 1002.5h456.7z"
+      stroke="#000"
+      strokeMiterlimit={10}
+      strokeWidth={70.572}
+    />
+  </svg>
+</a>
 `;

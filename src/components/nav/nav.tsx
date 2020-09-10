@@ -112,6 +112,14 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                         @media screen and (min-width: 48em) {
                             height: 24px;
                             width: 24px;
+
+                            &.black-on-dropdown path {
+                                fill: ${showDropdownL ? '#000' : '#fff'};
+                            }
+
+                            &.black-on-dropdown-stroke path {
+                                stroke: ${showDropdownL ? '#000' : '#fff'};
+                            }
                         }
                     }
                 `}
@@ -130,20 +138,21 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             & svg {
                                 height: 8vh;
                                 width: 20vw;
+                            }
 
-                                path {
+                            @media screen and (min-width: 48em) {
+                                width: 24vw;
+                                height: 8vh;
+                                transform: translate(-55%, 8px);
+
+                                & svg path {
                                     fill: ${showDropdownL ? '#000' : '#fff'};
                                 }
                             }
 
-                            @media screen and (min-width: 48em) {
-                                width: 12vw;
-                                transform: translate(-55%, 8px);
-                            }
-
                             @media screen and (min-width: 64em) {
                                 width: 8vw;
-                                transform: translate(-60%, 8px);
+                                transform: translate(-60%, 8px) scale(1.4) !important;
                             }
                         `}
                     >
@@ -187,7 +196,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                 color={showDropdownL ? '#000' : '#fff'}
                                 py={[0, 0, '5vh']}
                             >
-                                About
+                                ABOUT
                             </Text>
                         </Link>
                         <Box
@@ -199,7 +208,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                 py={[0, 0, '5vh']}
                                 color={showDropdownL ? '#000' : '#fff'}
                             >
-                                Shop
+                                SHOP
                             </Text>
                             <CSSTransition
                                 in={showDropdownL}
@@ -223,7 +232,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                 color={showDropdownL ? '#000' : '#fff'}
                                 py={[0, 0, '5vh']}
                             >
-                                Blog
+                                BLOG
                             </Text>
                         </Link>
                     </Flex>
@@ -263,6 +272,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                     classNames="links"
                 >
                     <Box id="links-S" minHeight={['92vh']} p={5}>
+                        <Account user={user} desktop={false} />
                         <Link to="/about">
                             <Text
                                 variant={
@@ -272,12 +282,12 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                 }
                                 my={[2]}
                             >
-                                About
+                                ABOUT
                             </Text>
                         </Link>
                         <Box onClick={() => setShowDropdown(prev => !prev)}>
                             <Text variant="link" my={[2]}>
-                                Shop
+                                SHOP
                             </Text>
                         </Box>
                         <Link to="/blog">
@@ -289,10 +299,9 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                                 }
                                 my={[2]}
                             >
-                                Blog
+                                BLOG
                             </Text>
                         </Link>
-                        <Account user={user} desktop={false} />
                     </Box>
                 </CSSTransition>
 

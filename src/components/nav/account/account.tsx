@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 import UserIcon from '../assets/account';
-import CartIcon from '../assets/cart';
 
 type Props = {
     user: firebase.User | null;
@@ -27,7 +26,11 @@ const Account: React.FC<Props> = ({ user, desktop }) => {
                 }
             `}
         >
-            <UserIcon className={desktop ? 'icons' : 'icons bigger'} />
+            <UserIcon
+                className={
+                    desktop ? 'icons black-on-dropdown-stroke' : 'icons bigger'
+                }
+            />
         </Link>
     );
 };
