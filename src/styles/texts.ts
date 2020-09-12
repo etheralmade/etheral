@@ -1,6 +1,6 @@
 const baseLink = {
     fontFamily: 'body',
-    fontSize: [3, 3, 2],
+    fontSize: [3, 3, 1],
     fontWeight: 'medium',
     mr: [0, 0, 5],
 };
@@ -65,13 +65,13 @@ export default {
     productPrice: {
         fontFamily: 'body',
         fontWeight: 500,
-        fontSize: [2, 3, 2, 3],
+        fontSize: [1, 2, 1, 2],
         color: '#000',
     },
     productName: {
         fontFamily: 'heading',
         fontWeight: 'bold',
-        fontSize: [2, 3, 2, 3],
+        fontSize: [1, 2, 1, 2],
         color: '#000',
     },
     link: {
@@ -96,7 +96,7 @@ export default {
         ...baseLink,
         color: '#555',
         transition: '0.2s',
-        fontSize: [2],
+        fontSize: [1],
         '&:hover': {
             ...linkActiveAttrs,
             fontWeight: 'body',

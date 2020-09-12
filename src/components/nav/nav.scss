@@ -2,7 +2,8 @@ header {
     transition: 0.1s;
     margin: 0 !important;
 
-    position: fixed;
+    position: absolute;
+    top: 0;
     z-index: 999;
 
     a {

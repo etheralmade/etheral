@@ -30,7 +30,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
     // states for ui changes
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showDropdownL, setShowDropdownL] = useState(true);
+    const [showDropdownL, setShowDropdownL] = useState(false);
     const [currLocation, setCurrLocation] = useState('/');
     const [showCart, setShowCart] = useState(false);
 
@@ -108,21 +108,21 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                     }
 
                     & .icons {
-                        height: 16px;
-                        width: 16px;
+                        height: 12px;
+                        width: 12px;
 
                         &.bigger {
-                            height: 20px;
-                            width: 20px;
+                            height: 16px;
+                            width: 16px;
                         }
 
                         @media screen and (min-width: 27em) {
-                            height: 20px;
-                            width: 20px;
+                            height: 14px;
+                            width: 14px;
 
                             &.bigger {
-                                height: 24px;
-                                width: 24px;
+                                height: 18px;
+                                width: 18px;
                             }
                         }
 
@@ -162,7 +162,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             }
 
                             @media screen and (min-width: 48em) {
-                                width: 24vw;
+                                width: 12vw;
                                 height: 8vh;
                                 transform: translate(-55%, 8px);
 
@@ -174,8 +174,9 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             }
 
                             @media screen and (min-width: 64em) {
-                                width: 8vw;
-                                transform: translate(-60%, 8px) scale(1.4) !important;
+                                width: 10vw;
+                                max-width: 150px;
+                                transform: translate(-60%, 8px);
                             }
                         `}
                     >

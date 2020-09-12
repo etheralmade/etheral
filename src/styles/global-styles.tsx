@@ -16,7 +16,7 @@ const GlobalStyles = createGlobalStyle`
         top: 8vh;
 
         header {
-          top: 0;
+          top: -8vh;
         }
 
         @media screen and (min-width: 27em) {
@@ -26,9 +26,9 @@ const GlobalStyles = createGlobalStyle`
         @media screen and (min-width: 48em) {
           top: 0;
 
-          /* header {
-            top: 2vh;
-          } */
+          header {
+            top: 0;
+          }
         }
 
         @media screen and (min-width: 64em) {
