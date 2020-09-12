@@ -291,6 +291,7 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                             user={user}
                             db={db}
                             cart={cart}
+                            showDropdown={showDropdownL}
                         />
                     </Flex>
                 </Flex>

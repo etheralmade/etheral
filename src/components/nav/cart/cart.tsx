@@ -16,6 +16,7 @@ import CartIcon from '../assets/cart';
 export type Props = {
     user: firebase.User | null;
     db: firebase.firestore.Firestore;
+    showDropdown: boolean;
     showCart: boolean;
     toggleShowCart: () => void;
 };
@@ -25,6 +26,7 @@ const Cart: React.FC<Props & ICartState> = ({
     user,
     db,
     showCart,
+    showDropdown,
     toggleShowCart,
 }) => {
     const [cartSnapshot, setCartSnapshot] = useState(JSON.stringify(cart));
@@ -116,7 +118,7 @@ const Cart: React.FC<Props & ICartState> = ({
                     <CartIcon className="icons black-on-dropdown" />
                 )}
                 {cart.length > 0 && !showCart ? (
-                    <CartBadge cart={cart} />
+                    <CartBadge cart={cart} showDropdown={showDropdown} />
                 ) : (
                     <></>
                 )}
