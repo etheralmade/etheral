@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { findIndex } from 'lodash';
+
 import { Text, Heading, Box, Flex } from 'rebass';
 
 import { Order } from 'helper/schema/order';
@@ -23,14 +25,20 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
         color: '#555',
     };
 
-    console.table(display);
+    const focusOrder = (oid: string) => {
+        setOnFocus(oid);
+    };
+
+    const focusedIndex = findIndex(orders, o => o.oid === onFocus);
+
+    console.log(focusedIndex);
 
     return (
-        <Flex>
+        <Flex justifyContent="space-evenly">
             <Box
                 p={4}
                 bg="#fff"
-                width="45%"
+                width="48%"
                 css={`
                     box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
                 `}
@@ -68,24 +76,24 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                                 shipped={order.delivered}
                                 currency={order.currency}
                                 bg={i % 2 === 0 ? '#fafafa' : '#eaeaea'}
+                                focusOrder={focusOrder}
                             />
                         ))}
                     </Box>
                 </Box>
-                {/* <Card
-                mt={[3, 3, 6]}
-                width={[1]}
-                bg="white.0"
-                overflow="hidden"
+            </Box>
+            {/* box to show Order. */}
+            <Box
+                p={4}
+                bg="#fff"
+                width="48%"
                 css={`
-                    border-radius: 4px;
-                    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.125);
+                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
                 `}
             >
-                {orders.map(order => (
-                    <OrderItem key={order.oid} order={order} db={db} />
-                ))}
-            </Card> */}
+                {onFocus !== '' && (
+                    <OrderItem order={orders[focusedIndex]} db={db} />
+                )}
             </Box>
         </Flex>
     );

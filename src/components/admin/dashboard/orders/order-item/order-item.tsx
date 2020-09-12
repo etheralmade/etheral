@@ -26,7 +26,6 @@ type Props = {
 
 const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
     const [orderState, setOrderState] = useState<Order>(order);
-    const [viewInfo, setViewInfo] = useState(false);
     const [viewOrderInfo, setViewOrderInfo] = useState(false);
     const [viewTransactionInfo, setViewTransactionInfo] = useState(false);
     const [viewShiptoInfo, setViewShiptoInfo] = useState(false);
@@ -113,7 +112,6 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
             <Flex
                 alignItems={['flex-start', 'flex-start', 'center']}
                 justifyContent="space-between"
-                mb={viewInfo ? [3, 3] : []}
                 css={`
                     transition: 0.1s;
                 `}
@@ -147,278 +145,245 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                         {paid ? 'Paid' : 'Not paid'}
                     </Box>
                 </Flex>
-
-                <Box
-                    onClick={() => setViewInfo(!viewInfo)}
-                    mt={[3, 3, 0]}
-                    css={`
-                        &:hover {
-                            cursor: pointer;
-                        }
-                        & > svg {
-                            transform: scale(1.4)
-                                rotate(${viewInfo ? '180deg' : '0deg'}) !important;
-                        }
-                    `}
-                >
-                    <Icon icon={arrowDownFill} />
-                </Box>
             </Flex>
 
-            <CSSTransition
-                in={viewInfo}
-                timeout={0}
-                classNames="info"
-                unmountOnExit={true}
+            <Box
+                overflow="hidden"
+                css={`
+                    transition: 0.2s;
+                `}
             >
-                <Box
-                    overflow="hidden"
-                    css={`
-                        transition: 0.2s;
-                    `}
+                <Heading as="h4" variant="adminOrderBody" {...headingStyle}>
+                    Buyer&apos;s info
+                </Heading>
+                <Box {...infoStyle}>
+                    <Text variant="bodyMedium">
+                        Name: <span style={spanStyle}>{buyerName}</span>
+                    </Text>
+                    <Text variant="bodyMedium">
+                        Email: <span style={spanStyle}>{buyerEmail}</span>
+                    </Text>
+                    <Text variant="bodyMedium">
+                        Phone: <span style={spanStyle}>{buyerPhone}</span>
+                    </Text>
+                    <Text variant="bodyMedium">
+                        Buyer UserID:{' '}
+                        <span style={spanStyle}>
+                            {buyerUId === 'admin' ? 'None' : buyerUId}
+                        </span>
+                    </Text>
+                </Box>
+
+                {/* Order infos. */}
+
+                <Flex
+                    alignItems="center"
+                    justifyContent="space-between"
+                    {...headingStyle}
                 >
-                    <Heading as="h4" variant="adminOrderBody" {...headingStyle}>
-                        Buyer&apos;s info
+                    <Heading as="h4" variant="adminOrderBody">
+                        Order info
                     </Heading>
+                    <Flex
+                        variant="center"
+                        css={`
+                            &: hover {
+                                cursor: pointer;
+                            }
+                            & > svg {
+                                transform: scale(1)
+                                    rotate(${viewOrderInfo ? '180deg' : '0deg'}) !important;
+                            }
+                        `}
+                        onClick={() => setViewOrderInfo(!viewOrderInfo)}
+                    >
+                        <Icon icon={arrowDownFill} />
+                    </Flex>
+                </Flex>
+                <CSSTransition
+                    in={viewOrderInfo}
+                    timeout={0}
+                    unmountOnExit={true}
+                >
                     <Box {...infoStyle}>
                         <Text variant="bodyMedium">
-                            Name: <span style={spanStyle}>{buyerName}</span>
-                        </Text>
-                        <Text variant="bodyMedium">
-                            Email: <span style={spanStyle}>{buyerEmail}</span>
-                        </Text>
-                        <Text variant="bodyMedium">
-                            Phone: <span style={spanStyle}>{buyerPhone}</span>
-                        </Text>
-                        <Text variant="bodyMedium">
-                            Buyer UserID:{' '}
+                            Order made on{' '}
+                            <span style={spanStyle}>{getDate(date)}</span>.
+                            Payment via{' '}
                             <span style={spanStyle}>
-                                {buyerUId === 'admin' ? 'None' : buyerUId}
+                                {via} - {channel}
+                            </span>
+                        </Text>
+                        <Heading as="h5" variant="h5">
+                            Products
+                        </Heading>
+                        <Box ml={[3, 3, 4]} my={[3, 3, 4]}>
+                            {products.map(product => (
+                                <React.Fragment key={product.pid}>
+                                    {renderProduct(product)}
+                                </React.Fragment>
+                            ))}
+                        </Box>
+                        <Text variant="bodyMedium">
+                            Subtotal:{' '}
+                            <span style={spanStyle}>
+                                {currency}
+                                {'  '}
+                                {total}
                             </span>
                         </Text>
                     </Box>
+                </CSSTransition>
 
-                    {/* Order infos. */}
+                {/* transaction infos. */}
 
-                    <Flex
-                        alignItems="center"
-                        justifyContent="space-between"
-                        {...headingStyle}
-                    >
-                        <Heading as="h4" variant="adminOrderBody">
-                            Order info
-                        </Heading>
-                        <Flex
-                            variant="center"
-                            css={`
-                                &: hover {
-                                    cursor: pointer;
-                                }
-                                & > svg {
-                                    transform: scale(1)
-                                        rotate(
-                                            ${viewOrderInfo ? '180deg' : '0deg'}
-                                        ) !important;
-                                }
-                            `}
-                            onClick={() => setViewOrderInfo(!viewOrderInfo)}
-                        >
-                            <Icon icon={arrowDownFill} />
-                        </Flex>
-                    </Flex>
-                    <CSSTransition
-                        in={viewOrderInfo}
-                        timeout={0}
-                        unmountOnExit={true}
-                    >
-                        <Box {...infoStyle}>
-                            <Text variant="bodyMedium">
-                                Order made on{' '}
-                                <span style={spanStyle}>{getDate(date)}</span>.
-                                Payment via{' '}
-                                <span style={spanStyle}>
-                                    {via} - {channel}
-                                </span>
-                            </Text>
-                            <Heading as="h5" variant="h5">
-                                Products
-                            </Heading>
-                            <Box ml={[3, 3, 4]} my={[3, 3, 4]}>
-                                {products.map(product => (
-                                    <React.Fragment key={product.pid}>
-                                        {renderProduct(product)}
-                                    </React.Fragment>
-                                ))}
-                            </Box>
-                            <Text variant="bodyMedium">
-                                Subtotal:{' '}
-                                <span style={spanStyle}>
-                                    {currency}
-                                    {'  '}
-                                    {total}
-                                </span>
-                            </Text>
-                        </Box>
-                    </CSSTransition>
-
-                    {/* transaction infos. */}
-
-                    <Flex
-                        alignItems="center"
-                        justifyContent="space-between"
-                        {...headingStyle}
-                    >
-                        <Heading as="h4" variant="adminOrderBody">
-                            Transaction Info
-                        </Heading>
-                        <Flex
-                            variant="center"
-                            css={`
-                                &: hover {
-                                    cursor: pointer;
-                                }
-                                & > svg {
-                                    transform: scale(1)
-                                        rotate(
-                                            ${viewTransactionInfo
-                                                ? '180deg'
-                                                : '0deg'}
-                                        ) !important;
-                                }
-                            `}
-                            onClick={() =>
-                                setViewTransactionInfo(!viewTransactionInfo)
-                            }
-                        >
-                            <Icon icon={arrowDownFill} />
-                        </Flex>
-                    </Flex>
-                    <CSSTransition
-                        in={viewTransactionInfo}
-                        timeout={0}
-                        unmountOnExit={true}
-                    >
-                        <Box {...infoStyle}>
-                            <Text variant="bodyMedium">
-                                Session ID:{' '}
-                                <span style={spanStyle}>{sessionId}</span>
-                            </Text>
-                            <Text variant="bodyMedium">
-                                Payment no:{' '}
-                                <span style={spanStyle}>{paymentNo}</span>
-                            </Text>
-                            <Text variant="bodyMedium">
-                                Payment name:{' '}
-                                <span style={spanStyle}>{paymentName}</span>
-                            </Text>
-                            <Text variant="bodyMedium">
-                                Expired on:{' '}
-                                <span style={spanStyle}>{expired}</span>
-                            </Text>
-                            <Text variant="bodyMedium">
-                                Fee: <span style={spanStyle}>{fee}</span>
-                            </Text>
-                        </Box>
-                    </CSSTransition>
-
-                    {/* Ship-to infos. */}
-
-                    <Flex
-                        {...headingStyle}
-                        alignItems="center"
-                        justifyContent="space-between"
-                    >
-                        <Heading as="h4" variant="adminOrderBody">
-                            Ship to
-                        </Heading>
-                        <Flex
-                            variant="center"
-                            css={`
-                                &: hover {
-                                    cursor: pointer;
-                                }
-                                & > svg {
-                                    transform: scale(1)
-                                        rotate(
-                                            ${viewShiptoInfo
-                                                ? '180deg'
-                                                : '0deg'}
-                                        ) !important;
-                                }
-                            `}
-                            onClick={() => setViewShiptoInfo(!viewShiptoInfo)}
-                        >
-                            <Icon icon={arrowDownFill} />
-                        </Flex>
-                    </Flex>
-                    <CSSTransition
-                        in={viewShiptoInfo}
-                        timeout={0}
-                        unmountOnExit={true}
-                    >
-                        <Box {...infoStyle}>
-                            <Text variant="bodyMedium">
-                                Address:{' '}
-                                <span style={spanStyle}>{buyerAddr}</span>
-                            </Text>
-                            <Text variant="bodyMedium">
-                                Postal code:{' '}
-                                <span style={spanStyle}>{buyerPostal}</span>
-                            </Text>
-                            <Text variant="bodyMedium">
-                                Shipping method:{' '}
-                                <span style={spanStyle}>{shippingMethod}</span>
-                            </Text>
-                        </Box>
-                    </CSSTransition>
-
-                    <Heading as="h4" variant="adminOrderBody" my={[4, 4, 5]}>
-                        Status: {delivered ? `Shipped ` : 'Not shipped'}{' '}
-                        <InlineIcon
-                            icon={
-                                delivered ? checkboxCircleFill : closeCircleLine
-                            }
-                        />
+                <Flex
+                    alignItems="center"
+                    justifyContent="space-between"
+                    {...headingStyle}
+                >
+                    <Heading as="h4" variant="adminOrderBody">
+                        Transaction Info
                     </Heading>
-                    {delivered && shippingData ? (
-                        <>
-                            <Heading
-                                as="h4"
-                                variant="adminOrderBody"
-                                {...headingStyle}
-                            >
-                                Shiping Informations
-                            </Heading>
-                            <Box data-testid="shipping-info">
-                                {shippingData.shippingDate && (
-                                    <Text variant="bodyMedium">
-                                        Shipped date:{' '}
-                                        <span style={spanStyle}>
-                                            {getDate(shippingData.shippingDate)}
-                                        </span>
-                                    </Text>
-                                )}
+                    <Flex
+                        variant="center"
+                        css={`
+                            &: hover {
+                                cursor: pointer;
+                            }
+                            & > svg {
+                                transform: scale(1)
+                                    rotate(
+                                        ${viewTransactionInfo
+                                            ? '180deg'
+                                            : '0deg'}
+                                    ) !important;
+                            }
+                        `}
+                        onClick={() =>
+                            setViewTransactionInfo(!viewTransactionInfo)
+                        }
+                    >
+                        <Icon icon={arrowDownFill} />
+                    </Flex>
+                </Flex>
+                <CSSTransition
+                    in={viewTransactionInfo}
+                    timeout={0}
+                    unmountOnExit={true}
+                >
+                    <Box {...infoStyle}>
+                        <Text variant="bodyMedium">
+                            Session ID:{' '}
+                            <span style={spanStyle}>{sessionId}</span>
+                        </Text>
+                        <Text variant="bodyMedium">
+                            Payment no:{' '}
+                            <span style={spanStyle}>{paymentNo}</span>
+                        </Text>
+                        <Text variant="bodyMedium">
+                            Payment name:{' '}
+                            <span style={spanStyle}>{paymentName}</span>
+                        </Text>
+                        <Text variant="bodyMedium">
+                            Expired on: <span style={spanStyle}>{expired}</span>
+                        </Text>
+                        <Text variant="bodyMedium">
+                            Fee: <span style={spanStyle}>{fee}</span>
+                        </Text>
+                    </Box>
+                </CSSTransition>
+
+                {/* Ship-to infos. */}
+
+                <Flex
+                    {...headingStyle}
+                    alignItems="center"
+                    justifyContent="space-between"
+                >
+                    <Heading as="h4" variant="adminOrderBody">
+                        Ship to
+                    </Heading>
+                    <Flex
+                        variant="center"
+                        css={`
+                            &: hover {
+                                cursor: pointer;
+                            }
+                            & > svg {
+                                transform: scale(1)
+                                    rotate(
+                                        ${viewShiptoInfo ? '180deg' : '0deg'}
+                                    ) !important;
+                            }
+                        `}
+                        onClick={() => setViewShiptoInfo(!viewShiptoInfo)}
+                    >
+                        <Icon icon={arrowDownFill} />
+                    </Flex>
+                </Flex>
+                <CSSTransition
+                    in={viewShiptoInfo}
+                    timeout={0}
+                    unmountOnExit={true}
+                >
+                    <Box {...infoStyle}>
+                        <Text variant="bodyMedium">
+                            Address: <span style={spanStyle}>{buyerAddr}</span>
+                        </Text>
+                        <Text variant="bodyMedium">
+                            Postal code:{' '}
+                            <span style={spanStyle}>{buyerPostal}</span>
+                        </Text>
+                        <Text variant="bodyMedium">
+                            Shipping method:{' '}
+                            <span style={spanStyle}>{shippingMethod}</span>
+                        </Text>
+                    </Box>
+                </CSSTransition>
+
+                <Heading as="h4" variant="adminOrderBody" my={[4, 4, 5]}>
+                    Status: {delivered ? `Shipped ` : 'Not shipped'}{' '}
+                    <InlineIcon
+                        icon={delivered ? checkboxCircleFill : closeCircleLine}
+                    />
+                </Heading>
+                {delivered && shippingData ? (
+                    <>
+                        <Heading
+                            as="h4"
+                            variant="adminOrderBody"
+                            {...headingStyle}
+                        >
+                            Shiping Informations
+                        </Heading>
+                        <Box data-testid="shipping-info">
+                            {shippingData.shippingDate && (
                                 <Text variant="bodyMedium">
-                                    Tracking number:{' '}
+                                    Shipped date:{' '}
                                     <span style={spanStyle}>
-                                        {shippingData.trackingNum}
+                                        {getDate(shippingData.shippingDate)}
                                     </span>
                                 </Text>
-                                <Text variant="bodyMedium">
-                                    Shipped by:{' '}
-                                    <span style={spanStyle}>
-                                        {shippingData.shippedBy}
-                                    </span>
-                                </Text>
-                            </Box>
-                        </>
-                    ) : (
-                        <ShippingConfirmation
-                            confirmShipping={confirmShipping}
-                        />
-                    )}
-                </Box>
-            </CSSTransition>
+                            )}
+                            <Text variant="bodyMedium">
+                                Tracking number:{' '}
+                                <span style={spanStyle}>
+                                    {shippingData.trackingNum}
+                                </span>
+                            </Text>
+                            <Text variant="bodyMedium">
+                                Shipped by:{' '}
+                                <span style={spanStyle}>
+                                    {shippingData.shippedBy}
+                                </span>
+                            </Text>
+                        </Box>
+                    </>
+                ) : (
+                    <ShippingConfirmation confirmShipping={confirmShipping} />
+                )}
+            </Box>
         </Card>
     ) : (
         <></>

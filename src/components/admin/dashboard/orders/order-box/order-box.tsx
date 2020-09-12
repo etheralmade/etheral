@@ -13,6 +13,7 @@ type Props = {
     shipped: boolean;
     currency: Currencies;
     bg: string;
+    focusOrder: (oid: string) => void;
 };
 
 const OrderBox: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const OrderBox: React.FC<Props> = ({
     shipped,
     currency,
     bg,
+    focusOrder,
 }) => {
     const textStyling = {
         fontFamily: 'body',
@@ -49,6 +51,7 @@ const OrderBox: React.FC<Props> = ({
             }}
             px={[2]}
             py={[2]}
+            onClick={() => focusOrder(oid)}
         >
             <Text sx={{ gridColumn: '1/2' }} {...textStyling}>
                 {oid}

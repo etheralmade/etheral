@@ -27,6 +27,8 @@ const OrderItem: React.FC<Props> = ({ order, db }) => {
         }
     };
 
+    console.log('test');
+
     return db ? (
         <OrderItemEl
             order={order}
