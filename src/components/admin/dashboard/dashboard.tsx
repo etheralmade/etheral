@@ -66,7 +66,7 @@ const Dashboard: React.FC<Props> = ({ logout, db }) => {
                 width="100%"
                 height={['90vh', '100vh']}
                 flex={1}
-                p={[5]}
+                p={[5, 5, 7]}
                 bg="white.1"
             >
                 {toRender}
