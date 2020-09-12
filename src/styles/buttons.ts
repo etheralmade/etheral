@@ -21,9 +21,9 @@ const buttonAdminLinkStyle = {
     justifyContent: ['center', 'center', 'unset'],
     py: [4, 4, 2],
     px: [4, 4, 7],
-    bg: 'brown.0',
+    bg: '#333',
     '&: hover': {
-        color: 'brown.3',
+        color: '#fff',
         cursor: 'pointer',
     },
     '& > svg': {
@@ -35,11 +35,11 @@ const buttonAdminLinkStyle = {
 export default {
     adminLink: {
         ...buttonAdminLinkStyle,
-        color: 'brown.2',
+        color: 'brown.0',
     },
     adminLinkActive: {
         ...buttonAdminLinkStyle,
-        color: 'brown.3',
+        color: '#fff',
         fontWeight: 'bold',
     },
     primary: {

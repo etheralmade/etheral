@@ -98,7 +98,6 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
             width="100%"
             px={[3]}
             py={[4]}
-            // my={[2]}
             css={`
                 border: none;
                 border-color: ${theme.colors.brown[2]};
@@ -106,7 +105,6 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                 border-style: solid;
                 border-bottom-width: 2px;
                 background-color: #fff;
-                /* box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.125); */
                 & svg {
                     transition: 0.2s;
                 }

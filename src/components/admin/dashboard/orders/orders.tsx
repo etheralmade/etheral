@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Heading } from 'rebass';
 
 import { Order } from 'helper/schema/order';
@@ -10,15 +10,21 @@ type Props = {
 };
 
 const Orders: React.FC<Props> = ({ orders, db }) => {
+    // onFocus state -> which order is on focus.
+    const [onFocus, setOnFocus] = useState('');
+
     return (
         <>
-            <Heading as="h1" variant="headingAdmin">
+            <Heading as="h1" color="#333" fontSize={[5]}>
                 Orders
             </Heading>
-            <Card
+            <Card>
+                {orders.map(order => )}
+            </Card>
+            {/* <Card
                 mt={[3, 3, 6]}
                 width={[1]}
-                bg="#f9f9f9"
+                bg="white.0"
                 overflow="hidden"
                 css={`
                     border-radius: 4px;
@@ -28,7 +34,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                 {orders.map(order => (
                     <OrderItem key={order.oid} order={order} db={db} />
                 ))}
-            </Card>
+            </Card> */}
         </>
     );
 };
