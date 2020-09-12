@@ -19,6 +19,8 @@ const Products: React.FC<Props> = ({
     slug,
     urls,
     weight,
+    ausPrice,
+    usdPrice,
 }) => {
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
@@ -37,6 +39,8 @@ const Products: React.FC<Props> = ({
                     productImages,
                     urls,
                     weight,
+                    ausPrice,
+                    usdPrice,
                 },
                 qty !== 1 ? qty : undefined
             )

@@ -11,6 +11,8 @@ type Props = {
 };
 
 const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
+    console.log(cart);
+
     return (
         <Flex
             height={['92vh', '92vh', 'fit-content']}
