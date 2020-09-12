@@ -1,3 +1,4 @@
+import { Currencies } from 'state/reducers/currency';
 import { InCart as ProductWithAmount } from './firebase-user';
 
 export type IpaymuData = {
@@ -25,7 +26,7 @@ export interface Order {
     buyerPostal: number;
     // generated for ipaymu!
     total: number;
-    currency: 'IDR' | 'AUD';
+    currency: Currencies;
     date: Date;
     via?: string;
     channel?: string;

@@ -17,6 +17,8 @@ const useAllProducts = () => {
                         collection
                         name
                         idrPrice
+                        ausPrice
+                        usdPrice
                         urls
                         weight
                         productImages {

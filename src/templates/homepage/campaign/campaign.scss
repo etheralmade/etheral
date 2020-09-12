@@ -1,0 +1,22 @@
+.wrap {
+    a {
+        width: 100%;
+        text-decoration: none;
+        transition: 0.2s;
+
+        max-width: 480px;
+
+        &:hover {
+            filter: brightness(0.6);
+        }
+
+        // @media (min-width: 48em) {
+        //     width: 320px;
+        // }
+
+        @media (min-width: 48em) {
+            width: 48%;
+            max-width: 48%;
+        }
+    }
+}

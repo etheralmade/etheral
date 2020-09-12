@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { Icon } from '@iconify/react';
+import { Flex } from 'rebass';
+import closeLine from '@iconify/icons-ri/close-line';
+
 import { IState as ICartState } from 'state/reducers/cart-reducer';
-import { Product } from 'helper/schema/product';
-import { removeFromCart, setCart } from 'state/actions/cart';
+import { setCart } from 'state/actions/cart';
 import useAllProducts from 'helper/use-all-products';
 import extractCartFirestore from 'helper/extract-cart-firestore';
 import { InCart } from 'helper/schema/firebase-user';
+import CartBadge from './cart-badge';
+import CartIcon from '../assets/cart';
 
 export type Props = {
     user: firebase.User | null;
     db: firebase.firestore.Firestore;
+    showCart: boolean;
+    toggleShowCart: () => void;
 };
 
-const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
+const Cart: React.FC<Props & ICartState> = ({
+    cart,
+    user,
+    db,
+    showCart,
+    toggleShowCart,
+}) => {
     const [cartSnapshot, setCartSnapshot] = useState(JSON.stringify(cart));
     const [isLoadingCart, setIsLoadingCart] = useState(false);
 
@@ -84,33 +97,31 @@ const Cart: React.FC<Props & ICartState> = ({ cart, user, db }) => {
 
     const saveSessionStorage = () =>
         sessionStorage.setItem('isNewWindow', 'true');
-
-    // option to remove the product from cart.
-    const handleRemove = (product: Product) => {
-        dispatch(removeFromCart(product));
-    };
-
-    // display all products on cart.
     return (
-        <div style={{ width: '100%' }}>
-            {isLoadingCart ? <h1>Loading Cart!</h1> : <h1>Cart. Products: </h1>}
-            {cart.length < 1 && <h2>No products in cart </h2>}
-            {cart.map(cartItem => (
-                <React.Fragment key={cartItem.product.name}>
-                    <h2>{cartItem.product.name}</h2>
-                    <h4>
-                        {cartItem.amount}{' '}
-                        <button
-                            onClick={() => {
-                                handleRemove(cartItem.product);
-                            }}
-                        >
-                            Remove all
-                        </button>
-                    </h4>
-                </React.Fragment>
-            ))}
-        </div>
+        <>
+            <Flex
+                variant="center"
+                css={`
+                    position: relative;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                `}
+                onClick={toggleShowCart}
+            >
+                {showCart ? (
+                    <Icon icon={closeLine} className="icons bigger" />
+                ) : (
+                    <CartIcon className="icons black-on-dropdown" />
+                )}
+                {cart.length > 0 && !showCart ? (
+                    <CartBadge cart={cart} />
+                ) : (
+                    <></>
+                )}
+            </Flex>
+        </>
     );
 };
 

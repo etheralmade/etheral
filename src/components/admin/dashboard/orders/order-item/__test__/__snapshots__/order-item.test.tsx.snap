@@ -2,7 +2,11 @@
 
 exports[`OrderItem Component matches snapshot 1`] = `
 <div
+<<<<<<< HEAD
   className="css-1nh1uvi"
+=======
+  className="css-1mt98ux"
+>>>>>>> layout
 >
   <div
     className="css-1b3c84b"

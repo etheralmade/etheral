@@ -1,0 +1,13 @@
+.product-link {
+    text-decoration: none;
+
+    width: 100%;
+
+    @media screen and (min-width: 48em) {
+        width: 23%;
+    }
+
+    @media screen and (min-width: 64em) {
+        width: 21%;
+    }
+}

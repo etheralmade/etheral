@@ -9,7 +9,26 @@ const badgeStyle = {
     },
 };
 
+const flexCenterBase = {
+    justifyContent: 'center',
+    alignItems: 'center',
+};
+
 export default {
+    // wrapper styles
+    outerWrapper: {
+        ...flexCenterBase,
+        width: '100%',
+        my: [5, 5, 6],
+    },
+    innerWrapper: {
+        maxWidth: ['100%', '38em', '62em', '90%'],
+        width: '100%',
+        px: ['5%', '5%'],
+    },
+    center: flexCenterBase,
+
+    // badge styles
     paidBadge: {
         ...badgeStyle,
         bg: 'badges.1',
@@ -17,9 +36,5 @@ export default {
     notPaidBadge: {
         ...badgeStyle,
         bg: 'badges.0',
-    },
-    center: {
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 };

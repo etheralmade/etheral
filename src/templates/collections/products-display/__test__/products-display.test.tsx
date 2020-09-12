@@ -17,6 +17,8 @@ describe('Products display on collection page', () => {
         collection: 'collection1',
         name: 'mock-return-data',
         idrPrice: 123,
+        usdPrice: 12,
+        ausPrice: 2,
         productImages: [
             {
                 childImageSharp: {

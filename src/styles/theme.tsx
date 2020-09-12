@@ -43,21 +43,22 @@ export type ColorTheme = {
 const colors: ColorTheme = {
     blue: '#07c',
     lightGray: '#f6f6ff',
-    brown: ['#E2DAD0', '#593614', '#C8B8A9', '#553517'],
+    brown: ['#E2DAD0', '#593614', '#B5967A', '#553517'],
     badges: ['#FF9292', '#9BEBA3'],
     white: ['#FEFEFE', '#ddd'],
 };
 
 const theme: Theme = {
-    breakpoints: ['40em', '52em', '64em'],
+    //             432px   784px   1024px  1440px
+    breakpoints: ['27em', '48em', '64em', '90em'],
     fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
     colors,
-    space: [0, 4, 6, 8, 12, 16, 24, 32, 64, 128, 256],
+    space: [0, 4, 6, 8, 12, 16, 24, 32, 48, 64, 128, 256],
     fonts: {
-        body: "'Montserrat', sans-serif",
-        heading: "'Raleway', sans-serif",
+        body: 'Syne, sans-serif',
+        heading: 'Raleway, sans-serif',
         monospace: 'Menlo, monospace',
-        serif: "'Cormorant Garamond', serif",
+        serif: 'Cormorant Garamond, serif',
     },
     fontWeights: {
         body: 400,

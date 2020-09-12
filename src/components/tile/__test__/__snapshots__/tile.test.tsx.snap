@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tile component matches snapshot 1`] = `
+<div
+  className="css-12w9nlj"
+  data-testid="tile-container"
+>
+  <div
+    className="css-oryowi"
+  >
+    <img
+      alt="mockAltImage"
+      src=""
+    />
+  </div>
+</div>
+`;
