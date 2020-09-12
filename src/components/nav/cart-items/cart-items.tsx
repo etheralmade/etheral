@@ -61,7 +61,17 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
                                 />
                             ))}
                         </Box>
-                        <Button mt={[2, 2, 4]}>Go to checkout</Button>
+                        <Link
+                            to="/checkout"
+                            css={`
+                                display: inline-block;
+                                width: 100%;
+                            `}
+                        >
+                            <Button mt={[2, 2, 4]} width="100%">
+                                Go to checkout
+                            </Button>
+                        </Link>
                     </Flex>
                 </>
             ) : (
