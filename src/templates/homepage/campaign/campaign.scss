@@ -1,3 +1,13 @@
+// copy-pasted from https://css-tricks.com/snippets/sass/strip-unit-function/#:~:text=If%20you%20want%20to%20remove,exactly%20the%20same%20in%20Sass.&text=The%20calculation%20might%20look%20odd%20but%20it%20actually%20makes%20sense.
+// function to strip unit => scale-friendly
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
 .wrap {
     a {
         width: 100%;
@@ -17,6 +27,16 @@
         @media (min-width: 48em) {
             width: 48%;
             max-width: 48%;
+
+            // plan: resize gatsby image wrapper based on its ratio with the actual image.
+
+            // & .gatsby-image-wrapper source {
+            //     // variable to determine ratio between actual img and rendered img.
+            //     // calculation here: to scale the img based on the ratio. if 45vw is smaller than 700px => scale up.
+            //     $scale-var: calc(48vw / 700px);
+            //     $value: strip-unit($scale-var);
+            //     transform: scale(2) !important;
+            // }
         }
     }
 }
