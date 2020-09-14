@@ -6,6 +6,7 @@ import { Text, Heading, Box, Flex } from 'rebass';
 import { Order } from 'helper/schema/order';
 import OrderItem from './order-item';
 import OrderBox from './order-box';
+import { theme } from 'styles';
 
 type Props = {
     orders: Order[];
@@ -31,6 +32,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
 
     const goBack = () => {
         setOnFocus(undefined);
+        console.log(setDisplay);
     };
 
     const tabletopStyling = {
@@ -39,16 +41,33 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
         color: '#555',
     };
 
+    const boxStyling = {
+        p: 4,
+        bg: '#fff',
+        width: '48%',
+        css: `
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+            overflow-y: scroll;
+            max-height: calc(100vh - 64px);
+
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            /* Track */
+            &::-webkit-scrollbar-track {
+            }
+                
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: ${theme.colors.black[0]};
+            }
+            `,
+    };
+
     return (
-        <Flex justifyContent="space-evenly">
-            <Box
-                p={4}
-                bg="#fff"
-                width="48%"
-                css={`
-                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
-                `}
-            >
+        <Flex justifyContent="space-evenly" maxHeight="100vh">
+            <Box {...boxStyling}>
                 <Heading
                     as="h1"
                     fontWeight={200}
@@ -93,14 +112,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                 </Box>
             </Box>
             {/* box to show Order. */}
-            <Box
-                p={4}
-                bg="#fff"
-                width="48%"
-                css={`
-                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
-                `}
-            >
+            <Box {...boxStyling}>
                 {onFocus && (
                     <OrderItem order={onFocus} db={db} goBack={goBack} />
                 )}

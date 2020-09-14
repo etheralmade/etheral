@@ -28,7 +28,7 @@ const OrderBox: React.FC<Props> = ({
     const textStyling = {
         fontFamily: 'body',
         fontSize: [0, 0, 1],
-        color: '#222',
+        color: 'black.0',
         fontWeight: 'bold',
         css: `
 			 white-space: nowrap;
@@ -52,6 +52,7 @@ const OrderBox: React.FC<Props> = ({
             px={[2]}
             py={[2]}
             onClick={() => focusOrder(oid)}
+            data-testid="order-box"
         >
             <Text sx={{ gridColumn: '1/2' }} {...textStyling}>
                 {oid}

@@ -250,8 +250,6 @@ const useAllProductImages = () => {
         }
     };
 
-    console.log({ imgXS, imgS, imgM, imgL, imgXL });
-
     return {
         xs: imgXS,
         s: imgS,

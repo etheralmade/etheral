@@ -80,6 +80,28 @@ const links = {
     },
 };
 
+const admin = {
+    headingAdmin: {
+        fontSize: [5],
+        fontFamily: 'serif',
+        fontWeight: 600,
+        fontStyle: 'italic',
+        color: 'brown.2',
+    },
+    adminOrderHeading: {
+        fontSize: [3],
+        fontFamily: 'body',
+        fontWeight: 'body',
+    },
+    adminOrderBody: {
+        fontSize: [2],
+        fontFamily: 'body',
+        fontWeight: 'bold',
+        color: 'black.0',
+        mb: [3],
+    },
+};
+
 const productCard = {
     productPrice: {
         fontFamily: 'body',
@@ -99,24 +121,7 @@ export default {
     h1: {
         fontSize: [5, 5, 6],
     },
-    headingAdmin: {
-        fontSize: [5],
-        fontFamily: 'serif',
-        fontWeight: 600,
-        fontStyle: 'italic',
-        color: 'brown.2',
-    },
-    adminOrderHeading: {
-        fontSize: [3],
-        fontFamily: 'body',
-        fontWeight: 'body',
-    },
-    adminOrderBody: {
-        fontSize: [2],
-        fontFamily: 'body',
-        fontWeight: 600,
-        color: 'brown.1',
-    },
+
     h2: {
         fontFamily: 'heading',
         fontWeight: 'heading',
@@ -152,4 +157,5 @@ export default {
     ...links,
     ...productCard,
     ...badges,
+    ...admin,
 };

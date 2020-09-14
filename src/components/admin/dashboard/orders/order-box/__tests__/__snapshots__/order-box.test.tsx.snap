@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderBox matches snapshot 1`] = `
+<div
+  className="css-1drooja"
+  data-testid="order-box"
+  onClick={[Function]}
+>
+  <div
+    className="css-te8eeg"
+  >
+    asdadwda
+  </div>
+  <div
+    className="css-vtr4jd"
+  >
+    <div
+      className="css-1a0lovt"
+    >
+      Not Paid
+    </div>
+    <div
+      className="css-1a0lovt"
+    >
+      Not Shipped
+    </div>
+  </div>
+  <div
+    className="css-fjt3vn"
+  >
+    IDR
+  </div>
+  <div
+    className="css-1wi5gb3"
+  >
+    2020-09-14 21:02
+  </div>
+</div>
+`;

@@ -22,11 +22,8 @@ const StatusBadge: React.FC<Props> = ({
     paid,
     shipped,
     date,
-    css,
     ...rest
 }) => {
-    console.log(css);
-
     if (type === BadgeTypes.PAYMENT && paid !== undefined) {
         return (
             <Text
