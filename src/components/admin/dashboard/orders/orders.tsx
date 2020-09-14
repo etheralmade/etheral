@@ -29,13 +29,15 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
         }
     };
 
+    const goBack = () => {
+        setOnFocus(undefined);
+    };
+
     const tabletopStyling = {
         fontFamily: 'body',
         fontSize: [0, 0, 1],
         color: '#555',
     };
-
-    console.log(`On focus: ${JSON.stringify(onFocus)}`);
 
     return (
         <Flex justifyContent="space-evenly">
@@ -83,7 +85,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                                 paid={order.paid}
                                 shipped={order.delivered}
                                 currency={order.currency}
-                                bg={i % 2 === 0 ? '#fafafa' : '#eaeaea'}
+                                bg={i % 2 === 0 ? 'white.2' : 'white.3'}
                                 focusOrder={focusOrder}
                             />
                         ))}
@@ -99,7 +101,9 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                     box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
                 `}
             >
-                {onFocus && <OrderItem order={onFocus} db={db} />}
+                {onFocus && (
+                    <OrderItem order={onFocus} db={db} goBack={goBack} />
+                )}
             </Box>
         </Flex>
     );

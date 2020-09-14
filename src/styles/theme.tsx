@@ -44,8 +44,8 @@ const colors: ColorTheme = {
     blue: '#07c',
     lightGray: '#f6f6ff',
     brown: ['#E2DAD0', '#593614', '#B5967A', '#553517'],
-    badges: ['#FF9292', '#9BEBA3', '#FEFEB2', '#ACDEF1'],
-    white: ['#FEFEFE', '#ddd'],
+    badges: ['#FF9292', '#9BEBA3', '#FEFEB2', '#ACDEF1', ' #ffc3b1'],
+    white: ['#FEFEFE', '#ddd', '#fafafa', '#eaeaea'],
 };
 
 const theme: Theme = {

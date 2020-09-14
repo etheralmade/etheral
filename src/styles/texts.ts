@@ -38,6 +38,11 @@ const badges = {
         bg: 'badges.2',
         color: '#444',
     },
+    statusBadgeDate: {
+        ...statusBadge,
+        color: '#000',
+        bg: 'badges.4',
+    },
 };
 
 const links = {
@@ -132,6 +137,7 @@ export default {
     },
     body: {
         fontFamily: 'body',
+        fontSize: [0, 0, 1],
     },
     bodyMedium: {
         fontFamily: 'body',
