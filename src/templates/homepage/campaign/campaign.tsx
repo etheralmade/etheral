@@ -45,8 +45,8 @@ const Campaign: React.FC<Props> = ({ campaignData }) => {
                             overflow="hidden"
                             width="100%"
                             mb={[3, 3, 5]}
-                            height={['90vw', '80vw', 320, '43vw', '48vw']}
-                            maxHeight={['unset', 'unset', 'unset', 640, 720]}
+                            height={['90vw', '80vw', 320, '48vw']}
+                            maxHeight={['unset', 420, 'unset', 700, 1024]}
                         />
                     </Link>
                 ))}

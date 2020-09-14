@@ -20,7 +20,14 @@ const GlobalStyles = createGlobalStyle`
         }
 
         @media screen and (min-width: 27em) {
-          top: calc(8vh + 32px);
+
+          --padding-top: calc(8vh + 32px);
+
+          top: var(--padding-top);
+
+          header {
+            top: calc(-1 * var(--padding-top));
+          }
         }
 
         @media screen and (min-width: 48em) {

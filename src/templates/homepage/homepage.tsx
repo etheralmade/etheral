@@ -88,7 +88,7 @@ const Homepage: React.FC<Props> = ({
             sources: [
                 {
                     ...campaignImgS[index].childImageSharp.fixed,
-                    media: '(max-width: 420px)',
+                    media: '(max-width: 768px)',
                 } as FixedObject,
                 {
                     ...campaignImgM[index].childImageSharp.fixed,
