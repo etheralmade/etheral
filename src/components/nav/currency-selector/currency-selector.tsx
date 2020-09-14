@@ -62,10 +62,11 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
                 backgroundColor: isSelected
                     ? '#333'
                     : isFocused
-                    ? '#777'
+                    ? '#555'
                     : '#fff',
                 color: isSelected ? '#fff' : !isFocused ? '#222' : '#fff',
                 fontWeight: isSelected ? 600 : 400,
+                fontSize: '14px',
             };
         },
         control: () => ({
@@ -80,8 +81,9 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';
             const color = showDropdown ? '#000' : '#fff';
+            const fontSize = '14px';
 
-            return { ...provided, opacity, transition, color };
+            return { ...provided, opacity, transition, color, fontSize };
         },
     };
 
