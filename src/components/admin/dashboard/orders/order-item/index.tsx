@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { OrderItem as OrderItemEl } from './order-item';
 
 import { Order } from 'helper/schema/order';
@@ -11,25 +11,30 @@ type Props = {
 };
 
 const OrderItem: React.FC<Props> = ({ order, db }) => {
+    const [doRerender, setDoRerender] = useState(false);
     const allProducts = useAllProducts();
 
-    const updateShipping = (data: Inputs) => {
+    useEffect(() => {
+        setDoRerender(false);
+    }, [doRerender]);
+
+    const updateShipping = async (data: Inputs) => {
         if (db) {
-            db.collection('order')
-                .doc(order.oid)
-                .update({
-                    shippingData: {
-                        ...data,
-                        shippingDate: new Date(data.shippingDate),
-                    },
-                    delivered: true,
-                });
+            const dbRef = await db.collection('order').doc(order.oid);
+
+            await dbRef.update({
+                shippingData: {
+                    ...data,
+                    shippingDate: new Date(data.shippingDate),
+                },
+                delivered: true,
+            });
+
+            await setDoRerender(true);
         }
     };
 
-    console.log('test');
-
-    return db ? (
+    return db && !doRerender ? (
         <OrderItemEl
             order={order}
             allProducts={allProducts}

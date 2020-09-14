@@ -14,10 +14,20 @@ type Props = {
 
 const Orders: React.FC<Props> = ({ orders, db }) => {
     // onFocus state -> which order is on focus.
-    const [onFocus, setOnFocus] = useState('');
+    const [onFocus, setOnFocus] = useState<Order | undefined>(undefined);
 
     // state to determine which orders to be shown. (filtering)
     const [display, setDisplay] = useState(orders);
+
+    // switch focus order display.
+    const focusOrder = (oid: string) => {
+        const focusedIndex = findIndex(orders, o => o.oid === oid);
+        if (focusedIndex !== -1) {
+            setOnFocus(orders[focusedIndex]);
+        } else {
+            setOnFocus(undefined);
+        }
+    };
 
     const tabletopStyling = {
         fontFamily: 'body',
@@ -25,13 +35,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
         color: '#555',
     };
 
-    const focusOrder = (oid: string) => {
-        setOnFocus(oid);
-    };
-
-    const focusedIndex = findIndex(orders, o => o.oid === onFocus);
-
-    console.log(focusedIndex);
+    console.log(`On focus: ${JSON.stringify(onFocus)}`);
 
     return (
         <Flex justifyContent="space-evenly">
@@ -66,7 +70,11 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                     <Text {...tabletopStyling}>Status</Text>
                     <Text {...tabletopStyling}>Currency</Text>
                     <Text {...tabletopStyling}>Date</Text>
-                    <Box sx={{ gridColumn: '1/span 4' }}>
+                    <Box
+                        sx={{
+                            gridColumn: '1/span 4',
+                        }}
+                    >
                         {display.map((order, i) => (
                             <OrderBox
                                 key={order.oid}
@@ -91,9 +99,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                     box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
                 `}
             >
-                {onFocus !== '' && (
-                    <OrderItem order={orders[focusedIndex]} db={db} />
-                )}
+                {onFocus && <OrderItem order={onFocus} db={db} />}
             </Box>
         </Flex>
     );
