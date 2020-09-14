@@ -69,12 +69,17 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
                 fontSize: '14px',
             };
         },
+        indicatorSeparator: () => ({
+            display: 'none',
+        }),
+        indicator: () => ({
+            padding: 0,
+        }),
         control: () => ({
             // none of react-select's styles are passed to <Control />
             width: 86,
             display: 'flex',
             fontFamily: theme.fonts.heading,
-            marginRight: 16,
             color: '#fff',
         }),
         singleValue: (provided: any, state: any) => {
@@ -83,8 +88,23 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
             const color = showDropdown ? '#000' : '#fff';
             const fontSize = '14px';
 
-            return { ...provided, opacity, transition, color, fontSize };
+            return {
+                ...provided,
+                opacity,
+                transition,
+                color,
+                fontSize,
+            };
         },
+        valueContainer: (provided: any) => ({
+            ...provided,
+        }),
+        indicatorsContainer: (provided: any) => ({
+            ...provided,
+            padding: 0,
+            position: 'relative',
+            left: '-12px',
+        }),
     };
 
     // options for select component

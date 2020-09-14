@@ -127,19 +127,29 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                         }
 
                         @media screen and (min-width: 48em) {
-                            height: 24px;
-                            width: 24px;
+                            height: 18px;
+                            width: 18px;
 
                             &.black-on-dropdown path {
-                                fill: ${showDropdownL || showCart
-                                    ? '#000'
-                                    : '#fff'};
+                                fill: ${
+                                    showDropdownL || showCart ? '#000' : '#fff'
+                                };
                             }
 
                             &.black-on-dropdown-stroke path {
-                                stroke: ${showDropdownL || showCart
-                                    ? '#000'
-                                    : '#fff'};
+                                stroke: ${
+                                    showDropdownL || showCart ? '#000' : '#fff'
+                                };
+                            }
+
+                        }
+                    }
+
+                    .cart-badge {
+                        @media screen and (min-width: 48em) {
+                            color: ${
+                                showDropdownL || showCart ? '#000' : '#fff'
+                            } !important;
                             }
                         }
                     }
