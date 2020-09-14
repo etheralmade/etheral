@@ -42,11 +42,15 @@ const Tile: React.FC<Props> = ({
                         <Img
                             fluid={img.sources as FluidObject | FluidObject[]}
                             alt={imgAlt}
+                            style={{ height: '100%', width: '100%' }}
+                            imgStyle={{ objectPosition: 'center' }}
                         />
                     ) : (
                         <Img
                             fixed={img.sources as FixedObject | FixedObject[]}
                             alt={imgAlt}
+                            style={{ height: '100%', width: '100%' }}
+                            imgStyle={{ objectPosition: 'center' }}
                         />
                     )
                 ) : (
