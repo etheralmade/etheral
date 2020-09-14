@@ -44,11 +44,11 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
     const boxStyling = {
         p: 4,
         bg: '#fff',
-        width: '48%',
         css: `
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
             overflow-y: scroll;
-            max-height: calc(100vh - 64px);
+            max-height: 90vh;
+            width: 100vw;
 
             &::-webkit-scrollbar {
                 width: 6px;
@@ -62,12 +62,24 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
             &::-webkit-scrollbar-thumb {
                 background: ${theme.colors.black[0]};
             }
+
+            @media screen and (min-width: 48em) {
+                width: 48%;
+                max-height: calc(100vh - 64px);
+            }
             `,
     };
 
     return (
         <Flex justifyContent="space-evenly" maxHeight="100vh">
-            <Box {...boxStyling}>
+            <Box
+                {...boxStyling}
+                css={`
+                    @media screen and (max-width: 48em) {
+                        opacity: ${onFocus ? 0 : 1};
+                    }
+                `}
+            >
                 <Heading
                     as="h1"
                     fontWeight={200}
@@ -112,7 +124,16 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                 </Box>
             </Box>
             {/* box to show Order. */}
-            <Box {...boxStyling}>
+            <Box
+                {...boxStyling}
+                css={`
+                    @media screen and (max-width: 48em) {
+                        position: absolute;
+                        opacity: ${onFocus ? 1 : 0};
+                        padding: 0;
+                    }
+                `}
+            >
                 {onFocus && (
                     <OrderItem order={onFocus} db={db} goBack={goBack} />
                 )}

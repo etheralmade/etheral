@@ -87,13 +87,7 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
     } = order;
 
     return (
-        <Box
-            mt={[5]}
-            mx={[3]}
-            // css={`
-            //     max-height: calc(100vh - 32px);
-            // `}
-        >
+        <Box mt={[5]} mx={[3]}>
             <Heading fontFamily="body" fontWeight="body" color="black.0">
                 Order ID: <strong>{order.oid}</strong>
             </Heading>
