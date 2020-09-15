@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlogPreview matches snapshot 1`] = `
+<div
+  className="css-1o9iy1h"
+>
+  <h2
+    className="css-12i65rx"
+  >
+    LATEST BLOG POST
+  </h2>
+  <div
+    className="css-1m75xpc"
+  >
+    <div
+      className="css-1x87397"
+    >
+      <h5
+        className="css-i0y2du"
+      >
+        10 October 2020
+      </h5>
+      <h3
+        className="css-d2e41n"
+        data-testid="title"
+      >
+        Mock title
+      </h3>
+      <article
+        className="css-vurnku"
+        data-testid="summary"
+      >
+        Mock summary
+      </article>
+      <a
+        href="/blogs/undefined"
+        onClick={[Function]}
+      >
+        <button
+          className="css-1iwxm44"
+        >
+          Read More
+        </button>
+      </a>
+    </div>
+    <div
+      className="css-1x87397"
+    />
+  </div>
+</div>
+`;
