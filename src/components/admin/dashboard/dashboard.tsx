@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Flex, Box } from 'rebass';
 
 import Orders from './orders';
+import Links from './links';
 import Navigation from './navigation';
 
 type Props = {
@@ -33,7 +34,7 @@ const Dashboard: React.FC<Props> = ({ logout, db }) => {
             toRender = <h1>Admins</h1>;
             break;
         case StateViews.LINKS:
-            toRender = <h1>Links</h1>;
+            toRender = <Links />;
             break;
         case StateViews.NONE:
             toRender = <h1>None</h1>;
@@ -68,6 +69,7 @@ const Dashboard: React.FC<Props> = ({ logout, db }) => {
                 flex={1}
                 p={[5, 5, 7]}
                 bg="white.1"
+                sx={{ overflow: 'hidden' }}
             >
                 {toRender}
             </Box>
