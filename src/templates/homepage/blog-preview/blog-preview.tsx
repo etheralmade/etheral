@@ -4,6 +4,7 @@ import Img, { FluidObject } from 'gatsby-image';
 import { Box, Flex, Heading, Text } from 'rebass';
 
 import { Blog } from 'helper/schema/blog';
+import { getDateReadable } from 'helper/get-date';
 
 type Props = {
     blog: Blog;
@@ -16,6 +17,7 @@ const BlogPreview: React.FC<Props> = ({ blog }) => {
         <Flex px={[]}>
             <Box width={['50%']}>
                 {/* Render date here. */}
+                <Text as="h5">{getDateReadable(date)}</Text>
                 {/* title */}
                 <Heading as="h3" data-testid="title">
                     {title}

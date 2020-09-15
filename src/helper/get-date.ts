@@ -21,4 +21,27 @@ const getDateIpaymu = (date: Date) => {
     return `${year}${month}${day}${hours}${minutes}${seconds}`;
 };
 
-export { getDate, getDateIpaymu };
+const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
+
+const getDateReadable = (date: Date) => {
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth() + 1;
+    const day = date.getUTCDate();
+
+    return `${day} ${monthNames[month]} ${year}`;
+};
+
+export { getDate, getDateIpaymu, getDateReadable };
