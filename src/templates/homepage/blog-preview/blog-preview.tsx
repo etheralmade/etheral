@@ -14,6 +14,8 @@ type Props = {
 const BlogPreview: React.FC<Props> = ({ blog }) => {
     const { title, summary, date, image, slug } = blog;
 
+    console.log(image);
+
     return (
         <Box px={[6]}>
             <Heading as="h2" variant="h2" textAlign="center" mb={[4, 4, 6]}>
