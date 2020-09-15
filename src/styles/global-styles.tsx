@@ -13,21 +13,10 @@ const GlobalStyles = createGlobalStyle`
 
       main {
         position: relative;
-        top: 8vh;
 
         header {
-          top: -8vh;
-        }
-
-        @media screen and (min-width: 27em) {
-
-          --padding-top: calc(8vh + 32px);
-
-          top: var(--padding-top);
-
-          header {
-            top: calc(-1 * var(--padding-top));
-          }
+          position: relative;
+          width: 100vw;
         }
 
         @media screen and (min-width: 48em) {
@@ -35,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
 
           header {
             top: 0;
+            position: absolute;
           }
         }
 

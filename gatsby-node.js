@@ -312,6 +312,8 @@ exports.sourceNodes = async ({
             navigationImage,
             homepageProductsDisplayText:
                 homepageDoc.homepageProductsDisplayText,
+            addBanner: homepageDoc.addBanner,
+            banner: homepageDoc.banner,
         };
 
         console.log(JSON.stringify(nodeFields));

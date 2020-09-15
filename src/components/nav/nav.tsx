@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from '@reach/router';
-import { FluidObject } from 'gatsby-image';
 
 import { Text, Flex, Box } from 'rebass';
 import { Icon } from '@iconify/react';
@@ -17,16 +16,22 @@ import CartItems from './cart-items';
 import CurrencySelector from './currency-selector';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Account from './account';
+import Banner from './banner';
 
 import './nav.scss';
 
 export type Props = {
     auth: firebase.auth.Auth;
     db: firebase.firestore.Firestore;
-    navigationImage: FluidObject | FluidObject[];
+    addBanner: boolean;
 };
 
-const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
+const Navigation: React.FC<Props & ICartState> = ({
+    auth,
+    db,
+    cart,
+    addBanner,
+}) => {
     // states for ui changes
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
@@ -86,13 +91,28 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
         }
     }
 
+    const shouldRenderBanner = currLocation === '/' && addBanner;
+
     // mock links for testing purposes
     return (
-        <Flex variant="outerWrapper" as="header" bg={bg}>
-            <Box
-                variant="innerWrapper"
-                my={[0, 5, 0]}
+        <Box as="header" bg={['#fff', '#fff', 'transparent']}>
+            {shouldRenderBanner && <Banner />}
+            <Flex
+                variant="outerWrapper"
+                bg={bg}
+                className={shouldRenderBanner ? 'with-banner' : ''}
                 css={`
+                    margin: 0 !important;
+
+                    @media screen and (min-width: 48em) and (max-width: 63em) and (orientation: landscape) {
+                        padding-top: 16px;
+                    }
+                `}
+            >
+                <Box
+                    variant="innerWrapper"
+                    my={[0, 5, 0]}
+                    css={`
                     .hide-on-mobile {
                         display: none;
                     }
@@ -154,230 +174,237 @@ const Navigation: React.FC<Props & ICartState> = ({ auth, db, cart }) => {
                         }
                     }
                 `}
-            >
-                {/* Logo */}
-                <Link to="/">
-                    <Flex
-                        variant="center"
-                        css={`
-                            position: absolute;
-                            z-index: 2;
+                >
+                    {/* Logo */}
+                    <Link to="/">
+                        <Flex
+                            variant="center"
+                            css={`
+                                position: absolute;
+                                z-index: 2;
 
-                            left: 50%;
-                            transform: translate(-50%, 0);
+                                left: 50%;
+                                transform: translate(-50%, 0);
 
-                            & svg {
-                                height: 8vh;
-                                width: 20vw;
-                            }
-
-                            @media screen and (min-width: 48em) {
-                                width: 12vw;
-                                height: 8vh;
-                                transform: translate(-55%, 8px);
-
-                                & svg path {
-                                    fill: ${showDropdownL || showCart
-                                        ? '#000'
-                                        : '#fff'};
+                                & svg {
+                                    height: 8vh;
+                                    width: 20vw;
                                 }
+
+                                @media screen and (min-width: 48em) {
+                                    width: 12vw;
+                                    height: 8vh;
+                                    transform: translate(-55%, 8px);
+
+                                    & svg path {
+                                        fill: ${showDropdownL || showCart
+                                            ? '#000'
+                                            : '#fff'};
+                                    }
+                                }
+
+                                @media screen and (min-width: 64em) {
+                                    width: 10vw;
+                                    max-width: 150px;
+                                    transform: translate(-60%, 8px);
+                                }
+                            `}
+                        >
+                            <Logo />
+                        </Flex>
+                    </Link>
+
+                    <Flex
+                        width="100%"
+                        height={['8vh', '8vh', '10vh']}
+                        alignItems="center"
+                        justifyContent="space-between"
+                        css={`
+                            position: relative;
+
+                            #links-L {
+                                display: none;
                             }
 
-                            @media screen and (min-width: 64em) {
-                                width: 10vw;
-                                max-width: 150px;
-                                transform: translate(-60%, 8px);
+                            @media (min-width: 48em) {
+                                #links-L {
+                                    display: flex;
+                                }
+
+                                #menu-mobile {
+                                    display: none;
+                                }
                             }
                         `}
                     >
-                        <Logo />
-                    </Flex>
-                </Link>
+                        {/* Links for desktop */}
 
-                <Flex
-                    width="100%"
-                    height={['8vh', '8vh', '10vh']}
-                    alignItems="center"
-                    justifyContent="space-between"
-                    css={`
-                        position: relative;
-
-                        #links-L {
-                            display: none;
-                        }
-
-                        @media (min-width: 48em) {
-                            #links-L {
-                                display: flex;
-                            }
-
-                            #menu-mobile {
-                                display: none;
-                            }
-                        }
-                    `}
-                >
-                    {/* Links for desktop */}
-
-                    <Flex id="links-L" alignItems="center">
-                        <Link to="/about">
-                            <Text
-                                variant={
-                                    currLocation.includes('about')
-                                        ? 'linkActive'
-                                        : 'link'
-                                }
-                                color={
-                                    showDropdownL || showCart ? '#000' : '#fff'
-                                }
-                                py={[0, 0, '5vh']}
+                        <Flex id="links-L" alignItems="center">
+                            <Link to="/about">
+                                <Text
+                                    variant={
+                                        currLocation.includes('about')
+                                            ? 'linkActive'
+                                            : 'link'
+                                    }
+                                    color={
+                                        showDropdownL || showCart
+                                            ? '#000'
+                                            : '#fff'
+                                    }
+                                    py={[0, 0, '5vh']}
+                                >
+                                    ABOUT
+                                </Text>
+                            </Link>
+                            <Box
+                                onMouseEnter={() => setShowDropdownL(true)}
+                                onMouseLeave={() => setShowDropdownL(false)}
                             >
-                                ABOUT
-                            </Text>
-                        </Link>
-                        <Box
-                            onMouseEnter={() => setShowDropdownL(true)}
-                            onMouseLeave={() => setShowDropdownL(false)}
+                                <Text
+                                    variant="link"
+                                    py={[0, 0, '5vh']}
+                                    color={
+                                        showDropdownL || showCart
+                                            ? '#000'
+                                            : '#fff'
+                                    }
+                                >
+                                    SHOP
+                                </Text>
+                                <CSSTransition
+                                    in={showDropdownL}
+                                    timeout={200}
+                                    unmountOnExit={true}
+                                    classNames="dropdown"
+                                >
+                                    <Dropdown
+                                        goBack={() => setShowDropdown(false)}
+                                        currLocation={currLocation}
+                                    />
+                                </CSSTransition>
+                            </Box>
+                            <Link to="/blog">
+                                <Text
+                                    variant={
+                                        currLocation.includes('blog')
+                                            ? 'linkActive'
+                                            : 'link'
+                                    }
+                                    color={
+                                        showDropdownL || showCart
+                                            ? '#000'
+                                            : '#fff'
+                                    }
+                                    py={[0, 0, '5vh']}
+                                >
+                                    BLOG
+                                </Text>
+                            </Link>
+                        </Flex>
+
+                        {/* menu toggle button for mobile */}
+                        <Flex
+                            variant="center"
+                            onClick={handleMenuMobile}
+                            id="menu-mobile"
                         >
-                            <Text
-                                variant="link"
-                                py={[0, 0, '5vh']}
-                                color={
-                                    showDropdownL || showCart ? '#000' : '#fff'
-                                }
-                            >
-                                SHOP
-                            </Text>
-                            <CSSTransition
-                                in={showDropdownL}
-                                timeout={200}
-                                unmountOnExit={true}
-                                classNames="dropdown"
-                            >
-                                <Dropdown
-                                    goBack={() => setShowDropdown(false)}
-                                    currLocation={currLocation}
-                                />
-                            </CSSTransition>
-                        </Box>
-                        <Link to="/blog">
-                            <Text
-                                variant={
-                                    currLocation.includes('blog')
-                                        ? 'linkActive'
-                                        : 'link'
-                                }
-                                color={
-                                    showDropdownL || showCart ? '#000' : '#fff'
-                                }
-                                py={[0, 0, '5vh']}
-                            >
-                                BLOG
-                            </Text>
-                        </Link>
-                    </Flex>
-
-                    {/* menu toggle button for mobile */}
-                    <Flex
-                        variant="center"
-                        onClick={handleMenuMobile}
-                        id="menu-mobile"
-                    >
-                        <Icon
-                            icon={showMenuMobile ? closeLine : menuFill}
-                            className={`icons ${
-                                showMenuMobile ? 'bigger' : ''
-                            }`}
-                        />
-                    </Flex>
-
-                    {/* Auth and cart. Always show auth component, as it is not in the menu */}
-                    <Flex alignItems="center">
-                        <CurrencySelector
-                            showDropdown={showDropdownL || showCart}
-                            desktop={true}
-                        />
-                        <Account desktop={true} user={user} />
-                        <Cart
-                            toggleShowCart={toggleShowCart}
-                            showCart={showCart}
-                            user={user}
-                            db={db}
-                            cart={cart}
-                        />
-                    </Flex>
-                </Flex>
-
-                {/* Menu on mobile devices */}
-                <CSSTransition
-                    in={showMenuMobile}
-                    timeout={100}
-                    unmountOnExit={true}
-                    classNames="links"
-                >
-                    <Box id="links-S" minHeight={['92vh']} p={5}>
-                        <Flex alignItems="center">
-                            <Account user={user} desktop={false} />
-                            <CurrencySelector
-                                showDropdown={true}
-                                desktop={false}
+                            <Icon
+                                icon={showMenuMobile ? closeLine : menuFill}
+                                className={`icons ${
+                                    showMenuMobile ? 'bigger' : ''
+                                }`}
                             />
                         </Flex>
-                        <Link to="/about">
-                            <Text
-                                variant={
-                                    currLocation.includes('about')
-                                        ? 'linkActive'
-                                        : 'link'
-                                }
-                                my={[2]}
-                            >
-                                ABOUT
-                            </Text>
-                        </Link>
-                        <Box onClick={() => setShowDropdown(prev => !prev)}>
-                            <Text variant="link" my={[2]}>
-                                SHOP
-                            </Text>
+
+                        {/* Auth and cart. Always show auth component, as it is not in the menu */}
+                        <Flex alignItems="center">
+                            <CurrencySelector
+                                showDropdown={showDropdownL || showCart}
+                                desktop={true}
+                            />
+                            <Account desktop={true} user={user} />
+                            <Cart
+                                toggleShowCart={toggleShowCart}
+                                showCart={showCart}
+                                user={user}
+                                db={db}
+                                cart={cart}
+                            />
+                        </Flex>
+                    </Flex>
+
+                    {/* Menu on mobile devices */}
+                    <CSSTransition
+                        in={showMenuMobile}
+                        timeout={100}
+                        unmountOnExit={true}
+                        classNames="links"
+                    >
+                        <Box id="links-S" minHeight={['92vh']} p={5}>
+                            <Flex alignItems="center">
+                                <Account user={user} desktop={false} />
+                                <CurrencySelector
+                                    showDropdown={true}
+                                    desktop={false}
+                                />
+                            </Flex>
+                            <Link to="/about">
+                                <Text
+                                    variant={
+                                        currLocation.includes('about')
+                                            ? 'linkActive'
+                                            : 'link'
+                                    }
+                                    my={[2]}
+                                >
+                                    ABOUT
+                                </Text>
+                            </Link>
+                            <Box onClick={() => setShowDropdown(prev => !prev)}>
+                                <Text variant="link" my={[2]}>
+                                    SHOP
+                                </Text>
+                            </Box>
+                            <Link to="/blog">
+                                <Text
+                                    variant={
+                                        currLocation.includes('blog')
+                                            ? 'linkActive'
+                                            : 'link'
+                                    }
+                                    my={[2]}
+                                >
+                                    BLOG
+                                </Text>
+                            </Link>
                         </Box>
-                        <Link to="/blog">
-                            <Text
-                                variant={
-                                    currLocation.includes('blog')
-                                        ? 'linkActive'
-                                        : 'link'
-                                }
-                                my={[2]}
-                            >
-                                BLOG
-                            </Text>
-                        </Link>
-                    </Box>
-                </CSSTransition>
+                    </CSSTransition>
 
-                {/* Dropdown element. */}
-                <CSSTransition
-                    in={showDropdown}
-                    timeout={100}
-                    unmountOnExit={true}
-                    classNames="dropdown"
-                >
-                    <Dropdown
-                        goBack={() => setShowDropdown(false)}
-                        currLocation={currLocation}
-                    />
-                </CSSTransition>
+                    {/* Dropdown element. */}
+                    <CSSTransition
+                        in={showDropdown}
+                        timeout={100}
+                        unmountOnExit={true}
+                        classNames="dropdown"
+                    >
+                        <Dropdown
+                            goBack={() => setShowDropdown(false)}
+                            currLocation={currLocation}
+                        />
+                    </CSSTransition>
 
-                <CSSTransition
-                    in={showCart}
-                    timeout={100}
-                    unmountOnExit={true}
-                    classNames="cart-items"
-                >
-                    <CartItems cart={{ cart }} />
-                </CSSTransition>
-            </Box>
-        </Flex>
+                    <CSSTransition
+                        in={showCart}
+                        timeout={100}
+                        unmountOnExit={true}
+                        classNames="cart-items"
+                    >
+                        <CartItems cart={{ cart }} />
+                    </CSSTransition>
+                </Box>
+            </Flex>
+        </Box>
     );
 };
 
