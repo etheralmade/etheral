@@ -5,6 +5,7 @@ export interface Blog {
     date: Date;
     summary: string;
     title: string;
+    slug: string;
     image?: {
         childImageSharp: {
             fixed?: FixedObject[] | FixedObject;

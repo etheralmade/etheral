@@ -14,6 +14,7 @@ const useAllBlogs = () => {
                         date
                         summary
                         title
+                        slug
                         image {
                             childImageSharp {
                                 fluid {
