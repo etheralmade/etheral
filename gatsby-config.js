@@ -71,6 +71,13 @@ module.exports = {
             },
         },
         {
+            resolve: `gatsby-plugin-portal`,
+            options: {
+                key: 'portal',
+                id: 'portal',
+            },
+        },
+        {
             resolve: 'gatsby-plugin-react-axe',
             options: {
                 showInProduction: false,

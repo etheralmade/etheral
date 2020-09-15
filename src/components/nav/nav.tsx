@@ -17,6 +17,7 @@ import CurrencySelector from './currency-selector';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Account from './account';
 import Banner from './banner';
+import Modal from '../modal';
 
 import './nav.scss';
 
@@ -42,6 +43,11 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [user, setUser] = useState<firebase.User | null>(null);
     const dispatch = useDispatch();
 
+    const [openModal, setOpenModal] = useState(false);
+
+    // set to true to show modal on homepage.
+    const runModal = false;
+
     useEffect(() => {
         if (auth.currentUser) {
             setUser(auth.currentUser);
@@ -49,6 +55,12 @@ const Navigation: React.FC<Props & ICartState> = ({
         if (window.location) {
             const { pathname } = location;
             setCurrLocation(pathname);
+
+            if (runModal) {
+                if (pathname === '/') {
+                    setOpenModal(true);
+                }
+            }
         }
     }, []);
 
@@ -96,6 +108,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     // mock links for testing purposes
     return (
         <Box as="header" bg={['#fff', '#fff', 'transparent']}>
+            {openModal && <Modal closeModal={() => setOpenModal(false)} />}
             {shouldRenderBanner && <Banner />}
             <Flex
                 variant="outerWrapper"
