@@ -8,6 +8,7 @@ import Hero from './hero';
 import Campaign from './campaign';
 import useAllProducts from 'helper/use-all-products';
 import HomepageProducts from './homepage-products';
+import BlogPreview from './blog-preview';
 
 type Props = {
     homepageData: HomePageData;
@@ -120,6 +121,7 @@ const Homepage: React.FC<Props> = ({
                 products={productsToShow}
                 displayText={homepageData.homepageProductsDisplayText}
             />
+            <BlogPreview />
         </>
     );
 };

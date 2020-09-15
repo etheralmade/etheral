@@ -70,7 +70,7 @@ module.exports = {
                 // Making this plural (optional).
                 name: 'image',
                 // Path to the leaf node.
-                imagePath: 'imgUrl',
+                imagePath: 'url',
             },
         },
         {

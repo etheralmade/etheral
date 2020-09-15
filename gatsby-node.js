@@ -310,7 +310,7 @@ exports.sourceNodes = async ({
             const imgDownloadUrl = await storage
                 .ref(`flamelink/media/${imgRef}`)
                 .getDownloadURL();
-            await set(data, 'imgUrl', imgDownloadUrl);
+            await set(data, 'url', imgDownloadUrl);
         }
         // content
         // date
@@ -324,7 +324,7 @@ exports.sourceNodes = async ({
             slug: data.slug,
             summary: data.summary,
             title: data.title,
-            image: data.image,
+            url: data.url,
         };
 
         return await createNode({

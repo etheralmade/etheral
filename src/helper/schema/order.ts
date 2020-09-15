@@ -1,4 +1,4 @@
-import { Currencies } from 'state/reducers/currency';
+import { Currencies } from 'state/reducers/currency-reducer';
 import { InCart as ProductWithAmount } from './firebase-user';
 
 export type IpaymuData = {
