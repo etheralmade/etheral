@@ -20,23 +20,13 @@
             filter: brightness(0.6);
         }
 
-        // @media (min-width: 48em) {
-        //     width: 320px;
-        // }
-
         @media (min-width: 48em) {
             width: 48%;
             max-width: 48%;
+        }
 
-            // plan: resize gatsby image wrapper based on its ratio with the actual image.
-
-            // & .gatsby-image-wrapper source {
-            //     // variable to determine ratio between actual img and rendered img.
-            //     // calculation here: to scale the img based on the ratio. if 45vw is smaller than 700px => scale up.
-            //     $scale-var: calc(48vw / 700px);
-            //     $value: strip-unit($scale-var);
-            //     transform: scale(2) !important;
-            // }
+        @media screen and (min-width: 64em) {
+            width: 46%;
         }
     }
 }

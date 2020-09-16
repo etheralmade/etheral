@@ -44,8 +44,8 @@ export default {
     },
     primary: {
         ...buttonBaseStyle,
-        bg: 'brown.0',
-        color: 'brown.3',
+        bg: 'black.2',
+        color: 'white.0',
         fontFamily: 'body',
         fontWeight: 600,
         fontSize: [0, 0, 1],

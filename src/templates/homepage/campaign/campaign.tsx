@@ -2,7 +2,7 @@ import React from 'react';
 import { FixedObject } from 'gatsby-image';
 import { Link } from '@reach/router';
 
-import { Flex, Heading, Box } from 'rebass';
+import { Flex, Box } from 'rebass';
 
 import Tile from 'components/tile';
 import './campaign.scss';
@@ -20,7 +20,7 @@ type Props = {
 
 const Campaign: React.FC<Props> = ({ campaignData }) => {
     return (
-        <Box variant="outerWrapper" my={[4, 4, 6]}>
+        <Box variant="outerWrapper" my={[4, 4, 6, 8]}>
             {/* <Heading textAlign="center" as="h2" variant="h2" mb={[5, 5, 6, 7]}>
                 Explore
             </Heading> */}
@@ -30,7 +30,7 @@ const Campaign: React.FC<Props> = ({ campaignData }) => {
                 className="wrap"
                 justifyContent="space-evenly"
                 alignItems="center"
-                px={[4, 4, 0]}
+                px={[4, 4, 5]}
             >
                 {campaignData.map(campaign => (
                     <Link
@@ -44,8 +44,8 @@ const Campaign: React.FC<Props> = ({ campaignData }) => {
                             url={campaign.url}
                             overflow="hidden"
                             width="100%"
-                            mb={[3, 3, 5]}
-                            height={['90vw', '80vw', '48vw']}
+                            mb={[3, 3, 5, 8]}
+                            height={['90vw', '80vw', '48vw', '46vw']}
                             maxHeight={['unset', 420, 'unset', 700, 1024]}
                         />
                     </Link>
