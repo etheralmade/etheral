@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Links on footer component matches snapshot 1`] = `
+<nav
+  className="css-1vt5pff"
+>
+  <a
+    aria-current="page"
+    href="/"
+    onClick={[Function]}
+  >
+    <div
+      className="css-vurnku"
+    >
+      CONTACT US
+    </div>
+  </a>
+  <a
+    aria-current="page"
+    href="/"
+    onClick={[Function]}
+  >
+    <div
+      className="css-vurnku"
+    >
+      FAQ
+    </div>
+  </a>
+  <a
+    aria-current="page"
+    href="/"
+    onClick={[Function]}
+  >
+    <div
+      className="css-vurnku"
+    >
+      SIZE GUIDE
+    </div>
+  </a>
+</nav>
+`;

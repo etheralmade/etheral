@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MailingList matches snapshot 1`] = `
+<div
+  className="css-hhh236"
+>
+  <form
+    className="css-vurnku"
+  >
+    <div
+      className="css-1hko9wy"
+    >
+      <input
+        aria-labelledby="mailing-list-input"
+        className="css-4y926w"
+        name="mailing-list-email"
+        placeholder="Insert your email here"
+        type="email"
+      />
+      <input
+        className="css-4y926w"
+        type="submit"
+      />
+    </div>
+  </form>
+  <div
+    className="css-1kwxgrq"
+    id="mailing-list-input"
+  >
+    Join mailing list to be the first to receive news bout our offers
+  </div>
+</div>
+`;
