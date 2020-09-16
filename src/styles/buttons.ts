@@ -19,15 +19,16 @@ const buttonAdminLinkStyle = {
     display: ['flex', 'flex', 'block'],
     alignItems: ['center', 'center', 'unset'],
     justifyContent: ['center', 'center', 'unset'],
-    py: [4, 4, 2],
-    px: [4, 4, 7],
-    bg: 'brown.0',
+    py: [4],
+    pl: [4, 4, 7],
+    pr: [4, 4, 9],
+    bg: '#333',
     '&: hover': {
-        color: 'brown.3',
+        color: '#fff',
         cursor: 'pointer',
     },
     '& > svg': {
-        mr: [0, 0, 4],
+        mr: [0, 0, 6],
         transform: ['scale(1.6) !important', 'scale(1.6) !important', ''],
     },
 };
@@ -35,12 +36,13 @@ const buttonAdminLinkStyle = {
 export default {
     adminLink: {
         ...buttonAdminLinkStyle,
-        color: 'brown.2',
+        color: 'brown.0',
     },
     adminLinkActive: {
         ...buttonAdminLinkStyle,
-        color: 'brown.3',
+        color: '#fff',
         fontWeight: 'bold',
+        bg: '#222',
     },
     primary: {
         ...buttonBaseStyle,

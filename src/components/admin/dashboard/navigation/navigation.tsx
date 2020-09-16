@@ -7,6 +7,7 @@ import user3Line from '@iconify/icons-ri/user-3-line';
 import logoutBoxLine from '@iconify/icons-ri/logout-box-line';
 
 import { StateViews } from '../dashboard';
+import Logo from 'components/logo';
 
 type Props = {
     inView: StateViews;
@@ -22,6 +23,28 @@ const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
             height={['fit-content', 'fit-content', '100vh']}
             width={['100%', '100%', 'fit-content']}
         >
+            <Flex
+                id="logo"
+                justifyContent="center"
+                mt={[6]}
+                mb={[8]}
+                width="100%"
+                css={`
+                    display: none !important;
+                    svg {
+                        width: 150px;
+                        path {
+                            fill: #fff;
+                        }
+                    }
+
+                    @media screen and (min-width: 48em) {
+                        display: flex !important;
+                    }
+                `}
+            >
+                <Logo />
+            </Flex>
             <Button
                 variant={
                     inView === StateViews.ORDERS

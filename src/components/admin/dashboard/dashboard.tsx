@@ -47,7 +47,7 @@ const Dashboard: React.FC<Props> = ({ logout, db }) => {
         <Flex
             data-testid="dashboard"
             minHeight="100vh"
-            bg="brown.0"
+            bg="#333"
             flexDirection={['column-reverse', 'column-reverse', 'row']}
             justifyContent="space-between"
             css={`
@@ -62,22 +62,14 @@ const Dashboard: React.FC<Props> = ({ logout, db }) => {
                     inView={view}
                 />
             </Box>
-            <Box width="100%" height={['90vh', '100vh']} flex={1} p={[5]}>
-                <Box
-                    bg="white.0"
-                    height="100%"
-                    maxHeight={['100%']}
-                    overflowY="scroll"
-                    width="100%"
-                    p={[5, 5, 7]}
-                    css={`
-                        box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.25);
-                        border-radius: 4px;
-                        /* border: 2px solid rgba(0, 0, 0, 0.4); */
-                    `}
-                >
-                    {toRender}
-                </Box>
+            <Box
+                width="100%"
+                height={['90vh', '100vh']}
+                flex={1}
+                p={[5, 5, 7]}
+                bg="white.1"
+            >
+                {toRender}
             </Box>
         </Flex>
     );
