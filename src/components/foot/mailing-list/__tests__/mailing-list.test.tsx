@@ -1,34 +1,33 @@
-
-import React from 'react'
-import ReactDOM from 'react-dom'
-import renderer from 'react-test-renderer'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 
 // import { render, cleanup } from '@testing-library/react'
-import { cleanup } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
-import { MailingList } from '../mailing-list'
+import { MailingList } from '../mailing-list';
 
 describe('MailingList', () => {
-    const Element = <MailingList />
+    const Element = <MailingList />;
 
-    afterEach(cleanup)
+    afterEach(cleanup);
 
     it('renders without crashing', () => {
-		const div = document.createElement('div')
-		ReactDOM.render(Element, div)
-	})
-	
-	/* it('renders correctly', () => {
+        const div = document.createElement('div');
+        ReactDOM.render(Element, div);
+    });
+
+    /* it('renders correctly', () => {
 		const { getByTestId } = render()
 	}) */
 
-	it('matches snapshot', () => {
-		const run = false
-	    
+    it('matches snapshot', () => {
+        const run = true;
+
         if (run) {
-	        const tree = renderer.create(Element).toJSON()
-	        expect(tree).toMatchSnapshot()
-	    }
-	})
-})
+            const tree = renderer.create(Element).toJSON();
+            expect(tree).toMatchSnapshot();
+        }
+    });
+});
