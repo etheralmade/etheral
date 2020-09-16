@@ -55,6 +55,7 @@ const theme: Theme = {
     breakpoints: ['27em', '48em', '64em', '90em'],
     fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
     colors,
+    //         1, 2, 3, 4,  5,  6,  7,   8,  9, 10,  11
     space: [0, 4, 6, 8, 12, 16, 24, 32, 48, 64, 128, 256],
     fonts: {
         body: 'Syne, sans-serif',

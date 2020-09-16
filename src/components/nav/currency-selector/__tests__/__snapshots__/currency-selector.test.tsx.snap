@@ -6,7 +6,7 @@ exports[`CurrencySelector matches snapshot 1`] = `
   onKeyDown={[Function]}
 >
   <div
-    className=" css-1gar5rn-Control"
+    className=" css-15ro0qd-Control"
     onMouseDown={[Function]}
     onTouchEnd={[Function]}
   >
@@ -14,7 +14,7 @@ exports[`CurrencySelector matches snapshot 1`] = `
       className=" css-g1d714-ValueContainer"
     >
       <div
-        className=" css-18vva34-singleValue"
+        className=" css-12brv94-singleValue"
       >
         IDR
       </div>
@@ -78,10 +78,10 @@ exports[`CurrencySelector matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className=" css-1hb7zxy-IndicatorsContainer"
+      className=" css-1jmi3tp-IndicatorsContainer"
     >
       <span
-        className=" css-1okebmr-indicatorSeparator"
+        className=" css-1xjgjl1-IndicatorSeparator"
       />
       <div
         aria-hidden="true"

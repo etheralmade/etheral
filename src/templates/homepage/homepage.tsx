@@ -8,6 +8,7 @@ import Hero from './hero';
 import Campaign from './campaign';
 import useAllProducts from 'helper/use-all-products';
 import HomepageProducts from './homepage-products';
+import BlogPreview from './blog-preview';
 
 type Props = {
     homepageData: HomePageData;
@@ -88,7 +89,7 @@ const Homepage: React.FC<Props> = ({
             sources: [
                 {
                     ...campaignImgS[index].childImageSharp.fixed,
-                    media: '(max-width: 420px)',
+                    media: '(max-width: 768px)',
                 } as FixedObject,
                 {
                     ...campaignImgM[index].childImageSharp.fixed,
@@ -120,6 +121,7 @@ const Homepage: React.FC<Props> = ({
                 products={productsToShow}
                 displayText={homepageData.homepageProductsDisplayText}
             />
+            <BlogPreview />
         </>
     );
 };

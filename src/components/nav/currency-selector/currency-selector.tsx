@@ -62,27 +62,49 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
                 backgroundColor: isSelected
                     ? '#333'
                     : isFocused
-                    ? '#777'
+                    ? '#555'
                     : '#fff',
                 color: isSelected ? '#fff' : !isFocused ? '#222' : '#fff',
                 fontWeight: isSelected ? 600 : 400,
+                fontSize: '14px',
             };
         },
+        indicatorSeparator: () => ({
+            display: 'none',
+        }),
+        indicator: () => ({
+            padding: 0,
+        }),
         control: () => ({
             // none of react-select's styles are passed to <Control />
             width: 86,
             display: 'flex',
             fontFamily: theme.fonts.heading,
-            marginRight: 16,
             color: '#fff',
         }),
         singleValue: (provided: any, state: any) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';
             const color = showDropdown ? '#000' : '#fff';
+            const fontSize = '14px';
 
-            return { ...provided, opacity, transition, color };
+            return {
+                ...provided,
+                opacity,
+                transition,
+                color,
+                fontSize,
+            };
         },
+        valueContainer: (provided: any) => ({
+            ...provided,
+        }),
+        indicatorsContainer: (provided: any) => ({
+            ...provided,
+            padding: 0,
+            position: 'relative',
+            left: '-12px',
+        }),
     };
 
     // options for select component

@@ -12,7 +12,7 @@ const CartBadge: React.FC<Props> = ({ cart }) => {
     const length = cart.reduce((acc, curr) => acc + curr.amount, 0);
 
     return (
-        <Text fontSize={[1, 2, 2]} fontFamily="heading">
+        <Text fontSize={[1, 2, 2]} fontFamily="heading" className="cart-badge">
             {length}
         </Text>
     );

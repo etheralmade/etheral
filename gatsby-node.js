@@ -29,46 +29,6 @@ const nameToSlug = name =>
         .split(' ')
         .join('-');
 
-// create custom schema.
-exports.createSchemaCustomization = ({ actions }) => {
-    const { createTypes } = actions;
-    createTypes(`
-        type Product implements Node {
-            name: String
-            pid: String
-            amount: Int
-            description: String
-            category: String
-            idrPrice: Int
-            urls: [String]
-            slug: String
-            weight: Int
-            availableSizes: [String]
-            collection: String
-        }
-    `);
-
-    createTypes(`
-        type Collection implements Node {
-            name: String
-            description: String
-            releaseDate: Date
-            urls: [String]
-            cid: String
-        }
-    `);
-
-    createTypes(`
-        type City implements Node {
-            name: String
-            provinceName: String
-            cityId: Int
-            provinceId: Int
-            postalCode: Int
-        }
-    `);
-};
-
 // overpass the runtime error.
 exports.modifyBabelrc = ({ babelrc }) => ({
     ...babelrc,
@@ -98,11 +58,16 @@ exports.sourceNodes = async ({
         .firestore()
         .collection('fl_content')
         .where('_fl_meta_.schema', '==', 'homepage');
+    const blogs = firebaseApp
+        .firestore()
+        .collection('fl_content')
+        .where('_fl_meta_.schema', '==', 'blog');
 
     const storage = firebaseApp.storage();
 
     let collectionDocs = [];
     let productDocs = [];
+    let blogDocs = [];
     let homepageDoc;
 
     await products.get().then(docs => {
@@ -127,6 +92,15 @@ exports.sourceNodes = async ({
                 homepageDoc = doc.data();
             });
         }
+    });
+
+    // get all blog posts.
+    await blogs.get().then(docs => {
+        docs.forEach(doc => {
+            if (doc.exists) {
+                blogDocs.push(doc.data());
+            }
+        });
     });
 
     // mapping all product docs and creating a node for each docs.
@@ -314,8 +288,6 @@ exports.sourceNodes = async ({
                 homepageDoc.homepageProductsDisplayText,
         };
 
-        console.log(JSON.stringify(nodeFields));
-
         return await createNode({
             // data for the node
             ...nodeFields,
@@ -326,6 +298,45 @@ exports.sourceNodes = async ({
             },
         });
     };
+
+    // map all blogs and create nodes fir each docs.
+    const createNodesBlogs = await blogDocs.map(async data => {
+        // blogImage
+        if (await data.blogImage) {
+            const ref = await data.blogImage[0];
+            const req = await ref.get();
+            const imgRef = await req.data().file;
+
+            const imgDownloadUrl = await storage
+                .ref(`flamelink/media/${imgRef}`)
+                .getDownloadURL();
+            await set(data, 'url', imgDownloadUrl);
+        }
+        // content
+        // date
+        // slug
+        // summary
+        // title
+
+        const fields = await {
+            content: data.content,
+            date: data.date,
+            slug: data.slug,
+            summary: data.summary,
+            title: data.title,
+            url: data.url,
+        };
+
+        return await createNode({
+            // data for the node
+            ...fields,
+            id: createNodeId(fields.title),
+            internal: {
+                type: 'Blog',
+                contentDigest: createContentDigest(fields),
+            },
+        });
+    });
 
     // get all cities from rajaongkir.com
     const requestCitiesCalculateShipping = async () => {
@@ -370,6 +381,7 @@ exports.sourceNodes = async ({
             createNodesCollections,
             requestCitiesCalculateShipping(),
             createNodeHomepage(),
+            createNodesBlogs,
         ])
     );
 };
@@ -394,12 +406,17 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
+            blogs: allBlog {
+                edges {
+                    node {
+                        slug
+                    }
+                }
+            }
         }
     `);
 
-    const { products, collections } = await result.data;
-
-    console.log(`data: ${JSON.stringify(result.data)}`);
+    const { products, collections, blogs } = await result.data;
 
     // if (products) {
     await products.edges.forEach(({ node }) => {
@@ -426,4 +443,14 @@ exports.createPages = async ({ graphql, actions }) => {
         });
     });
     // }
+
+    await blogs.edges.forEach(({ node }) => {
+        createPage({
+            path: `blogs/${node.slug}`,
+            component: path.resolve('./src/templates/blogs/index.tsx'),
+            context: {
+                slug: node.slug,
+            },
+        });
+    });
 };
