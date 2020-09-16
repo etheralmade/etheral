@@ -3,6 +3,7 @@ const baseLink = {
     fontSize: [3, 3, 1],
     fontWeight: 'medium',
     mr: [0, 0, 5],
+    transition: '0.2s, font-weight .4s ease-out',
 };
 
 const linkActiveAttrs = {
@@ -49,29 +50,26 @@ const links = {
     link: {
         ...baseLink,
         color: '#555',
-        transition: '0.2s',
         '&:hover': {
             ...linkActiveAttrs,
-            fontWeight: 'body',
+            fontWeight: 'bold',
         },
     },
     linkWhite: {
         ...baseLink,
         color: '#555',
-        transition: '0.2s',
         '&:hover': {
             ...linkActiveAttrs,
-            fontWeight: 'body',
+            fontWeight: 'bold',
         },
     },
     linkSmall: {
         ...baseLink,
         color: '#555',
-        transition: '0.2s',
         fontSize: [1],
         '&:hover': {
             ...linkActiveAttrs,
-            fontWeight: 'body',
+            fontWeight: 'bold',
         },
     },
     linkActive: {

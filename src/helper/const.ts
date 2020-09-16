@@ -1,5 +1,6 @@
 import { Product } from './schema/product';
 import { Order } from './schema/order';
+import { Currencies } from 'state/reducers/currency-reducer';
 
 export const mockProduct1: Product = {
     pid: '1234',
@@ -27,7 +28,7 @@ export const mockOrder: Order = {
     buyerAddr: 'Storkowerstrasse',
     buyerPostal: 1234143,
     total: 32000,
-    currency: 'IDR',
+    currency: Currencies.IDR,
     date: new Date(),
     via: 'va',
     channel: 'bni',

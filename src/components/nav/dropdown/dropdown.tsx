@@ -115,7 +115,11 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                     ]}
                 >
                     <Flex flexDirection={['column', 'row', 'row']}>
-                        <Box className="others" my={[5, 5, 0]}>
+                        <Box
+                            className="others"
+                            my={[5, 5, 0]}
+                            width={['fit-content', 'fit-content', '110px']}
+                        >
                             <Link to="/">
                                 <Text variant="link">Shop all</Text>
                             </Link>

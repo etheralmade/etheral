@@ -266,6 +266,11 @@ const Navigation: React.FC<Props & ICartState> = ({
                                             : '#fff'
                                     }
                                     py={[0, 0, '5vh']}
+                                    width={[
+                                        'fit-content',
+                                        'fit-content',
+                                        '60px',
+                                    ]}
                                 >
                                     ABOUT
                                 </Text>
@@ -282,6 +287,11 @@ const Navigation: React.FC<Props & ICartState> = ({
                                             ? '#000'
                                             : '#fff'
                                     }
+                                    width={[
+                                        'fit-content',
+                                        'fit-content',
+                                        '60px',
+                                    ]}
                                 >
                                     SHOP
                                 </Text>
@@ -310,6 +320,11 @@ const Navigation: React.FC<Props & ICartState> = ({
                                             : '#fff'
                                     }
                                     py={[0, 0, '5vh']}
+                                    width={[
+                                        'fit-content',
+                                        'fit-content',
+                                        '60px',
+                                    ]}
                                 >
                                     BLOG
                                 </Text>
