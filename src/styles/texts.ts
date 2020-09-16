@@ -52,7 +52,6 @@ const links = {
         color: '#555',
         '&:hover': {
             ...linkActiveAttrs,
-            fontWeight: 'bold',
         },
     },
     linkWhite: {
@@ -60,7 +59,6 @@ const links = {
         color: '#555',
         '&:hover': {
             ...linkActiveAttrs,
-            fontWeight: 'bold',
         },
     },
     linkSmall: {
@@ -69,7 +67,6 @@ const links = {
         fontSize: [1],
         '&:hover': {
             ...linkActiveAttrs,
-            fontWeight: 'bold',
         },
     },
     linkActive: {

@@ -174,7 +174,7 @@ const useAllProductImages = () => {
             s: '320px',
             m: '600px',
             l: '1440px',
-            xl: '1920px',
+            // xl: '1920px',
         };
 
         // extract images based on its pid(s)
@@ -209,7 +209,7 @@ const useAllProductImages = () => {
                             {
                                 ...productImgXL.img[index].childImageSharp
                                     .fluid,
-                                media: `(max-width: ${sourceBreakpoints.xl})`,
+                                media: `(min-width: ${sourceBreakpoints.l})`,
                             } as FluidObject,
                         ],
                     };
@@ -232,7 +232,7 @@ const useAllProductImages = () => {
                             {
                                 ...productImgXL.img[index].childImageSharp
                                     .fixed,
-                                media: `(max-width: ${sourceBreakpoints.xl})`,
+                                media: `(min-width: ${sourceBreakpoints.l})`,
                             } as FixedObject,
                         ],
                     };

@@ -26,7 +26,7 @@ const HomepageProducts: React.FC<Props> = ({ products, displayText }) => {
                 as="h2"
                 variant="h2"
                 mb={[5, 5, 6, 7]}
-                fontWeight="body"
+                fontWeight="bold"
             >
                 {displayText.toUpperCase()}
             </Heading>

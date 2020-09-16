@@ -49,7 +49,7 @@ export default {
         bg: 'black.2',
         color: 'white.0',
         fontFamily: 'body',
-        fontWeight: 600,
+        fontWeight: 'body',
         fontSize: [0, 0, 1],
     },
     secondary: {

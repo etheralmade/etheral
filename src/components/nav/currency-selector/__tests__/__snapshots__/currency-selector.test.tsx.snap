@@ -6,7 +6,7 @@ exports[`CurrencySelector matches snapshot 1`] = `
   onKeyDown={[Function]}
 >
   <div
-    className=" css-15ro0qd-Control"
+    className=" css-v6gd18-Control"
     onMouseDown={[Function]}
     onTouchEnd={[Function]}
   >

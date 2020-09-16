@@ -46,7 +46,7 @@ const colors: ColorTheme = {
     lightGray: '#f6f6ff',
     brown: ['#E2DAD0', '#593614', '#B5967A', '#553517'],
     badges: ['#FF9292', '#9BEBA3'],
-    white: ['#FEFEFE'],
+    white: ['#FEFEFE', '#ddd', '#f9f9f9', '#eaeaea'],
     black: ['#222', '#aaa', '#24201F'],
 };
 
@@ -57,8 +57,8 @@ const theme: Theme = {
     colors,
     space: [0, 4, 6, 8, 12, 16, 24, 32, 48, 64, 128, 256],
     fonts: {
-        body: 'Syne, sans-serif',
-        heading: 'Raleway, sans-serif',
+        body: 'Poppins, sans-serif',
+        heading: 'Poppins, sans-serif',
         monospace: 'Menlo, monospace',
         serif: 'Cormorant Garamond, serif',
     },
