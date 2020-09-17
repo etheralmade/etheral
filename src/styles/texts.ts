@@ -126,7 +126,7 @@ export default {
         fontFamily: 'heading',
         fontWeight: 'bold',
         fontSize: [3, 3, 4],
-        color: 'brown.3',
+        color: 'black.0',
     },
     h4: {
         color: '#000',

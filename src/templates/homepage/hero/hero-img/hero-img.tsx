@@ -22,7 +22,11 @@ const HeroImage: React.FC<Props> = ({ img, buttonLink, buttonText }) => {
                 width="100%"
                 sx={{ position: 'absolute', top: 0, left: 0, zIndex: -1 }}
             >
-                <Img fluid={img.sources} />
+                <Img
+                    style={{ height: '100%', width: '100%' }}
+                    imgStyle={{ objectPosition: 'center' }}
+                    fluid={img.sources}
+                />
             </Box>
             <Link to={buttonLink}>
                 <Button mb={[7, 8, 9]}>{buttonText}</Button>

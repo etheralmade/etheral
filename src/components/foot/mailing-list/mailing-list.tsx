@@ -14,37 +14,14 @@ const MailingList: React.FC<Props> = () => {
             <Box as="form">
                 <Flex
                     flexDirection={['column', 'row']}
-                    css={`
-                        & > input {
-                            border: none;
-
-                            &[type='email'] {
-                                font-family: Poppins, sans-serif;
-                                margin-bottom: 8px;
-                                background: none;
-                                border-bottom: 4px solid #333;
-                                font-size: 12px;
-
-                                @media screen and (min-width: 27em) {
-                                    margin-bottom: 0;
-                                    margin-right: 8px;
-                                    padding: 8px;
-                                }
-
-                                @media screen and (min-width: 48em) {
-                                    padding: 8px 32px;
-                                    font-size: 14px;
-                                    width: calc(100% + 64px);
-                                }
-                            }
-                        }
-                    `}
+                    sx={{ "& > input[type='submit']": { border: 'none' } }}
                 >
                     <Input
                         name="mailing-list-email"
                         aria-labelledby="mailing-list-input"
                         type="email"
                         placeholder="Insert your email here"
+                        variant="variants.textInput"
                     />
                     <Input type="submit" variant="buttons.primary" />
                 </Flex>

@@ -18,6 +18,7 @@ import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Account from './account';
 import Banner from './banner';
 import Modal from '../modal';
+import MailingList from '../popups/mailing-list';
 
 import './nav.scss';
 
@@ -46,7 +47,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [openModal, setOpenModal] = useState(false);
 
     // set to true to show modal on homepage.
-    const runModal = false;
+    const runModal = true;
 
     useEffect(() => {
         if (auth.currentUser) {
@@ -108,7 +109,17 @@ const Navigation: React.FC<Props & ICartState> = ({
     // mock links for testing purposes
     return (
         <Box as="header" bg={['#fff', '#fff', 'transparent']}>
-            {openModal && <Modal closeModal={() => setOpenModal(false)} />}
+            {openModal && (
+                <Modal>
+                    <MailingList closeModal={() => setOpenModal(false)} />
+                    {/* <div>
+                        <h1>Hello, World</h1>
+                        <button onClick={() => setOpenModal(false)}>
+                            close modal
+                        </button>
+                    </div> */}
+                </Modal>
+            )}
             {shouldRenderBanner && <Banner />}
             <Flex
                 variant="outerWrapper"
