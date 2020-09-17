@@ -2,10 +2,10 @@
 
 exports[`Campaign element matches snapshot 1`] = `
 <div
-  className="css-1vv4hue"
+  className="css-6zvmg4"
 >
   <div
-    className="wrap css-c9wy9e"
+    className="wrap css-bllmdp"
   />
 </div>
 `;

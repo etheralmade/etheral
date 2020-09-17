@@ -64,4 +64,5 @@ export const mockBlog: Blog = {
     summary: 'Mock summary',
     title: 'Mock title',
     date: new Date(Date.parse('2020-09-11T00:00:00+02:00')),
+    slug: 'sample-blog-post',
 };

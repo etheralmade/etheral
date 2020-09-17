@@ -26,20 +26,26 @@ describe('Dropdown element', () => {
                     ],
                 },
                 navImg: {
-                    navigationImage: 'url',
+                    navigationImage: ['url1', 'url2'],
                     imgs: [
                         {
                             childImageSharp: {
                                 fluid: {} as FluidObject,
                             },
-                            url: 'url',
+                            url: 'url1',
+                        },
+                        {
+                            childImageSharp: {
+                                fluid: {} as FluidObject,
+                            },
+                            url: 'url2',
                         },
                     ],
                 },
             };
         });
     });
-    
+
     const element = (
         <Dropdown currLocation="/about" goBack={jest.fn(() => {})} />
     );

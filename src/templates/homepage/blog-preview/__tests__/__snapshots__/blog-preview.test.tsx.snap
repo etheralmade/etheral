@@ -33,7 +33,7 @@ exports[`BlogPreview matches snapshot 1`] = `
         Mock summary
       </article>
       <a
-        href="/blogs/undefined"
+        href="/blogs/sample-blog-post"
         onClick={[Function]}
       >
         <button

@@ -4,6 +4,7 @@ const baseLink = {
     fontWeight: 'medium',
     mr: [0, 0, 5],
     transition: '0.2s, font-weight .4s ease-out',
+    my: [2, 2, 4],
 };
 
 const linkActiveAttrs = {

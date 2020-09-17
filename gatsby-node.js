@@ -197,9 +197,11 @@ exports.sourceNodes = async ({
             name: data.name,
             description: data.description,
             releaseDate: data.releaseDate,
-            urls: data.collectionPromotionalImages,
+            urls: data.collectionPromotionalImages || [],
             cid: data.id,
         };
+
+        console.log(`Collection data: ${JSON.stringify(nodeFields)}`);
 
         return await createNode({
             // data for the node
@@ -251,17 +253,30 @@ exports.sourceNodes = async ({
             })
         );
 
-        const getNavigationImage = async () => {
-            const req = await homepageDoc.navigationImage[0].get();
-            const imgRef = await req.data().file;
+        // const getNavigationImage = async () => {
+        //     const req = await homepageDoc.navigationImage[0].get();
+        //     const imgRef = await req.data().file;
 
-            const imgDownloadUrl = await storage
-                .ref(`flamelink/media/${imgRef}`)
-                .getDownloadURL();
-            return await imgDownloadUrl;
-        };
+        //     const imgDownloadUrl = await storage
+        //         .ref(`flamelink/media/${imgRef}`)
+        //         .getDownloadURL();
+        //     return await imgDownloadUrl;
+        // };
 
-        const navigationImage = await getNavigationImage();
+        // fetch navigation images.
+        const navigationImage = await Promise.all(
+            homepageDoc.navigationImage.map(async navImg => {
+                const req = await navImg.get();
+                const imgRef = await req.data().file;
+
+                const imgDownloadUrl = await storage
+                    .ref(`flamelink/media/${imgRef}`)
+                    .getDownloadURL();
+                return await imgDownloadUrl;
+            })
+        );
+
+        // const navigationImage = await getNavigationImage();
 
         const products = await Promise.all(
             homepageDoc.products.map(async productItem => {
@@ -275,7 +290,7 @@ exports.sourceNodes = async ({
         const urls = await [
             ...campaigns.map(campaign => campaign.url),
             ...homepageImages.map(homepageImage => homepageImage.url),
-            navigationImage,
+            ...navigationImage,
         ];
 
         const nodeFields = await {

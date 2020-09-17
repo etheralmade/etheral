@@ -34,7 +34,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                 navigationImage
                 imgs {
                     childImageSharp {
-                        fluid(maxWidth: 600, maxHeight: 300, quality: 100) {
+                        fluid(maxWidth: 300, maxHeight: 300, quality: 100) {
                             ...GatsbyImageSharpFluid
                         }
                     }
@@ -48,21 +48,39 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
 
     const { navigationImage, imgs } = navImg as any;
 
-    const navImgIndex = findIndex(imgs, (o: any) => o.url === navigationImage);
+    console.log(navigationImage);
+
+    const navImgIndexLeft = findIndex(
+        imgs,
+        (o: any) => o.url === navigationImage[0]
+    );
+
+    const navImgIndexRight = findIndex(
+        imgs,
+        (o: any) => o.url === navigationImage[1]
+    );
 
     if (allCollection) {
         const collections: string[] = allCollection.edges.map(
             (edge: any) => edge.node.name
         );
 
-        const navImgFluid = imgs[navImgIndex].childImageSharp.fluid as
+        const navImgFluidLeft = imgs[navImgIndexLeft].childImageSharp.fluid as
             | FluidObject
             | FluidObject[];
+
+        const navImgFluidRight = imgs[navImgIndexRight].childImageSharp
+            .fluid as FluidObject | FluidObject[];
+
+        const imgStyles = {
+            height: [0, 0, 0, 250, 300],
+            width: [0, 0, 0, 250, 300],
+        };
 
         return (
             <Box
                 height={['92vh', '92vh', 'fit-content']}
-                width={['100%', '100%', '101vw']}
+                width={['100%', '100%', '100vw', '101vw']}
                 pt={[4, 4, 5]}
                 pb={[4, 4, 9]}
                 px={[6, '10vw', 8, '10vw']}
@@ -71,7 +89,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                 css={`
                     position: absolute;
                     left: 0;
-                    top: 8vh;
+                    top: 10vh;
                     z-index: 2;
 
                     #go-back-dropdown {
@@ -81,8 +99,8 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                         }
                     }
 
-                    @media (min-width: 24em) {
-                        top: 15vh;
+                    @media (min-width: 24em) and (orientation: landscape) {
+                        top: 20vh;
                     }
 
                     @media (min-width: 48em) {
@@ -92,6 +110,10 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
 
                         top: 9vh;
                         transform: translateX(-5%);
+                    }
+
+                    @media (min-width: 48em) and (orientation: landscape) {
+                        top: 10vh;
                     }
 
                     @media (min-width: 64em) {
@@ -105,16 +127,12 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                         Menu
                     </Text>
                 </Box>
-                <Flex
-                    ml={[6, 6, 0]}
-                    justifyContent={[
-                        'space-between',
-                        'space-between',
-                        'space-between',
-                        'flex-start',
-                    ]}
-                >
-                    <Flex flexDirection={['column', 'row', 'row']}>
+                <Flex ml={[6, 6, 0]} justifyContent="space-between">
+                    <Flex
+                        flexDirection={['column', 'row', 'row']}
+                        alignSelf="center"
+                        pb={[0, 0, 7, 8]}
+                    >
                         <Box
                             className="others"
                             my={[5, 5, 0]}
@@ -175,34 +193,25 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                             </Box>
                         </Box>
                     </Flex>
-                    <Box
-                        ml={[0, 0, 0, 8, 10]}
-                        mt={[0, 0, 10, 8]}
-                        css={`
-                            display: none;
-
-                            @media screen and (min-width: 48em) {
-                                display: block;
-                                width: 300px;
-                                height: 150px;
-                                overflow: hidden;
-                            }
-
-                            @media screen and (min-width: 64em) {
-                                width: 400px;
-                                height: 200px;
-                            }
-
-                            @media screen and (min-width: 90em) {
-                                width: 600px;
-                                img {
-                                    transform: translateY(-50px) !important;
-                                }
-                            }
-                        `}
-                    >
-                        <Img fluid={navImgFluid} />
-                    </Box>
+                    <Flex sx={{ display: ['none', 'none', 'flex'] }}>
+                        <Box {...imgStyles} mr={[0, 0, 0, 5, 8]}>
+                            <Img fluid={navImgFluidLeft} />
+                        </Box>
+                        <Box
+                            {...imgStyles}
+                            sx={{
+                                display: [
+                                    'none',
+                                    'none',
+                                    'none',
+                                    'none',
+                                    'block',
+                                ],
+                            }}
+                        >
+                            <Img fluid={navImgFluidRight} />
+                        </Box>
+                    </Flex>
                 </Flex>
             </Box>
         );
