@@ -45,7 +45,15 @@ const colors: ColorTheme = {
     blue: '#07c',
     lightGray: '#f6f6ff',
     brown: ['#E2DAD0', '#593614', '#B5967A', '#553517'],
-    badges: ['#FF9292', '#9BEBA3'],
+    badges: [
+        '#FF9292',
+        '#9BEBA3',
+        '#FEFEB2',
+        '#ACDEF1',
+        ' #ffc3b1',
+        '#b19cd9',
+        '#ffcccc',
+    ],
     white: ['#FEFEFE', '#ddd', '#f9f9f9', '#eaeaea'],
     black: ['#222', '#aaa', '#24201F'],
 };
@@ -55,7 +63,7 @@ const theme: Theme = {
     breakpoints: ['27em', '48em', '64em', '90em'],
     fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
     colors,
-    //      0, 1, 2, 3, 4,  5,  6,  7,  8,  9,  10,  11
+    //         1, 2, 3, 4,  5,  6,  7,   8,  9, 10,  11
     space: [0, 4, 6, 8, 12, 16, 24, 32, 48, 64, 128, 256],
     fonts: {
         body: 'Poppins, sans-serif',

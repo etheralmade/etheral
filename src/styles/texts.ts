@@ -44,6 +44,12 @@ const badges = {
         color: '#000',
         bg: 'badges.4',
     },
+    statusBadgeUpdate: {
+        ...statusBadge,
+        color: '#000',
+        bg: 'badges.5',
+    },
+    statusBadgeNew: { ...statusBadge, color: '#000', bg: 'badges.6' },
 };
 
 const links = {
@@ -119,7 +125,7 @@ export default {
 
     h2: {
         fontFamily: 'heading',
-        fontWeight: 'heading',
+        fontWeight: 'body',
         fontSize: [3, 3, 4],
     },
     h3: {
@@ -133,11 +139,14 @@ export default {
         fontSize: [3, 3, 4],
     },
     h5: {
-        fontSize: [2, 2, 3],
+        fontSize: ['10px', '10px', '12px'],
+        fontFamily: 'heading',
+        fontWeight: 'bold',
     },
     body: {
         fontFamily: 'body',
         fontSize: [0, 0, 1],
+        fontWeight: 'body',
     },
     bodyMedium: {
         fontFamily: 'body',

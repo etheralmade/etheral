@@ -7,7 +7,7 @@ import { Flex, Box } from 'rebass';
 import Tile from 'components/tile';
 import './campaign.scss';
 
-type Props = {
+export type Props = {
     campaignData: {
         url: string;
         campaignLink: string;

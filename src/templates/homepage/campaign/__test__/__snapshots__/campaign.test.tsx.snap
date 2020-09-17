@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Campaign element matches snapshot 1`] = `
+<div
+  className="css-1vv4hue"
+>
+  <div
+    className="wrap css-c9wy9e"
+  />
+</div>
+`;

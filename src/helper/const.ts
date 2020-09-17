@@ -1,5 +1,6 @@
 import { Product } from './schema/product';
 import { Order } from './schema/order';
+import { Blog } from './schema/blog';
 import { Currencies } from 'state/reducers/currency-reducer';
 
 export const mockProduct1: Product = {
@@ -55,4 +56,12 @@ export const mockOrderShipped: Order = {
         trackingNum: '12342',
         shippedBy: 'admin1',
     },
+};
+
+export const mockBlog: Blog = {
+    content:
+        '<h1 role="heading">Hello World!</h1><br /><img src="" alt="empty image" />',
+    summary: 'Mock summary',
+    title: 'Mock title',
+    date: new Date(Date.parse('2020-09-11T00:00:00+02:00')),
 };

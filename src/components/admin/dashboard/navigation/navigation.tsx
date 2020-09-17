@@ -1,10 +1,12 @@
 import React from 'react';
 import { Flex, Box, Button, Text } from 'rebass';
+
 import { InlineIcon } from '@iconify/react';
 import linksLine from '@iconify/icons-ri/links-line';
 import fileList3Line from '@iconify/icons-ri/file-list-3-line';
 import user3Line from '@iconify/icons-ri/user-3-line';
 import logoutBoxLine from '@iconify/icons-ri/logout-box-line';
+import earthLine from '@iconify/icons-ri/earth-line';
 
 import { StateViews } from '../dashboard';
 import Logo from 'components/logo';
@@ -88,6 +90,21 @@ const Navigation: React.FC<Props> = ({ inView, logout, changeView }) => {
                 <InlineIcon icon={user3Line} />
                 <Text display={['none', 'none', 'unset']} as="span">
                     Admin
+                </Text>
+            </Button>
+            <Button
+                variant={
+                    inView === StateViews.SETTINGS
+                        ? 'adminLinkActive'
+                        : 'adminLink'
+                }
+                onClick={() => {
+                    changeView(StateViews.SETTINGS);
+                }}
+            >
+                <InlineIcon icon={earthLine} />
+                <Text display={['none', 'none', 'unset']} as="span">
+                    Settings
                 </Text>
             </Button>
             <Box my="auto" />
