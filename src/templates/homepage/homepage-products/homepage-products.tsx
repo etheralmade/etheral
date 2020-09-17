@@ -26,7 +26,7 @@ const HomepageProducts: React.FC<Props> = ({ products, displayText }) => {
                 as="h2"
                 variant="h2"
                 mb={[5, 5, 6, 7]}
-                fontWeight="bold"
+                fontWeight="body"
             >
                 {displayText.toUpperCase()}
             </Heading>
@@ -35,7 +35,7 @@ const HomepageProducts: React.FC<Props> = ({ products, displayText }) => {
                 alignItems={['flex-start']}
                 flexWrap="wrap"
                 justifyContent={['space-evenly']}
-                px={[6]}
+                px={[6, 6, 8]}
             >
                 {products.map(product => {
                     const props: ProductCardProps = {

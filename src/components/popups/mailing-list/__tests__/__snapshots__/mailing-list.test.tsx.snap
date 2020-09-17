@@ -6,7 +6,7 @@ exports[`MailingList matches snapshot 1`] = `
 >
   <div
     aria-label="close-modal-button"
-    className="css-1bhdijz"
+    className="css-9tbm8a"
     onClick={
       [MockFunction] {
         "calls": Array [

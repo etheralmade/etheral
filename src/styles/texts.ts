@@ -145,9 +145,12 @@ export default {
     },
     tileText: {
         fontFamily: 'heading',
-        fontWeight: 400,
+        fontWeight: 300,
         textDecoration: 'none',
         color: '#fff',
+        fontSize: [24, 24, 24, 32, 40],
+        letterSpacing: [8],
+        textAlign: 'center',
     },
     ...links,
     ...productCard,

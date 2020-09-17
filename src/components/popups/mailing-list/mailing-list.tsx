@@ -59,8 +59,8 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                             cursor: 'pointer',
                         },
                         '& > svg': {
-                            height: [24, 24, 48],
-                            width: [24, 24, 48],
+                            height: [24, 24, 36],
+                            width: [24, 24, 36],
                             path: {
                                 fill: ['#fff', '#000'],
                             },
