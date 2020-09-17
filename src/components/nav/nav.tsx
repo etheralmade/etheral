@@ -57,9 +57,15 @@ const Navigation: React.FC<Props & ICartState> = ({
             const { pathname } = location;
             setCurrLocation(pathname);
 
+            // set cookie if user visited => not same as cart component.
+            // cart uses session storage nav component uses cookie to prevent doubling
             if (runModal) {
-                if (pathname === '/') {
+                // const visited = document.cookie;
+
+                if (pathname === '/' && !auth.currentUser) {
                     setOpenModal(true);
+                    // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-mutation
+                    document.cookie = 'visited';
                 }
             }
         }

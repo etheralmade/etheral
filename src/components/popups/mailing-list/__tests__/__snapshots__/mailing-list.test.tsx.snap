@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MailingList matches snapshot 1`] = `
+<div
+  className="css-1tw1h9e"
+>
+  <div
+    aria-label="close-modal-button"
+    className="css-1bhdijz"
+    onClick={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Class {
+              "_dispatchInstances": null,
+              "_dispatchListeners": null,
+              "_targetInst": null,
+              "altKey": null,
+              "bubbles": null,
+              "button": null,
+              "buttons": null,
+              "cancelable": null,
+              "clientX": null,
+              "clientY": null,
+              "ctrlKey": null,
+              "currentTarget": [Function],
+              "defaultPrevented": null,
+              "detail": null,
+              "dispatchConfig": null,
+              "eventPhase": null,
+              "getModifierState": [Function],
+              "isDefaultPrevented": [Function],
+              "isPropagationStopped": [Function],
+              "isTrusted": null,
+              "metaKey": null,
+              "movementX": [Function],
+              "movementY": [Function],
+              "nativeEvent": null,
+              "pageX": null,
+              "pageY": null,
+              "relatedTarget": [Function],
+              "screenX": null,
+              "screenY": null,
+              "shiftKey": null,
+              "target": null,
+              "timeStamp": [Function],
+              "type": null,
+              "view": null,
+            },
+          ],
+        ],
+        "results": Array [
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
+        ],
+      }
+    }
+    role="button"
+  >
+    <svg
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path d=\\"M12 10.586l4.95-4.95l1.414 1.414l-4.95 4.95l4.95 4.95l-1.414 1.414l-4.95-4.95l-4.95 4.95l-1.414-1.414l4.95-4.95l-4.95-4.95L7.05 5.636z\\" fill=\\"currentColor\\"/>",
+        }
+      }
+      focusable={false}
+      height="1em"
+      id="close-popup"
+      preserveAspectRatio="xMidYMid meet"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+        }
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+  </div>
+  <div
+    className=" gatsby-image-wrapper"
+    style={
+      Object {
+        "display": "inline-block",
+        "height": undefined,
+        "overflow": "hidden",
+        "position": "relative",
+        "width": undefined,
+      }
+    }
+  >
+    <picture>
+      <source
+        media="(min-height: 400px) and (min-width: 900px)"
+      />
+      <source />
+      <img
+        alt="bracelet"
+        loading="lazy"
+        onLoad={[Function]}
+        style={
+          Object {
+            "height": "100%",
+            "left": 0,
+            "objectFit": "cover",
+            "objectPosition": "center",
+            "opacity": 0,
+            "position": "absolute",
+            "top": 0,
+            "transition": "opacity 500ms",
+            "width": "100%",
+          }
+        }
+      />
+    </picture>
+    <noscript
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<picture><source media=\\"(min-height: 400px) and (min-width: 900px)\\" srcset=\\"undefined\\" /><source srcset=\\"undefined\\" /><img loading=\\"lazy\\" src=\\"\\" alt=\\"bracelet\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture>",
+        }
+      }
+    />
+  </div>
+  <div
+    className="css-13aimox"
+  >
+    <div
+      className="css-vurnku"
+    >
+      <h3
+        className="css-qjyand"
+        id="subscribe-newsletter-popup"
+      >
+        SUBSCRIBE TO OUR NEWSLETTER
+      </h3>
+      <div
+        className="css-jmlio4"
+      >
+        To get your 10% off your first purchase
+      </div>
+    </div>
+    <form
+      className="css-rh7pv8"
+    >
+      <input
+        aria-labelledby="subscribe-newsletter-popup"
+        className="css-1pr8502"
+        placeholder="Enter your email address here"
+        type="email"
+      />
+      <input
+        className="css-1spzla3"
+        type="submit"
+        value="GET 10% OFF"
+      />
+    </form>
+  </div>
+</div>
+`;

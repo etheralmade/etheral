@@ -55,9 +55,12 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                         top: [1],
                         right: [1],
                         zIndex: 2000,
+                        '&:hover': {
+                            cursor: 'pointer',
+                        },
                         '& > svg': {
-                            height: [24],
-                            width: [24],
+                            height: [24, 24, 48],
+                            width: [24, 24, 48],
                             path: {
                                 fill: ['#fff', '#000'],
                             },
