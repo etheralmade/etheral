@@ -4,6 +4,7 @@ import { Flex, Box } from 'rebass';
 import Orders from './orders';
 import Links from './links';
 import Navigation from './navigation';
+import Settings from './settings';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -14,6 +15,7 @@ export enum StateViews {
     ORDERS,
     ADMINS,
     LINKS,
+    SETTINGS,
     NONE,
 }
 
@@ -35,6 +37,9 @@ const Dashboard: React.FC<Props> = ({ logout, db }) => {
             break;
         case StateViews.LINKS:
             toRender = <Links />;
+            break;
+        case StateViews.SETTINGS:
+            toRender = <Settings />;
             break;
         case StateViews.NONE:
             toRender = <h1>None</h1>;

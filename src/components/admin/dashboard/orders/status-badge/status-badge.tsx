@@ -9,12 +9,14 @@ type Props = {
     paid?: boolean;
     shipped?: boolean;
     date?: Date;
+    update?: boolean;
 };
 
 export enum BadgeTypes {
     PAYMENT,
     SHIPPING,
     DATE,
+    SETTINGS,
 }
 
 const StatusBadge: React.FC<Props> = ({
@@ -22,6 +24,7 @@ const StatusBadge: React.FC<Props> = ({
     paid,
     shipped,
     date,
+    update,
     ...rest
 }) => {
     if (type === BadgeTypes.PAYMENT && paid !== undefined) {
@@ -57,6 +60,17 @@ const StatusBadge: React.FC<Props> = ({
                 {...rest}
             >
                 Order date: {getDate(date)}
+            </Text>
+        );
+    } else if (type === BadgeTypes.SETTINGS && update !== undefined) {
+        return (
+            <Text
+                m={1}
+                sx={{ borderRadius: 3 }}
+                variant={update ? 'statusBadgeUpdate' : 'statusBadgeNew'}
+                {...rest}
+            >
+                {update ? 'Update' : 'New'}
             </Text>
         );
     } else {

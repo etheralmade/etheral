@@ -38,7 +38,7 @@ const monthNames = [
 
 const getDateReadable = (date: Date) => {
     const year = date.getUTCFullYear();
-    const month = date.getUTCMonth() + 1;
+    const month = date.getUTCMonth();
     const day = date.getUTCDate();
 
     return `${day} ${monthNames[month]} ${year}`;

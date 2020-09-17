@@ -43,6 +43,12 @@ const badges = {
         color: '#000',
         bg: 'badges.4',
     },
+    statusBadgeUpdate: {
+        ...statusBadge,
+        color: '#000',
+        bg: 'badges.5',
+    },
+    statusBadgeNew: { ...statusBadge, color: '#000', bg: 'badges.6' },
 };
 
 const links = {
