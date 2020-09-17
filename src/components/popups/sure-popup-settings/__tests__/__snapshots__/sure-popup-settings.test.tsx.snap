@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SurePopupSettings matches snapshot 1`] = `
+<div
+  className="css-113sbh6"
+>
+  <div
+    className="css-lshl07"
+    onClick={[MockFunction]}
+  >
+    <svg
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path d=\\"M12 10.586l4.95-4.95l1.414 1.414l-4.95 4.95l4.95 4.95l-1.414 1.414l-4.95-4.95l-4.95 4.95l-1.414-1.414l4.95-4.95l-4.95-4.95L7.05 5.636z\\" fill=\\"currentColor\\"/>",
+        }
+      }
+      focusable={false}
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+        }
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+  </div>
+  <h2
+    className="css-15jfn87"
+  >
+    Are you sure you want to update the website now?
+  </h2>
+  <div
+    className="css-8898eo"
+  >
+    By clicking 'yes' the website would be automatically updated and ready to browse in about 5 minutes
+  </div>
+  <div
+    className="css-18m6ozg"
+  >
+    <button
+      className="css-78ookd"
+      onClick={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              Class {
+                "_dispatchInstances": null,
+                "_dispatchListeners": null,
+                "_targetInst": null,
+                "altKey": null,
+                "bubbles": null,
+                "button": null,
+                "buttons": null,
+                "cancelable": null,
+                "clientX": null,
+                "clientY": null,
+                "ctrlKey": null,
+                "currentTarget": [Function],
+                "defaultPrevented": null,
+                "detail": null,
+                "dispatchConfig": null,
+                "eventPhase": null,
+                "getModifierState": [Function],
+                "isDefaultPrevented": [Function],
+                "isPropagationStopped": [Function],
+                "isTrusted": null,
+                "metaKey": null,
+                "movementX": [Function],
+                "movementY": [Function],
+                "nativeEvent": null,
+                "pageX": null,
+                "pageY": null,
+                "relatedTarget": [Function],
+                "screenX": null,
+                "screenY": null,
+                "shiftKey": null,
+                "target": null,
+                "timeStamp": [Function],
+                "type": null,
+                "view": null,
+              },
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+    >
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M10 15.172l9.192-9.193l1.415 1.414L10 18l-6.364-6.364l1.414-1.414z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+            "verticalAlign": "-0.125em",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      Yes
+    </button>
+    <button
+      className="css-1m6x1fp"
+      onClick={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              Class {
+                "_dispatchInstances": null,
+                "_dispatchListeners": null,
+                "_targetInst": null,
+                "altKey": null,
+                "bubbles": null,
+                "button": null,
+                "buttons": null,
+                "cancelable": null,
+                "clientX": null,
+                "clientY": null,
+                "ctrlKey": null,
+                "currentTarget": [Function],
+                "defaultPrevented": null,
+                "detail": null,
+                "dispatchConfig": null,
+                "eventPhase": null,
+                "getModifierState": [Function],
+                "isDefaultPrevented": [Function],
+                "isPropagationStopped": [Function],
+                "isTrusted": null,
+                "metaKey": null,
+                "movementX": [Function],
+                "movementY": [Function],
+                "nativeEvent": null,
+                "pageX": null,
+                "pageY": null,
+                "relatedTarget": [Function],
+                "screenX": null,
+                "screenY": null,
+                "shiftKey": null,
+                "target": null,
+                "timeStamp": [Function],
+                "type": null,
+                "view": null,
+              },
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+    >
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M12 10.586l4.95-4.95l1.414 1.414l-4.95 4.95l4.95 4.95l-1.414 1.414l-4.95-4.95l-4.95 4.95l-1.414-1.414l4.95-4.95l-4.95-4.95L7.05 5.636z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+            "verticalAlign": "-0.125em",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      No
+    </button>
+  </div>
+</div>
+`;
