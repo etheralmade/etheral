@@ -13,7 +13,6 @@ export enum Type {
 }
 
 type Props = {
-    boxStyling: any;
     type: Type;
     item: any;
 };
@@ -21,13 +20,22 @@ type Props = {
 const timestampAttrs = ['Status', 'Created', 'Updated'];
 const productAttrs = ['Name', ...timestampAttrs];
 const collectionAttrs = productAttrs;
-const blogAttrs = ['Slug', ...timestampAttrs];
+const blogAttrs = ['Slug', ...timestampAttrs, ''];
 
-const ContainerBox: React.FC<Props> = ({ boxStyling, type, item }) => {
+const ContainerBox: React.FC<Props> = ({ type, item }) => {
     const tabletopStyling = {
         fontFamily: 'body',
         fontSize: [0, 0, 1],
         color: '#555',
+    };
+
+    const boxStyling = {
+        p: 4,
+        bg: '#fff',
+        width: ['100%', '100%', '100%', '48%'],
+        css: `
+			box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+		`,
     };
 
     const renderAttrs =
@@ -36,10 +44,6 @@ const ContainerBox: React.FC<Props> = ({ boxStyling, type, item }) => {
             : type === Type.COLLECTION
             ? collectionAttrs
             : blogAttrs;
-
-    const handleClick = (a: string) => {
-        console.log(a);
-    };
 
     return (
         <ReBox {...boxStyling} my={[5]}>
@@ -70,7 +74,7 @@ const ContainerBox: React.FC<Props> = ({ boxStyling, type, item }) => {
                 ))}
                 <ReBox
                     sx={{
-                        gridColumn: '1/span 4',
+                        gridColumn: `1/span${renderAttrs.length}`,
                     }}
                 >
                     {item.map((itemEl: any, i: number) => (
@@ -78,7 +82,6 @@ const ContainerBox: React.FC<Props> = ({ boxStyling, type, item }) => {
                             item={itemEl}
                             key={`${type}-${i}`}
                             type={type}
-                            handleClick={handleClick}
                             bg={i % 2 === 0 ? 'white.2' : 'white.3'}
                         />
                     ))}

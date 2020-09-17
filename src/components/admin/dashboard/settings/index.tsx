@@ -227,9 +227,11 @@ const Settings: React.FC<{}> = () => {
     if (db && !isLoading) {
         return (
             <SettingsEl
+                db={db}
                 latestProducts={latestProducts}
                 latestCollections={latestCollections}
                 latestBlogs={latestBlogs}
+                fromDate={firebase.firestore.Timestamp.fromDate}
             />
         );
     }

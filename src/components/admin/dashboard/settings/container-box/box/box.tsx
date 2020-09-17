@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box as ReBox, Text, Flex } from 'rebass';
+import { Box as ReBox, Text, Flex, Button } from 'rebass';
 
 import { Type } from '..';
 import StatusBadge, { BadgeTypes } from '../../../orders/status-badge';
@@ -11,10 +11,14 @@ type Props = {
     item: any;
     type: Type;
     bg: string;
-    handleClick: (name: string) => void;
 };
 
-const Box: React.FC<Props> = ({ item, type, bg, handleClick }) => {
+const Box: React.FC<Props> = ({ item, type, bg }) => {
+    // handleClick preview blog
+    const previewBlog = () => {
+        console.log('Preview');
+    };
+
     const textStyling = {
         fontFamily: 'body',
         fontSize: [0, 0, 1],
@@ -42,7 +46,6 @@ const Box: React.FC<Props> = ({ item, type, bg, handleClick }) => {
                 }}
                 px={[2]}
                 py={[2]}
-                onClick={() => handleClick(item.name)}
             >
                 <Text sx={{ gridColumn: '1/2' }} {...textStyling}>
                     {item.name}
@@ -70,7 +73,7 @@ const Box: React.FC<Props> = ({ item, type, bg, handleClick }) => {
                 sx={{
                     display: 'grid',
                     gridTemplateColumns:
-                        'repeat(3, minmax(calc(256px / 3), 1fr))',
+                        'repeat(5, minmax(calc(256px / 5), 1fr))',
                     gridGap: 2,
                     transition: '0.2s',
                     '&:hover': {
@@ -79,7 +82,6 @@ const Box: React.FC<Props> = ({ item, type, bg, handleClick }) => {
                 }}
                 px={[2]}
                 py={[2]}
-                onClick={() => handleClick(item.slug)}
             >
                 <Text sx={{ gridColumn: '1/2' }} {...textStyling}>
                     {item.slug}
@@ -98,6 +100,13 @@ const Box: React.FC<Props> = ({ item, type, bg, handleClick }) => {
                         ? getDateReadable(item.lastModifiedDate)
                         : '-'}
                 </Text>
+                <Button
+                    bg="badges.0"
+                    onClick={previewBlog}
+                    sx={{ borderRadius: [4] }}
+                >
+                    Preview
+                </Button>
             </ReBox>
         );
     } else {
