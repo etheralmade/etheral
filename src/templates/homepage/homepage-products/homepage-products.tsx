@@ -34,8 +34,15 @@ const HomepageProducts: React.FC<Props> = ({ products, displayText }) => {
                 flexDirection={['column', 'column', 'row']}
                 alignItems={['flex-start']}
                 flexWrap="wrap"
-                justifyContent={['space-evenly']}
                 px={[6, 6, 8]}
+                css={`
+                    justify-content: space-between;
+
+                    /* edge space-evenly progressive enhancement. */
+                    @supports not (-ms-ime-align: auto) {
+                        justify-content: space-evenly;
+                    }
+                `}
             >
                 {products.map(product => {
                     const props: ProductCardProps = {

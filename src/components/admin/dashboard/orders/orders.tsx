@@ -71,7 +71,17 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
     };
 
     return (
-        <Flex justifyContent="space-evenly" maxHeight="100vh">
+        <Flex
+            maxHeight="100vh"
+            css={`
+                justify-content: space-between;
+
+                /* edge space-evenly progressive enhancement. */
+                @supports not (-ms-ime-align: auto) {
+                    justify-content: space-evenly;
+                }
+            `}
+        >
             <Box
                 {...boxStyling}
                 css={`

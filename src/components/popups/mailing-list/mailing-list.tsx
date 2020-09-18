@@ -74,10 +74,16 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                     bg="white.0"
                     p={[4, 6, 6, 8]}
                     flexDirection="column"
-                    justifyContent="space-evenly"
                     css={`
                         height: fit-content;
                         width: 300px;
+
+                        justify-content: space-between;
+
+                        /* edge space-evenly progressive enhancement. */
+                        @supports not (-ms-ime-align: auto) {
+                            justify-content: space-evenly;
+                        }
 
                         @media screen and (min-width: 27em) {
                             height: 300px;

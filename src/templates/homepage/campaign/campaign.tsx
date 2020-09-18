@@ -28,9 +28,16 @@ const Campaign: React.FC<Props> = ({ campaignData }) => {
                 width="100%"
                 flexWrap="wrap"
                 className="wrap"
-                justifyContent="space-evenly"
                 alignItems="center"
                 px={[4, 4, 5]}
+                css={`
+                    justify-content: space-around;
+
+                    /* edge space-evenly progressive enhancement. */
+                    @supports not (-ms-ime-align: auto) {
+                        justify-content: space-evenly;
+                    }
+                `}
             >
                 {campaignData.map(campaign => (
                     <Link
