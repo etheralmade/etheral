@@ -182,13 +182,21 @@ const Navigation: React.FC<Props & ICartState> = ({
 
                             &.black-on-dropdown path {
                                 fill: ${
-                                    showDropdownL || showCart ? '#000' : '#fff'
+                                    showDropdownL ||
+                                    showCart ||
+                                    currLocation !== '/'
+                                        ? '#000'
+                                        : '#fff'
                                 };
                             }
 
                             &.black-on-dropdown-stroke path {
                                 stroke: ${
-                                    showDropdownL || showCart ? '#000' : '#fff'
+                                    showDropdownL ||
+                                    showCart ||
+                                    currLocation !== '/'
+                                        ? '#000'
+                                        : '#fff'
                                 };
                             }
 
@@ -198,7 +206,11 @@ const Navigation: React.FC<Props & ICartState> = ({
                     .cart-badge {
                         @media screen and (min-width: 48em) {
                             color: ${
-                                showDropdownL || showCart ? '#000' : '#fff'
+                                showDropdownL ||
+                                showCart ||
+                                currLocation !== '/'
+                                    ? '#000'
+                                    : '#fff'
                             } !important;
                             }
                         }
@@ -227,7 +239,9 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     transform: translate(-55%, 8px);
 
                                     & svg path {
-                                        fill: ${showDropdownL || showCart
+                                        fill: ${showDropdownL ||
+                                        showCart ||
+                                        currLocation !== '/'
                                             ? '#000'
                                             : '#fff'};
                                     }
@@ -278,7 +292,9 @@ const Navigation: React.FC<Props & ICartState> = ({
                                             : 'link'
                                     }
                                     color={
-                                        showDropdownL || showCart
+                                        showDropdownL ||
+                                        showCart ||
+                                        currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
                                     }
@@ -300,7 +316,9 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     variant="link"
                                     py={[0, 0, '5vh']}
                                     color={
-                                        showDropdownL || showCart
+                                        showDropdownL ||
+                                        showCart ||
+                                        currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
                                     }
@@ -332,7 +350,9 @@ const Navigation: React.FC<Props & ICartState> = ({
                                             : 'link'
                                     }
                                     color={
-                                        showDropdownL || showCart
+                                        showDropdownL ||
+                                        showCart ||
+                                        currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
                                     }
@@ -367,6 +387,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                             <CurrencySelector
                                 showDropdown={showDropdownL || showCart}
                                 desktop={true}
+                                currLocation={currLocation}
                             />
                             <Account desktop={true} user={user} />
                             <Cart
@@ -392,6 +413,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 <CurrencySelector
                                     showDropdown={true}
                                     desktop={false}
+                                    currLocation={currLocation}
                                 />
                             </Flex>
                             <Link to="/about">

@@ -13,12 +13,14 @@ import { theme } from 'styles';
 export type Props = {
     showDropdown: boolean;
     desktop: boolean;
+    currLocation: string;
 };
 
 const CurrencySelector: React.FC<Props & ICurrencyState> = ({
     currency,
     showDropdown,
     desktop,
+    currLocation,
 }) => {
     const dispatch = useDispatch();
 
@@ -85,7 +87,8 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
         singleValue: (provided: any, state: any) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';
-            const color = showDropdown ? '#000' : '#fff';
+            const color =
+                showDropdown || currLocation !== '/' ? '#000' : '#fff';
             const fontSize = '14px';
 
             return {

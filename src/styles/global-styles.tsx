@@ -44,6 +44,10 @@ const GlobalStyles = createGlobalStyle`
         @media screen and (min-width: 48em) and (orientation: landscape) {
           padding-top: 20vh;
         }
+
+         @media screen and (min-width: 48em) and (max-height: 500px) and (orientation: landscape) {
+          padding-top: 35vh;
+        }
         
         /* @media screen and (min-width: 64em) {
           padding-top: 12vh;
