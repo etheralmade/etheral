@@ -9,6 +9,7 @@ import {
     IState as ICurrencyState,
     Currencies,
 } from 'state/reducers/currency-reducer';
+import { withDiscount } from 'helper/with-discount';
 
 import './product-card.scss';
 
@@ -39,12 +40,6 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
     } = product;
 
     const discounted = discountPercentage > 0;
-
-    if (discounted) {
-        console.log(`${name} is discounted`);
-    }
-
-    console.log(discountPercentage);
 
     // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
     let price;
@@ -94,9 +89,38 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                     width="fit-content"
                     color={discounted ? '#f55' : '#000'}
                     className={discounted ? 'discount' : ''}
+                    css={`
+                        ${discounted &&
+                            `
+                            :after {
+                                content: '-${discountPercentage}%';
+                                color: #f55;
+                                font-family: Poppins, sans-serif;
+                                
+                                position: absolute;
+                                right: -48px;
+                                top: 0;
+
+                                display: block;
+                            }
+                        `}
+                    `}
                 >
                     {price}
                 </Text>
+                {discounted && (
+                    <Text
+                        variant="productPrice"
+                        width="fit-content"
+                        fontWeight="bold"
+                    >
+                        NOW: {price.split(' ')[0]}{' '}
+                        {withDiscount(
+                            Number(price.split(' ')[1]), // parse splitted price as a number
+                            discountPercentage
+                        )}
+                    </Text>
+                )}
             </Box>
         );
     } else {
