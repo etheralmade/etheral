@@ -110,7 +110,7 @@ const Navigation: React.FC<Props & ICartState> = ({
         }
     }
 
-    const shouldRenderBanner = currLocation === '/' && addBanner;
+    const shouldRenderBanner = addBanner;
 
     // mock links for testing purposes
     return (

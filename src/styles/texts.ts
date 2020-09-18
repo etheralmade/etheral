@@ -122,6 +122,8 @@ const productCard = {
 export default {
     h1: {
         fontSize: [5, 5, 6],
+        fontFamily: 'heading',
+        fontWeight: 'bold',
     },
 
     h2: {

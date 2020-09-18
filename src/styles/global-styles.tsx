@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
       main {
         position: relative;
 
-        header {
+        header:first-child {
           position: relative;
           width: 100vw;
         }
@@ -22,14 +22,14 @@ const GlobalStyles = createGlobalStyle`
         @media screen and (min-width: 48em) {
           top: 0;
 
-          header {
+          header:first-child {
             top: 0;
             position: absolute;
           }
         }
 
         @media screen and (min-width: 64em) {
-          header {
+           heade:first-childr {
             top: 0;
           }
         }
@@ -37,11 +37,18 @@ const GlobalStyles = createGlobalStyle`
 
       .top {
 
-        @media screen and (min-width: 64em) {
-          position: relative;
-          top: 10vh;
+        @media screen and (min-width: 48em) {
+          padding-top: 14vh;
+        }
+
+        @media screen and (min-width: 48em) and (orientation: landscape) {
+          padding-top: 20vh;
         }
         
+        /* @media screen and (min-width: 64em) {
+          padding-top: 12vh;
+        } */
+
       }
     }
 `;

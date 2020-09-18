@@ -61,7 +61,7 @@ const useAllBlogs = () => {
                         slug
                         image {
                             childImageSharp {
-                                fluid(maxWidth: 900, quality: 100) {
+                                fluid(maxWidth: 1200, quality: 100) {
                                     ...GatsbyImageSharpFluid
                                 }
                             }
