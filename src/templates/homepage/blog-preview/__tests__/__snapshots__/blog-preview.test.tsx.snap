@@ -2,7 +2,7 @@
 
 exports[`BlogPreview matches snapshot 1`] = `
 <div
-  className="css-1o9iy1h"
+  className="css-702kq"
 >
   <h2
     className="css-12i65rx"
@@ -10,13 +10,16 @@ exports[`BlogPreview matches snapshot 1`] = `
     LATEST BLOG POST
   </h2>
   <div
-    className="css-1m75xpc"
+    className="css-1u841xy"
   >
+    <div
+      className="css-1x87397"
+    />
     <div
       className="css-1x87397"
     >
       <h5
-        className="css-i0y2du"
+        className="css-4fmxwb"
       >
         10 September 2020
       </h5>
@@ -43,9 +46,6 @@ exports[`BlogPreview matches snapshot 1`] = `
         </button>
       </a>
     </div>
-    <div
-      className="css-1x87397"
-    />
   </div>
 </div>
 `;

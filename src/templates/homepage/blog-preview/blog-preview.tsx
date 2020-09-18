@@ -14,26 +14,34 @@ type Props = {
 const BlogPreview: React.FC<Props> = ({ blog }) => {
     const { title, summary, date, image, slug } = blog;
 
-    console.log(image);
-
     return (
-        <Box px={[6]}>
+        <Box px={[6, 6, 8]} mb={[4, 4, 5, 6]}>
             <Heading as="h2" variant="h2" textAlign="center" mb={[4, 4, 6]}>
                 LATEST BLOG POST
             </Heading>
             <Flex
-                flexDirection={[
-                    'column-reverse',
-                    'column-reverse',
-                    'column-reverse',
-                    'row',
+                flexDirection={['column', 'column', 'column', 'row']}
+                alignItems={[
+                    'unset',
+                    'unset',
+                    'center',
+                    'flex-start',
+                    'center',
                 ]}
-                alignItems={['unset', ' unset', 'center']}
                 justifyContent="space-between"
             >
+                {/* render preview image. */}
+                <Box width={['100%', '100%', '80%', '48%', '48%']}>
+                    {image && (
+                        <Img
+                            fluid={image.childImageSharp.fluid as FluidObject}
+                        />
+                    )}
+                </Box>
+                {/* actual preview. */}
                 <Box width={['100%', '100%', '80%', '48%', '48%']}>
                     {/* Render date here. */}
-                    <Text as="h5" variant="h5" mt={[4]}>
+                    <Text as="h5" variant="h5" mt={[4, 4, 6, 0]}>
                         {getDateReadable(date)}
                     </Text>
                     {/* title */}
@@ -53,14 +61,6 @@ const BlogPreview: React.FC<Props> = ({ blog }) => {
                             Read More
                         </Button>
                     </Link>
-                </Box>
-                {/* render preview image. */}
-                <Box width={['100%', '100%', '80%', '48%', '48%']}>
-                    {image && (
-                        <Img
-                            fluid={image.childImageSharp.fluid as FluidObject}
-                        />
-                    )}
                 </Box>
             </Flex>
         </Box>
