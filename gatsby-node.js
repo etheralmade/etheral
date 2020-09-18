@@ -148,6 +148,7 @@ exports.sourceNodes = async ({
             idrPrice: data.idrPrice,
             ausPrice: data.ausPrice,
             usdPrice: data.usdPrice,
+            discountPercentage: data.discountPercentage,
             urls: data.image,
             availableSizes: data.availableSizes,
             collection: data.collection,
@@ -200,8 +201,6 @@ exports.sourceNodes = async ({
             urls: data.collectionPromotionalImages || [],
             cid: data.id,
         };
-
-        console.log(`Collection data: ${JSON.stringify(nodeFields)}`);
 
         return await createNode({
             // data for the node

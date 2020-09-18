@@ -20,3 +20,12 @@
         left: 1%;
     }
 }
+
+.discount {
+    &:after {
+        content: '';
+        height: 4px;
+        width: 110%;
+        background-color: #f55;
+    }
+}

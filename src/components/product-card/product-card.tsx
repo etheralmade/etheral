@@ -29,7 +29,22 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
     currency,
     ...rest
 }) => {
-    const { name, idrPrice, ausPrice, usdPrice, urls } = product;
+    const {
+        name,
+        idrPrice,
+        ausPrice,
+        usdPrice,
+        urls,
+        discountPercentage,
+    } = product;
+
+    const discounted = discountPercentage > 0;
+
+    if (discounted) {
+        console.log(`${name} is discounted`);
+    }
+
+    console.log(discountPercentage);
 
     // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
     let price;
@@ -74,7 +89,12 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                 <Text variant="productName" width="100%" my={[3, 3, 2]}>
                     {name}
                 </Text>
-                <Text variant="productPrice" width="100%">
+                <Text
+                    variant="productPrice"
+                    width="fit-content"
+                    color={discounted ? '#f55' : '#000'}
+                    className={discounted ? 'discount' : ''}
+                >
                     {price}
                 </Text>
             </Box>
