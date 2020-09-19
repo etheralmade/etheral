@@ -39,6 +39,7 @@ export type ColorTheme = {
     badges: string[];
     white: string[];
     black: string[];
+    misc: any;
 };
 
 const colors: ColorTheme = {
@@ -56,6 +57,9 @@ const colors: ColorTheme = {
     ],
     white: ['#FEFEFE', '#ddd', '#f9f9f9', '#eaeaea'],
     black: ['#222', '#aaa', '#24201F'],
+    misc: {
+        discount: '#f55',
+    },
 };
 
 const theme: Theme = {

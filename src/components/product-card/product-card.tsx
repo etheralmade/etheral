@@ -10,6 +10,7 @@ import {
     Currencies,
 } from 'state/reducers/currency-reducer';
 import { withDiscount } from 'helper/with-discount';
+import { theme } from 'styles';
 
 import './product-card.scss';
 
@@ -87,14 +88,18 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                 <Text
                     variant="productPrice"
                     width="fit-content"
-                    color={discounted ? '#f55' : '#000'}
+                    color={
+                        discounted
+                            ? theme.colors.misc.discount
+                            : theme.colors.black[0]
+                    }
                     className={discounted ? 'discount' : ''}
                     css={`
                         ${discounted &&
                             `
                             :after {
                                 content: '-${discountPercentage}%';
-                                color: #f55;
+                                color: ${theme.colors.misc.discount};
                                 font-family: Poppins, sans-serif;
                                 
                                 position: absolute;

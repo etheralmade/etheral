@@ -382,33 +382,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                             />
                         </Flex>
 
-                    {/* Auth and cart. Always show auth component, as it is not in the menu */}
-                    <Flex alignItems="center">
-                        <CurrencySelector
-                            showDropdown={showDropdownL || showCart}
-                            desktop={true}
-                            currLocation={currLocation}
-                        />
-                        <Account desktop={true} user={user} />
-                        <Cart
-                            toggleShowCart={toggleShowCart}
-                            showCart={showCart}
-                            user={user}
-                            db={db}
-                            cart={cart}
-                            showDropdown={showDropdownL}
-                        />
-                    </Flex>
-                </Flex>
-
-                {/* Menu on mobile devices */}
-                <CSSTransition
-                    in={showMenuMobile}
-                    timeout={100}
-                    unmountOnExit={true}
-                    classNames="links"
-                >
-                    <Box id="links-S" minHeight={['92vh']} p={5}>
+                        {/* Auth and cart. Always show auth component, as it is not in the menu */}
                         <Flex alignItems="center">
                             <CurrencySelector
                                 showDropdown={showDropdownL || showCart}
