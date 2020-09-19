@@ -45,4 +45,5 @@ export interface Order {
     shippingData?: ShippingData;
     discountCode?: string;
     discount?: number;
+    discountedAmount?: number;
 }

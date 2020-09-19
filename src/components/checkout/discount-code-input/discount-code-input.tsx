@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
-import { Box, Text } from 'rebass';
+import { Box, Flex, Text } from 'rebass';
 import { Input } from '@rebass/forms';
 
 type Props = {
     db: firebase.firestore.Firestore;
+    applyCode: (code: string, value: number) => void;
 };
 
 type Fields = {
@@ -16,44 +17,96 @@ const initialFields = {
     discountCodeInput: '',
 };
 
-const DiscountCodeInput: React.FC<Props> = ({ db }) => {
+const CODE_NOT_EXISTS = "Discount code doesn't exsist!";
+const CODE_EXPIRED = 'Discount code is already expired';
+const UNKNOWN = 'Oops, something went wrong';
+
+const DiscountCodeInput: React.FC<Props> = ({ db, applyCode }) => {
+    const [onError, setOnError] = useState(false);
+    const [errMsg, setErrMsg] = useState('');
+
     const { control, errors, handleSubmit } = useForm<Fields>();
 
-    const submitCode = (data: any) => {
-        console.log(data);
+    const dbDiscountRef = db.collection('discount');
+
+    // fetch data from fs and check if discount code is available
+    const checkCode = async (code: string) => {
+        const doc = await dbDiscountRef.doc(code).get();
+        if (doc.exists) {
+            const data = doc.data();
+
+            // check if document contains data.
+            if (data) {
+                const date = data.expiresIn.toDate();
+
+                // check if the code is already expired.
+                if (date.getTime() < new Date().getTime()) {
+                    await setOnError(true);
+                    await setErrMsg(CODE_EXPIRED);
+                    return;
+                }
+
+                // apply discount code if nothing goes wrong
+                applyCode(code, parseInt(data.value, 10));
+            } else {
+                await setOnError(true);
+                await setErrMsg(UNKNOWN);
+            }
+        } else {
+            await setOnError(true);
+            await setErrMsg(CODE_NOT_EXISTS);
+        }
+    };
+
+    const submitCode = (data: Fields) => {
+        checkCode(data.discountCodeInput);
     };
 
     return (
-        <Box as="form" onSubmit={handleSubmit(submitCode)}>
-            <Controller
-                control={control}
-                name="discountCodeInput"
-                defaultValue={initialFields.discountCodeInput}
-                rules={{
-                    maxLength: 6,
-                }}
-                render={({ onChange, ...props }) => (
-                    <Input
-                        variant="variants.textInput"
-                        type="text"
-                        onChange={e => onChange(e.target.value.toUpperCase())} // forcing uppercase input
-                        {...props}
-                    />
-                )}
-            />
-            {errors.discountCodeInput?.type === 'maxLength' && (
-                <Text>
-                    Discount code can&apos;t be longer than 6 characters
+        <Box>
+            <Flex as="form" onSubmit={handleSubmit(submitCode)}>
+                <Controller
+                    control={control}
+                    name="discountCodeInput"
+                    defaultValue={initialFields.discountCodeInput}
+                    rules={{
+                        maxLength: 6,
+                        minLength: 6,
+                    }}
+                    render={({ onChange, ...props }) => (
+                        <Input
+                            variant="variants.textInput"
+                            type="text"
+                            placeholder="ENTER YOUR DISCOUNT CODE HERE"
+                            aria-label="Discount code input"
+                            onChange={e =>
+                                onChange(e.target.value.toUpperCase())
+                            } // forcing uppercase input
+                            {...props}
+                        />
+                    )}
+                />
+
+                <Input
+                    type="submit"
+                    variant="buttons.primary"
+                    aria-label="Apply discount code"
+                    value="GET MY DISCOUNT"
+                />
+            </Flex>
+            {(errors.discountCodeInput?.type === 'maxLength' ||
+                errors.discountCodeInput?.type === 'minLength') && (
+                <Text display="block">
+                    Discount code must be 6 character long
                 </Text>
             )}
-
-            <Input
-                type="submit"
-                variant="buttons.primary"
-                value="GET MY DISCOUNT"
-            />
+            {onError && (
+                <Text role="alert" display="block">
+                    {errMsg}
+                </Text>
+            )}
         </Box>
     );
 };
 
-export { DiscountCodeInput };
+export { DiscountCodeInput, CODE_NOT_EXISTS, CODE_EXPIRED, UNKNOWN };

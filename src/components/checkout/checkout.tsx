@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from '@reach/router';
 
-import { Box } from 'rebass';
+import { Box, Text } from 'rebass';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Form from './form';
@@ -73,12 +73,18 @@ const Checkout: React.FC<Props> = ({
     const [shipping, setShipping] = useState<Shipping | undefined>(undefined);
     const [totalPrice, setTotalPrice] = useState(0);
 
+    const [discountCode, setDiscountCode] = useState('');
+    const [discountValue, setDiscountValue] = useState(0);
+    const [discountedAmount, setDiscountedAmount] = useState(0);
+
     const [errorShipping, setErrorShipping] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const msgErrorShipping = 'Please choose a shipping method';
+
+    const discounted = discountCode !== '' && discountValue !== 0;
 
     // price is based on global currency.
     useEffect(() => {
@@ -153,11 +159,19 @@ const Checkout: React.FC<Props> = ({
         }
     }, [currency]);
 
+    // update price if discount code is applied.
+    useEffect(() => {
+        if (discounted) {
+            setDiscountedAmount((discountValue / 100) * price);
+            setPrice(withDiscount(price, discountValue));
+        }
+    }, [discountCode, discountValue]);
+
     useEffect(() => {
         if (shipping) {
             setTotalPrice(price + shipping.value);
         }
-    }, [shipping]);
+    }, [price, shipping]);
 
     // basic formatting.
     const formatPriceIDR = (priceUnformatted: number): string => {
@@ -331,6 +345,9 @@ const Checkout: React.FC<Props> = ({
                     delivered: false,
                     transactionData: ipaymuData,
                     shippingMethod: shipping ? shipping.service : '',
+                    discountCode,
+                    discountedAmount,
+                    discount: discountValue,
                 };
 
                 await docRef.set({
@@ -387,6 +404,11 @@ const Checkout: React.FC<Props> = ({
         });
     };
 
+    const applyCode = (code: string, value: number) => {
+        setDiscountCode(code);
+        setDiscountValue(value);
+    };
+
     return (
         <Box className="top">
             <Form getUserData={getUserData} />
@@ -408,10 +430,25 @@ const Checkout: React.FC<Props> = ({
                     </React.Fragment>
                 ))}
             {errorShipping && <p>{msgErrorShipping} </p>}
-            <DiscountCodeInput db={db} />
+            {!discounted ? (
+                <DiscountCodeInput db={db} applyCode={applyCode} />
+            ) : (
+                <Box>
+                    <Text>Discount code: {discountCode} is applied!</Text>
+                    <Text>{discountValue}% off your purchase!</Text>
+                </Box>
+            )}
             <h2>
                 Price: {currencyPrefix}{' '}
                 {currency === Currencies.IDR ? formatPriceIDR(price) : price}
+                {discounted && (
+                    <Text>
+                        -{currencyPrefix}{' '}
+                        {currency === Currencies.IDR
+                            ? formatPriceIDR(discountedAmount)
+                            : discountedAmount}
+                    </Text>
+                )}
             </h2>
             {shipping && shipping.value ? (
                 <>
