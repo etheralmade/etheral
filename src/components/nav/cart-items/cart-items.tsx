@@ -25,13 +25,13 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
             css={`
                 position: absolute;
                 left: 0;
-                top: 8vh;
+                top: 10vh;
                 z-index: 2;
 
                 overflow-y: scroll;
 
                 @media (min-width: 48em) {
-                    top: 10vh;
+                    top: 12vh;
                     left: auto;
                     right: 0;
                 }
