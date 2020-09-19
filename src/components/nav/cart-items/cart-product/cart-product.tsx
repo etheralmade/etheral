@@ -12,15 +12,19 @@ import deleteBin5Line from '@iconify/icons-ri/delete-bin-5-line';
 import { Product } from 'helper/schema/product';
 import useAllProductImages from 'helper/use-all-product-images';
 import { addToCart, removeFromCart } from 'state/actions/cart';
+import {
+    IState as ICurrencyState,
+    Currencies,
+} from 'state/reducers/currency-reducer';
 
-type Props = {
+export type Props = {
     item: {
         product: Product;
         amount: number;
     };
 };
 
-const CartProduct: React.FC<Props> = ({ item }) => {
+const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
     const { amount, product } = item;
 
     const { extractImgs } = useAllProductImages();
@@ -40,6 +44,26 @@ const CartProduct: React.FC<Props> = ({ item }) => {
     const handleRemoveAll = () => {
         dispatch(removeFromCart(product));
     };
+
+    // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
+    let price;
+    // render price based on global currency state
+    switch (currency) {
+        case Currencies.IDR:
+            price = `IDR ${product.idrPrice * amount}`;
+            break;
+        case Currencies.AUD:
+            price = `AUD ${product.ausPrice * amount}`;
+            break;
+        case Currencies.USD:
+            price = `USD ${product.usdPrice * amount}`;
+            break;
+        default:
+            price = `IDR ${product.idrPrice * amount}`;
+            break;
+    }
+
+    console.table(product);
 
     return (
         <Flex
@@ -88,7 +112,7 @@ const CartProduct: React.FC<Props> = ({ item }) => {
                     </Flex>
                 </Flex>
                 <Text fontFamily="body" fontSize={[2, 2, 3]} fontWeight="body">
-                    IDR {amount * product.idrPrice}
+                    {price}
                 </Text>
             </Box>
             <Flex

@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 import { State as ReduxState } from 'state/createStore';
 import { Checkout as CheckoutEl } from './checkout';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
+import { IState as ICurrencyState } from 'state/reducers/currency-reducer';
 
 type Props = {};
 
-const Checkout: React.FC<Props & ICartState> = ({ cart }) => {
+const Checkout: React.FC<Props & ICartState & ICurrencyState> = ({
+    cart,
+    currency,
+}) => {
     const [db, setDb] = useState<firebase.firestore.Firestore | undefined>(
         undefined
     );
@@ -25,6 +29,7 @@ const Checkout: React.FC<Props & ICartState> = ({ cart }) => {
             user={user}
             cartObj={{ cart }}
             firestoreFieldValue={firebase.firestore.FieldValue}
+            currency={currency}
         />
     ) : (
         <></>
@@ -33,8 +38,9 @@ const Checkout: React.FC<Props & ICartState> = ({ cart }) => {
 
 const mapStateToProps = (state: ReduxState) => ({
     cart: state.cartReducer.cart,
+    currency: state.currencyReducer.currency,
 });
 
-export default connect<ICartState, {}, Props, ReduxState>(mapStateToProps)(
-    Checkout
-);
+export default connect<ICartState & ICurrencyState, {}, Props, ReduxState>(
+    mapStateToProps
+)(Checkout);

@@ -53,6 +53,7 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
             padding: 0,
             borderRadius: 0,
             width: 'fit-content',
+            zIndex: 4,
         }),
         option: (provided: any, state: any) => {
             const { isFocused, isSelected } = state;

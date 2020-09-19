@@ -14,6 +14,7 @@ type Props = {
     db: firebase.firestore.Firestore;
     user: firebase.User | null;
     cartObj: ICartState;
+    currency: Currencies;
     firestoreFieldValue: { increment: any; arrayUnion: any };
 };
 
@@ -52,8 +53,13 @@ const Checkout: React.FC<Props> = ({
     db,
     user,
     firestoreFieldValue,
+    currency,
     cartObj: { cart },
 }) => {
+    // state for prices based on currency
+    const [price, setPrice] = useState(0);
+    const [currencyPrefix, setCurrencyPrefix] = useState(Currencies.IDR);
+
     const [userData, setUserData] = useState<
         (UserData & UserLocation) | undefined
     >(undefined);
@@ -69,10 +75,47 @@ const Checkout: React.FC<Props> = ({
     const navigate = useNavigate();
 
     const msgErrorShipping = 'Please choose a shipping method';
-    const price: number = cart.reduce(
-        (acc, current) => current.amount * current.product.idrPrice + acc,
-        0
-    );
+
+    // price is based on global currency.
+    useEffect(() => {
+        // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
+        let temp: number;
+
+        switch (currency) {
+            case Currencies.IDR:
+                temp = cart.reduce(
+                    (acc, curr) => curr.product.idrPrice * curr.amount + acc,
+                    0
+                );
+                setPrice(temp);
+                setCurrencyPrefix(Currencies.IDR);
+                break;
+            case Currencies.AUD:
+                temp = cart.reduce(
+                    (acc, curr) => curr.product.ausPrice * curr.amount + acc,
+                    0
+                );
+                setPrice(temp);
+                setCurrencyPrefix(Currencies.AUD);
+                break;
+            case Currencies.USD:
+                temp = cart.reduce(
+                    (acc, curr) => curr.product.usdPrice * curr.amount + acc,
+                    0
+                );
+                setPrice(temp);
+                setCurrencyPrefix(Currencies.USD);
+                break;
+            default:
+                temp = cart.reduce(
+                    (acc, curr) => curr.product.idrPrice * curr.amount + acc,
+                    0
+                );
+                setPrice(temp);
+                setCurrencyPrefix(Currencies.IDR);
+                break;
+        }
+    }, [currency]);
 
     useEffect(() => {
         if (shipping) {
@@ -81,7 +124,7 @@ const Checkout: React.FC<Props> = ({
     }, [shipping]);
 
     // basic formatting.
-    const formatPrice = (priceUnformatted: number): string => {
+    const formatPriceIDR = (priceUnformatted: number): string => {
         const matchPriceRegex = priceUnformatted
             .toString()
             .match(/.{1,3}(?=(.{3})+(?!.))|.{1,3}$/g);
@@ -117,6 +160,7 @@ const Checkout: React.FC<Props> = ({
     };
 
     // calculate shipping cost -> shipping cost fetched from rajaongkir api.
+    // calclulate shipping cost within ID.
     const calculateShippingCost = async (
         {
             cityId,
@@ -173,8 +217,6 @@ const Checkout: React.FC<Props> = ({
 
     // pay here
     const handleClickPay = async () => {
-        // TODO: check for auth.
-
         const paymentUrl =
             process.env.NODE_ENV === 'production' ? '' : '/payment/';
 
@@ -264,7 +306,9 @@ const Checkout: React.FC<Props> = ({
                         db
                             .collection('fl_content')
                             .doc(cartItem.product.pid)
-                            .update({ amount: decrement(cartItem.amount) })
+                            .update({
+                                amount: decrement(cartItem.amount),
+                            })
                     )
                 );
 
@@ -282,7 +326,13 @@ const Checkout: React.FC<Props> = ({
 
                 await dispatch(clearCart());
                 await navigate('/thankyou', {
-                    state: { oid, paymentNo, paymentName, expired, totalPrice },
+                    state: {
+                        oid,
+                        paymentNo,
+                        paymentName,
+                        expired,
+                        totalPrice,
+                    },
                 }); // navigate to thank you page and use oid state!
             } catch (e) {
                 console.error(e);
@@ -294,7 +344,10 @@ const Checkout: React.FC<Props> = ({
         if (errorShipping) {
             setErrorShipping(false);
         }
-        setShipping({ value: variant.cost[0].value, service: variant.service });
+        setShipping({
+            value: variant.cost[0].value,
+            service: variant.service,
+        });
     };
 
     return (
@@ -318,11 +371,24 @@ const Checkout: React.FC<Props> = ({
                     </React.Fragment>
                 ))}
             {errorShipping && <p>{msgErrorShipping} </p>}
-            <h2>Price: IDr {formatPrice(price)}</h2>
+            <h2>
+                Price: {currencyPrefix}{' '}
+                {currency === Currencies.IDR ? formatPriceIDR(price) : price}
+            </h2>
             {shipping && shipping.value ? (
                 <>
-                    <h2>Shipping cost: {formatPrice(shipping.value)}</h2>
-                    <h1>Subtotal: {formatPrice(totalPrice)}</h1>
+                    <h2>
+                        Shipping cost:{' '}
+                        {currency === Currencies.IDR
+                            ? formatPriceIDR(shipping.value)
+                            : shipping.value}
+                    </h2>
+                    <h1>
+                        Subtotal:{' '}
+                        {currency === Currencies.IDR
+                            ? formatPriceIDR(totalPrice)
+                            : totalPrice}
+                    </h1>
                 </>
             ) : (
                 <></>
