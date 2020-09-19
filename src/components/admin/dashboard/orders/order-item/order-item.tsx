@@ -3,6 +3,8 @@ import { findIndex, get } from 'lodash';
 import Img, { FixedObject } from 'gatsby-image';
 
 import { Box, Flex, Heading, Text } from 'rebass';
+import { InlineIcon } from '@iconify/react';
+import priceTag3Fill from '@iconify/icons-ri/price-tag-3-fill';
 
 import { getDate } from 'helper/get-date';
 import { Order } from 'helper/schema/order';
@@ -55,6 +57,22 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                 />
                 <Text variant="productPrice" ml={[5]} my={[2]}>
                     {orderedProduct.amount} x {product.name}
+                    {product.discountPercentage > 0 && (
+                        <Box as="span" display="inline-block">
+                            <Text
+                                color="misc.discount"
+                                fontWeight="bold"
+                                ml={[4]}
+                                sx={{ '& svg': { mr: [2] } }}
+                            >
+                                <InlineIcon
+                                    icon={priceTag3Fill}
+                                    color={theme.colors.misc.discount}
+                                />
+                                {product.discountPercentage}%
+                            </Text>
+                        </Box>
+                    )}
                 </Text>
             </Flex>
         ) : (
@@ -84,6 +102,8 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
         buyerPostal,
         shippingMethod,
         shippingData,
+        discount,
+        discountCode,
     } = order;
 
     return (
@@ -103,7 +123,8 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
             <Box
                 bg="white.2"
                 py={[4]}
-                px={[3]}
+                pr={[3]}
+                pl={[4, 4, 5]}
                 my={[5]}
                 sx={{
                     borderColor: 'black.1',
@@ -114,13 +135,42 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                 <Heading as="h4" variant="adminOrderBody">
                     Products
                 </Heading>
-                <Box ml={[3, 3, 4]}>
+                <Box>
                     {products.map(product => (
                         <React.Fragment key={product.pid}>
                             {renderProduct(product)}
                         </React.Fragment>
                     ))}
                 </Box>
+
+                {/* render discount infos. */}
+                {discountCode && (
+                    <Box my={[4]}>
+                        <Heading as="h4" variant="adminOrderBody">
+                            Discount
+                        </Heading>
+                        <Box mt={[3]}>
+                            <Text variant="productPrice">
+                                Code:{' '}
+                                <span style={{ fontWeight: 'bold' }}>
+                                    {discountCode}
+                                </span>
+                            </Text>
+                            <Text variant="productPrice">
+                                Discount:{' '}
+                                <span
+                                    style={{
+                                        fontWeight: 'bold',
+                                        color: theme.colors.misc.discount,
+                                    }}
+                                >
+                                    {discount}%
+                                </span>
+                            </Text>
+                        </Box>
+                    </Box>
+                )}
+
                 <Text variant="bodyMedium" mt={[5]} mr={[3]} textAlign="right">
                     Payment via{' '}
                     <span style={spanStyle}>

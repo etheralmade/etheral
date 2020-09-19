@@ -18,7 +18,10 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
     const [onFocus, setOnFocus] = useState<Order | undefined>(undefined);
 
     // state to determine which orders to be shown. (filtering)
-    const [display, setDisplay] = useState(orders);
+    const [display, setDisplay] = useState([
+        // eslint-disable-next-line @typescript-eslint/tslint/config
+        ...orders.sort((a, b) => b.date.getTime() - a.date.getTime()),
+    ]);
 
     // switch focus order display.
     const focusOrder = (oid: string) => {

@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from 'rebass';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 
-type Props = ICartState;
+type Props = ICartState & {};
 
 /**
  * Simple badge to show how many products is in the cart.

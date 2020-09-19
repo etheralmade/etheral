@@ -19,6 +19,7 @@ const useAllProducts = () => {
                         idrPrice
                         ausPrice
                         usdPrice
+                        discountPercentage
                         urls
                         weight
                         productImages {

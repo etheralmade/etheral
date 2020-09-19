@@ -11,6 +11,7 @@ export interface Product {
     idrPrice: number;
     ausPrice: number;
     usdPrice: number;
+    discountPercentage: number;
     availableSizes?: {
         S: boolean;
         M: boolean;

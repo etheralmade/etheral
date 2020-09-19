@@ -9,6 +9,8 @@ import {
     IState as ICurrencyState,
     Currencies,
 } from 'state/reducers/currency-reducer';
+import { withDiscount } from 'helper/with-discount';
+import { theme } from 'styles';
 
 import './product-card.scss';
 
@@ -29,7 +31,16 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
     currency,
     ...rest
 }) => {
-    const { name, idrPrice, ausPrice, usdPrice, urls } = product;
+    const {
+        name,
+        idrPrice,
+        ausPrice,
+        usdPrice,
+        urls,
+        discountPercentage,
+    } = product;
+
+    const discounted = discountPercentage > 0;
 
     // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
     let price;
@@ -74,9 +85,47 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                 <Text variant="productName" width="100%" my={[3, 3, 2]}>
                     {name}
                 </Text>
-                <Text variant="productPrice" width="100%">
+                <Text
+                    variant="productPrice"
+                    width="fit-content"
+                    color={
+                        discounted
+                            ? theme.colors.misc.discount
+                            : theme.colors.black[0]
+                    }
+                    className={discounted ? 'discount' : ''}
+                    css={`
+                        ${discounted &&
+                            `
+                            :after {
+                                content: '-${discountPercentage}%';
+                                color: ${theme.colors.misc.discount};
+                                font-family: Poppins, sans-serif;
+                                
+                                position: absolute;
+                                right: -48px;
+                                top: 0;
+
+                                display: block;
+                            }
+                        `}
+                    `}
+                >
                     {price}
                 </Text>
+                {discounted && (
+                    <Text
+                        variant="productPrice"
+                        width="fit-content"
+                        fontWeight="bold"
+                    >
+                        NOW: {price.split(' ')[0]}{' '}
+                        {withDiscount(
+                            Number(price.split(' ')[1]), // parse splitted price as a number
+                            discountPercentage
+                        )}
+                    </Text>
+                )}
             </Box>
         );
     } else {

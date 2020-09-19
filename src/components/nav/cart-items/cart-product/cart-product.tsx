@@ -4,23 +4,30 @@ import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 
 import { Flex, Text, Box } from 'rebass';
-import { Icon } from '@iconify/react';
+import { Icon, InlineIcon } from '@iconify/react';
 import addBoxLine from '@iconify/icons-ri/add-box-line';
 import checkboxIndeterminateLine from '@iconify/icons-ri/checkbox-indeterminate-line';
 import deleteBin5Line from '@iconify/icons-ri/delete-bin-5-line';
+import priceTag3Fill from '@iconify/icons-ri/price-tag-3-fill';
 
 import { Product } from 'helper/schema/product';
 import useAllProductImages from 'helper/use-all-product-images';
 import { addToCart, removeFromCart } from 'state/actions/cart';
+import {
+    IState as ICurrencyState,
+    Currencies,
+} from 'state/reducers/currency-reducer';
+import { withDiscount } from 'helper/with-discount';
+import { theme } from 'styles';
 
-type Props = {
+export type Props = {
     item: {
         product: Product;
         amount: number;
     };
 };
 
-const CartProduct: React.FC<Props> = ({ item }) => {
+const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
     const { amount, product } = item;
 
     const { extractImgs } = useAllProductImages();
@@ -40,6 +47,44 @@ const CartProduct: React.FC<Props> = ({ item }) => {
     const handleRemoveAll = () => {
         dispatch(removeFromCart(product));
     };
+
+    // destructure attrs needed.
+    const { idrPrice, ausPrice, usdPrice, discountPercentage } = product;
+    const discounted = discountPercentage > 0;
+
+    // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
+    let price;
+    // render price based on global currency state
+    switch (currency) {
+        case Currencies.IDR:
+            price = `IDR ${
+                discounted
+                    ? withDiscount(product.idrPrice, discountPercentage)
+                    : product.idrPrice * amount
+            }`;
+            break;
+        case Currencies.AUD:
+            price = `AUD ${
+                discounted
+                    ? withDiscount(product.ausPrice, discountPercentage)
+                    : product.ausPrice * amount
+            }`;
+            break;
+        case Currencies.USD:
+            price = `USD ${
+                discounted
+                    ? withDiscount(product.usdPrice, discountPercentage)
+                    : product.usdPrice * amount
+            }}`;
+            break;
+        default:
+            price = `IDR ${
+                discounted
+                    ? withDiscount(product.idrPrice, discountPercentage)
+                    : product.idrPrice * amount
+            }`;
+            break;
+    }
 
     return (
         <Flex
@@ -87,8 +132,19 @@ const CartProduct: React.FC<Props> = ({ item }) => {
                         <Icon className="cart-icons" icon={addBoxLine} />
                     </Flex>
                 </Flex>
-                <Text fontFamily="body" fontSize={[2, 2, 3]} fontWeight="body">
-                    IDR {amount * product.idrPrice}
+                <Text
+                    fontFamily="body"
+                    fontSize={[2, 2, 3]}
+                    fontWeight="body"
+                    sx={{ svg: { ml: [4] } }}
+                >
+                    {price}
+                    {discounted && (
+                        <InlineIcon
+                            icon={priceTag3Fill}
+                            color={theme.colors.misc.discount}
+                        />
+                    )}
                 </Text>
             </Box>
             <Flex

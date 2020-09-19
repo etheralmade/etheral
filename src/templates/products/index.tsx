@@ -30,6 +30,9 @@ export const query = graphql`
             collection
             description
             idrPrice
+            usdPrice
+            ausPrice
+            discountPercentage
             productImages {
                 absolutePath
                 childImageSharp {

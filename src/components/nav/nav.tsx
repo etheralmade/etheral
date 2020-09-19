@@ -461,6 +461,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                         />
                     </CSSTransition>
 
+                    {/* actual box where it displays all in-cart products */}
                     <CSSTransition
                         in={showCart}
                         timeout={100}

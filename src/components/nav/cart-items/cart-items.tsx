@@ -25,16 +25,13 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
             css={`
                 position: absolute;
                 left: 0;
-                top: 8vh;
+                top: 10vh;
                 z-index: 2;
 
                 overflow-y: scroll;
 
-                @media screen and (min-width: 27em) {
-                }
-
-                @media screen and (min-width: 48em) {
-                    top: 10vh;
+                @media (min-width: 48em) {
+                    top: 12vh;
                     left: auto;
                     right: 0;
                 }
@@ -62,7 +59,17 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
                                 />
                             ))}
                         </Box>
-                        <Button mt={[2, 2, 4]}>Go to checkout</Button>
+                        <Link
+                            to="/checkout"
+                            css={`
+                                display: inline-block;
+                                width: 100%;
+                            `}
+                        >
+                            <Button mt={[2, 2, 4]} width="100%">
+                                Go to checkout
+                            </Button>
+                        </Link>
                     </Flex>
                 </>
             ) : (
