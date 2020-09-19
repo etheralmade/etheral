@@ -1,5 +1,9 @@
 import { Currencies } from 'state/reducers/currency-reducer';
-import { InCart as ProductWithAmount } from './firebase-user';
+import { InCart } from './firebase-user';
+
+type ProductWithAmount = InCart & {
+    discountPercentage: number;
+};
 
 export type IpaymuData = {
     sessionId: string;
