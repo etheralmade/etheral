@@ -4,12 +4,15 @@ import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from '@reach/router';
 
+import { Box } from 'rebass';
+
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Form from './form';
 import { clearCart } from 'state/actions/cart';
 import { Order, IpaymuData } from 'helper/schema/order';
 import { Currencies } from 'state/reducers/currency-reducer';
 import { withDiscount } from 'helper/with-discount';
+import DiscountCodeInput from './discount-code-input';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -385,7 +388,7 @@ const Checkout: React.FC<Props> = ({
     };
 
     return (
-        <>
+        <Box className="top">
             <Form getUserData={getUserData} />
             {shippingVariants.length > 0 &&
                 shippingVariants.map(variant => (
@@ -405,6 +408,7 @@ const Checkout: React.FC<Props> = ({
                     </React.Fragment>
                 ))}
             {errorShipping && <p>{msgErrorShipping} </p>}
+            <DiscountCodeInput db={db} />
             <h2>
                 Price: {currencyPrefix}{' '}
                 {currency === Currencies.IDR ? formatPriceIDR(price) : price}
@@ -429,7 +433,7 @@ const Checkout: React.FC<Props> = ({
             )}
             {userData && <button onClick={handleClickPay}>Pay</button>}
             {/* handle unclickable if shipping hasn't been selected */}
-        </>
+        </Box>
     );
 };
 
