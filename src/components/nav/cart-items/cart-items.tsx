@@ -30,13 +30,16 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
 
                 overflow-y: scroll;
 
-                @media (min-width: 48em) {
+                @media screen and (min-width: 27em) {
+                }
+
+                @media screen and (min-width: 48em) {
                     top: 10vh;
                     left: auto;
                     right: 0;
                 }
 
-                @media (min-width: 64em) {
+                @media screen and (min-width: 64em) {
                     right: 10vw;
                 }
             `}
