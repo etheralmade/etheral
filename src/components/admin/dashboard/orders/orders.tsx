@@ -47,24 +47,11 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
     const boxStyling = {
         p: 4,
         bg: '#fff',
+        className: 'custom-scrollbar',
         css: `
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
-            overflow-y: scroll;
             max-height: 90vh;
             width: 100vw;
-
-            &::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            /* Track */
-            &::-webkit-scrollbar-track {
-            }
-                
-            /* Handle */
-            &::-webkit-scrollbar-thumb {
-                background: ${theme.colors.black[0]};
-            }
 
             @media screen and (min-width: 48em) {
                 width: 48%;

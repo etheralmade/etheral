@@ -13,6 +13,7 @@ type Props = {
 const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
     return (
         <Flex
+            className="custom-scrollbar"
             height={['92vh', '92vh', 'fit-content']}
             maxHeight={['92vh', '92vh', '50vh']}
             width={['100vw', '100%', '50vw', '25vw']}
@@ -25,13 +26,13 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
             css={`
                 position: absolute;
                 left: 0;
-                top: 10vh;
+                top: 12vh;
                 z-index: 2;
 
                 overflow-y: scroll;
 
-                @media (min-width: 48em) {
-                    top: 12vh;
+                @media screen and (min-width: 48em) {
+                    top: 13vh;
                     left: auto;
                     right: 0;
                 }

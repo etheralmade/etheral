@@ -47,29 +47,12 @@ const Settings: React.FC<Props> = ({
         }
     };
 
-    console.log(process.env.GATSBY_NETLIFY_BUILD_HOOK);
-
     return (
         <Flex
             height="90vh"
             pb={[5]}
             flexDirection="column"
-            css={`
-                overflow-y: scroll;
-
-                &::-webkit-scrollbar {
-                    width: 6px;
-                }
-
-                /* Track */
-                &::-webkit-scrollbar-track {
-                }
-
-                /* Handle */
-                &::-webkit-scrollbar-thumb {
-                    background: ${theme.colors.black[0]};
-                }
-            `}
+            className="custom-scrollbar"
         >
             <Flex alignSelf="flex-end" mb={[6]}>
                 <a

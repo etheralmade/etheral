@@ -29,7 +29,7 @@ const GlobalStyles = createGlobalStyle`
         }
 
         @media screen and (min-width: 64em) {
-           heade:first-childr {
+           header:first-child {
             top: 0;
           }
         }
@@ -49,6 +49,23 @@ const GlobalStyles = createGlobalStyle`
           padding-top: 35vh;
         }
 
+      }
+
+      .custom-scrollbar {
+        overflow-y: scroll;
+
+                &::-webkit-scrollbar {
+                    width: 6px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: #222;
+                }
       }
     }
 `;

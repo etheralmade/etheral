@@ -22,13 +22,19 @@ const Banner: React.FC<Props> = ({
                 bg={bannerBgColor}
                 color={bannerTextColor}
                 px={[3]}
-                py={[1, 1, 2]}
                 textAlign="center"
                 fontFamily="body"
                 fontWeight="medium"
                 role="banner"
                 id="banner"
                 fontSize={[0, 0, 1]}
+                height={['4vh', '4vh', '3vh']}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    whiteSpace: 'nowrap',
+                }}
             >
                 {bannerText}
             </Text>
