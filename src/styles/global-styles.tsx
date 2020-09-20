@@ -7,6 +7,16 @@ const GlobalStyles = createGlobalStyle`
       box-sizing: border-box;
     }
 
+    /* fixed border radius safari */
+    input {
+      border-radius: 0;
+    }
+
+    /* fixed border radius safari */
+    input[type="search"], input[type="text"], input[type="email"] {
+      -webkit-appearance: none;
+    }
+
     body {
       max-width: 100vw;
       overflow-x: hidden;
