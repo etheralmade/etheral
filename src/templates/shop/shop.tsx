@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from '@reach/router';
 
-import { Box, Flex, Text } from 'rebass';
+import { Flex } from 'rebass';
 
 import { Product } from 'helper/schema';
 import ProductCard, {
@@ -104,7 +104,12 @@ const Shop: React.FC<Props> = () => {
     };
 
     return (
-        <Box className="top">
+        <Flex
+            className="top"
+            flexDirection="column"
+            alignItems="center"
+            pb={[6, 6, 4]}
+        >
             {/* shop banner image. */}
             {/* filter component */}
             {/* render products. */}
@@ -114,6 +119,7 @@ const Shop: React.FC<Props> = () => {
                 alignItems="flex-start"
                 flexWrap="wrap"
                 px={[5]}
+                pb={[5, 5, 6]}
                 css={`
                     justify-content: space-between;
 
@@ -148,7 +154,7 @@ const Shop: React.FC<Props> = () => {
                 handleClickPage={handleClickPage}
                 current={pagination.currIndex}
             />
-        </Box>
+        </Flex>
     );
 };
 
