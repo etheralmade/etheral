@@ -106,7 +106,7 @@ describe('DiscountCodeInput', () => {
             } else {
                 fail();
             }
-        }, 400);
+        }, 800);
     });
 
     it('should call applyCode function if user input a valid code correctly', () => {

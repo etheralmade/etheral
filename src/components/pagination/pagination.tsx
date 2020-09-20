@@ -28,6 +28,8 @@ const Pagination: React.FC<Props> = ({
                     onClick={() => handleClickPage(num)}
                     role="listitem"
                     fontWeight={num === current ? 'bold' : 'regular'}
+                    bg={num === current ? 'black.0' : 'transparent'}
+                    color={num === current ? '#fff' : 'black.0'}
                 >
                     {num + 1}
                 </Text>
