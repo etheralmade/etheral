@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination matches snapshot 1`] = `
+<nav
+  className="css-4cffwv"
+>
+  <div
+    className="css-1u57j0c"
+    onClick={[Function]}
+    role="listitem"
+  >
+    1
+  </div>
+  <div
+    className="css-1u57j0c"
+    onClick={[Function]}
+    role="listitem"
+  >
+    2
+  </div>
+  <div
+    className="css-154jwdi"
+    onClick={[Function]}
+    role="listitem"
+  >
+    3
+  </div>
+  <div
+    className="css-1u57j0c"
+    onClick={[Function]}
+    role="listitem"
+  >
+    4
+  </div>
+  <div
+    className="css-1u57j0c"
+    onClick={[Function]}
+    role="listitem"
+  >
+    5
+  </div>
+</nav>
+`;

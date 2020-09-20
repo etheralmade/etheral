@@ -129,7 +129,7 @@ describe('DiscountCodeInput', () => {
     });
 
     it('matches snapshot', () => {
-        const run = false;
+        const run = true;
 
         if (run) {
             const tree = renderer.create(Element).toJSON();

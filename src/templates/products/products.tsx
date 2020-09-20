@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { Product as ProductSchema } from 'helper/schema/product';
 import { addToCart } from 'state/actions/cart';
+import Breadcrumbs from 'components/breadcrumbs';
 
 type Props = ProductSchema;
 
@@ -54,7 +55,8 @@ const Products: React.FC<Props> = ({
     };
 
     return (
-        <>
+        <div className="top">
+            <Breadcrumbs location={`shop/${collection}/${name}`} />
             <h1>Name is {name}</h1>
             <h4>Product ID: {pid}</h4>
             <p>
@@ -86,7 +88,7 @@ const Products: React.FC<Props> = ({
                 id="amount"
             />
             <button onClick={handleClick}>Add to cart</button>
-        </>
+        </div>
     );
 };
 

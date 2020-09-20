@@ -9,9 +9,11 @@ import '@testing-library/jest-dom';
 import { Modal } from '../modal';
 
 describe('Modal', () => {
-    const closeModal = jest.fn(() => {});
-
-    const Element = <Modal closeModal={closeModal} />;
+    const Element = (
+        <Modal>
+            <div />{' '}
+        </Modal>
+    );
 
     afterEach(cleanup);
 
@@ -25,7 +27,7 @@ describe('Modal', () => {
 	}) */
 
     it('matches snapshot', () => {
-        const run = false;
+        const run = true;
 
         if (run) {
             const tree = renderer.create(Element).toJSON();

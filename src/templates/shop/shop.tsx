@@ -10,6 +10,7 @@ import ProductCard, {
 import useAllProductImages from 'helper/use-all-product-images';
 import useAllProducts from 'helper/use-all-products';
 import Pagination from 'components/pagination';
+import Breadcrumbs from 'components/breadcrumbs';
 
 import './styles.scss'; // styling on links component => cleaner component file.
 
@@ -111,7 +112,15 @@ const Shop: React.FC<Props> = () => {
             pb={[6, 6, 4]}
         >
             {/* shop banner image. */}
-            {/* filter component */}
+            <Flex width="100%" px={[5]}>
+                {/* breadcrumbs */}
+                <Breadcrumbs
+                    location={'shop'}
+                    append={true}
+                    appendText={'SHOP ALL'}
+                />
+                {/* filter component */}
+            </Flex>
             {/* render products. */}
             <Flex
                 className="product-container"

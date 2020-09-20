@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiscountCodeInput matches snapshot 1`] = `
+<div
+  className="css-vurnku"
+>
+  <form
+    className="css-4cffwv"
+    onSubmit={[Function]}
+  >
+    <input
+      aria-label="Discount code input"
+      className="css-4y926w"
+      name="discountCodeInput"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="ENTER YOUR DISCOUNT CODE HERE"
+      type="text"
+      value=""
+    />
+    <input
+      aria-label="Apply discount code"
+      className="css-4y926w"
+      type="submit"
+      value="GET MY DISCOUNT"
+    />
+  </form>
+</div>
+`;

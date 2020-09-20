@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs matches snapshot 1`] = `
+<div
+  className="css-tcs43g"
+>
+  <a
+    aria-current="page"
+    href="/"
+    onClick={[Function]}
+  >
+    <div
+      className="css-1q0gllo"
+    >
+      HOME
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M13.172 12l-4.95-4.95l1.414-1.414L16 12l-6.364 6.364l-1.414-1.414z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+            "verticalAlign": "-0.125em",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </div>
+  </a>
+  <a
+    href="/shop"
+    onClick={[Function]}
+  >
+    <div
+      className="css-1q0gllo"
+    >
+      SHOP
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M13.172 12l-4.95-4.95l1.414-1.414L16 12l-6.364 6.364l-1.414-1.414z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+            "verticalAlign": "-0.125em",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </div>
+  </a>
+  <a
+    href="/shop/collection1"
+    onClick={[Function]}
+  >
+    <div
+      className="css-1q0gllo"
+    >
+      COLLECTION1
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M13.172 12l-4.95-4.95l1.414-1.414L16 12l-6.364 6.364l-1.414-1.414z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+            "verticalAlign": "-0.125em",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </div>
+  </a>
+  <a
+    href="/shop/collection1/fall"
+    onClick={[Function]}
+  >
+    <div
+      className="css-1vybdvu"
+    >
+      FALL
+    </div>
+  </a>
+</div>
+`;
