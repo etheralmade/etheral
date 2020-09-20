@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from '@reach/router';
 
-import { Flex } from 'rebass';
+import { Flex, Text } from 'rebass';
 
 import { Product } from 'helper/schema';
 import ProductCard, {
@@ -11,6 +11,7 @@ import useAllProductImages from 'helper/use-all-product-images';
 import useAllProducts from 'helper/use-all-products';
 import Pagination from 'components/pagination';
 import Breadcrumbs from 'components/breadcrumbs';
+import Filter from 'components/filter';
 
 import './styles.scss'; // styling on links component => cleaner component file.
 
@@ -112,7 +113,7 @@ const Shop: React.FC<Props> = () => {
             pb={[6, 6, 4]}
         >
             {/* shop banner image. */}
-            <Flex width="100%" px={[5]}>
+            <Flex width="100%" px={[5, 5, 8]} justifyContent="space-between">
                 {/* breadcrumbs */}
                 <Breadcrumbs
                     location={'shop'}
@@ -120,6 +121,7 @@ const Shop: React.FC<Props> = () => {
                     appendText={'SHOP ALL'}
                 />
                 {/* filter component */}
+                <Filter />
             </Flex>
             {/* render products. */}
             <Flex
