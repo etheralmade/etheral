@@ -28,13 +28,7 @@ const Banner: React.FC<Props> = ({
                 role="banner"
                 id="banner"
                 fontSize={[0, 0, 1]}
-                height={['4vh', '4vh', '3vh']}
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    whiteSpace: 'nowrap',
-                }}
+                py={[1]}
             >
                 {bannerText}
             </Text>

@@ -16,7 +16,7 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
             className="custom-scrollbar"
             height={['92vh', '92vh', 'fit-content']}
             maxHeight={['92vh', '92vh', '50vh']}
-            width={['100vw', '100%', '50vw', '25vw']}
+            width={['100vw', '100%', '50vw', '35vw', '25vw']}
             pt={[4, 4, 5]}
             pb={[4, 4, 5]}
             px={[6, 6, 8]}
@@ -26,15 +26,19 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
             css={`
                 position: absolute;
                 left: 0;
-                top: 12vh;
                 z-index: 2;
+                transition: 0.2s;
 
                 overflow-y: scroll;
 
+                @media screen and (min-width: 27em) {
+                    transform: translateY(16px); /* navigation padding! */
+                }
+
                 @media screen and (min-width: 48em) {
-                    top: 13vh;
                     left: auto;
                     right: 0;
+                    transform: unset;
                 }
 
                 @media screen and (min-width: 64em) {
