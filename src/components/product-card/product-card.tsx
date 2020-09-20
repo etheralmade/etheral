@@ -40,6 +40,8 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
         discountPercentage,
     } = product;
 
+    console.log(css);
+
     const discounted = discountPercentage > 0;
 
     // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config

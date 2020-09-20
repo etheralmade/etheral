@@ -154,8 +154,8 @@ exports.sourceNodes = async ({
             collection: data.collection,
             weight: data.weight,
             slug: data.collection
-                ? `${nameToSlug(data.collection)}/${nameToSlug(data.name)}`
-                : `${noCollection}/${nameToSlug(data.name)}`,
+                ? `shop/${nameToSlug(data.collection)}/${nameToSlug(data.name)}`
+                : `shop/${noCollection}/${nameToSlug(data.name)}`,
         };
 
         return await createNode({
@@ -450,7 +450,7 @@ exports.createPages = async ({ graphql, actions }) => {
     // if (collections) {
     await collections.edges.forEach(({ node }) => {
         createPage({
-            path: nameToSlug(node.name),
+            path: `shop/${nameToSlug(node.name)}`,
             component: path.resolve('./src/templates/collections/index.tsx'),
 
             context: {
