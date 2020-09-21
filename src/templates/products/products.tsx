@@ -55,7 +55,7 @@ const Products: React.FC<Props> = ({
     };
 
     return (
-        <div className="top">
+        <div className="content">
             <Breadcrumbs location={`shop/${collection}/${name}`} />
             <h1>Name is {name}</h1>
             <h4>Product ID: {pid}</h4>

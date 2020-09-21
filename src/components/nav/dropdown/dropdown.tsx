@@ -88,7 +88,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                     position: absolute;
                     left: 0;
                     top: 10vh;
-                    z-index: 2;
+                    z-index: 888;
 
                     #go-back-dropdown {
                         svg {

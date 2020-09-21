@@ -24,7 +24,7 @@ const Blog: React.FC<Props> = ({ blog }) => {
 
     return (
         <Flex
-            className="top"
+            className="content blog"
             alignItems="center"
             justifyContent="center"
             pb={[6]}
@@ -70,6 +70,8 @@ const Blog: React.FC<Props> = ({ blog }) => {
                             width: '100%',
                             height: 'auto',
                         },
+                        display: 'relative',
+                        zIndex: 1,
                     }}
                     dangerouslySetInnerHTML={{ __html: content }}
                 />

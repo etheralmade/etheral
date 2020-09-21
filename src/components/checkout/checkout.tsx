@@ -410,7 +410,7 @@ const Checkout: React.FC<Props> = ({
     };
 
     return (
-        <Box className="top">
+        <Box className="content">
             <Form getUserData={getUserData} />
             {shippingVariants.length > 0 &&
                 shippingVariants.map(variant => (

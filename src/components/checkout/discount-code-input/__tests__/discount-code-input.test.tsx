@@ -87,7 +87,7 @@ describe('DiscountCodeInput', () => {
             } else {
                 fail();
             }
-        }, 400);
+        }, 800);
     });
 
     it('should display error message if the user input an expired code correctly', () => {
@@ -125,7 +125,7 @@ describe('DiscountCodeInput', () => {
             }
 
             expect(mockApplyCode).toBeCalled();
-        }, 400);
+        }, 800);
     });
 
     it('matches snapshot', () => {

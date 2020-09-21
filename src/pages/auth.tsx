@@ -6,7 +6,7 @@ import Auth from 'components/auth';
 const AuthPage = (props: PageProps) => {
     return (
         <Layout>
-            <div className="top">
+            <div className="content">
                 <Auth />
             </div>
         </Layout>

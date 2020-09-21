@@ -107,7 +107,7 @@ const Shop: React.FC<Props> = () => {
 
     return (
         <Flex
-            className="top"
+            className="content"
             flexDirection="column"
             alignItems="center"
             pb={[6, 6, 4]}

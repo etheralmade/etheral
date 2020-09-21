@@ -21,8 +21,13 @@ const GlobalStyles = createGlobalStyle`
       max-width: 100vw;
       overflow-x: hidden;
 
+      header {
+        
+      }
+
       main {
         position: relative;
+        z-index: 1;
 
         header:first-child {
           position: relative;
@@ -45,18 +50,41 @@ const GlobalStyles = createGlobalStyle`
         }
       }
 
-      .top {
+      .content {
+
+        position: relative;
+        z-index: 1;
+
+        padding-top: 3vh;
+
+        @media screen and (min-width: 27em) {
+          padding-top: 5vh;
+        }
 
         @media screen and (min-width: 48em) {
-          padding-top: 14vh;
+          padding-top: 12vh;
         }
 
         @media screen and (min-width: 48em) and (orientation: landscape) {
-          padding-top: 20vh;
+          padding-top: 15vh;
         }
 
-         @media screen and (min-width: 48em) and (max-height: 500px) and (orientation: landscape) {
-          padding-top: 35vh;
+        @media screen and (min-width: 48em) and (max-height: 500px) and (orientation: landscape) {
+          padding-top: 30vh;
+        }
+
+        &.blog {
+          @media screen and (min-width: 48em) {
+            padding-top: 14vh;
+          }
+
+          @media screen and (min-width: 48em) and (orientation: landscape) {
+            padding-top: 20vh;
+          }
+
+          @media screen and (min-width: 48em) and (max-height: 500px) and (orientation: landscape) {
+            padding-top: 35vh;
+          }
         }
 
       }
