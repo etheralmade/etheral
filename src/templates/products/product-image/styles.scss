@@ -1,0 +1,23 @@
+.carousel__dot {
+    height: 48px;
+    width: 48px;
+    margin: 0 8px;
+
+    @media screen and (min-width: 48em) {
+        height: 64px;
+        width: 64px;
+    }
+
+    @media screen and (min-width: 64em) {
+        height: 82px;
+        width: 82px;
+    }
+}
+
+.product-img {
+    transition: 0.2s;
+
+    &:hover {
+        transform: scale(1.6);
+    }
+}

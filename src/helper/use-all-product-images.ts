@@ -193,7 +193,7 @@ const useAllProductImages = () => {
                 if (fluid) {
                     return {
                         sources: [
-                            productImgXS,
+                            productImgXS.img[index].childImageSharp.fluid,
                             {
                                 ...productImgS.img[index].childImageSharp.fluid,
                                 media: `(max-width: ${sourceBreakpoints.s})`,
@@ -216,7 +216,7 @@ const useAllProductImages = () => {
                 } else {
                     return {
                         sources: [
-                            productImgXS,
+                            productImgXS.img[index].childImageSharp.fixed,
                             {
                                 ...productImgS.img[index].childImageSharp.fixed,
                                 media: `(max-width: ${sourceBreakpoints.s})`,

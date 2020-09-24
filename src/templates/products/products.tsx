@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
-import Img from 'gatsby-image';
 import { useDispatch } from 'react-redux';
+
+import { Box, Flex, Text } from 'rebass';
 
 import { Product as ProductSchema } from 'helper/schema/product';
 import { addToCart } from 'state/actions/cart';
 import Breadcrumbs from 'components/breadcrumbs';
+import ProductImage, { ImgProps } from './product-image';
 
 type Props = ProductSchema;
 
-const Products: React.FC<Props> = ({
-    name,
-    pid,
-    description,
-    amount,
-    category,
-    collection,
-    productImages,
-    slug,
-    urls,
-    weight,
-    prices: { idrPrice, ausPrice, discountPercentage },
-    ...rest
-}) => {
+const Products: React.FC<Props> = product => {
+    const {
+        name,
+        pid,
+        description,
+        amount,
+        category,
+        collection,
+        productImages,
+        slug,
+        urls,
+        weight,
+        prices: { idrPrice, ausPrice, discountPercentage },
+        ...rest
+    } = product;
+
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
 
-    const handleClick = () => {
+    const displayText = 'related products';
+
+    const submitToCart = () => {
         dispatch(
             addToCart(
                 {
@@ -52,40 +58,38 @@ const Products: React.FC<Props> = ({
     };
 
     return (
-        <div className="content">
+        <Box px={[6, 6]} className="content">
+            {/* breadcrumbs */}
             <Breadcrumbs location={`shop/${collection}/${name}`} />
-            <h1>Name is {name}</h1>
-            <h4>Product ID: {pid}</h4>
-            <p>
-                and here are some descriptions {description}, the price is{' '}
-                <strong>{idrPrice}</strong> <i>only {amount} available </i>
-            </p>
-            <p>
-                {' '}
-                category: {category} collection: {collection}{' '}
-            </p>
-            <p>ssome img</p>
-            {productImages[0] ? (
-                productImages[0].childImageSharp.fluid ? (
-                    <Img fluid={productImages[0].childImageSharp.fluid} />
-                ) : productImages[0].childImageSharp.fixed ? (
-                    <Img fixed={productImages[0].childImageSharp.fixed} />
-                ) : (
-                    <img src={urls[0]} alt={name} />
-                )
-            ) : (
-                <img src={urls[0]} alt={name} />
-            )}
-            <label htmlFor="amount">Number of items to order</label>
-            <input
-                onChange={handleChange}
-                value={qty}
-                type="number"
-                placeholder="num"
-                id="amount"
-            />
-            <button onClick={handleClick}>Add to cart</button>
-        </div>
+
+            {/* product container */}
+            <Flex flexDirection={['column', 'row']} alignItems="center">
+                {/* product image (carousel) */}
+                <ProductImage
+                    // hard cast => to overcome type safety.
+                    images={(productImages as unknown) as ImgProps}
+                    productName={name}
+                />
+
+                {/* product infos. */}
+            </Flex>
+
+            {/* related products container */}
+            <Box>
+                <Text
+                    textAlign="center"
+                    as="h4"
+                    variant="h2"
+                    mb={[5, 5, 6, 7]}
+                    fontWeight="body"
+                >
+                    {displayText.toUpperCase()}
+                </Text>
+
+                {/* related products */}
+                <Flex />
+            </Box>
+        </Box>
     );
 };
 
