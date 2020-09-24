@@ -12,7 +12,6 @@ const Products: React.FC<Props> = ({
     name,
     pid,
     description,
-    idrPrice,
     amount,
     category,
     collection,
@@ -20,9 +19,8 @@ const Products: React.FC<Props> = ({
     slug,
     urls,
     weight,
-    usdPrice,
-    ausPrice,
-    discountPercentage,
+    prices: { idrPrice, ausPrice, discountPercentage },
+    ...rest
 }) => {
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
@@ -34,16 +32,14 @@ const Products: React.FC<Props> = ({
                     name,
                     pid,
                     description,
-                    idrPrice,
                     amount,
                     collection,
                     slug,
                     productImages,
                     urls,
                     weight,
-                    usdPrice,
-                    ausPrice,
-                    discountPercentage,
+                    prices: { idrPrice, ausPrice, discountPercentage },
+                    ...rest,
                 },
                 qty !== 1 ? qty : undefined
             )

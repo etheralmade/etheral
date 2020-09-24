@@ -49,7 +49,9 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
     };
 
     // destructure attrs needed.
-    const { idrPrice, ausPrice, usdPrice, discountPercentage } = product;
+    const {
+        prices: { idrPrice, ausPrice, discountPercentage },
+    } = product;
     const discounted = discountPercentage > 0;
 
     // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
@@ -59,29 +61,22 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
         case Currencies.IDR:
             price = `IDR ${
                 discounted
-                    ? withDiscount(product.idrPrice, discountPercentage)
-                    : product.idrPrice * amount
+                    ? withDiscount(idrPrice, discountPercentage)
+                    : idrPrice * amount
             }`;
             break;
         case Currencies.AUD:
             price = `AUD ${
                 discounted
-                    ? withDiscount(product.ausPrice, discountPercentage)
-                    : product.ausPrice * amount
+                    ? withDiscount(ausPrice, discountPercentage)
+                    : ausPrice * amount
             }`;
-            break;
-        case Currencies.USD:
-            price = `USD ${
-                discounted
-                    ? withDiscount(product.usdPrice, discountPercentage)
-                    : product.usdPrice * amount
-            }}`;
             break;
         default:
             price = `IDR ${
                 discounted
-                    ? withDiscount(product.idrPrice, discountPercentage)
-                    : product.idrPrice * amount
+                    ? withDiscount(idrPrice, discountPercentage)
+                    : idrPrice * amount
             }`;
             break;
     }

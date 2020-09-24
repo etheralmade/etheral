@@ -6,17 +6,21 @@ export interface Product {
     amount: number;
     // gatsby linking param
     slug: string;
-    description?: string;
-    category?: string;
-    idrPrice: number;
-    ausPrice: number;
-    usdPrice: number;
-    discountPercentage: number;
-    availableSizes?: {
-        S: boolean;
-        M: boolean;
+    description: string;
+    productDetails: string;
+    category: string;
+    prices: {
+        idrPrice: number;
+        ausPrice: number;
+        discountPercentage: number;
     };
-    collection?: string;
+    gems: {
+        withGems: boolean;
+        gemTypes: string;
+        gemSizes: string;
+    };
+    availableSizes: string;
+    collection: string;
     productImages: {
         childImageSharp: {
             fixed?: FixedObject[] | FixedObject;

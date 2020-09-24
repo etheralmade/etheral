@@ -2,7 +2,6 @@ import { CHANGE_CURRENCY } from '../types/currency';
 
 export enum Currencies {
     AUD = 'AUD',
-    USD = 'USD',
     IDR = 'IDR',
 }
 

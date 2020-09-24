@@ -21,28 +21,35 @@ export default ProductsTemplate;
 export const query = graphql`
     query($slug: String) {
         product(slug: { eq: $slug }) {
-            pid
-            slug
-            amount
-            # availableSizes
-            urls
-            category
-            collection
-            description
-            idrPrice
-            usdPrice
-            ausPrice
-            discountPercentage
-            productImages {
-                absolutePath
-                childImageSharp {
-                    fixed {
-                        ...GatsbyImageSharpFixed
-                    }
-                }
-            }
-            name
-            weight
+           
+                    pid
+                        amount
+                        slug
+                        category
+                        collection
+                        name
+                        description
+                        productDetails
+                        prices {
+                            idrPrice
+                            ausPrice
+                            discountPercentage
+                        }
+                        gems {
+                            withGems
+                            gemTypes
+                            gemSizes
+                        }
+                        urls
+                        weight
+                        productImages {
+                            absolutePath
+                            childImageSharp {
+                                fixed {
+                                    ...GatsbyImageSharpFixed
+                                }
+                            }
+                        
         }
     }
 `;

@@ -6,34 +6,13 @@ import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { ProductsDisplay } from '../products-display';
-import { Product } from 'helper/schema/product';
+import { mockProduct1 } from 'helper/const';
 
 describe('Products display on collection page', () => {
-    const mockDisplayData: Product = {
-        pid: '12132',
-        amount: 1,
-        slug: '/mock/slug',
-        category: 'Blllla',
-        collection: 'collection1',
-        name: 'mock-return-data',
-        idrPrice: 123,
-        usdPrice: 12,
-        ausPrice: 2,
-        productImages: [
-            {
-                childImageSharp: {
-                    fixed: undefined,
-                },
-            },
-        ],
-        urls: [],
-        weight: 0,
-    };
-
     afterEach(cleanup);
 
     const el: React.ReactElement = (
-        <ProductsDisplay products={[mockDisplayData]} />
+        <ProductsDisplay products={[mockProduct1]} />
     );
 
     it('renders without crashing', () => {
@@ -45,7 +24,7 @@ describe('Products display on collection page', () => {
         const { getByTestId } = render(el);
 
         const productName: HTMLElement = getByTestId('product-name');
-        expect(productName).toHaveTextContent(mockDisplayData.name);
+        expect(productName).toHaveTextContent(mockProduct1.name);
     });
 
     // no snapshot testing yet, components not yet ready
