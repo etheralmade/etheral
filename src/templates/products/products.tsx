@@ -24,6 +24,8 @@ const Products: React.FC<Props> = product => {
         weight,
         prices,
         productDetails,
+        availableSizes,
+        gems,
     } = product;
 
     const [qty, setQty] = useState(1);
@@ -67,6 +69,8 @@ const Products: React.FC<Props> = product => {
                     prices={prices}
                     description={description}
                     productDetails={productDetails}
+                    availableSizes={availableSizes}
+                    gems={gems}
                 />
             </Flex>
 

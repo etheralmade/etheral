@@ -8,12 +8,19 @@ import {
 } from 'state/reducers/currency-reducer';
 import { theme } from 'styles';
 import { withDiscount } from 'helper/with-discount';
+import ProductForm from './product-form';
 
 export type Props = {
     productName: string;
     prices: { idrPrice: number; ausPrice: number; discountPercentage: number };
     description: string;
     productDetails: string;
+    availableSizes: string;
+    gems: {
+        withGems: boolean;
+        gemTypes: string;
+        gemSizes: string;
+    };
 };
 
 const ProductInfo: React.FC<Props & ICurrencyState> = ({
@@ -22,6 +29,8 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
     currency,
     description,
     productDetails,
+    availableSizes,
+    gems,
 }) => {
     const { idrPrice, ausPrice, discountPercentage } = prices;
 
@@ -89,6 +98,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
             </Flex>
 
             {/* render forms. */}
+            <ProductForm availableSizes={availableSizes} gems={gems} />
 
             {/* render description section */}
             {description !== '' && <Description description={description} />}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ReSelect, { ValueType, ActionMeta } from 'react-select';
-import { startCase, snakeCase } from 'lodash';
+import { startCase } from 'lodash';
 
 type Props = {
     options: string[];
@@ -22,7 +22,7 @@ const Select: React.FC<Props> = ({ options, handleChange }) => {
         <ReSelect
             onChange={handleChange}
             options={options.map(o => ({
-                value: snakeCase(o.toUpperCase()),
+                value: o,
                 // eslint-disable-next-line @typescript-eslint/tslint/config
                 label: startCase(o),
             }))}
