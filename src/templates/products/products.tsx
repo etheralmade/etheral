@@ -38,6 +38,7 @@ const Products: React.FC<Props> = ({
                     productImages,
                     urls,
                     weight,
+                    category,
                     prices: { idrPrice, ausPrice, discountPercentage },
                     ...rest,
                 },
