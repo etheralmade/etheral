@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Box, Heading, Text } from 'rebass';
+import { Box, Heading, Text, Flex } from 'rebass';
 
 import {
     IState as ICurrencyState,
     Currencies,
 } from 'state/reducers/currency-reducer';
+import { theme } from 'styles';
+import { withDiscount } from 'helper/with-discount';
 
 export type Props = {
     productName: string;
@@ -26,14 +28,65 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
     const discounted = discountPercentage > 0;
 
     return (
-        <Box width="100%" flex={1} pl={[0, 5, 6]} pt={[0, 5]}>
+        <Box
+            width="100%"
+            maxWidth={['100%', '60%', '50%', '40%']}
+            flex={1}
+            pl={[0, 5, 6]}
+            pt={[0, 5]}
+        >
             <Heading as="h1" variant="h1">
                 {productName.toUpperCase()}
             </Heading>
-            <Heading as="h4" variant="productPrice" my={[4]}>
-                {currency} {currency === Currencies.IDR ? idrPrice : ausPrice}
-                {/* render if discounted */}
-            </Heading>
+
+            {/* product price with the ability to extend when the product is discounted. */}
+            <Flex alignItems="center" my={[4]}>
+                <Heading
+                    as="h4"
+                    color={
+                        discounted
+                            ? theme.colors.misc.discount
+                            : theme.colors.black[0]
+                    }
+                    className={discounted ? 'discount' : ''}
+                    css={`
+                        ${discounted &&
+                            `
+                            :after {
+                                content: '-${discountPercentage}%';
+                                color: ${theme.colors.misc.discount};
+                                font-family: Poppins, sans-serif;
+                                
+                                position: absolute;
+                                right: -48px;
+                                top: 0;
+
+                                display: block;
+                            }
+                        `};
+                        width: fit-content;
+                        font-family: Poppins, sans-serif;
+                        font-weight: 500;
+                    `}
+                >
+                    {currency}{' '}
+                    {currency === Currencies.IDR ? idrPrice : ausPrice}
+                </Heading>
+                {discounted && (
+                    <Heading
+                        as="h4"
+                        variant="productName"
+                        color={theme.colors.misc.discount}
+                        ml={[9]}
+                    >
+                        {currency}{' '}
+                        {withDiscount(
+                            currency === Currencies.IDR ? idrPrice : ausPrice,
+                            discountPercentage
+                        )}
+                    </Heading>
+                )}
+            </Flex>
 
             {/* render forms. */}
 

@@ -40,7 +40,12 @@ const Products: React.FC<Props> = product => {
     };
 
     return (
-        <Box px={[6, 6]} className="content">
+        <Box
+            px={[6, 6, 8, 9, 11]}
+            className="content"
+            width="100%"
+            mx={['unset', 'unset', 'unset', 'auto']}
+        >
             {/* breadcrumbs */}
             <Breadcrumbs location={`shop/${collection}/${name}`} />
 

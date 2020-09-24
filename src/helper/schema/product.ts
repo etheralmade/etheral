@@ -29,4 +29,5 @@ export interface Product {
     }[];
     urls: string[];
     weight: number;
+    orderNote?: string;
 }
