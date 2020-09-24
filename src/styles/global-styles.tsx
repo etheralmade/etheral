@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
       main {
         position: relative;
 
-        header:first-child {
+        & > header:first-child {
           position: relative;
           width: 100vw;
         }
@@ -22,14 +22,14 @@ const GlobalStyles = createGlobalStyle`
         @media screen and (min-width: 48em) {
           top: 0;
 
-          header:first-child {
+          & > header:first-child {
             top: 0;
             position: absolute;
           }
         }
 
         @media screen and (min-width: 64em) {
-           header:first-child {
+           & > header:first-child {
             top: 0;
           }
         }

@@ -119,6 +119,21 @@ const productCard = {
     },
 };
 
+const blog = {
+    blogTitle: {
+        fontFamily: 'heading',
+        fontWeight: 500,
+        fontSize: [3, 3, 4],
+        color: 'black.0',
+    },
+    blogDate: {
+        fontFamily: 'body',
+        fontWeight: 'body',
+        fontSize: [2, 2, 3],
+        color: 'black.1',
+    },
+};
+
 export default {
     h1: {
         fontSize: [5, 5, 6],
@@ -168,4 +183,5 @@ export default {
     ...productCard,
     ...badges,
     ...admin,
+    ...blog,
 };
