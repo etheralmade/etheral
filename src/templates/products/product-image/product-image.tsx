@@ -52,7 +52,7 @@ const ProductImage: React.FC<Props> = ({ images, productName }) => {
                                     }}
                                     imgStyle={{ objectPosition: 'center' }}
                                     alt={`${productName} image ${i}`}
-                                    className="product-img"
+                                    className="product-page-img"
                                 />
                             </Box>
                         </Slide>

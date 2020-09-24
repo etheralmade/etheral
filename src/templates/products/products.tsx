@@ -7,13 +7,13 @@ import { Product as ProductSchema } from 'helper/schema/product';
 import { addToCart } from 'state/actions/cart';
 import Breadcrumbs from 'components/breadcrumbs';
 import ProductImage, { ImgProps } from './product-image';
+import ProductInfo from './product-info';
 
 type Props = ProductSchema;
 
 const Products: React.FC<Props> = product => {
     const {
         name,
-        pid,
         description,
         amount,
         category,
@@ -22,8 +22,8 @@ const Products: React.FC<Props> = product => {
         slug,
         urls,
         weight,
-        prices: { idrPrice, ausPrice, discountPercentage },
-        ...rest
+        prices,
+        productDetails,
     } = product;
 
     const [qty, setQty] = useState(1);
@@ -32,25 +32,7 @@ const Products: React.FC<Props> = product => {
     const displayText = 'related products';
 
     const submitToCart = () => {
-        dispatch(
-            addToCart(
-                {
-                    name,
-                    pid,
-                    description,
-                    amount,
-                    collection,
-                    slug,
-                    productImages,
-                    urls,
-                    weight,
-                    category,
-                    prices: { idrPrice, ausPrice, discountPercentage },
-                    ...rest,
-                },
-                qty !== 1 ? qty : undefined
-            )
-        );
+        dispatch(addToCart(product, qty !== 1 ? qty : undefined));
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +45,10 @@ const Products: React.FC<Props> = product => {
             <Breadcrumbs location={`shop/${collection}/${name}`} />
 
             {/* product container */}
-            <Flex flexDirection={['column', 'row']} alignItems="center">
+            <Flex
+                flexDirection={['column', 'row']}
+                alignItems={['center', 'flex-start']}
+            >
                 {/* product image (carousel) */}
                 <ProductImage
                     // hard cast => to overcome type safety.
@@ -72,6 +57,12 @@ const Products: React.FC<Props> = product => {
                 />
 
                 {/* product infos. */}
+                <ProductInfo
+                    productName={name}
+                    prices={prices}
+                    description={description}
+                    productDetails={productDetails}
+                />
             </Flex>
 
             {/* related products container */}
