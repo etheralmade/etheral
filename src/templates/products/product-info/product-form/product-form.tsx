@@ -23,8 +23,8 @@ type Props = {
 type OrderData = {
     size: string;
     quantity: number;
-    gemType?: string;
-    gemSize?: string;
+    gemType: string;
+    gemSize: string;
 };
 
 type Input = {
@@ -71,8 +71,8 @@ const ProductForm: React.FC<Props> = ({
         const temp = {
             size: get(data, 'size.value', ''),
             quantity: parseInt(get(data, 'quantity.value', 0), 10),
-            gemType: get(data, 'gem-type.value', undefined),
-            gemSize: get(data, 'gem-size.value', undefined),
+            gemType: get(data, 'gem-type.value', ''),
+            gemSize: get(data, 'gem-size.value', ''),
         };
 
         if (temp.gemSize) {

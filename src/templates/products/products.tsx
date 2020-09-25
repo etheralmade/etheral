@@ -48,7 +48,10 @@ const Products: React.FC<Props> = product => {
         amount: number;
     }) => {
         dispatch(
-            addToCart({ ...product, note }, amount !== 1 ? amount : undefined)
+            addToCart(
+                { ...product, orderNote: note },
+                amount !== 1 ? amount : undefined
+            )
         );
     };
 

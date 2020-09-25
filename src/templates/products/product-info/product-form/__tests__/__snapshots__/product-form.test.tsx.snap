@@ -22,7 +22,7 @@ exports[`ProductForm matches snapshot 1`] = `
         onKeyDown={[Function]}
       >
         <div
-          className="custom-select__control css-onf0q5-Control"
+          className="custom-select__control css-16c775h-Control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
@@ -152,7 +152,7 @@ exports[`ProductForm matches snapshot 1`] = `
         onKeyDown={[Function]}
       >
         <div
-          className="custom-select__control css-onf0q5-Control"
+          className="custom-select__control css-16c775h-Control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >

@@ -89,6 +89,20 @@ const reducer = (state: IState = initialState, action: Action): IState => {
                                 },
                             ],
                         };
+                    } else {
+                        return {
+                            cart: [
+                                ...without(state.cart, item),
+                                {
+                                    ...item,
+                                    amount: item.amount + toAdd,
+                                    note: [
+                                        ...item.note,
+                                        { ...productNote, amount: toAdd },
+                                    ],
+                                },
+                            ],
+                        };
                     }
                 } else {
                     // simply add to the array if product doesn't exist.
