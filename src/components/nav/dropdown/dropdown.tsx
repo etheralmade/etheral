@@ -48,8 +48,6 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
 
     const { navigationImage, imgs } = navImg as any;
 
-    console.log(navigationImage);
-
     const navImgIndexLeft = findIndex(
         imgs,
         (o: any) => o.url === navigationImage[0]
@@ -90,7 +88,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                     position: absolute;
                     left: 0;
                     top: 10vh;
-                    z-index: 2;
+                    z-index: 888;
 
                     #go-back-dropdown {
                         svg {
@@ -138,7 +136,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                             my={[5, 5, 0]}
                             width={['fit-content', 'fit-content', '110px']}
                         >
-                            <Link to="/">
+                            <Link to="/shop">
                                 <Text variant="link">Shop all</Text>
                             </Link>
                             <Link to="/">
@@ -159,7 +157,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                                 {collections.map(collection => (
                                     <Link
                                         key={collection}
-                                        to={`/${nameToSlug(collection)}`}
+                                        to={`shop/${nameToSlug(collection)}`}
                                     >
                                         <Text
                                             variant={

@@ -121,7 +121,7 @@ const productCard = {
 
 export default {
     h1: {
-        fontSize: [5, 5, 6],
+        fontSize: [3, 3, 4],
         fontFamily: 'heading',
         fontWeight: 'bold',
     },
@@ -168,4 +168,9 @@ export default {
     ...productCard,
     ...badges,
     ...admin,
+    formError: {
+        ...productCard.productPrice,
+        fontSize: [0, 0, 1],
+        color: 'misc.discount',
+    },
 };

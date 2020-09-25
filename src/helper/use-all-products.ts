@@ -16,10 +16,18 @@ const useAllProducts = () => {
                         category
                         collection
                         name
-                        idrPrice
-                        ausPrice
-                        usdPrice
-                        discountPercentage
+                        description
+                        productDetails
+                        prices {
+                            idrPrice
+                            ausPrice
+                            discountPercentage
+                        }
+                        gems {
+                            withGems
+                            gemTypes
+                            gemSizes
+                        }
                         urls
                         weight
                         productImages {

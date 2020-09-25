@@ -95,12 +95,12 @@ const Checkout: React.FC<Props> = ({
             case Currencies.IDR:
                 temp = cart.reduce(
                     (acc, curr) =>
-                        (curr.product.discountPercentage > 0
+                        (curr.product.prices.discountPercentage > 0
                             ? withDiscount(
-                                  curr.product.idrPrice,
-                                  curr.product.discountPercentage
+                                  curr.product.prices.idrPrice,
+                                  curr.product.prices.discountPercentage
                               )
-                            : curr.product.idrPrice) *
+                            : curr.product.prices.idrPrice) *
                             curr.amount +
                         acc,
                     0
@@ -111,12 +111,12 @@ const Checkout: React.FC<Props> = ({
             case Currencies.AUD:
                 temp = cart.reduce(
                     (acc, curr) =>
-                        (curr.product.discountPercentage > 0
+                        (curr.product.prices.discountPercentage > 0
                             ? withDiscount(
-                                  curr.product.ausPrice,
-                                  curr.product.discountPercentage
+                                  curr.product.prices.ausPrice,
+                                  curr.product.prices.discountPercentage
                               )
-                            : curr.product.ausPrice) *
+                            : curr.product.prices.ausPrice) *
                             curr.amount +
                         acc,
                     0
@@ -124,31 +124,15 @@ const Checkout: React.FC<Props> = ({
                 setPrice(temp);
                 setCurrencyPrefix(Currencies.AUD);
                 break;
-            case Currencies.USD:
-                temp = cart.reduce(
-                    (acc, curr) =>
-                        (curr.product.discountPercentage > 0
-                            ? withDiscount(
-                                  curr.product.usdPrice,
-                                  curr.product.discountPercentage
-                              )
-                            : curr.product.usdPrice) *
-                            curr.amount +
-                        acc,
-                    0
-                );
-                setPrice(temp);
-                setCurrencyPrefix(Currencies.USD);
-                break;
             default:
                 temp = cart.reduce(
                     (acc, curr) =>
-                        (curr.product.discountPercentage > 0
+                        (curr.product.prices.discountPercentage > 0
                             ? withDiscount(
-                                  curr.product.idrPrice,
-                                  curr.product.discountPercentage
+                                  curr.product.prices.idrPrice,
+                                  curr.product.prices.discountPercentage
                               )
-                            : curr.product.idrPrice) *
+                            : curr.product.prices.idrPrice) *
                             curr.amount +
                         acc,
                     0
@@ -339,7 +323,7 @@ const Checkout: React.FC<Props> = ({
                     products: cart.map(cartItem => ({
                         pid: cartItem.product.pid,
                         amount: cartItem.amount,
-                        discountPercentage: cartItem.product.discountPercentage,
+                        discountPercentage: cartItem.product.prices.discountPercentage,
                     })),
                     paid: false,
                     delivered: false,
@@ -410,7 +394,7 @@ const Checkout: React.FC<Props> = ({
     };
 
     return (
-        <Box className="top">
+        <Box className="content">
             <Form getUserData={getUserData} />
             {shippingVariants.length > 0 &&
                 shippingVariants.map(variant => (

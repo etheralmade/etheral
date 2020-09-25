@@ -57,7 +57,7 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                 />
                 <Text variant="productPrice" ml={[5]} my={[2]}>
                     {orderedProduct.amount} x {product.name}
-                    {product.discountPercentage > 0 && (
+                    {product.prices.discountPercentage > 0 && (
                         <Box as="span" display="inline-block">
                             <Text
                                 color="misc.discount"
@@ -69,7 +69,7 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                                     icon={priceTag3Fill}
                                     color={theme.colors.misc.discount}
                                 />
-                                {product.discountPercentage}%
+                                {product.prices.discountPercentage}%
                             </Text>
                         </Box>
                     )}

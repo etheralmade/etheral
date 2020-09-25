@@ -37,8 +37,8 @@ export type FixedData = {
 
 const App = (props: PageProps) => {
     // eslint-disable-next-line @typescript-eslint/tslint/config
-
     const { data } = props;
+
     const dataAsAny = data as any;
 
     const homepageData: HomePageData = dataAsAny.homepageData as HomePageData;

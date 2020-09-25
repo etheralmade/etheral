@@ -8,9 +8,19 @@ export const mockProduct1: Product = {
     name: 'Mock product',
     slug: 'ctg1/product1',
     category: 'ctg1',
-    idrPrice: 23000,
-    usdPrice: 23,
-    ausPrice: 21,
+    productDetails: '<p>Good product</p>',
+    description: 'Just a mock product',
+    prices: {
+        idrPrice: 23000,
+        ausPrice: 21,
+        discountPercentage: 10,
+    },
+    gems: {
+        withGems: true,
+        gemTypes: 'A, B',
+        gemSizes: 'S, M, L',
+    },
+    availableSizes: 'S, M, L',
     collection: 'fall',
     productImages: [],
     urls: [],
@@ -33,7 +43,13 @@ export const mockOrder: Order = {
     date: new Date(),
     via: 'va',
     channel: 'bni',
-    products: [{ pid: mockProduct1.pid, amount: 12 }],
+    products: [
+        {
+            pid: mockProduct1.pid,
+            amount: 12,
+            discountPercentage: 10,
+        },
+    ],
     paid: false,
     delivered: false,
     transactionData: {
@@ -66,3 +82,9 @@ export const mockBlog: Blog = {
     date: new Date(Date.parse('2020-09-11T00:00:00+02:00')),
     slug: 'sample-blog-post',
 };
+
+export const nameToSlug = (name: string) =>
+    name
+        .toLowerCase()
+        .split(' ')
+        .join('-');

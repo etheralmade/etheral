@@ -137,25 +137,48 @@ exports.sourceNodes = async ({
             await set(data, 'collection', rspCollection.name);
         }
 
+        if (await data.relatedProducts) {
+            const reqRelated = await Promise.all(data.relatedProducts.map(async ref => {
+                try {
+                    const req = await ref.get()
+                    const rsp = await req.data().id
+
+                    return rsp
+                } catch (err) {
+                    console.error(err)
+                    return ''
+                }
+            }))
+            await set(data, 'relatedProducts', reqRelated)
+        }
+
         const noCollection = 'uncollection';
 
         const fields = await {
             name: data.name,
             pid: data.id,
-            amount: data.amount,
-            description: data.description,
+            amount: data.amount || 0,
+            description: data.description || '',
+            productDetails: data.productDetails || '',
             category: data.category,
-            idrPrice: data.idrPrice,
-            ausPrice: data.ausPrice,
-            usdPrice: data.usdPrice,
-            discountPercentage: data.discountPercentage,
+            prices: {
+                idrPrice: data.prices.idrPrice || 0,
+                ausPrice: data.prices.audPrice || 0,
+                discountPercentage: data.prices.discountPercentage || 0,
+            },
+            gems: {
+                withGems: data.gems.withGems || false,
+                gemTypes: data.gems.gemTypes || '',
+                gemSizes: data.gems.gemSizes || '',
+            },
+            relatedProducts: data.relatedProducts || [],
             urls: data.image,
             availableSizes: data.availableSizes,
             collection: data.collection,
             weight: data.weight,
             slug: data.collection
-                ? `${nameToSlug(data.collection)}/${nameToSlug(data.name)}`
-                : `${noCollection}/${nameToSlug(data.name)}`,
+                ? `shop/${nameToSlug(data.collection)}/${nameToSlug(data.name)}`
+                : `shop/${noCollection}/${nameToSlug(data.name)}`,
         };
 
         return await createNode({
@@ -450,7 +473,7 @@ exports.createPages = async ({ graphql, actions }) => {
     // if (collections) {
     await collections.edges.forEach(({ node }) => {
         createPage({
-            path: nameToSlug(node.name),
+            path: `shop/${nameToSlug(node.name)}`,
             component: path.resolve('./src/templates/collections/index.tsx'),
 
             context: {

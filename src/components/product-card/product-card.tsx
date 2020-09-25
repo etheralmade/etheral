@@ -33,12 +33,13 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
 }) => {
     const {
         name,
-        idrPrice,
-        ausPrice,
-        usdPrice,
+
         urls,
-        discountPercentage,
+
+        prices: { idrPrice, ausPrice, discountPercentage },
     } = product;
+
+    console.log(css);
 
     const discounted = discountPercentage > 0;
 
@@ -51,9 +52,6 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
             break;
         case Currencies.AUD:
             price = `AUD ${ausPrice}`;
-            break;
-        case Currencies.USD:
-            price = `USD ${usdPrice}`;
             break;
         default:
             price = `IDR ${idrPrice}`;

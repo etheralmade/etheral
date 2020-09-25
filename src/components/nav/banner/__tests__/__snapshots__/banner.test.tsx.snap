@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banner matches snapshot 1`] = `
+<a
+  href="/payment"
+  onClick={[Function]}
+>
+  <div
+    className="css-kqugfr"
+    id="banner"
+    role="banner"
+  >
+    Hello world
+  </div>
+</a>
+`;

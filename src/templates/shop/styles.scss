@@ -1,0 +1,21 @@
+//  s: '320px',
+//             m: '600px',
+//             l: '1440px',
+
+.product {
+    text-decoration: none;
+
+    width: 100%;
+    max-width: 240px;
+
+    // query img m size.
+    @media screen and (min-width: 320px) {
+        max-width: 300px;
+    }
+
+    // query img l size.
+    @media screen and (min-width: 600px) {
+        width: 22%;
+        max-width: unset;
+    }
+}

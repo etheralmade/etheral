@@ -2,7 +2,7 @@
 
 exports[`Dropdown element matches snapshot 1`] = `
 <div
-  className="css-91u7vv"
+  className="css-alw8el"
   id="dropdown"
 >
   <div
@@ -45,8 +45,7 @@ exports[`Dropdown element matches snapshot 1`] = `
         className="others css-1k3b5l4"
       >
         <a
-          aria-current="page"
-          href="/"
+          href="/shop"
           onClick={[Function]}
         >
           <div
@@ -101,7 +100,7 @@ exports[`Dropdown element matches snapshot 1`] = `
           className="css-1pgcd23"
         >
           <a
-            href="/collection1"
+            href="/shop/collection1"
             onClick={[Function]}
           >
             <div
