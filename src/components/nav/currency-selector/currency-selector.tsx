@@ -38,9 +38,6 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
             case 'AUD':
                 dispatch(changeCurrency(Currencies.AUD));
                 break;
-            case 'USD':
-                dispatch(changeCurrency(Currencies.USD));
-                break;
             default:
                 break;
         }
@@ -115,7 +112,6 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
     const options = [
         { value: Currencies.IDR, label: 'IDR' },
         { value: Currencies.AUD, label: 'AUD' },
-        { value: Currencies.USD, label: 'USD' },
     ];
 
     // default value => fetched from global state
