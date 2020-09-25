@@ -43,6 +43,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
             flex={1}
             pl={[0, 5, 6]}
             pt={[0, 5]}
+            pb={[5]}
         >
             <Heading as="h1" variant="h1">
                 {productName.toUpperCase()}

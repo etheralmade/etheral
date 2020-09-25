@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { intersectionBy } from 'lodash';
 
 import { Box, Flex, Text } from 'rebass';
 
 import { Product as ProductSchema } from 'helper/schema/product';
 import { addToCart } from 'state/actions/cart';
+import useAllProducts from 'helper/use-all-products';
 import Breadcrumbs from 'components/breadcrumbs';
 import ProductImage, { ImgProps } from './product-image';
 import ProductInfo from './product-info';
+import RelatedProducts from './related-products';
 
 type Props = ProductSchema;
 
@@ -31,6 +34,8 @@ const Products: React.FC<Props> = product => {
 
     const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
+
+    const allProducts = useAllProducts();
 
     const displayText = 'related products';
 
@@ -88,9 +93,13 @@ const Products: React.FC<Props> = product => {
                 </Text>
 
                 {/* related products */}
-                {relatedProducts.map(p => (
-                    <h1 key={p}>{p}</h1>
-                ))}
+                <RelatedProducts
+                    products={intersectionBy(
+                        allProducts,
+                        relatedProducts.map(pid => ({ pid })),
+                        'pid'
+                    )}
+                />
                 <Flex />
             </Box>
         </Box>
