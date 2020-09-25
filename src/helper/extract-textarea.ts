@@ -5,4 +5,4 @@ import { snakeCase } from 'lodash';
  * @param textarea textarea input (e.g sizes: S, M, L)
  */
 export const extractTextArea = (textarea: string) =>
-    textarea.split(',').map(text => snakeCase(text.toUpperCase()));
+    textarea.split(',').map(text => snakeCase(text).toUpperCase());

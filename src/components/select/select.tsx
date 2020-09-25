@@ -69,7 +69,7 @@ const Select: React.FC<Props> = ({
             options={options.map(o => ({
                 value: o,
                 // eslint-disable-next-line @typescript-eslint/tslint/config
-                label: startCase(o),
+                label: startCase(o.toLowerCase()),
             }))}
             {...rest}
         />
