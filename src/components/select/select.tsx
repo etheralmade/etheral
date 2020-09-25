@@ -44,7 +44,7 @@ const Select: React.FC<Props> = ({
         control: () => ({
             // none of react-select's styles are passed to <Control />
             display: 'flex',
-            border: `2px solid ${theme.colors.black[0]}`,
+            border: `1px solid ${theme.colors.black[0]}`,
         }),
         valueContainer: (provided: any) => ({
             ...provided,

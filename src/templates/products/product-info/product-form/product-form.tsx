@@ -70,7 +70,7 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
     };
 
     const textStyling = {
-        variant: 'productName',
+        variant: 'productPageHeading',
         mb: [3],
         width: ['100%', '100%', '100%', 'fit-content'],
     };

@@ -109,13 +109,26 @@ const productCard = {
         fontFamily: 'body',
         fontWeight: 500,
         fontSize: [1, 2, 1, 2],
-        color: '#000',
     },
     productName: {
         fontFamily: 'heading',
         fontWeight: 'bold',
         fontSize: [1, 2, 1, 2],
-        color: '#000',
+    },
+    productPageName: {
+        fontFamily: 'heading',
+        fontWeight: 'heading',
+        fontSize: [2, 2, 3],
+    },
+    productPageHeading: {
+        fontFamily: 'heading',
+        fontWeight: 'medium',
+        fontSize: [1, 1, 2],
+    },
+    productPageBody: {
+        fontFamily: 'heading',
+        fontWeight: 'body',
+        fontSize: [1, 1, 2],
     },
 };
 

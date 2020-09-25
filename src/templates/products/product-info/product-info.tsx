@@ -45,7 +45,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
             pt={[0, 5]}
             pb={[5]}
         >
-            <Heading as="h1" variant="h1">
+            <Heading as="h1" variant="productPageName">
                 {productName.toUpperCase()}
             </Heading>
 
@@ -76,7 +76,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
                         `};
                         width: fit-content;
                         font-family: Poppins, sans-serif;
-                        font-weight: 500;
+                        font-weight: 400;
                     `}
                 >
                     {currency}{' '}
@@ -85,7 +85,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
                 {discounted && (
                     <Heading
                         as="h4"
-                        variant="productName"
+                        variant="productPageBody"
                         color={theme.colors.misc.discount}
                         ml={[9]}
                     >
@@ -114,10 +114,10 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
 
 const Description: React.FC<{ description: string }> = ({ description }) => (
     <Box sx={{ borderTop: '1px solid black', borderBottom: '1px solid black' }}>
-        <Heading variant="productName" my={[5]}>
+        <Heading variant="productPageHeading" fontWeight={600} my={[5]}>
             DESCRIPTION
         </Heading>
-        <Text variant="productPrice" mb={[5]}>
+        <Text variant="productPageBody" fontWeight={300} mb={[5]}>
             {description}
         </Text>
     </Box>
@@ -125,14 +125,14 @@ const Description: React.FC<{ description: string }> = ({ description }) => (
 
 const Details: React.FC<{ productDetails: string }> = ({ productDetails }) => (
     <Box>
-        <Heading variant="productName" my={[5]}>
+        <Heading variant="productPageHeading" fontWeight={600} my={[5]}>
             DETAILS
         </Heading>
         <Box
             sx={{
                 fontFamily: 'body',
-                fontWeight: 500,
-                fontSize: [1, 2, 1, 2],
+                fontWeight: 300,
+                fontSize: [1, 1, 2],
                 color: '#000',
                 lineHeight: ['6px', '6px', '7px'],
                 ul: {

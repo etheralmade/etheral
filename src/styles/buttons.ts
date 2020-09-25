@@ -50,7 +50,7 @@ export default {
         color: 'white.0',
         fontFamily: 'body',
         fontWeight: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1, 1, 2],
     },
     secondary: {
         ...buttonBaseStyle,
@@ -58,6 +58,6 @@ export default {
         color: '#fff',
         fontFamily: 'body',
         fontWeight: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1, 1, 2],
     },
 };
