@@ -168,4 +168,9 @@ export default {
     ...productCard,
     ...badges,
     ...admin,
+    formError: {
+        ...productCard.productPrice,
+        fontSize: [0, 0, 1],
+        color: 'misc.discount',
+    },
 };

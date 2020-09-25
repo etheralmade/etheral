@@ -10,8 +10,6 @@ import { Layout } from 'components/layout';
 const ProductsTemplate = (props: PageProps) => {
     const { data } = props;
 
-    console.log(data);
-
     const productData: Product = (data as any).product as Product;
 
     // extract all img queries.

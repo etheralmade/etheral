@@ -54,10 +54,10 @@ export default {
     },
     secondary: {
         ...buttonBaseStyle,
-        bg: 'brown.2',
-        color: 'brown.3',
+        bg: 'black.1',
+        color: '#fff',
         fontFamily: 'body',
-        fontWeight: 600,
+        fontWeight: 'body',
         fontSize: [0, 0, 1],
     },
 };

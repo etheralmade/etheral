@@ -3,7 +3,7 @@ import { Link } from '@reach/router';
 import { useForm, Controller } from 'react-hook-form';
 import { get, startCase, set } from 'lodash';
 
-import { Box, Flex, Text } from 'rebass';
+import { Box, Flex, Text, Button } from 'rebass';
 import { Input } from '@rebass/forms';
 import { ValueType, ActionMeta } from 'react-select';
 
@@ -39,7 +39,11 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
     const sizes = extractTextArea(availableSizes);
     const quantities = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-    const submit = (data: any) => {
+    const addToCart = (data: any) => {
+        console.log(extractData(data));
+    };
+
+    const addToWishlist = (data: any) => {
         console.log(extractData(data));
     };
 
@@ -68,7 +72,6 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
 
     const textStyling = {
         variant: 'productName',
-        mr: [0, 4],
         mb: [3],
         width: ['100%', '100%', '100%', 'fit-content'],
     };
@@ -88,8 +91,15 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
         width: ['100%', '100%', '100%', '60%'],
     };
 
+    const errorMsg = {
+        variant: 'formError',
+        mt: [2, 2],
+    };
+
+    console.log(errors);
+
     return (
-        <Box as="form" onSubmit={handleSubmit(submit)}>
+        <Box as="form" onSubmit={handleSubmit(addToCart)}>
             {/* render if product's withGems property is checked */}
             {gems && gems.withGems ? (
                 <>
@@ -118,6 +128,11 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
                                     />
                                 )}
                             />
+                            {get(errors, 'gem-type') && (
+                                <Text {...errorMsg}>
+                                    Please select a gem type
+                                </Text>
+                            )}
                         </Box>
                     </Flex>
 
@@ -146,6 +161,11 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
                                     />
                                 )}
                             />
+                            {get(errors, 'gem-size') && (
+                                <Text {...errorMsg}>
+                                    Please select a gem size
+                                </Text>
+                            )}
                         </Box>
                     </Flex>
                 </>
@@ -193,6 +213,9 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
                             />
                         )}
                     />
+                    {get(errors, 'size') && (
+                        <Text {...errorMsg}>Please select a size</Text>
+                    )}
                 </Box>
                 <Link to="/" role="button">
                     <Text variant="productPrice">SIZE GUIDE</Text>
@@ -224,6 +247,9 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
                             />
                         )}
                     />
+                    {get(errors, 'quantity') && (
+                        <Text {...errorMsg}>Please select quantity</Text>
+                    )}
                 </Box>
             </Flex>
 
@@ -233,7 +259,17 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
                     type="submit"
                     variant="buttons.primary"
                     value="ADD TO CART"
+                    width={['100%', '100%', '100%', '58%']}
+                    sx={{ border: 'none' }}
                 />
+                <Button
+                    variant="secondary"
+                    onClick={handleSubmit(addToWishlist)}
+                    width={['100%', '100%', '100%', '40%']}
+                    mt={[2, 3, 4, 0]}
+                >
+                    ADD TO WISHLIST
+                </Button>
             </Flex>
         </Box>
     );
