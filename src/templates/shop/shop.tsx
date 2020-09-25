@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from '@reach/router';
 
-import { Flex, Text } from 'rebass';
+import { Flex } from 'rebass';
 
 import { Product } from 'helper/schema';
 import ProductCard, {

@@ -26,6 +26,7 @@ const Products: React.FC<Props> = product => {
         productDetails,
         availableSizes,
         gems,
+        relatedProducts,
     } = product;
 
     const [qty, setQty] = useState(1);
@@ -87,6 +88,9 @@ const Products: React.FC<Props> = product => {
                 </Text>
 
                 {/* related products */}
+                {relatedProducts.map(p => (
+                    <h1 key={p}>{p}</h1>
+                ))}
                 <Flex />
             </Box>
         </Box>

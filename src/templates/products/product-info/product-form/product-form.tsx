@@ -5,7 +5,6 @@ import { get, startCase, set } from 'lodash';
 
 import { Box, Flex, Text, Button } from 'rebass';
 import { Input } from '@rebass/forms';
-import { ValueType, ActionMeta } from 'react-select';
 
 import { extractTextArea } from 'helper/extract-textarea';
 import Select from 'components/select';
@@ -95,8 +94,6 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
         variant: 'formError',
         mt: [2, 2],
     };
-
-    console.log(errors);
 
     return (
         <Box as="form" onSubmit={handleSubmit(addToCart)}>
@@ -276,26 +273,3 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
 };
 
 export { ProductForm };
-
-/**
- * <Controller
-                control={control}
-                name="city"
-                id="city"
-                defaultValue={-1}
-                rules={{
-                    required: true,
-                    validate: {
-                        provinceIncorrect: value => cityValidation(value),
-                    },
-                }}
-                render={({ onChange, onBlur, value }) => (
-                    <Select
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        selected={value}
-                        options={selectCityOptions}
-                    />
-                )}
-            />
- */

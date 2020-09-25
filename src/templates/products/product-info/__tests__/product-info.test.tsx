@@ -18,6 +18,8 @@ describe('ProductInfo', () => {
             description={mockProduct1.description}
             productDetails={mockProduct1.productDetails}
             currency={Currencies.IDR}
+            availableSizes="S, M, L"
+            gems={{ withGems: false, gemTypes: '', gemSizes: '' }}
         />
     );
 

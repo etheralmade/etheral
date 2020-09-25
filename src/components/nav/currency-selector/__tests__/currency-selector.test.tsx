@@ -28,7 +28,11 @@ describe('CurrencySelector', () => {
 
         Element = (
             <Provider store={store}>
-                <CurrencySelector showDropdown={true} desktop={true} />
+                <CurrencySelector
+                    currLocation="/"
+                    showDropdown={true}
+                    desktop={true}
+                />
             </Provider>
         );
     });

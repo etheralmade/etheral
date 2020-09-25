@@ -6,7 +6,7 @@ exports[`Banner matches snapshot 1`] = `
   onClick={[Function]}
 >
   <div
-    className="css-kqugfr"
+    className="css-ombd65"
     id="banner"
     role="banner"
   >

@@ -45,7 +45,7 @@ describe('product card component', () => {
             const ProductImage = queryByRole('image');
             const ProductName = queryByDisplayValue(mockProduct1.name);
             const ProductPrice = queryByDisplayValue(
-                `IDR ${mockProduct1.idrPrice}`
+                `IDR ${mockProduct1.prices.idrPrice}`
             );
 
             if (ProductImage) {
