@@ -9,6 +9,7 @@ import {
 import { theme } from 'styles';
 import { withDiscount } from 'helper/with-discount';
 import ProductForm from './product-form';
+import { ProductNote } from 'state/reducers/cart-reducer';
 
 export type Props = {
     productName: string;
@@ -21,6 +22,7 @@ export type Props = {
         gemTypes: string;
         gemSizes: string;
     };
+    submitToCart: (args: { note: ProductNote; amount: number }) => void;
 };
 
 const ProductInfo: React.FC<Props & ICurrencyState> = ({
@@ -31,6 +33,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
     productDetails,
     availableSizes,
     gems,
+    submitToCart,
 }) => {
     const { idrPrice, ausPrice, discountPercentage } = prices;
 
@@ -99,7 +102,11 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
             </Flex>
 
             {/* render forms. */}
-            <ProductForm availableSizes={availableSizes} gems={gems} />
+            <ProductForm
+                availableSizes={availableSizes}
+                gems={gems}
+                submitToCart={submitToCart}
+            />
 
             {/* render description section */}
             {description !== '' && <Description description={description} />}

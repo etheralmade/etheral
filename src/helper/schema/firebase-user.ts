@@ -1,6 +1,9 @@
+import { ProductNote } from 'state/reducers/cart-reducer';
+
 export type InCart = {
     pid: string;
     amount: number;
+    note: { details: ProductNote; amount: number }[];
 };
 
 export type Order = {

@@ -8,6 +8,7 @@ import { Input } from '@rebass/forms';
 
 import { extractTextArea } from 'helper/extract-textarea';
 import Select from 'components/select';
+import { ProductNote } from 'state/reducers/cart-reducer';
 
 type Props = {
     availableSizes: string;
@@ -16,6 +17,7 @@ type Props = {
         gemTypes: string;
         gemSizes: string;
     };
+    submitToCart: (props: { note: ProductNote; amount: number }) => void;
 };
 
 type OrderData = {
@@ -32,14 +34,29 @@ type Input = {
     'gem-size'?: string;
 };
 
-const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
+const ProductForm: React.FC<Props> = ({
+    availableSizes,
+    gems,
+    submitToCart,
+}) => {
     const { control, handleSubmit, errors } = useForm<Input>();
 
     const sizes = extractTextArea(availableSizes);
     const quantities = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
     const addToCart = (data: any) => {
-        console.log(extractData(data));
+        const extracted = extractData(data);
+
+        const { size, gemType, gemSize } = extracted;
+
+        submitToCart({
+            amount: extracted.quantity,
+            note: {
+                size,
+                gemType,
+                gemSize,
+            },
+        });
     };
 
     const addToWishlist = (data: any) => {
@@ -117,7 +134,7 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
                                 render={({ onChange, onBlur, value }) => (
                                     <Select
                                         options={extractTextArea(gems.gemTypes)}
-                                        placeholder="select gems diameter"
+                                        placeholder="select gems"
                                         aria-labelledby="gem-type-label"
                                         handleChange={onChange}
                                         onBlur={onBlur}
@@ -150,7 +167,7 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems }) => {
                                 render={({ onChange, onBlur, value }) => (
                                     <Select
                                         options={extractTextArea(gems.gemSizes)}
-                                        placeholder="select gems"
+                                        placeholder="select gems diameter"
                                         aria-labelledby="gem-size-label"
                                         handleChange={onChange}
                                         onBlur={onBlur}

@@ -1,4 +1,5 @@
 import { FixedObject, FluidObject } from 'gatsby-image';
+import { ProductNote } from 'state/reducers/cart-reducer';
 
 export interface Product {
     name: string;
@@ -29,6 +30,6 @@ export interface Product {
     }[];
     urls: string[];
     weight: number;
-    relatedProducts: string[]
-    orderNote?: string;
+    relatedProducts: string[];
+    orderNote?: ProductNote;
 }

@@ -1,5 +1,5 @@
 import { Product } from 'helper/schema/product';
-import { Action } from '../reducers/cart-reducer';
+import { Action, ProductNote } from '../reducers/cart-reducer';
 import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
@@ -30,6 +30,7 @@ export const clearCart = (): Action => ({
 export type SetCartArgs = {
     product: Product;
     amount: number;
+    note: { details: ProductNote; amount: number }[];
 }[];
 
 export const setCart = (args: SetCartArgs): Action => ({

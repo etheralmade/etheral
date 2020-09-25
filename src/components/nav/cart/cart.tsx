@@ -83,6 +83,7 @@ const Cart: React.FC<Props & ICartState> = ({
                         inCart: cart.map(cartItem => ({
                             pid: cartItem.product.pid,
                             amount: cartItem.amount,
+                            note: cartItem.note,
                         })),
                     })
                     .then(() => {
@@ -97,6 +98,9 @@ const Cart: React.FC<Props & ICartState> = ({
 
     const saveSessionStorage = () =>
         sessionStorage.setItem('isNewWindow', 'true');
+
+    console.log(cart);
+
     return (
         <>
             <Flex

@@ -11,6 +11,7 @@ import Breadcrumbs from 'components/breadcrumbs';
 import ProductImage, { ImgProps } from './product-image';
 import ProductInfo from './product-info';
 import RelatedProducts from './related-products';
+import { ProductNote } from 'state/reducers/cart-reducer';
 
 type Props = ProductSchema;
 
@@ -18,7 +19,7 @@ const Products: React.FC<Props> = product => {
     const {
         name,
         description,
-        amount,
+        amount: productAmount,
         category,
         collection,
         productImages,
@@ -32,20 +33,28 @@ const Products: React.FC<Props> = product => {
         relatedProducts,
     } = product;
 
-    const [qty, setQty] = useState(1);
+    // const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
 
     const allProducts = useAllProducts();
 
     const displayText = 'related products';
 
-    const submitToCart = () => {
-        dispatch(addToCart(product, qty !== 1 ? qty : undefined));
+    const submitToCart = ({
+        note,
+        amount,
+    }: {
+        note: ProductNote;
+        amount: number;
+    }) => {
+        dispatch(
+            addToCart({ ...product, note }, amount !== 1 ? amount : undefined)
+        );
     };
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQty(parseInt(event.target.value, 10));
-    };
+    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setQty(parseInt(event.target.value, 10));
+    // };
 
     return (
         <Box
@@ -77,6 +86,7 @@ const Products: React.FC<Props> = product => {
                     productDetails={productDetails}
                     availableSizes={availableSizes}
                     gems={gems}
+                    submitToCart={submitToCart}
                 />
             </Flex>
 
