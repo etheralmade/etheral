@@ -40,18 +40,17 @@ const Products: React.FC<Props> = product => {
 
     const displayText = 'related products';
 
-    const submitToCart = ({
+    const submit = ({
         note,
         amount,
+        toWishlist,
     }: {
         note: ProductNote;
         amount: number;
+        toWishlist: boolean;
     }) => {
         dispatch(
-            addToCart(
-                { ...product, orderNote: note },
-                amount !== 1 ? amount : undefined
-            )
+            addToCart({ ...product, orderNote: note }, toWishlist, amount)
         );
     };
 
@@ -89,7 +88,7 @@ const Products: React.FC<Props> = product => {
                     productDetails={productDetails}
                     availableSizes={availableSizes}
                     gems={gems}
-                    submitToCart={submitToCart}
+                    submit={submit}
                 />
             </Flex>
 

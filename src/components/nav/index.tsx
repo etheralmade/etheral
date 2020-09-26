@@ -8,7 +8,7 @@ import { Navigation as NavigationEl } from './nav';
 import { State as ReduxState } from 'state/createStore';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 
-const Navigation: React.FC<ICartState> = ({ cart }) => {
+const Navigation: React.FC<ICartState> = ({ cart, wishlist }) => {
     // extract addBanner boolean value from graphql
     const data = useStaticQuery(graphql`
         query {
@@ -35,6 +35,7 @@ const Navigation: React.FC<ICartState> = ({ cart }) => {
             db={db}
             cart={cart}
             addBanner={data.homepage.addBanner as boolean}
+            wishlist={wishlist}
         />
     ) : (
         <></>
@@ -43,6 +44,7 @@ const Navigation: React.FC<ICartState> = ({ cart }) => {
 
 const mapStateToProps = (state: ReduxState) => ({
     cart: state.cartReducer.cart,
+    wishlist: state.cartReducer.wishlist,
 });
 
 export default connect<ICartState, {}, {}, ReduxState>(mapStateToProps)(

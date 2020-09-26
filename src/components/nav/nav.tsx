@@ -32,6 +32,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     auth,
     db,
     cart,
+    wishlist,
     addBanner,
 }) => {
     // states for ui changes
@@ -396,6 +397,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 user={user}
                                 db={db}
                                 cart={cart}
+                                wishlist={wishlist}
                             />
                         </Flex>
                     </Flex>

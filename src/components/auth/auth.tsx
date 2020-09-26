@@ -72,6 +72,7 @@ const Auth: React.FC<Props> = ({
                         : '',
                     email: currentUser.email ? currentUser.email : '',
                     inCart: [],
+                    wishlist: [],
                     orders: [],
                 };
 
@@ -86,6 +87,7 @@ const Auth: React.FC<Props> = ({
     };
 
     const fetchCartItems = async (currentUser: firebase.User) => {
+        // fetch items on cart and wishlist of the user => on login.
         if (currentUser) {
             try {
                 const docRef = await db
@@ -98,13 +100,23 @@ const Auth: React.FC<Props> = ({
                 // fetch and checks for all undefined object.
                 if ((await docRef.exists) && userData) {
                     const inCart = (await (userData.inCart as any)) as InCart;
+                    const onWishlist = (await (userData.wishlist as any)) as InCart;
 
                     const filteredInCartData = await extractCartFirestore({
                         firestoreCartData: inCart,
                         allProducts,
                     });
+                    const filteredWishlistData = await extractCartFirestore({
+                        firestoreCartData: onWishlist,
+                        allProducts,
+                    });
 
-                    await dispatch(setCart(filteredInCartData));
+                    await dispatch(
+                        setCart({
+                            cart: filteredInCartData,
+                            wishlist: filteredWishlistData,
+                        })
+                    );
                 }
             } catch (e) {
                 console.error(e);

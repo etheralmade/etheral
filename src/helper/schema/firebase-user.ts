@@ -15,5 +15,6 @@ export interface FirebaseUserData {
     name: string;
     email: string;
     inCart: InCart[];
+    wishlist: InCart[];
     orders: Order[];
 }

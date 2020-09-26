@@ -17,7 +17,11 @@ type Props = {
         gemTypes: string;
         gemSizes: string;
     };
-    submitToCart: (props: { note: ProductNote; amount: number }) => void;
+    submit: (props: {
+        note: ProductNote;
+        amount: number;
+        toWishlist: boolean;
+    }) => void;
 };
 
 type OrderData = {
@@ -34,11 +38,7 @@ type Input = {
     'gem-size'?: string;
 };
 
-const ProductForm: React.FC<Props> = ({
-    availableSizes,
-    gems,
-    submitToCart,
-}) => {
+const ProductForm: React.FC<Props> = ({ availableSizes, gems, submit }) => {
     const { control, handleSubmit, errors } = useForm<Input>();
 
     const sizes = extractTextArea(availableSizes);
@@ -49,18 +49,31 @@ const ProductForm: React.FC<Props> = ({
 
         const { size, gemType, gemSize } = extracted;
 
-        submitToCart({
+        submit({
             amount: extracted.quantity,
             note: {
                 size,
                 gemType,
                 gemSize,
             },
+            toWishlist: false,
         });
     };
 
     const addToWishlist = (data: any) => {
-        console.log(extractData(data));
+        const extracted = extractData(data);
+
+        const { size, gemType, gemSize } = extracted;
+
+        submit({
+            amount: extracted.quantity,
+            note: {
+                size,
+                gemType,
+                gemSize,
+            },
+            toWishlist: true,
+        });
     };
 
     /**

@@ -15,5 +15,6 @@ export default ({
     return inCartProduct.map(product => ({
         product,
         amount: intersectionBy(firestoreCartData, [product], 'pid')[0].amount, // get the intersection between the product -> pid is unique, so the function is guaranteed to return one item.
+        note: firestoreCartData.note,
     }));
 };

@@ -22,7 +22,11 @@ export type Props = {
         gemTypes: string;
         gemSizes: string;
     };
-    submitToCart: (args: { note: ProductNote; amount: number }) => void;
+    submit: (args: {
+        note: ProductNote;
+        amount: number;
+        toWishlist: boolean;
+    }) => void;
 };
 
 const ProductInfo: React.FC<Props & ICurrencyState> = ({
@@ -33,7 +37,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
     productDetails,
     availableSizes,
     gems,
-    submitToCart,
+    submit,
 }) => {
     const { idrPrice, ausPrice, discountPercentage } = prices;
 
@@ -105,7 +109,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
             <ProductForm
                 availableSizes={availableSizes}
                 gems={gems}
-                submitToCart={submitToCart}
+                submit={submit}
             />
 
             {/* render description section */}

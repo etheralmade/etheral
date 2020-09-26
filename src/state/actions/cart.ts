@@ -7,19 +7,29 @@ import {
     SET_CART,
 } from '../types/cart';
 
-export const addToCart = (product: Product, amount?: number): Action => ({
+export const addToCart = (
+    product: Product,
+    toWishlist: boolean,
+    amount?: number
+): Action => ({
     type: ADD_TO_CART,
     payload: {
         product,
         amount,
+        toWishlist,
     },
 });
 
-export const removeFromCart = (product: Product, amount?: number): Action => ({
+export const removeFromCart = (
+    product: Product,
+    fromWishlist: boolean,
+    amount?: number
+): Action => ({
     type: REMOVE_FROM_CART,
     payload: {
         product,
         amount,
+        fromWishlist,
     },
 });
 
@@ -33,7 +43,10 @@ export type SetCartArgs = {
     note: { details: ProductNote; amount: number }[];
 }[];
 
-export const setCart = (args: SetCartArgs): Action => ({
+export const setCart = (args: {
+    cart: SetCartArgs;
+    wishlist: SetCartArgs;
+}): Action => ({
     type: SET_CART,
     payload: {
         cartItems: args,
