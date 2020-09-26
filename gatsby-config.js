@@ -66,6 +66,18 @@ module.exports = {
         {
             resolve: `gatsby-plugin-remote-images`,
             options: {
+                nodeType: 'About',
+                // Making this plural (optional).
+                name: 'imgs',
+                // Path to the leaf node.
+                imagePath: 'urls',
+                // Set type to array.
+                type: 'array',
+            },
+        },
+        {
+            resolve: `gatsby-plugin-remote-images`,
+            options: {
                 nodeType: 'Blog',
                 // Making this plural (optional).
                 name: 'image',
@@ -73,6 +85,7 @@ module.exports = {
                 imagePath: 'url',
             },
         },
+
         {
             resolve: `gatsby-source-filesystem`,
             options: {

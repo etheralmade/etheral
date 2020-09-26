@@ -62,6 +62,10 @@ exports.sourceNodes = async ({
         .firestore()
         .collection('fl_content')
         .where('_fl_meta_.schema', '==', 'blog');
+    const aboutUs = firebaseApp
+        .firestore()
+        .collection('fl_content')
+        .where('_fl_meta_.schema', '==', 'aboutUs');
 
     const storage = firebaseApp.storage();
 
@@ -69,6 +73,7 @@ exports.sourceNodes = async ({
     let productDocs = [];
     let blogDocs = [];
     let homepageDoc;
+    let aboutUsDoc;
 
     await products.get().then(docs => {
         docs.forEach(doc => {
@@ -90,6 +95,14 @@ exports.sourceNodes = async ({
         if (docs.size > 0) {
             docs.forEach(doc => {
                 homepageDoc = doc.data();
+            });
+        }
+    });
+
+    await aboutUs.get().then(docs => {
+        if (docs.size > 0) {
+            docs.forEach(doc => {
+                aboutUsDoc = doc.data();
             });
         }
     });
@@ -138,18 +151,20 @@ exports.sourceNodes = async ({
         }
 
         if (await data.relatedProducts) {
-            const reqRelated = await Promise.all(data.relatedProducts.map(async ref => {
-                try {
-                    const req = await ref.get()
-                    const rsp = await req.data().id
+            const reqRelated = await Promise.all(
+                data.relatedProducts.map(async ref => {
+                    try {
+                        const req = await ref.get();
+                        const rsp = await req.data().id;
 
-                    return rsp
-                } catch (err) {
-                    console.error(err)
-                    return ''
-                }
-            }))
-            await set(data, 'relatedProducts', reqRelated)
+                        return rsp;
+                    } catch (err) {
+                        console.error(err);
+                        return '';
+                    }
+                })
+            );
+            await set(data, 'relatedProducts', reqRelated);
         }
 
         const noCollection = 'uncollection';
@@ -275,16 +290,6 @@ exports.sourceNodes = async ({
             })
         );
 
-        // const getNavigationImage = async () => {
-        //     const req = await homepageDoc.navigationImage[0].get();
-        //     const imgRef = await req.data().file;
-
-        //     const imgDownloadUrl = await storage
-        //         .ref(`flamelink/media/${imgRef}`)
-        //         .getDownloadURL();
-        //     return await imgDownloadUrl;
-        // };
-
         // fetch navigation images.
         const navigationImage = await Promise.all(
             homepageDoc.navigationImage.map(async navImg => {
@@ -333,6 +338,59 @@ exports.sourceNodes = async ({
             id: createNodeId('homepage'),
             internal: {
                 type: 'Homepage',
+                contentDigest: createContentDigest(nodeFields),
+            },
+        });
+    };
+
+    const createNodeAboutUs = async () => {
+        const getImgFirst = async () => {
+            const req = await aboutUsDoc.firstParagraphImg[0].get();
+            const imgRef = await req.data().file;
+
+            const imgDownloadUrl = await storage
+                .ref(`flamelink/media/${imgRef}`)
+                .getDownloadURL();
+            return imgDownloadUrl;
+        };
+        const getImgSecond = async () => {
+            const req = await aboutUsDoc.secondParagraphImg[0].get();
+            const imgRef = await req.data().file;
+
+            const imgDownloadUrl = await storage
+                .ref(`flamelink/media/${imgRef}`)
+                .getDownloadURL();
+            return imgDownloadUrl;
+        };
+        const getImgThird = async () => {
+            const req = await aboutUsDoc.thirdParagraphImg[0].get();
+            const imgRef = await req.data().file;
+
+            const imgDownloadUrl = await storage
+                .ref(`flamelink/media/${imgRef}`)
+                .getDownloadURL();
+            return imgDownloadUrl;
+        };
+
+        const urls = await Promise.all([
+            getImgFirst(),
+            getImgSecond(),
+            getImgThird(),
+        ]);
+
+        const nodeFields = await {
+            urls,
+            firstParagraph: aboutUsDoc.firstParagraph,
+            secondParagraph: aboutUsDoc.secondParagraph,
+            thirdParagraph: aboutUsDoc.thirdParagraph,
+        };
+
+        return await createNode({
+            // data for the node
+            ...nodeFields,
+            id: createNodeId('about-us'),
+            internal: {
+                type: 'About',
                 contentDigest: createContentDigest(nodeFields),
             },
         });
@@ -420,6 +478,7 @@ exports.sourceNodes = async ({
             createNodesCollections,
             requestCitiesCalculateShipping(),
             createNodeHomepage(),
+            createNodeAboutUs(),
             createNodesBlogs,
         ])
     );
