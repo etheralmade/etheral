@@ -150,8 +150,6 @@ const Cart: React.FC<Props & ICartState> = ({
     const saveSessionStorage = () =>
         sessionStorage.setItem('isNewWindow', 'true');
 
-    console.log({ cart, wishlist });
-
     return (
         <>
             <Flex

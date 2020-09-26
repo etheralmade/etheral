@@ -381,8 +381,11 @@ exports.sourceNodes = async ({
         const nodeFields = await {
             urls,
             firstParagraph: aboutUsDoc.firstParagraph,
+            firstParagraphUrl: urls[0],
             secondParagraph: aboutUsDoc.secondParagraph,
+            secondParagraphUrl: urls[1],
             thirdParagraph: aboutUsDoc.thirdParagraph,
+            thirdParagraphUrl: urls[2],
         };
 
         return await createNode({
