@@ -35,17 +35,19 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
 
     const { xs }: any = extractImgs(product, false);
 
-    const handleAdd = () => {
-        dispatch(addToCart(product));
-    };
+    // handle add and handle rmove => which one to add / remove?
 
-    const handleRemove = () => {
-        dispatch(removeFromCart(product, 1));
-    };
+    // const handleAdd = () => {
+    //     dispatch(addToCart(product));
+    // };
+
+    // const handleRemove = () => {
+    //     dispatch(removeFromCart(product, 1));
+    // };
 
     // option to remove the product from cart.
     const handleRemoveAll = () => {
-        dispatch(removeFromCart(product));
+        dispatch(removeFromCart(product, false, amount));
     };
 
     // destructure attrs needed.
@@ -117,15 +119,15 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
                     >
                         qty: {amount}
                     </Text>
-                    <Flex variant="center" ml={[3]} onClick={handleRemove}>
+                    {/* <Flex variant="center" ml={[3]} onClick={handleRemove}>
                         <Icon
                             className="cart-icons"
                             icon={checkboxIndeterminateLine}
                         />
-                    </Flex>
-                    <Flex variant="center" ml={[1]} onClick={handleAdd}>
+                    </Flex> */}
+                    {/* <Flex variant="center" ml={[1]} onClick={handleAdd}>
                         <Icon className="cart-icons" icon={addBoxLine} />
-                    </Flex>
+                    </Flex> */}
                 </Flex>
                 <Text
                     fontFamily="body"
