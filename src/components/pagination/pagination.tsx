@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { Flex, Text } from 'rebass';
+import { Flex, Text, Box } from 'rebass';
+import { Icon } from '@iconify/react';
+import speedMiniFill from '@iconify/icons-ri/speed-mini-fill';
+import rewindMiniFill from '@iconify/icons-ri/rewind-mini-fill';
 
 /**
  * @param numOfPages: number of pages to be rendered.
@@ -11,6 +14,8 @@ type Props = {
     numOfPages: number;
     current: number;
     handleClickPage: (pageNum: number) => void;
+    goToFirst: () => void;
+    goToLast: () => void;
 };
 
 const createPagination = (
@@ -55,6 +60,8 @@ const Pagination: React.FC<Props> = ({
     numOfPages,
     current,
     handleClickPage,
+    goToFirst,
+    goToLast,
 }) => {
     const firstPage = current - 2 < 0 ? 0 : current - 2;
     const lastPage = current + 2 >= numOfPages ? numOfPages : current + 2;
@@ -69,8 +76,30 @@ const Pagination: React.FC<Props> = ({
         handleClickPage(num);
     };
 
+    const buttonStyles = {
+        height: '100%',
+        position: 'relative',
+        top: '50%',
+        transition: '0.2s',
+        '&:hover': {
+            cursor: 'pointer',
+            transform: 'scale(1.2) !important',
+        },
+    };
+
     return (
-        <Flex as="nav">
+        <Flex as="nav" alignItems="center">
+            {!pagination.includes(0) && (
+                <Flex
+                    id="go-to-first"
+                    role="button"
+                    onClick={goToFirst}
+                    variant="center"
+                    sx={{ svg: buttonStyles }}
+                >
+                    <Icon icon={rewindMiniFill} />
+                </Flex>
+            )}
             {pagination.map(num => (
                 <Text
                     key={`pagination-${num}`}
@@ -93,6 +122,17 @@ const Pagination: React.FC<Props> = ({
                     {num + 1}
                 </Text>
             ))}
+            {!pagination.includes(numOfPages - 1) && (
+                <Flex
+                    id="go-to-last"
+                    role="button"
+                    onClick={goToLast}
+                    variant="center"
+                    sx={{ svg: buttonStyles }}
+                >
+                    <Icon icon={speedMiniFill} />
+                </Flex>
+            )}
         </Flex>
     );
 };

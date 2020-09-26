@@ -113,6 +113,14 @@ const Shop: React.FC<Props> = () => {
         setPagination(prev => ({ ...prev, currIndex: pageNum }));
     };
 
+    const goToFirst = () => {
+        setPagination(prev => ({ ...prev, currIndex: 0 }));
+    };
+
+    const goToLast = () => {
+        setPagination(prev => ({ ...prev, currIndex: numOfPages - 1 }));
+    };
+
     return (
         <Flex
             className="content"
@@ -173,6 +181,8 @@ const Shop: React.FC<Props> = () => {
                     numOfPages={numOfPages}
                     handleClickPage={handleClickPage}
                     current={pagination.currIndex}
+                    goToFirst={goToFirst}
+                    goToLast={goToLast}
                 />
             )}
         </Flex>
