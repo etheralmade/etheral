@@ -60,6 +60,14 @@ const Shop: React.FC<Props> = () => {
             ...allProducts,
             ...allProducts,
             ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
         ].sort((a, b) => a.name.localeCompare(b.name));
         if (!withFilters) {
             setStore(debug ? multipliedProducts : allProducts);
@@ -103,6 +111,14 @@ const Shop: React.FC<Props> = () => {
 
     const handleClickPage = (pageNum: number) => {
         setPagination(prev => ({ ...prev, currIndex: pageNum }));
+    };
+
+    const goToFirst = () => {
+        setPagination(prev => ({ ...prev, currIndex: 0 }));
+    };
+
+    const goToLast = () => {
+        setPagination(prev => ({ ...prev, currIndex: numOfPages - 1 }));
     };
 
     return (
@@ -160,11 +176,15 @@ const Shop: React.FC<Props> = () => {
             </Flex>
 
             {/* pagination */}
-            <Pagination
-                numOfPages={numOfPages}
-                handleClickPage={handleClickPage}
-                current={pagination.currIndex}
-            />
+            {numOfPages > 0 && (
+                <Pagination
+                    numOfPages={numOfPages}
+                    handleClickPage={handleClickPage}
+                    current={pagination.currIndex}
+                    goToFirst={goToFirst}
+                    goToLast={goToLast}
+                />
+            )}
         </Flex>
     );
 };

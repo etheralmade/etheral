@@ -5,39 +5,104 @@ exports[`Pagination matches snapshot 1`] = `
   className="css-4cffwv"
 >
   <div
-    className="css-1u57j0c"
-    onClick={[Function]}
-    role="listitem"
+    className="css-vurnku"
+    id="go-to-first"
+    onClick={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Class {
+              "_dispatchInstances": null,
+              "_dispatchListeners": null,
+              "_targetInst": null,
+              "altKey": null,
+              "bubbles": null,
+              "button": null,
+              "buttons": null,
+              "cancelable": null,
+              "clientX": null,
+              "clientY": null,
+              "ctrlKey": null,
+              "currentTarget": [Function],
+              "defaultPrevented": null,
+              "detail": null,
+              "dispatchConfig": null,
+              "eventPhase": null,
+              "getModifierState": [Function],
+              "isDefaultPrevented": [Function],
+              "isPropagationStopped": [Function],
+              "isTrusted": null,
+              "metaKey": null,
+              "movementX": [Function],
+              "movementY": [Function],
+              "nativeEvent": null,
+              "pageX": null,
+              "pageY": null,
+              "relatedTarget": [Function],
+              "screenX": null,
+              "screenY": null,
+              "shiftKey": null,
+              "target": null,
+              "timeStamp": [Function],
+              "type": null,
+              "view": null,
+            },
+          ],
+        ],
+        "results": Array [
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
+        ],
+      }
+    }
+    role="button"
   >
-    1
+    FIRST
   </div>
   <div
-    className="css-1u57j0c"
-    onClick={[Function]}
-    role="listitem"
-  >
-    2
-  </div>
-  <div
-    className="css-154jwdi"
+    className="css-173yjp7"
     onClick={[Function]}
     role="listitem"
   >
     3
   </div>
   <div
-    className="css-1u57j0c"
+    className="css-173yjp7"
     onClick={[Function]}
     role="listitem"
   >
     4
   </div>
   <div
-    className="css-1u57j0c"
+    className="css-1ua679q"
     onClick={[Function]}
     role="listitem"
   >
     5
+  </div>
+  <div
+    className="css-173yjp7"
+    onClick={[Function]}
+    role="listitem"
+  >
+    6
+  </div>
+  <div
+    className="css-173yjp7"
+    onClick={[Function]}
+    role="listitem"
+  >
+    7
+  </div>
+  <div
+    className="css-vurnku"
+    id="go-to-last"
+    onClick={[MockFunction]}
+    role="button"
+  >
+    LAST
   </div>
 </nav>
 `;
