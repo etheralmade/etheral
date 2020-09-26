@@ -54,7 +54,7 @@ const Blog: React.FC<Props> = ({ blog }) => {
                         />
                     )}
                     <Flex
-                        my={[6]}
+                        mt={[6]}
                         alignItems="center"
                         justifyContent="space-between"
                         flexWrap="wrap"
