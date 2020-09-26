@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from '@reach/router';
 
-import { Flex, Text } from 'rebass';
+import { Flex } from 'rebass';
 
 import { Product } from 'helper/schema';
 import ProductCard, {
@@ -52,6 +52,14 @@ const Shop: React.FC<Props> = () => {
 
     useEffect(() => {
         const multipliedProducts = [
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
+            ...allProducts,
             ...allProducts,
             ...allProducts,
             ...allProducts,
@@ -160,11 +168,13 @@ const Shop: React.FC<Props> = () => {
             </Flex>
 
             {/* pagination */}
-            <Pagination
-                numOfPages={numOfPages}
-                handleClickPage={handleClickPage}
-                current={pagination.currIndex}
-            />
+            {numOfPages > 0 && (
+                <Pagination
+                    numOfPages={numOfPages}
+                    handleClickPage={handleClickPage}
+                    current={pagination.currIndex}
+                />
+            )}
         </Flex>
     );
 };

@@ -9,13 +9,21 @@ import '@testing-library/jest-dom';
 import { Pagination } from '../pagination';
 
 describe('Pagination', () => {
-    const mockCurrent = 2;
-    const mockNumOfPages = 5;
+    const mockCurrent = 5;
+    const mockNumOfPages = 8;
     const mockClickPage = jest.fn(() => {});
 
     const Element = (
         <Pagination
             current={mockCurrent}
+            numOfPages={mockNumOfPages}
+            handleClickPage={mockClickPage}
+        />
+    );
+
+    const ElementWithMaxCurrent = (
+        <Pagination
+            current={mockNumOfPages - 1}
             numOfPages={mockNumOfPages}
             handleClickPage={mockClickPage}
         />
@@ -31,7 +39,22 @@ describe('Pagination', () => {
     it('Should render all page links correctly', () => {
         const { queryByText } = render(Element);
 
-        for (let i = 0; i < mockNumOfPages; i++) {
+        // hard coded.
+        for (let i = 4; i < 9; i++) {
+            const PageElement = queryByText((i + 1).toString());
+
+            if (PageElement) {
+                expect(PageElement).toBeInTheDocument();
+            } else {
+                fail();
+            }
+        }
+    });
+
+    it('should render 5 page links even though current page is maximum', () => {
+        const { queryByText } = render(Element);
+
+        for (let i = mockNumOfPages; i < mockNumOfPages - 5; i--) {
             const PageElement = queryByText((i + 1).toString());
 
             if (PageElement) {
