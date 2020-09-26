@@ -13,6 +13,7 @@ const AboutPage: React.FC<PageProps> = ({ data }) => {
         imgS: imgSQuery,
         imgM: imgMQuery,
         imgL: imgLQuery,
+        imgXL: imgXLQuery,
     } = data as any;
 
     if (about) {
@@ -25,7 +26,10 @@ const AboutPage: React.FC<PageProps> = ({ data }) => {
             thirdParagraphUrl,
         } = about;
 
-        const getImgs = (url: string): { sources: FluidObject[] } => {
+        const getImgs = (
+            url: string,
+            first: boolean // additional identifier => extra query for first paragraph img
+        ): { sources: FluidObject[] } => {
             // search for all imgs => safety if the query result is not in order
             const indexS = findIndex(imgSQuery.imgs, (o: any) => o.url === url);
             const indexM = findIndex(imgMQuery.imgs, (o: any) => o.url === url);
@@ -36,19 +40,45 @@ const AboutPage: React.FC<PageProps> = ({ data }) => {
                 const imgM = imgMQuery.imgs[indexM];
                 const imgL = imgLQuery.imgs[indexL];
 
-                return {
-                    sources: [
-                        {
-                            ...imgS.childImageSharp.fluid,
-                            media: '(max-width: 400px)',
-                        } as FluidObject,
-                        {
-                            ...imgM.childImageSharp.fluid,
-                            media: '(max-width: 800px)',
-                        } as FluidObject,
-                        imgL.childImageSharp.fluid as FluidObject,
-                    ],
-                };
+                if (!first) {
+                    return {
+                        sources: [
+                            {
+                                ...imgS.childImageSharp.fluid,
+                                media: '(max-width: 400px)',
+                            } as FluidObject,
+                            {
+                                ...imgM.childImageSharp.fluid,
+                                media: '(max-width: 800px)',
+                            } as FluidObject,
+                            imgL.childImageSharp.fluid as FluidObject,
+                        ],
+                    };
+                } else {
+                    const indexXL = findIndex(
+                        imgXLQuery.imgs,
+                        (o: any) => o.url === url
+                    );
+
+                    return {
+                        sources: [
+                            {
+                                ...imgS.childImageSharp.fluid,
+                                media: '(max-width: 400px)',
+                            } as FluidObject,
+                            {
+                                ...imgM.childImageSharp.fluid,
+                                media: '(max-width: 800px)',
+                            } as FluidObject,
+                            {
+                                ...imgL.childImageSharp.fluid,
+                                media: '(max-width: 1440px)',
+                            } as FluidObject,
+                            imgXLQuery.imgs[indexXL].childImageSharp
+                                .fluid as FluidObject,
+                        ],
+                    };
+                }
             } else {
                 return { sources: [] };
             }
@@ -64,9 +94,9 @@ const AboutPage: React.FC<PageProps> = ({ data }) => {
                     firstParagraph={firstParagraph}
                     secondParagraph={secondParagraph}
                     thirdParagraph={thirdParagraph}
-                    firstImg={getImgs(firstParagraphUrl)}
-                    secondImg={getImgs(secondParagraphUrl)}
-                    thirdImg={getImgs(thirdParagraphUrl)}
+                    firstImg={getImgs(firstParagraphUrl, true)}
+                    secondImg={getImgs(secondParagraphUrl, false)}
+                    thirdImg={getImgs(thirdParagraphUrl, false)}
                 />
             </Layout>
         );
@@ -91,7 +121,7 @@ export const query = graphql`
             imgs {
                 url
                 childImageSharp {
-                    fluid(maxWidth: 300, quality: 100) {
+                    fluid(maxWidth: 400, quality: 100) {
                         ...GatsbyImageSharpFluid
                     }
                 }
@@ -101,7 +131,7 @@ export const query = graphql`
             imgs {
                 url
                 childImageSharp {
-                    fluid(maxWidth: 400, quality: 100) {
+                    fluid(maxWidth: 600, quality: 100) {
                         ...GatsbyImageSharpFluid
                     }
                 }
@@ -111,7 +141,17 @@ export const query = graphql`
             imgs {
                 url
                 childImageSharp {
-                    fluid(maxWidth: 600, quality: 100) {
+                    fluid(maxWidth: 800, quality: 100) {
+                        ...GatsbyImageSharpFluid
+                    }
+                }
+            }
+        }
+        imgXL: about {
+            imgs {
+                url
+                childImageSharp {
+                    fluid(maxWidth: 1200, quality: 100) {
                         ...GatsbyImageSharpFluid
                     }
                 }
