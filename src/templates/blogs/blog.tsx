@@ -36,20 +36,13 @@ const Blog: React.FC<Props> = ({ blog }) => {
                 maxWidth={maxWidths}
                 flexDirection="column"
                 alignItems="center"
-                sx={{ textAlign: 'center' }}
             >
-                <Heading as="h4" variant="h4">
-                    {getDateReadable(date)}
-                </Heading>
                 <Box
                     width="100%"
                     maxWidth={[400, 400, 700, 1200]} // taken from queryimgs breakpoints.
                     as="header"
                     mb={[3, 3, 4, 6]}
                 >
-                    <Text as="h1" variant="h1" my={[6]}>
-                        {title}
-                    </Text>
                     {imgs && (
                         <Img
                             fluid={
@@ -60,18 +53,26 @@ const Blog: React.FC<Props> = ({ blog }) => {
                             alt={`${title} cover image`}
                         />
                     )}
+                    <Flex
+                        mt={[6]}
+                        alignItems="center"
+                        justifyContent="space-between"
+                        flexWrap="wrap"
+                    >
+                        <Heading as="h1" variant="blogTitle">
+                            {title}
+                        </Heading>
+                        <Text as="h4" variant="blogDate">
+                            {getDateReadable(date)}
+                        </Text>
+                    </Flex>
                 </Box>
+
                 <Box
                     id="blog-content"
                     sx={{
                         fontFamily: 'body',
                         lineHeight: ['6px', '6px', '7px'],
-                        '& img': {
-                            width: '100%',
-                            height: 'auto',
-                        },
-                        display: 'relative',
-                        zIndex: 1,
                     }}
                     dangerouslySetInnerHTML={{ __html: content }}
                 />
