@@ -29,6 +29,9 @@ const Cart: React.FC<Props & ICartState> = ({
     toggleShowCart,
 }) => {
     const [cartSnapshot, setCartSnapshot] = useState(JSON.stringify(cart));
+    const [wishlistSnapshot, setWishlistSnapshot] = useState(
+        JSON.stringify(wishlist)
+    );
     const [isLoadingCart, setIsLoadingCart] = useState(false);
 
     const dispatch = useDispatch();
@@ -49,60 +52,96 @@ const Cart: React.FC<Props & ICartState> = ({
         // sync with firestore just if the user is authenticated.
         if (user) {
             if (JSON.stringify(cart) !== cartSnapshot) {
-                setIsLoadingCart(true);
-                db.collection('user')
-                    .doc(user.uid)
-                    .update({
-                        inCart: cart.map(cartItem => ({
-                            pid: cartItem.product.pid,
-                            amount: cartItem.amount,
-                            note: cartItem.note,
-                        })),
-                    })
-                    .then(() => {
-                        setCartSnapshot(JSON.stringify(cart));
-                        setIsLoadingCart(false);
-                    });
+                updateCart();
             }
         }
     }, [cart]);
 
+    useEffect(() => {
+        // sync with firestore just if the user is authenticated.
+        if (user) {
+            if (JSON.stringify(wishlist) !== cartSnapshot) {
+                updateWishlist();
+            }
+        }
+    }, [wishlist]);
+
+    const updateCart = () => {
+        if (user) {
+            setIsLoadingCart(true);
+            db.collection('user')
+                .doc(user.uid)
+                .update({
+                    inCart: cart.map(cartItem => ({
+                        pid: cartItem.product.pid,
+                        amount: cartItem.amount,
+                        note: cartItem.note,
+                    })),
+                })
+                .then(() => {
+                    setCartSnapshot(JSON.stringify(cart));
+                    setIsLoadingCart(false);
+                });
+        }
+    };
+
+    const updateWishlist = () => {
+        if (user) {
+            setIsLoadingCart(true);
+            db.collection('user')
+                .doc(user.uid)
+                .update({
+                    wishlist: wishlist.map(wishlistItem => ({
+                        pid: wishlistItem.product.pid,
+                        amount: wishlistItem.amount,
+                        note: wishlistItem.note,
+                    })),
+                })
+                .then(() => {
+                    setWishlistSnapshot(JSON.stringify(wishlist));
+                    setIsLoadingCart(false);
+                });
+        }
+    };
+
     // exactly the same function as auth.tsx -> fetchCartItems.
     // fetch items on cart and wishlist of the user => on new window and if logged in..
     const fetchDatas = async () => {
-        try {
-            await setIsLoadingCart(true);
-            const docRef = await db
-                .collection('user')
-                .doc(user.uid)
-                .get();
+        if (user) {
+            try {
+                await setIsLoadingCart(true);
+                const docRef = await db
+                    .collection('user')
+                    .doc(user.uid)
+                    .get();
 
-            const userData = await docRef.data();
+                const userData = await docRef.data();
 
-            if ((await docRef.exists) && userData) {
-                const inCart = (await (userData.inCart as any)) as InCart;
-                const onWishlist = (await (userData.wishlist as any)) as InCart;
+                if ((await docRef.exists) && userData) {
+                    const inCart = (await (userData.inCart as any)) as InCart;
+                    const onWishlist = (await (userData.wishlist as any)) as InCart;
 
-                const filteredInCartData = await extractCartFirestore({
-                    firestoreCartData: inCart,
-                    allProducts,
-                });
-                const filteredWishlistData = await extractCartFirestore({
-                    firestoreCartData: onWishlist,
-                    allProducts,
-                });
+                    const filteredInCartData = await extractCartFirestore({
+                        firestoreCartData: inCart,
+                        allProducts,
+                    });
+                    const filteredWishlistData = await extractCartFirestore({
+                        firestoreCartData: onWishlist,
+                        allProducts,
+                    });
 
-                await dispatch(
-                    setCart({
-                        cart: filteredInCartData,
-                        wishlist: filteredWishlistData,
-                    })
-                );
+                    await dispatch(
+                        setCart({
+                            cart: filteredInCartData,
+                            wishlist: filteredWishlistData,
+                        })
+                    );
+                }
+                await saveSessionStorage();
+                await setIsLoadingCart(false);
+            } catch (e) {
+                console.error(e);
             }
-            await saveSessionStorage();
-            await setIsLoadingCart(false);
-        } catch (e) {
-            console.error(e);
         }
     };
 
