@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Box } from 'rebass';
+
 import { html as htmlMain } from './html';
 import { html as htmlCMS } from './cms/html';
 
@@ -14,10 +16,10 @@ const templateMain = { __html: htmlMain };
 const templateCMS = { __html: htmlCMS.replace(cmsNotionExportedSrc, '') };
 
 const NotionExport: React.FC<{}> = () => (
-    <div className="exported">
+    <Box className="exported" sx={{ '& header': { position: 'relative' } }}>
         <div id="main" dangerouslySetInnerHTML={templateMain} />
         <div id="cms" dangerouslySetInnerHTML={templateCMS} />
-    </div>
+    </Box>
 );
 
 export default NotionExport;
