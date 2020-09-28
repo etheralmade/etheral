@@ -1,4 +1,5 @@
+import { Filter, LIST_OF_CATEGORIES, SortPrice } from './filter';
 
-import { Filter } from './filter';
+export { LIST_OF_CATEGORIES, SortPrice };
 
 export default Filter;

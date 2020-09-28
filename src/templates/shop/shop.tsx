@@ -11,7 +11,8 @@ import useAllProductImages from 'helper/use-all-product-images';
 import useAllProducts from 'helper/use-all-products';
 import Pagination from 'components/pagination';
 import Breadcrumbs from 'components/breadcrumbs';
-import Filter from './filter';
+import Filter, { SortPrice } from './filter';
+import { doFilter } from './do-filter';
 
 import './styles.scss'; // styling on links component => cleaner component file.
 
@@ -29,6 +30,13 @@ type PaginationState = {
 const initialPagination = {
     productPerPage: 8,
     currIndex: 0,
+};
+
+type SetFilterArgs = {
+    clearFilter: boolean;
+    sort?: SortPrice;
+    categories?: string[];
+    collections?: string[];
 };
 
 const Shop: React.FC<Props> = () => {
@@ -95,6 +103,28 @@ const Shop: React.FC<Props> = () => {
         );
 
         setDisplay(temp);
+    };
+
+    const setFilter = ({
+        clearFilter,
+        sort,
+        categories,
+        collections,
+    }: SetFilterArgs) => {
+        if (clearFilter) {
+            setWithFilters(false);
+            if (
+                sort !== undefined &&
+                categories !== undefined &&
+                collections !== undefined
+            ) {
+                setStore(
+                    doFilter({ sort, categories, collections, allProducts })
+                );
+            }
+        } else {
+            setWithFilters(true);
+        }
     };
 
     const calculateNumOfPages = (

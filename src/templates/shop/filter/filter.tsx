@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import { startCase, snakeCase, without } from 'lodash';
+import { startCase, without } from 'lodash';
 
 import { Box, Text, Flex, Button } from 'rebass';
 import { Input, Label } from '@rebass/forms';
 import { Icon } from '@iconify/react';
 import closeFill from '@iconify/icons-ri/close-fill';
+import { renderName } from 'helper/render-name';
 
 type Props = {};
 
-enum SortPrice {
+export enum SortPrice {
     LOW_TO_HIGH = 'LOW_TO_HIGH',
     HIGH_TO_LOW = 'HIGH_TO_LOW',
     NONE = 'NONE',
 }
 // hard coded => change if needed?
-const LIST_OF_CATEGORIES = ['BRACELET', 'RING', 'EARRINGS', 'NECKLACE'];
+export const LIST_OF_CATEGORIES = ['BRACELET', 'RING', 'EARRINGS', 'NECKLACE'];
 
 const Filter: React.FC<Props> = () => {
     const [sortPrice, setSortPrice] = useState<SortPrice>(SortPrice.NONE);
@@ -196,7 +197,7 @@ const Filter: React.FC<Props> = () => {
                             <React.Fragment key={e.node.name}>
                                 <Input
                                     type="checkbox"
-                                    value={snakeCase(e.node.name).toUpperCase()}
+                                    value={renderName(e.node.name)}
                                     id={`filter-${e.node.name.toLowerCase()}`}
                                     onChange={handleChangeCollections}
                                 />
@@ -219,7 +220,7 @@ const Filter: React.FC<Props> = () => {
                         <React.Fragment key={e}>
                             <Input
                                 type="checkbox"
-                                value={snakeCase(e).toUpperCase()}
+                                value={renderName(e)}
                                 id={`filter-${e.toLowerCase()}`}
                                 onChange={handleChangeCategories}
                             />
