@@ -129,7 +129,12 @@ const Shop: React.FC<Props> = () => {
             pb={[6, 6, 4]}
         >
             {/* shop banner image. */}
-            <Flex width="100%" px={[5, 5, 8]} justifyContent="space-between">
+            <Flex
+                width="100%"
+                px={[5, 5, 8]}
+                justifyContent="space-between"
+                sx={{ position: 'relative' }}
+            >
                 {/* breadcrumbs */}
                 <Breadcrumbs
                     location={'shop'}

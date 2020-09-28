@@ -3,8 +3,10 @@ import { useStaticQuery, graphql } from 'gatsby';
 
 import { startCase, snakeCase, without } from 'lodash';
 
-import { Box, Text } from 'rebass';
+import { Box, Text, Flex, Button } from 'rebass';
 import { Input, Label } from '@rebass/forms';
+import { Icon } from '@iconify/react';
+import closeFill from '@iconify/icons-ri/close-fill';
 
 type Props = {};
 
@@ -13,12 +15,6 @@ enum SortPrice {
     HIGH_TO_LOW = 'HIGH_TO_LOW',
     NONE = 'NONE',
 }
-
-type Fields = {
-    collection: string[];
-    categories: string[];
-};
-
 // hard coded => change if needed?
 const LIST_OF_CATEGORIES = ['BRACELET', 'RING', 'EARRINGS', 'NECKLACE'];
 
@@ -27,6 +23,12 @@ const Filter: React.FC<Props> = () => {
     const [collections, setCollections] = useState<string[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
 
+    const [showFilter, setShowFilter] = useState(true);
+
+    /**
+     * do the filtering on shop component's display
+     * @param event not rlly used.
+     */
     const submitFilter = (event: React.FormEvent<HTMLDivElement>) => {
         event.preventDefault();
         console.log({ sortPrice, collections, categories });
@@ -75,75 +77,178 @@ const Filter: React.FC<Props> = () => {
         }
     };
 
-    console.log({ sortPrice, collections, categories });
+    const clear = () => {
+        setSortPrice(SortPrice.NONE);
+        setCollections([]);
+        setCategories([]);
+        // set all inputs not to be checked
 
-    const textStyling = {};
+        const inputs = document.querySelectorAll('.filter-form input');
+        inputs.forEach(el => {
+            // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-mutation
+            (el as HTMLInputElement).checked = false;
+        });
+    };
 
-    return (
-        <Box as="form" onSubmit={submitFilter}>
+    const textStyling = {
+        fontFamily: 'heading',
+        fontWeight: 600,
+        fontSize: [0, 0, 1],
+        mb: [2],
+    };
+    const labelStyling = {
+        fontFamily: 'body',
+        fontWeight: 'body',
+        fontSize: [0, 0, 1],
+        width: ['50%'],
+        mb: [4],
+        '&:hover': {
+            cursor: 'pointer',
+        },
+    };
+
+    return showFilter ? (
+        <Box
+            as="form"
+            className="filter-form"
+            onSubmit={submitFilter}
+            p={[5]}
+            bg="#fff"
+            sx={{
+                position: 'absolute',
+                right: ['5%'],
+                width: ['90%', '90%', 'fit-content'],
+                zIndex: 500,
+                borderColor: 'black.1',
+                borderStyle: 'solid',
+                borderWidth: '2px',
+
+                '& label': labelStyling,
+                input: {
+                    display: 'none',
+                    '& + label::before': {
+                        content: "''",
+                        height: ['10px'],
+                        width: ['10px'],
+                        display: 'block',
+                        mr: [3],
+                        borderColor: 'black.0',
+                        borderStyle: 'solid',
+                        borderWidth: '1px',
+                        borderRadius: '50%',
+                        position: 'relative',
+                        top: ['2pt', '2pt', '5pt'],
+                        transition: '.2s',
+                    },
+                    '&:checked + label::before': {
+                        bg: 'black.0',
+                    },
+                },
+            }}
+        >
+            <Box
+                role="button"
+                onClick={() => setShowFilter(false)}
+                sx={{
+                    position: 'absolute',
+                    right: '8px',
+                    top: '8px',
+                    '& svg': {
+                        height: ['16px', '16px', '24px'],
+                        width: ['16px', '16px', '24px'],
+                    },
+                }}
+            >
+                <Icon icon={closeFill} />
+            </Box>
             {/* sort price filter */}
-            <Box>
+            <Box as="section">
                 <Text {...textStyling}>PRICE</Text>
 
                 {/* controller component not compatible with radio? */}
-                <Label htmlFor="price-lth">Low To High</Label>
-                <Input
-                    type="radio"
-                    value={SortPrice.LOW_TO_HIGH}
-                    id="price-lth"
-                    name="priceSort"
-                    onChange={handleChangeSort}
-                />
+                <Flex flexWrap="wrap">
+                    <Input
+                        type="radio"
+                        value={SortPrice.LOW_TO_HIGH}
+                        id="price-lth"
+                        name="priceSort"
+                        onChange={handleChangeSort}
+                    />
+                    <Label htmlFor="price-lth">Low To High</Label>
 
-                <Label htmlFor="price-htl">High To Low</Label>
-                <Input
-                    type="radio"
-                    value={SortPrice.HIGH_TO_LOW}
-                    id="price-htl"
-                    name="priceSort"
-                    onChange={handleChangeSort}
-                />
+                    <Input
+                        type="radio"
+                        value={SortPrice.HIGH_TO_LOW}
+                        id="price-htl"
+                        name="priceSort"
+                        onChange={handleChangeSort}
+                    />
+                    <Label htmlFor="price-htl">High To Low</Label>
+                </Flex>
             </Box>
 
             {/* collection(s) filter => render if data is available. */}
             {data && (
-                <Box>
-                    {data.collections.edges.map((e: any) => (
-                        <React.Fragment key={e.node.name}>
-                            <Label
-                                htmlFor={`filter-${e.node.name.toLowerCase()}`}
-                            >
-                                {startCase(e.node.name)}
-                            </Label>
-                            <Input
-                                type="checkbox"
-                                value={snakeCase(e.node.name).toUpperCase()}
-                                id={`filter-${e.node.name.toLowerCase()}`}
-                                onChange={handleChangeCollections}
-                            />
-                        </React.Fragment>
-                    ))}
+                <Box as="section">
+                    <Text {...textStyling}>COLLECTIONS</Text>
+                    <Flex flexWrap="wrap">
+                        {data.collections.edges.map((e: any) => (
+                            <React.Fragment key={e.node.name}>
+                                <Input
+                                    type="checkbox"
+                                    value={snakeCase(e.node.name).toUpperCase()}
+                                    id={`filter-${e.node.name.toLowerCase()}`}
+                                    onChange={handleChangeCollections}
+                                />
+                                <Label
+                                    htmlFor={`filter-${e.node.name.toLowerCase()}`}
+                                >
+                                    {startCase(e.node.name)}
+                                </Label>
+                            </React.Fragment>
+                        ))}
+                    </Flex>
                 </Box>
             )}
 
             {/* category/ies filter */}
-            <Box>
-                {LIST_OF_CATEGORIES.map(e => (
-                    <React.Fragment key={e}>
-                        <Label htmlFor={`filter-${e.toLowerCase()}`}>
-                            {startCase(e)}
-                        </Label>
-                        <Input
-                            type="checkbox"
-                            value={snakeCase(e).toUpperCase()}
-                            id={`filter-${e.toLowerCase()}`}
-                            onChange={handleChangeCategories}
-                        />
-                    </React.Fragment>
-                ))}
+            <Box as="section">
+                <Text {...textStyling}>CATEGORIES</Text>
+                <Flex flexWrap="wrap">
+                    {LIST_OF_CATEGORIES.map(e => (
+                        <React.Fragment key={e}>
+                            <Input
+                                type="checkbox"
+                                value={snakeCase(e).toUpperCase()}
+                                id={`filter-${e.toLowerCase()}`}
+                                onChange={handleChangeCategories}
+                            />
+                            <Label htmlFor={`filter-${e.toLowerCase()}`}>
+                                {startCase(e.toLowerCase())}
+                            </Label>
+                        </React.Fragment>
+                    ))}
+                </Flex>
             </Box>
-            <Input type="submit" value="APPLY" variant="buttons.primary" />
+            <Flex justifyContent="space-between" mt={[3]}>
+                <Button type="submit" width={['48%']}>
+                    APPLY
+                </Button>
+                <Button onClick={clear} variant="secondary" width={['48%']}>
+                    CLEAR ALL
+                </Button>
+            </Flex>
         </Box>
+    ) : (
+        <Text
+            role="button"
+            onClick={() => setShowFilter(true)}
+            fontFamily="heading"
+            fontWeight="medium"
+            sx={{ '&:hover': { cursor: 'pointer' } }}
+        >
+            FILTER
+        </Text>
     );
 };
 
