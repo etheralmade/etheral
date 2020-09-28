@@ -11,7 +11,7 @@ import useAllProductImages from 'helper/use-all-product-images';
 import useAllProducts from 'helper/use-all-products';
 import Pagination from 'components/pagination';
 import Breadcrumbs from 'components/breadcrumbs';
-import Filter from 'components/filter';
+import Filter from './filter';
 
 import './styles.scss'; // styling on links component => cleaner component file.
 
