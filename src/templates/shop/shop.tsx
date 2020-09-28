@@ -43,7 +43,7 @@ const Shop: React.FC<Props> = () => {
     // to display products (filtered by pagination)
     const [display, setDisplay] = useState<Product[]>([]);
     // filter state.
-    const [withFilters, setWithFilters] = useState(false);
+    const [withFilters] = useState(false);
     // add filter.
     const { extractImgs } = useAllProductImages();
     const allProducts = useAllProducts();

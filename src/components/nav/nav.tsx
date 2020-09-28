@@ -343,7 +343,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     />
                                 </CSSTransition>
                             </Box>
-                            <Link to="/blog">
+                            <Link to="/blogs">
                                 <Text
                                     variant={
                                         currLocation.includes('blog')
