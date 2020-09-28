@@ -26,6 +26,7 @@ export const mockProduct1: Product = {
     urls: [],
     weight: 20,
     amount: 12,
+    relatedProducts: [],
 };
 
 export const mockProducts: Product[] = [mockProduct1];
@@ -48,6 +49,14 @@ export const mockOrder: Order = {
             pid: mockProduct1.pid,
             amount: 12,
             discountPercentage: 10,
+            note: [
+                {
+                    details: {
+                        size: 'S',
+                    },
+                    amount: 12,
+                },
+            ],
         },
     ],
     paid: false,

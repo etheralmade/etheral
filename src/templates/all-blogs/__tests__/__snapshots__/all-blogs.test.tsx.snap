@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllBlogs matches snapshot 1`] = `
+<div
+  className="css-8i9v14"
+>
+  <div
+    className="content css-2djglc"
+  />
+  <nav
+    className="css-zkfaav"
+  >
+    <div
+      className="css-cfyrb9"
+      id="go-to-first"
+      onClick={[Function]}
+      role="button"
+    >
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M11 17.035a.5.5 0 0 1-.788.409l-7.133-5.036a.5.5 0 0 1 0-.816l7.133-5.036a.5.5 0 0 1 .788.409v10.07zm1.079-4.627a.5.5 0 0 1 0-.816l7.133-5.036a.5.5 0 0 1 .788.409v10.07a.5.5 0 0 1-.788.409l-7.133-5.036z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </div>
+    <div
+      className="css-cfyrb9"
+      id="go-to-last"
+      onClick={[Function]}
+      role="button"
+    >
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M4.788 17.444A.5.5 0 0 1 4 17.035V6.965a.5.5 0 0 1 .788-.409l7.133 5.036a.5.5 0 0 1 0 .816l-7.133 5.036zM13 6.965a.5.5 0 0 1 .788-.409l7.133 5.036a.5.5 0 0 1 0 .816l-7.133 5.036a.5.5 0 0 1-.788-.409V6.965z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </div>
+  </nav>
+</div>
+`;

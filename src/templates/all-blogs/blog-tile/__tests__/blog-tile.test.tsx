@@ -6,11 +6,11 @@ import renderer from 'react-test-renderer';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { AllBlogs } from '../all-blogs';
 import { mockBlog } from 'helper/const';
+import { BlogTile } from '../blog-tile';
 
-describe('AllBlogs', () => {
-    const Element = <AllBlogs blogs={[mockBlog]} />;
+describe('BlogTile', () => {
+    const Element = <BlogTile blog={mockBlog} first={true} />;
 
     afterEach(cleanup);
 
@@ -24,7 +24,7 @@ describe('AllBlogs', () => {
 	}) */
 
     it('matches snapshot', () => {
-        const run = true;
+        const run = false;
 
         if (run) {
             const tree = renderer.create(Element).toJSON();

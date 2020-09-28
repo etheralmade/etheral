@@ -2,10 +2,10 @@
 
 exports[`Pagination matches snapshot 1`] = `
 <nav
-  className="css-4cffwv"
+  className="css-zkfaav"
 >
   <div
-    className="css-vurnku"
+    className="css-cfyrb9"
     id="go-to-first"
     onClick={
       [MockFunction] {
@@ -59,7 +59,24 @@ exports[`Pagination matches snapshot 1`] = `
     }
     role="button"
   >
-    FIRST
+    <svg
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path d=\\"M11 17.035a.5.5 0 0 1-.788.409l-7.133-5.036a.5.5 0 0 1 0-.816l7.133-5.036a.5.5 0 0 1 .788.409v10.07zm1.079-4.627a.5.5 0 0 1 0-.816l7.133-5.036a.5.5 0 0 1 .788.409v10.07a.5.5 0 0 1-.788.409l-7.133-5.036z\\" fill=\\"currentColor\\"/>",
+        }
+      }
+      focusable={false}
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+        }
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    />
   </div>
   <div
     className="css-173yjp7"
@@ -97,12 +114,29 @@ exports[`Pagination matches snapshot 1`] = `
     7
   </div>
   <div
-    className="css-vurnku"
+    className="css-cfyrb9"
     id="go-to-last"
     onClick={[MockFunction]}
     role="button"
   >
-    LAST
+    <svg
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path d=\\"M4.788 17.444A.5.5 0 0 1 4 17.035V6.965a.5.5 0 0 1 .788-.409l7.133 5.036a.5.5 0 0 1 0 .816l-7.133 5.036zM13 6.965a.5.5 0 0 1 .788-.409l7.133 5.036a.5.5 0 0 1 0 .816l-7.133 5.036a.5.5 0 0 1-.788-.409V6.965z\\" fill=\\"currentColor\\"/>",
+        }
+      }
+      focusable={false}
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+        }
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    />
   </div>
 </nav>
 `;
