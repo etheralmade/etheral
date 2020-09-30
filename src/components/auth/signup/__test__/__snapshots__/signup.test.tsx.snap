@@ -2,41 +2,83 @@
 
 exports[`Signup component matches snapshot 1`] = `
 <form
+  className="css-1lx7oj"
   onSubmit={[Function]}
 >
-  <label
-    htmlFor="signup-name"
+  <h3
+    className="css-d2e41n"
   >
-    Name
-  </label>
-  <input
-    id="signup-name"
-    name="signupName"
-    type="text"
-  />
-  <label
-    htmlFor="signup-email"
+    NEW ACCOUNT
+  </h3>
+  <div
+    className="css-vurnku"
   >
-    Email
-  </label>
-  <input
-    id="signup-email"
-    name="signupEmail"
-    type="email"
-  />
-  <label
-    htmlFor="signup-password"
-  >
-    Password
-  </label>
-  <input
-    id="signup-password"
-    name="signupPassword"
-    type="password"
-  />
-  <input
+    <label
+      className="css-knfhfe"
+      htmlFor="signup-first-name"
+    >
+      FIRST NAME
+    </label>
+    <input
+      className="css-4y926w"
+      id="signup-first-name"
+      name="signupFirstName"
+      type="text"
+    />
+    <label
+      className="css-knfhfe"
+      htmlFor="signup-last-name"
+    >
+      LAST NAME
+    </label>
+    <input
+      className="css-4y926w"
+      id="signup-last-name"
+      name="signupLastName"
+      type="text"
+    />
+    <label
+      className="css-knfhfe"
+      htmlFor="signup-email"
+    >
+      EMAIL
+    </label>
+    <input
+      className="css-4y926w"
+      id="signup-email"
+      name="signupEmail"
+      type="email"
+    />
+    <label
+      className="css-knfhfe"
+      htmlFor="signup-password"
+    >
+      PASSWORD
+    </label>
+    <input
+      className="css-4y926w"
+      id="signup-password"
+      name="signupPassword"
+      type="password"
+    />
+    <label
+      className="css-knfhfe"
+      htmlFor="signup-confirm-password"
+    >
+      CONFIRM PASSWORD
+    </label>
+    <input
+      className="css-4y926w"
+      id="signup-confirm-password"
+      name="signupConfirmPassword"
+      type="password"
+    />
+  </div>
+  <button
+    className="css-1kygmdx"
     type="submit"
-    value="Sign up"
-  />
+  >
+    CREATE ACCOUNT
+  </button>
 </form>
 `;

@@ -173,7 +173,8 @@ const Auth: React.FC<Props> = ({
                 await setUid(user.uid);
             }
         } catch (e) {
-            console.error(e);
+            setErrTarget(ErrorTarget.SIGN_UP);
+            setError(e);
         }
     };
 
@@ -205,7 +206,12 @@ const Auth: React.FC<Props> = ({
                     errTarget === ErrorTarget.LOGIN ? error : undefined
                 }
             />
-            <SignUp signup={signupWithEmail} />
+            <SignUp
+                signup={signupWithEmail}
+                firebaseError={
+                    errTarget === ErrorTarget.SIGN_UP ? error : undefined
+                }
+            />
             <button onClick={withGoogle}>Sign in with google</button>
         </>
     );

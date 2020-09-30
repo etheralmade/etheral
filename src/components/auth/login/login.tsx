@@ -24,8 +24,6 @@ const Login: React.FC<Props> = ({ login, submitValue, firebaseError }) => {
     const debouncedLogin = debounce(login, 500);
 
     const submit = ({ loginEmail, loginPassword }: Inputs) => {
-        console.log({ loginEmail, loginPassword });
-
         debouncedLogin({
             email: loginEmail,
             password: loginPassword,
@@ -42,6 +40,7 @@ const Login: React.FC<Props> = ({ login, submitValue, firebaseError }) => {
         variant: 'formError',
         textAlign: textAlignAttr,
         mt: [3],
+        role: 'alert',
     };
 
     return (

@@ -32,11 +32,12 @@ describe('Signup component', () => {
     });
 
     it('should render and submits correctly', () => {
-        const { getByLabelText, getByDisplayValue } = render(el);
+        const { getByLabelText, getByRole } = render(el);
 
-        const emailInput: HTMLElement = getByLabelText('Email');
-        const passwordInput: HTMLElement = getByLabelText('Password');
-        const nameInput: HTMLElement = getByLabelText('Name');
+        const emailInput: HTMLElement = getByLabelText('EMAIL');
+        const passwordInput: HTMLElement = getByLabelText('PASSWORD');
+        const confirmPassword: HTMLElement = getByLabelText('CONFIRM PASSWORD');
+        const nameInput: HTMLElement = getByLabelText('FIRST NAME');
 
         const email = 'aa@aa';
         const password = '124';
@@ -44,9 +45,10 @@ describe('Signup component', () => {
 
         userEvent.type(emailInput, email);
         userEvent.type(passwordInput, password);
+        userEvent.type(confirmPassword, password);
         userEvent.type(nameInput, name);
 
-        const submitButton: HTMLElement = getByDisplayValue('Sign up');
+        const submitButton = getByRole('button', { name: 'CREATE ACCOUNT' });
         userEvent.click(submitButton);
 
         setTimeout(() => {
