@@ -51,6 +51,7 @@ export default {
         fontFamily: 'body',
         fontWeight: 'body',
         fontSize: [1, 1, 2],
+        py: [4],
     },
     secondary: {
         ...buttonBaseStyle,

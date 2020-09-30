@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form matches snapshot 1`] = `
+<form
+  className="css-16vu25q"
+  onSubmit={[Function]}
+>
+  <div
+    className="css-z54kij"
+  >
+    <div
+      className="css-g0rf9"
+    >
+      <label
+        className="css-knfhfe"
+        htmlFor="first-name"
+      >
+        FIRST NAME
+      </label>
+      <input
+        className="css-4y926w"
+        id="first-name"
+        name="firstName"
+        placeholder="First Name"
+        type="text"
+      />
+    </div>
+    <div
+      className="css-1oxbxkm"
+    >
+      <label
+        className="css-knfhfe"
+        htmlFor="last-name"
+      >
+        LAST NAME
+      </label>
+      <input
+        className="css-4y926w"
+        id="last-name"
+        name="lastName"
+        placeholder="Last Name"
+        type="text"
+      />
+    </div>
+    <div
+      className="css-g0rf9"
+    >
+      <label
+        className="css-knfhfe"
+        htmlFor="email"
+      >
+        EMAIL
+      </label>
+      <input
+        className="css-4y926w"
+        id="email"
+        name="email"
+        placeholder="Email"
+        type="email"
+      />
+    </div>
+    <div
+      className="css-1oxbxkm"
+    >
+      <label
+        className="css-knfhfe"
+        htmlFor="phone"
+      >
+        PHONE
+      </label>
+      <input
+        className="css-4y926w"
+        id="phone"
+        name="phone"
+        placeholder="Phone Number"
+        type="number"
+      />
+    </div>
+    <label
+      className="css-knfhfe"
+      htmlFor="subject"
+    >
+      SUBJECT
+    </label>
+    <input
+      className="css-4y926w"
+      id="subject"
+      name="subject"
+      placeholder="Subject"
+      type="text"
+    />
+    <label
+      className="css-knfhfe"
+      htmlFor="message"
+    >
+      MESSAGE
+    </label>
+    <textarea
+      className="css-1xoz5r4"
+      id="message"
+      name="message"
+      placeholder="Message"
+    />
+  </div>
+  <button
+    className="css-12phx2e"
+    type="submit"
+  >
+    SEND
+  </button>
+</form>
+`;

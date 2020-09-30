@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import renderer from 'react-test-renderer';
+import renderer from 'react-test-renderer';
 
 // import { render, cleanup } from '@testing-library/react'
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { Shop } from '../shop';
+import { Form } from '../form';
 
-describe('Shop', () => {
-    const Element = <Shop />;
+describe('Form', () => {
+    const Element = <Form />;
 
     afterEach(cleanup);
 
@@ -22,12 +22,12 @@ describe('Shop', () => {
 		const { getByTestId } = render()
 	}) */
 
-    // it('matches snapshot', () => {
-    //     const run = false;
+    it('matches snapshot', () => {
+        const run = true;
 
-    //     if (run) {
-    //         const tree = renderer.create(Element).toJSON();
-    //         expect(tree).toMatchSnapshot();
-    //     }
-    // });
+        if (run) {
+            const tree = renderer.create(Element).toJSON();
+            expect(tree).toMatchSnapshot();
+        }
+    });
 });

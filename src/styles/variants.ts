@@ -28,17 +28,18 @@ const inputs = {
         borderBottom: '4px solid #333',
         fontSize: [1],
         px: [0, 3, 7],
-        py: [0, 3],
+        py: [3],
         width: ['calc(100%)', 'calc(100% + 16px)', 'calc(100% + 64px)'],
     },
     authInput: {
         ...baseInput,
-        fontSize: [10],
+        fontSize: [10, 10, 1],
         borderWidth: 2,
         borderStyle: 'solid',
         borderColor: 'black.0',
         px: [3],
         py: [2],
+        transition: '0.2s',
     },
 };
 

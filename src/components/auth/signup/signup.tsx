@@ -54,8 +54,6 @@ const SignUp: React.FC<Props> = ({ firebaseError, signup }) => {
         role: 'alert',
     };
 
-    console.log(errors);
-
     return (
         <Box
             as="form"
