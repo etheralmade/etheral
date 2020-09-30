@@ -30,10 +30,10 @@ describe('Login component', () => {
     });
 
     it('should render and submits correctly', () => {
-        const { getByLabelText, getByDisplayValue } = render(el);
+        const { getByLabelText, getByRole } = render(el);
 
-        const emailInput: HTMLElement = getByLabelText('Email');
-        const passwordInput: HTMLElement = getByLabelText('Password');
+        const emailInput: HTMLElement = getByLabelText('EMAIL');
+        const passwordInput: HTMLElement = getByLabelText('PASSWORD');
 
         const email = 'aa@aa';
         const password = '124';
@@ -41,7 +41,9 @@ describe('Login component', () => {
         userEvent.type(emailInput, email);
         userEvent.type(passwordInput, password);
 
-        const submitButton: HTMLElement = getByDisplayValue('Login');
+        const submitButton: HTMLElement = getByRole('button', {
+            name: 'LOGIN',
+        });
         userEvent.click(submitButton);
 
         setTimeout(() => {

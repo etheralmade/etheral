@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Text, Box } from 'rebass';
+import { Flex, Text } from 'rebass';
 import { Icon } from '@iconify/react';
 import speedMiniFill from '@iconify/icons-ri/speed-mini-fill';
 import rewindMiniFill from '@iconify/icons-ri/rewind-mini-fill';

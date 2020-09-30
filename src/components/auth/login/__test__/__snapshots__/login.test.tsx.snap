@@ -2,31 +2,56 @@
 
 exports[`Login component matches snapshot 1`] = `
 <form
+  className="css-1lx7oj"
   onSubmit={[Function]}
 >
-  <label
-    htmlFor="login-email"
+  <h3
+    className="css-d2e41n"
   >
-    Email
-  </label>
-  <input
-    id="login-email"
-    name="loginEmail"
-    type="email"
-  />
-  <label
-    htmlFor="login-password"
+    LOGIN
+  </h3>
+  <div
+    className="css-vurnku"
   >
-    Password
-  </label>
-  <input
-    id="login-password"
-    name="loginPassword"
-    type="password"
-  />
-  <input
+    <label
+      className="css-knfhfe"
+      htmlFor="login-email"
+    >
+      EMAIL
+    </label>
+    <input
+      className="css-4y926w"
+      id="login-email"
+      name="loginEmail"
+      placeholder="EMAIL ADDRESS"
+      type="email"
+    />
+    <label
+      className="css-knfhfe"
+      htmlFor="login-password"
+    >
+      PASSWORD
+    </label>
+    <input
+      className="css-4y926w"
+      id="login-password"
+      name="loginPassword"
+      placeholder="PASSWORD"
+      type="password"
+    />
+  </div>
+  <div
+    className="css-2y8xkh"
+    onClick={[Function]}
+    role="button"
+  >
+    FORGOT PASSWORD?
+  </div>
+  <button
+    className="css-qmu9m0"
     type="submit"
-    value="Login"
-  />
+  >
+    LOGIN
+  </button>
 </form>
 `;

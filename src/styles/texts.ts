@@ -147,6 +147,26 @@ const blog = {
     },
 };
 
+const forms = {
+    formError: {
+        ...productCard.productPrice,
+        fontSize: [1],
+        color: 'misc.discount',
+    },
+    formHeading: {
+        fontFamily: 'heading',
+        fontWeight: 'semiBold',
+        fontSize: [2],
+    },
+    formLabel: {
+        fontFamily: 'heading',
+        fontWeight: 'semiBold',
+        fontSize: [10],
+        mb: [3],
+        mt: [5],
+    },
+};
+
 export default {
     h1: {
         fontSize: [3, 3, 4],
@@ -196,15 +216,6 @@ export default {
     ...productCard,
     ...badges,
     ...admin,
-    formError: {
-        ...productCard.productPrice,
-        fontSize: [0, 0, 1],
-        color: 'misc.discount',
-    },
     ...blog,
-    formHeading: {
-        fontFamily: 'heading',
-        fontWeight: 'semiBold',
-        fontSize: [1, 1, 2],
-    },
+    ...forms,
 };

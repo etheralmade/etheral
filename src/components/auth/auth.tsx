@@ -25,6 +25,13 @@ export type SignUpProps = LoginProps & {
     name: string;
 };
 
+// enum to show where the error occurs.
+enum ErrorTarget {
+    NONE,
+    LOGIN,
+    SIGN_UP,
+}
+
 const Auth: React.FC<Props> = ({
     auth,
     db,
@@ -33,6 +40,12 @@ const Auth: React.FC<Props> = ({
 }) => {
     const [uid, setUid] = useState('');
     const [isNewUser, setIsNewUser] = useState(false);
+
+    // state to store errror msg.
+    const [error, setError] = useState<firebase.auth.Error | undefined>(
+        undefined
+    );
+    const [errTarget, setErrTarget] = useState<ErrorTaget>(ErrorTarget.NONE);
 
     const navigate = useNavigate();
     const allProducts = useAllProducts();
@@ -137,7 +150,8 @@ const Auth: React.FC<Props> = ({
                 setUid(user.uid);
             }
         } catch (e) {
-            console.error(e);
+            setErrTarget(ErrorTarget.LOGIN);
+            setError(e);
         }
     };
 
@@ -185,7 +199,12 @@ const Auth: React.FC<Props> = ({
 
     return (
         <>
-            <Login login={loginWithEmail} />
+            <Login
+                login={loginWithEmail}
+                firebaseError={
+                    errTarget === ErrorTarget.LOGIN ? error : undefined
+                }
+            />
             <SignUp signup={signupWithEmail} />
             <button onClick={withGoogle}>Sign in with google</button>
         </>
