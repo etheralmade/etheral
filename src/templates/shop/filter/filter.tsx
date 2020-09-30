@@ -8,8 +8,11 @@ import { Input, Label } from '@rebass/forms';
 import { Icon } from '@iconify/react';
 import closeFill from '@iconify/icons-ri/close-fill';
 import { renderName } from 'helper/render-name';
+import { SetFilterArgs } from '..';
 
-type Props = {};
+type Props = {
+    setFilter: (args: SetFilterArgs) => void;
+};
 
 export enum SortPrice {
     LOW_TO_HIGH = 'LOW_TO_HIGH',
@@ -19,21 +22,12 @@ export enum SortPrice {
 // hard coded => change if needed?
 export const LIST_OF_CATEGORIES = ['BRACELET', 'RING', 'EARRINGS', 'NECKLACE'];
 
-const Filter: React.FC<Props> = () => {
+const Filter: React.FC<Props> = ({ setFilter }) => {
     const [sortPrice, setSortPrice] = useState<SortPrice>(SortPrice.NONE);
     const [collections, setCollections] = useState<string[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
 
     const [showFilter, setShowFilter] = useState(true);
-
-    /**
-     * do the filtering on shop component's display
-     * @param event not rlly used.
-     */
-    const submitFilter = (event: React.FormEvent<HTMLDivElement>) => {
-        event.preventDefault();
-        console.log({ sortPrice, collections, categories });
-    };
 
     const data = useStaticQuery(graphql`
         query {
@@ -46,6 +40,20 @@ const Filter: React.FC<Props> = () => {
             }
         }
     `);
+
+    /**
+     * do the filtering on shop component's display
+     * @param event not rlly used.
+     */
+    const submitFilter = (event: React.FormEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        setFilter({
+            clearFilter: false,
+            collections,
+            categories,
+            sort: sortPrice,
+        });
+    };
 
     // manual state management => can't rlly figure out how to handle radio inputs with react-hook-horm
     const handleChangeSort = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,6 +97,8 @@ const Filter: React.FC<Props> = () => {
             // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-mutation
             (el as HTMLInputElement).checked = false;
         });
+
+        setFilter({ clearFilter: true });
     };
 
     const textStyling = {

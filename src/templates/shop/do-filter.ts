@@ -3,6 +3,7 @@ import { flatten, intersection } from 'lodash';
 import { SortPrice } from './filter';
 import { Product } from 'helper/schema';
 import { renderName } from 'helper/render-name';
+import { withDiscount } from 'helper/with-discount';
 
 type Args = {
     sort: SortPrice;
@@ -12,22 +13,35 @@ type Args = {
 };
 
 // optional => connect with redux store?
-const doSorting = (sort: SortPrice, allProducts: Product[]): Product[] => {
+/**
+ * main function to sort the (intersecred) array of products.
+ * Would be used after filters are applied.
+ * @param sort sort variant => either htl or lth
+ * @param products products arr to be sorted.
+ */
+const doSorting = (sort: SortPrice, products: Product[]): Product[] => {
     // empty filter
     if (sort === SortPrice.NONE) {
-        return allProducts;
+        return products;
     }
 
     // do sorting based on its idr price => IDR Price is benchmark?
-    if (sort === SortPrice.HIGH_TO_LOW) {
-        return [...allProducts].sort(
-            (a, b) => a.prices.idrPrice - b.prices.idrPrice
-        );
-    } else {
-        return [...allProducts].sort(
-            (a, b) => b.prices.idrPrice - a.prices.idrPrice
-        );
-    }
+    return [...products].sort((a, b) => {
+        // do apply discounts.
+        const priceA =
+            a.prices.discountPercentage > 0
+                ? withDiscount(a.prices.idrPrice, a.prices.discountPercentage)
+                : a.prices.idrPrice;
+        const priceB =
+            b.prices.discountPercentage > 0
+                ? withDiscount(b.prices.idrPrice, b.prices.discountPercentage)
+                : b.prices.idrPrice;
+
+        // do sorting based on sort param.
+        return sort === SortPrice.HIGH_TO_LOW
+            ? priceB - priceA
+            : priceA - priceB;
+    });
 };
 
 const doFilterCategories = (

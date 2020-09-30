@@ -32,7 +32,7 @@ const initialPagination = {
     currIndex: 0,
 };
 
-type SetFilterArgs = {
+export type SetFilterArgs = {
     clearFilter: boolean;
     sort?: SortPrice;
     categories?: string[];
@@ -113,17 +113,24 @@ const Shop: React.FC<Props> = () => {
     }: SetFilterArgs) => {
         if (clearFilter) {
             setWithFilters(false);
+        } else {
+            setWithFilters(true);
             if (
                 sort !== undefined &&
                 categories !== undefined &&
                 collections !== undefined
             ) {
-                setStore(
-                    doFilter({ sort, categories, collections, allProducts })
-                );
+                const filtered = doFilter({
+                    sort,
+                    categories,
+                    collections,
+                    allProducts,
+                });
+
+                console.log(filtered);
+
+                setStore(filtered);
             }
-        } else {
-            setWithFilters(true);
         }
     };
 
@@ -172,7 +179,7 @@ const Shop: React.FC<Props> = () => {
                     appendText={'SHOP ALL'}
                 />
                 {/* filter component */}
-                <Filter />
+                <Filter setFilter={setFilter} />
             </Flex>
             {/* render products. */}
             <Flex
