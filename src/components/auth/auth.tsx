@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from '@reach/router';
 import { useDispatch } from 'react-redux';
 
+import { Flex, Box, Button } from 'rebass';
+
 import Login from './login';
 import SignUp from './signup';
 import useAllProducts from 'helper/use-all-products';
@@ -207,24 +209,36 @@ const Auth: React.FC<Props> = ({
         }
     };
 
-    console.log(allProducts);
-
     return (
-        <>
-            <Login
-                login={loginWithEmail}
-                firebaseError={
-                    errTarget === ErrorTarget.LOGIN ? error : undefined
-                }
-            />
-            <SignUp
-                signup={signupWithEmail}
-                firebaseError={
-                    errTarget === ErrorTarget.SIGN_UP ? error : undefined
-                }
-            />
-            <button onClick={withGoogle}>Sign in with google</button>
-        </>
+        <Flex
+            width={['100%', '100%', '100%', '70%', '60%']}
+            justifyContent="space-between"
+            flexWrap="wrap"
+            px={[4, 4, 6]}
+            m="0 auto"
+        >
+            <Box width={['100%', '100%', '48%', '45%', '44%']} my={[5]}>
+                <SignUp
+                    signup={signupWithEmail}
+                    firebaseError={
+                        errTarget === ErrorTarget.SIGN_UP ? error : undefined
+                    }
+                />
+            </Box>
+            <Box
+                width={['100%', '100%', '48%', '45%', '44%']}
+                my={[5]}
+                sx={{ textAlign: 'center' }}
+            >
+                <Login
+                    login={loginWithEmail}
+                    withGoogle={withGoogle}
+                    firebaseError={
+                        errTarget === ErrorTarget.LOGIN ? error : undefined
+                    }
+                />
+            </Box>
+        </Flex>
     );
 };
 

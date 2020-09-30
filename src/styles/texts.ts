@@ -156,12 +156,12 @@ const forms = {
     formHeading: {
         fontFamily: 'heading',
         fontWeight: 'semiBold',
-        fontSize: [2],
+        fontSize: [2, 2, 3],
     },
     formLabel: {
         fontFamily: 'heading',
         fontWeight: 'semiBold',
-        fontSize: [10],
+        fontSize: [10, 10, 2],
         mb: [3],
         mt: [5],
     },

@@ -167,8 +167,6 @@ const SignUp: React.FC<Props> = ({ firebaseError, signup }) => {
                             height: 16,
                             width: 16,
                             mr: [3],
-                            position: 'relative',
-                            top: '-1px',
                             borderWidth: 1,
                             borderStyle: 'solid',
                             borderColor: 'black.0',
@@ -183,7 +181,11 @@ const SignUp: React.FC<Props> = ({ firebaseError, signup }) => {
                         },
                     }}
                 />
-                <Label htmlFor="signup-newsletter" variant="text.formLabel">
+                <Label
+                    htmlFor="signup-newsletter"
+                    variant="text.formLabel"
+                    sx={{ display: 'flex', alignItems: 'cneter' }}
+                >
                     <Flex variant="center" id="newsletter-checkbox">
                         <Icon icon={checkFill} color="#fff" />
                     </Flex>

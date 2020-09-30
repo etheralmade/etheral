@@ -2,8 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { debounce } from 'lodash';
 
-import { Box, Heading, Text, Button } from 'rebass';
+import { Box, Heading, Text, Button, Flex } from 'rebass';
 import { Input, Label } from '@rebass/forms';
+// import { InlineIcon } from '@iconify/react';
+// import googleFill from '@iconify/icons-ri/google-fill';
+import GoogleButton from './assets/google-button';
 
 import { LoginProps } from '../auth';
 
@@ -11,6 +14,7 @@ type Props = {
     submitValue?: string;
     firebaseError?: firebase.auth.Error;
     login: (args: LoginProps) => void;
+    withGoogle: () => void;
 };
 
 type Inputs = {
@@ -18,7 +22,12 @@ type Inputs = {
     loginPassword: string;
 };
 
-const Login: React.FC<Props> = ({ login, submitValue, firebaseError }) => {
+const Login: React.FC<Props> = ({
+    login,
+    withGoogle,
+    submitValue,
+    firebaseError,
+}) => {
     const { register, handleSubmit, errors } = useForm<Inputs>();
 
     const debouncedLogin = debounce(login, 500);
@@ -106,15 +115,39 @@ const Login: React.FC<Props> = ({ login, submitValue, firebaseError }) => {
                 role="button"
                 onClick={forgotPassword}
                 variant="text.formHeading"
-                fontSize={[10]}
+                fontSize={[10, 10, 1, 1]}
                 textAlign="left"
                 my={[5]}
             >
                 FORGOT PASSWORD?
             </Text>
-            <Button type="submit" px={[9]} py={[4]}>
-                {submitValue || 'LOGIN'}
-            </Button>
+            <Flex width="60%" flexDirection="column" m="0 auto">
+                <Button type="submit" py={[4]}>
+                    {submitValue || 'LOGIN'}
+                </Button>
+                <Button
+                    bg="#fff"
+                    color="black.0"
+                    py={[4]}
+                    mt={4}
+                    onClick={withGoogle}
+                    sx={{
+                        borderWidth: 2,
+                        borderStyle: 'solid',
+                        borderColor: 'black.0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        svg: {
+                            height: [24, 24, 28],
+                            mr: 4,
+                        },
+                    }}
+                >
+                    <GoogleButton />
+                    Sign in with google
+                </Button>
+            </Flex>
         </Box>
     );
 };

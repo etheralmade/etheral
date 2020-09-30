@@ -73,6 +73,41 @@ exports[`Signup component matches snapshot 1`] = `
       name="signupConfirmPassword"
       type="password"
     />
+    <input
+      className="css-34q1wz"
+      id="signup-newsletter"
+      name="signupNewsletter"
+      type="checkbox"
+    />
+    <label
+      className="css-7tv9me"
+      htmlFor="signup-newsletter"
+    >
+      <div
+        className="css-4cffwv"
+        id="newsletter-checkbox"
+      >
+        <svg
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path d=\\"M10 15.172l9.192-9.193l1.415 1.414L10 18l-6.364-6.364l1.414-1.414z\\" fill=\\"#fff\\"/>",
+            }
+          }
+          focusable={false}
+          height="1em"
+          preserveAspectRatio="xMidYMid meet"
+          style={
+            Object {
+              "transform": "rotate(360deg)",
+            }
+          }
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+      </div>
+      Sign me up for the newsletter
+    </label>
   </div>
   <button
     className="css-1kygmdx"
