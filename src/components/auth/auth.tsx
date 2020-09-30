@@ -23,6 +23,7 @@ export type LoginProps = {
 
 export type SignUpProps = LoginProps & {
     name: string;
+    signupNewsletter: boolean;
 };
 
 // enum to show where the error occurs.
@@ -156,7 +157,12 @@ const Auth: React.FC<Props> = ({
     };
 
     // create new user
-    const signupWithEmail = async ({ name, password, email }: SignUpProps) => {
+    const signupWithEmail = async ({
+        name,
+        password,
+        email,
+        signupNewsletter,
+    }: SignUpProps) => {
         try {
             const signupReq = await auth.createUserWithEmailAndPassword(
                 email,
@@ -171,6 +177,11 @@ const Auth: React.FC<Props> = ({
                 });
                 await setIsNewUser(true);
                 await setUid(user.uid);
+            }
+
+            if (await signupNewsletter) {
+                // call cloud function to sign this acc to newsletter up
+                console.log('Do signup newsletter here');
             }
         } catch (e) {
             setErrTarget(ErrorTarget.SIGN_UP);

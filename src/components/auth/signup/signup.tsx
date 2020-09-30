@@ -2,8 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { debounce } from 'lodash';
 
-import { Box, Heading, Text, Button } from 'rebass';
+import { Box, Flex, Heading, Text, Button } from 'rebass';
 import { Input, Label } from '@rebass/forms';
+import { Icon } from '@iconify/react';
+import checkFill from '@iconify/icons-ri/check-fill';
 
 import { SignUpProps } from '../auth';
 
@@ -18,6 +20,7 @@ type Inputs = {
     signupEmail: string;
     signupPassword: string;
     signupConfirmPassword: string;
+    signupNewsletter: boolean;
 };
 
 const SignUp: React.FC<Props> = ({ firebaseError, signup }) => {
@@ -30,6 +33,7 @@ const SignUp: React.FC<Props> = ({ firebaseError, signup }) => {
         signupFirstName,
         signupLastName,
         signupPassword,
+        signupNewsletter,
     }: Inputs) => {
         const name = `${signupFirstName} ${signupLastName}`;
 
@@ -37,6 +41,7 @@ const SignUp: React.FC<Props> = ({ firebaseError, signup }) => {
             name,
             password: signupPassword,
             email: signupEmail,
+            signupNewsletter,
         });
     };
 
@@ -150,6 +155,40 @@ const SignUp: React.FC<Props> = ({ firebaseError, signup }) => {
                         Your passwords don&apos;t match
                     </Text>
                 )}
+
+                <Input
+                    name="signupNewsletter"
+                    id="signup-newsletter"
+                    type="checkbox"
+                    ref={register}
+                    sx={{
+                        display: 'none',
+                        '& + label #newsletter-checkbox': {
+                            height: 16,
+                            width: 16,
+                            mr: [3],
+                            position: 'relative',
+                            top: '-1px',
+                            borderWidth: 1,
+                            borderStyle: 'solid',
+                            borderColor: 'black.0',
+                            transition: '0.2s',
+                        },
+                        '&:checked + label #newsletter-checkbox': {
+                            bg: 'black.0',
+                            svg: {
+                                height: '80%',
+                                width: '80%',
+                            },
+                        },
+                    }}
+                />
+                <Label htmlFor="signup-newsletter" variant="text.formLabel">
+                    <Flex variant="center" id="newsletter-checkbox">
+                        <Icon icon={checkFill} color="#fff" />
+                    </Flex>
+                    Sign me up for the newsletter
+                </Label>
             </Box>
 
             <Button type="submit" mt={[5]} px={[9]} py={[4]}>
