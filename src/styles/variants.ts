@@ -33,7 +33,7 @@ const inputs = {
     },
     authInput: {
         ...baseInput,
-        fontSize: '10pt',
+        fontSize: [10],
         borderWidth: 2,
         borderStyle: 'solid',
         borderColor: 'black.0',
