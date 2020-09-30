@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { PageProps } from 'gatsby';
-import { Layout } from 'components/layout';
-
+import React, { useState, useEffect } from 'react';
 import firebase from 'gatsby-plugin-firebase';
 
-const Logout = (props: PageProps) => {
+import { Layout } from 'components/layout';
+
+const UserPage = () => {
     const [auth, setAuth] = useState<firebase.auth.Auth | undefined>(undefined);
 
     useEffect(() => {
@@ -21,4 +20,4 @@ const Logout = (props: PageProps) => {
     ) : null;
 };
 
-export default Logout;
+export default UserPage;

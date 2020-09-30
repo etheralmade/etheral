@@ -9,11 +9,9 @@ type Props = {
 };
 
 const Account: React.FC<Props> = ({ user, desktop }) => {
-    console.log(user);
-
     return (
         <Link
-            to={'auth'}
+            to={user ? 'user' : 'auth'}
             css={`
                 text-align: left;
                 display: ${desktop ? 'none' : 'inline-block'};

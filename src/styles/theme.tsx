@@ -18,6 +18,7 @@ export type Theme = {
         medium: number;
         heading: number;
         bold: number;
+        semiBold: number;
     };
     lineHeights: {
         body: number;
@@ -92,6 +93,7 @@ const theme: Theme = {
         medium: 500,
         heading: 700,
         bold: 700,
+        semiBold: 600,
     },
     lineHeights: {
         body: 1.5,

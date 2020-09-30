@@ -202,4 +202,9 @@ export default {
         color: 'misc.discount',
     },
     ...blog,
+    formHeading: {
+        fontFamily: 'heading',
+        fontWeight: 'semiBold',
+        fontSize: [1, 1, 2],
+    },
 };
