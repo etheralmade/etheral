@@ -127,7 +127,6 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
             className={desktop ? 'hide-on-mobile' : 'hide-on-desktop'}
             styles={customStyles}
             aria-label="Change currency"
-            menuIsOpen={true}
         />
     );
 };
