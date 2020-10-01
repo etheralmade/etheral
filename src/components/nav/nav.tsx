@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { Link } from '@reach/router';
 
 import { Text, Flex, Box } from 'rebass';
@@ -9,7 +9,7 @@ import { CSSTransition } from 'react-transition-group';
 import closeLine from '@iconify/icons-ri/close-line';
 
 import Cart from './cart';
-import { clearCart } from 'state/actions/cart';
+// import { clearCart } from 'state/actions/cart';
 import Dropdown from './dropdown';
 import Logo from 'components/logo';
 import CartItems from './cart-items';
@@ -43,7 +43,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [showCart, setShowCart] = useState(false);
 
     const [user, setUser] = useState<firebase.User | null>(null);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [openModal, setOpenModal] = useState(false);
 
@@ -71,16 +71,6 @@ const Navigation: React.FC<Props & ICartState> = ({
             }
         }
     }, []);
-
-    const logout = async () => {
-        try {
-            await auth.signOut();
-            await setUser(null);
-            await dispatch(clearCart());
-        } catch (e) {
-            console.error(e);
-        }
-    };
 
     const handleMenuMobile = () => {
         if (showDropdown) {
@@ -115,7 +105,7 @@ const Navigation: React.FC<Props & ICartState> = ({
 
     // mock links for testing purposes
     return (
-        <Box as="header" bg={['#fff', '#fff', 'transparent']}>
+        <Box as="header">
             {openModal && (
                 <Modal>
                     <MailingList closeModal={() => setOpenModal(false)} />

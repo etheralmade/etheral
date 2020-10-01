@@ -30,23 +30,14 @@ const GlobalStyles = createGlobalStyle`
         z-index: 1;
 
         & > header:first-child {
-          position: relative;
+          position: absolute;
           width: 100vw;
+          top: 0;
         }
 
         @media screen and (min-width: 48em) {
           top: 0;
 
-          & > header:first-child {
-            top: 0;
-            position: absolute;
-          }
-        }
-
-        @media screen and (min-width: 64em) {
-           & > header:first-child {
-            top: 0;
-          }
         }
       }
 
