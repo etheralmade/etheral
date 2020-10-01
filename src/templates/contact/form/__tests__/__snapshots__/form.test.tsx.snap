@@ -96,7 +96,7 @@ exports[`Form matches snapshot 1`] = `
       MESSAGE
     </label>
     <textarea
-      className="css-1xoz5r4"
+      className="custom-scrollbar css-1ef54ob"
       id="message"
       name="message"
       placeholder="Message"

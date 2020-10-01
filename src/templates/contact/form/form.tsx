@@ -139,8 +139,10 @@ const Form: React.FC<Props> = () => {
                     id="message"
                     variant="variants.authInput"
                     placeholder="Message"
+                    className="custom-scrollbar"
                     sx={{
                         resize: 'vertical',
+                        height: [150, 150, 200],
                     }}
                     ref={register({
                         required: true,
