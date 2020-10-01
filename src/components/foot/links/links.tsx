@@ -12,25 +12,32 @@ const Links: React.FC<Props> = () => {
         <Flex
             as="nav"
             flexDirection={['row']}
-            justifyContent="center"
+            justifyContent={['space-between', 'space-between', 'center']}
             alignItems="center"
             py={[4, 4, 5]}
+            width="100%"
             sx={{
                 '& > a': {
                     textDecoration: 'none',
                     color: theme.colors.black[0],
-                    px: [3],
+                    px: [0, 0, 5],
                 },
             }}
         >
             <Link to="/contact">
-                <Text variant="linkSmall">CONTACT US</Text>
+                <Text variant="linkSmall" width="fit-content">
+                    CONTACT US
+                </Text>
             </Link>
             <Link to="/">
-                <Text variant="linkSmall">FAQ</Text>
+                <Text variant="linkSmall" width="fit-content">
+                    FAQ
+                </Text>
             </Link>
             <Link to="/">
-                <Text variant="linkSmall">SIZE GUIDE</Text>
+                <Text variant="linkSmall" width="fit-content">
+                    SIZE GUIDE
+                </Text>
             </Link>
         </Flex>
     );

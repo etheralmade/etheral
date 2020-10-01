@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from '@reach/router';
 
 import { Text, Flex, Box } from 'rebass';
-import { Icon } from '@iconify/react';
+import { Icon, InlineIcon } from '@iconify/react';
 import menuFill from '@iconify/icons-ri/menu-fill';
 import { CSSTransition } from 'react-transition-group';
 import closeLine from '@iconify/icons-ri/close-line';
+import arrowDownSLine from '@iconify/icons-ri/arrow-down-s-line';
 
 import Cart from './cart';
 // import { clearCart } from 'state/actions/cart';
@@ -20,7 +21,8 @@ import Banner from './banner';
 import Modal from '../modal';
 import MailingList from '../popups/mailing-list';
 
-import './nav.scss';
+import './styles.scss';
+import './transition.scss';
 
 export type Props = {
     auth: firebase.auth.Auth;
@@ -408,6 +410,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 sx={{
                                     height: '100vh',
                                     top: 0,
+                                    transition: '0.2s',
                                     a: {
                                         textDecoration: 'none',
                                     },
@@ -432,8 +435,20 @@ const Navigation: React.FC<Props & ICartState> = ({
                                         onClick={() =>
                                             setShowDropdown(prev => !prev)
                                         }
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            svg: {
+                                                transition: '0.2s',
+                                                tansform: showDropdown
+                                                    ? 'rotate(180deg) !important'
+                                                    : '',
+                                            },
+                                        }}
                                     >
                                         SHOP
+                                        <InlineIcon icon={arrowDownSLine} />
                                     </Text>
                                     <CSSTransition
                                         in={showDropdown}

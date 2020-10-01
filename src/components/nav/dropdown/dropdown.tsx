@@ -6,6 +6,8 @@ import Img, { FluidObject } from 'gatsby-image';
 import { CSSTransition } from 'react-transition-group';
 
 import { Box, Flex, Text } from 'rebass';
+import { InlineIcon } from '@iconify/react';
+import arrowDownSLine from '@iconify/icons-ri/arrow-down-s-line';
 
 type Props = {
     currLocation: string;
@@ -192,12 +194,24 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                         <Box className="collections box-S">
                             <Text
                                 variant="link"
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    svg: {
+                                        transition: '0.2s',
+                                        transform: displayCollectionS
+                                            ? 'rotate(180deg) !important'
+                                            : '',
+                                    },
+                                }}
                                 onClick={() =>
                                     setDisplayCollectionS(prev => !prev)
                                 }
                                 my={1}
                             >
                                 Collections
+                                <InlineIcon icon={arrowDownSLine} />
                             </Text>
                             <CSSTransition
                                 in={displayCollectionS}
@@ -233,12 +247,24 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                         <Box className="categories box-S">
                             <Text
                                 variant="link"
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    svg: {
+                                        transition: '0.2s',
+                                        transform: displayCategoryS
+                                            ? 'rotate(180deg) !important'
+                                            : '',
+                                    },
+                                }}
                                 onClick={() =>
                                     setDisplayCategoryS(prev => !prev)
                                 }
                                 my={1}
                             >
                                 Categories
+                                <InlineIcon icon={arrowDownSLine} />
                             </Text>
                             <CSSTransition
                                 in={displayCategoryS}

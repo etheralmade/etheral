@@ -50,7 +50,7 @@ const GlobalStyles = createGlobalStyle`
         position: relative;
         z-index: 1;
 
-        padding-top: 10vh;
+        padding-top: 12vh;
 
         @media screen and (min-width: 27em) and (orientation: landscape) {
           padding-top: 22vh;

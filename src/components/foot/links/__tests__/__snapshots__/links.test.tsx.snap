@@ -2,14 +2,14 @@
 
 exports[`Links on footer component matches snapshot 1`] = `
 <nav
-  className="css-1f81d78"
+  className="css-16d31i"
 >
   <a
     href="/contact"
     onClick={[Function]}
   >
     <div
-      className="css-vurnku"
+      className="css-r8xm40"
     >
       CONTACT US
     </div>
@@ -20,7 +20,7 @@ exports[`Links on footer component matches snapshot 1`] = `
     onClick={[Function]}
   >
     <div
-      className="css-vurnku"
+      className="css-r8xm40"
     >
       FAQ
     </div>
@@ -31,7 +31,7 @@ exports[`Links on footer component matches snapshot 1`] = `
     onClick={[Function]}
   >
     <div
-      className="css-vurnku"
+      className="css-r8xm40"
     >
       SIZE GUIDE
     </div>

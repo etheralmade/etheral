@@ -131,20 +131,58 @@ exports[`Dropdown element matches snapshot 1`] = `
         className="collections box-S css-vurnku"
       >
         <div
-          className="css-gqtvun"
+          className="css-1barrhw"
           onClick={[Function]}
         >
           Collections
+          <svg
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path d=\\"M12 13.172l4.95-4.95l1.414 1.414L12 16L5.636 9.636L7.05 8.222z\\" fill=\\"currentColor\\"/>",
+              }
+            }
+            focusable={false}
+            height="1em"
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "transform": "rotate(360deg)",
+                "verticalAlign": "-0.125em",
+              }
+            }
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          />
         </div>
       </div>
       <div
         className="categories box-S css-vurnku"
       >
         <div
-          className="css-gqtvun"
+          className="css-1barrhw"
           onClick={[Function]}
         >
           Categories
+          <svg
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path d=\\"M12 13.172l4.95-4.95l1.414 1.414L12 16L5.636 9.636L7.05 8.222z\\" fill=\\"currentColor\\"/>",
+              }
+            }
+            focusable={false}
+            height="1em"
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "transform": "rotate(360deg)",
+                "verticalAlign": "-0.125em",
+              }
+            }
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          />
         </div>
       </div>
     </div>
