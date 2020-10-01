@@ -30,7 +30,7 @@ const GlobalStyles = createGlobalStyle`
         z-index: 1;
 
         & > header:first-child {
-          position: absolute;
+        position: absolute;
           width: 100vw;
           top: 0;
         }
@@ -46,14 +46,10 @@ const GlobalStyles = createGlobalStyle`
         position: relative;
         z-index: 1;
 
-        padding-top: 3vh;
+        padding-top: 10vh;
 
-        @media screen and (min-width: 27em) {
-          padding-top: 5vh;
-        }
-
-        @media screen and (min-width: 48em) {
-          padding-top: 12vh;
+        @media screen and (min-width: 27em) and (orientation: landscape) {
+          padding-top: 22vh;
         }
 
         @media screen and (min-width: 48em) and (orientation: landscape) {

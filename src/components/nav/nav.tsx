@@ -134,79 +134,71 @@ const Navigation: React.FC<Props & ICartState> = ({
                     variant="innerWrapper"
                     my={[0, 5, 0]}
                     css={`
-                    .hide-on-mobile {
-                        display: none;
-                    }
-
-                    @media screen and (min-width: 48em) {
                         .hide-on-mobile {
-                            display: block;
-                        }
-
-                        .hide-on-desktop {
                             display: none;
                         }
-                    }
 
-                    & .icons {
-                        height: 12px;
-                        width: 12px;
+                        @media screen and (min-width: 48em) {
+                            .hide-on-mobile {
+                                display: block;
+                            }
 
-                        &.bigger {
-                            height: 16px;
-                            width: 16px;
+                            .hide-on-desktop {
+                                display: none;
+                            }
                         }
 
-                        @media screen and (min-width: 27em) {
-                            height: 14px;
-                            width: 14px;
+                        & .icons {
+                            height: 12px;
+                            width: 12px;
 
                             &.bigger {
+                                height: 16px;
+                                width: 16px;
+                            }
+
+                            &.black-on-dropdown path {
+                                fill: ${showDropdownL ||
+                                showMenuMobile ||
+                                showCart ||
+                                currLocation !== '/'
+                                    ? '#000'
+                                    : '#fff'};
+                            }
+
+                            &.black-on-dropdown-stroke path {
+                                stroke: ${showDropdownL ||
+                                showMenuMobile ||
+                                showCart ||
+                                currLocation !== '/'
+                                    ? '#000'
+                                    : '#fff'};
+                            }
+
+                            @media screen and (min-width: 27em) {
+                                height: 14px;
+                                width: 14px;
+
+                                &.bigger {
+                                    height: 18px;
+                                    width: 18px;
+                                }
+                            }
+
+                            @media screen and (min-width: 48em) {
                                 height: 18px;
                                 width: 18px;
                             }
                         }
 
-                        @media screen and (min-width: 48em) {
-                            height: 18px;
-                            width: 18px;
-
-                            &.black-on-dropdown path {
-                                fill: ${
-                                    showDropdownL ||
-                                    showCart ||
-                                    currLocation !== '/'
-                                        ? '#000'
-                                        : '#fff'
-                                };
-                            }
-
-                            &.black-on-dropdown-stroke path {
-                                stroke: ${
-                                    showDropdownL ||
-                                    showCart ||
-                                    currLocation !== '/'
-                                        ? '#000'
-                                        : '#fff'
-                                };
-                            }
-
+                        .cart-badge {
+                            color: ${showDropdownL ||
+                            showCart ||
+                            currLocation !== '/'
+                                ? '#000'
+                                : '#fff'} !important;
                         }
-                    }
-
-                    .cart-badge {
-                        @media screen and (min-width: 48em) {
-                            color: ${
-                                showDropdownL ||
-                                showCart ||
-                                currLocation !== '/'
-                                    ? '#000'
-                                    : '#fff'
-                            } !important;
-                            }
-                        }
-                    }
-                `}
+                    `}
                 >
                     {/* Logo */}
                     <Link to="/">
@@ -224,18 +216,19 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     width: 20vw;
                                 }
 
+                                & svg path {
+                                    fill: ${showDropdownL ||
+                                    showCart ||
+                                    showMenuMobile ||
+                                    currLocation !== '/'
+                                        ? '#000'
+                                        : '#fff'};
+                                }
+
                                 @media screen and (min-width: 48em) {
                                     width: 12vw;
                                     height: 8vh;
                                     transform: translate(-55%, 8px);
-
-                                    & svg path {
-                                        fill: ${showDropdownL ||
-                                        showCart ||
-                                        currLocation !== '/'
-                                            ? '#000'
-                                            : '#fff'};
-                                    }
                                 }
 
                                 @media screen and (min-width: 64em) {
@@ -285,6 +278,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     color={
                                         showDropdownL ||
                                         showCart ||
+                                        showMenuMobile ||
                                         currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
@@ -309,6 +303,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     color={
                                         showDropdownL ||
                                         showCart ||
+                                        showMenuMobile ||
                                         currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
@@ -343,6 +338,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     color={
                                         showDropdownL ||
                                         showCart ||
+                                        showMenuMobile ||
                                         currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
@@ -370,6 +366,9 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 className={`icons ${
                                     showMenuMobile ? 'bigger' : ''
                                 }`}
+                                color={
+                                    showMenuMobile || showCart ? '#000' : '#fff'
+                                }
                             />
                         </Flex>
 
@@ -460,7 +459,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                         unmountOnExit={true}
                         classNames="cart-items"
                     >
-                        <CartItems cart={{ cart }} />
+                        <CartItems cart={{ cart, wishlist }} />
                     </CSSTransition>
                 </Box>
             </Flex>
