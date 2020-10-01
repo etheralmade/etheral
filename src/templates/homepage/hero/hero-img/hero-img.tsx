@@ -29,7 +29,9 @@ const HeroImage: React.FC<Props> = ({ img, buttonLink, buttonText }) => {
                 />
             </Box>
             <Link to={buttonLink}>
-                <Button mb={[7, 8, 9]}>{buttonText}</Button>
+                <Button mb={[8, 8, 9]} px={[8]}>
+                    {buttonText}
+                </Button>
             </Link>
         </Flex>
     );
