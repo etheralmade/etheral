@@ -66,12 +66,17 @@ exports.sourceNodes = async ({
         .firestore()
         .collection('fl_content')
         .where('_fl_meta_.schema', '==', 'aboutUs');
+    const consignments = firebaseApp
+        .firestore()
+        .collection('fl_content')
+        .where('_fl_meta_.schema', '==', 'consignment');
 
     const storage = firebaseApp.storage();
 
     let collectionDocs = [];
     let productDocs = [];
     let blogDocs = [];
+    let consignmentDocs = [];
     let homepageDoc;
     let aboutUsDoc;
 
@@ -112,6 +117,15 @@ exports.sourceNodes = async ({
         docs.forEach(doc => {
             if (doc.exists) {
                 blogDocs.push(doc.data());
+            }
+        });
+    });
+
+    // mapping consignment data(s) from db to a variable.
+    await consignments.get().then(docs => {
+        docs.forEach(doc => {
+            if (doc.exists) {
+                consignmentDocs = [...consignmentDocs, doc.data()];
             }
         });
     });
@@ -246,6 +260,38 @@ exports.sourceNodes = async ({
             id: createNodeId(nodeFields.cid),
             internal: {
                 type: 'Collection',
+                contentDigest: createContentDigest(nodeFields),
+            },
+        });
+    });
+
+    // source stockists/consignments data from db
+    const createNodesConsignments = await consignmentDocs.map(async data => {
+        const {
+            id,
+            address,
+            phoneNumber,
+            zipCode,
+            location,
+            name,
+            web,
+        } = await data;
+
+        const nodeFields = {
+            address,
+            phoneNumber,
+            zipCode,
+            location,
+            name,
+            web,
+        };
+
+        return createNode({
+            // data for the node
+            ...nodeFields,
+            id: createNodeId(id),
+            internal: {
+                type: 'Consignment',
                 contentDigest: createContentDigest(nodeFields),
             },
         });
@@ -475,14 +521,16 @@ exports.sourceNodes = async ({
         }
     };
 
+    // wait for all source operations to be done before creating pages.
     await Promise.all(
         flatten([
             createNodesProducts,
             createNodesCollections,
+            createNodesBlogs,
+            createNodesConsignments,
             requestCitiesCalculateShipping(),
             createNodeHomepage(),
             createNodeAboutUs(),
-            createNodesBlogs,
         ])
     );
 };
