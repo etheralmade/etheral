@@ -177,7 +177,7 @@ export default {
     h2: {
         fontFamily: 'heading',
         fontWeight: 'body',
-        fontSize: [3, 3, 4],
+        fontSize: [2, 2, 3, 4],
     },
     h3: {
         fontFamily: 'heading',

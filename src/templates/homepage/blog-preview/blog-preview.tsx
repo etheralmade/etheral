@@ -16,9 +16,6 @@ const BlogPreview: React.FC<Props> = ({ blog }) => {
 
     return (
         <Box px={[6, 6, 8]} mb={[4, 4, 5, 6]}>
-            <Heading as="h2" variant="h2" textAlign="center" mb={[4, 4, 6]}>
-                LATEST BLOG POST
-            </Heading>
             <Flex
                 flexDirection={['column', 'column', 'column', 'row']}
                 alignItems={[

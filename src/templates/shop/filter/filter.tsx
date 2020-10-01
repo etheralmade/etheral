@@ -27,7 +27,7 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
     const [collections, setCollections] = useState<string[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
 
-    const [showFilter, setShowFilter] = useState(true);
+    const [showFilter, setShowFilter] = useState(false);
 
     const data = useStaticQuery(graphql`
         query {
@@ -256,6 +256,7 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
             onClick={() => setShowFilter(true)}
             fontFamily="heading"
             fontWeight="medium"
+            fontSize={[1, 1, 2]}
             sx={{ '&:hover': { cursor: 'pointer' } }}
         >
             FILTER

@@ -37,7 +37,7 @@ exports[`Footer element matches snapshot 1`] = `
       </div>
     </div>
     <nav
-      className="css-1vt5pff"
+      className="css-1f81d78"
     >
       <a
         href="/contact"

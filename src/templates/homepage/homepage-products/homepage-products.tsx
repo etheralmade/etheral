@@ -31,7 +31,7 @@ const HomepageProducts: React.FC<Props> = ({ products, displayText }) => {
                 {displayText.toUpperCase()}
             </Heading>
             <Flex
-                flexDirection={['column', 'column', 'row']}
+                flexDirection={['row']}
                 alignItems={['flex-start']}
                 flexWrap="wrap"
                 px={[6, 6, 8]}
@@ -40,7 +40,9 @@ const HomepageProducts: React.FC<Props> = ({ products, displayText }) => {
 
                     /* edge space-evenly progressive enhancement. */
                     @supports not (-ms-ime-align: auto) {
-                        justify-content: space-evenly;
+                        @media screen and (min-width: 48em) {
+                            justify-content: space-evenly;
+                        }
                     }
                 `}
             >

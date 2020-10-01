@@ -95,7 +95,7 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                         }
                     `}
                 >
-                    <Box>
+                    <Box sx={{ textAlign: ['center', 'center', 'left'] }}>
                         <Heading
                             as="h3"
                             variant="h3"

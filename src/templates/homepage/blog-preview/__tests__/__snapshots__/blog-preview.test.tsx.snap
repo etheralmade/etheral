@@ -4,11 +4,6 @@ exports[`BlogPreview matches snapshot 1`] = `
 <div
   className="css-702kq"
 >
-  <h2
-    className="css-12i65rx"
-  >
-    LATEST BLOG POST
-  </h2>
   <div
     className="css-1u841xy"
   >

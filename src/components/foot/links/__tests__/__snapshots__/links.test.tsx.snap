@@ -2,7 +2,7 @@
 
 exports[`Links on footer component matches snapshot 1`] = `
 <nav
-  className="css-1vt5pff"
+  className="css-1f81d78"
 >
   <a
     href="/contact"

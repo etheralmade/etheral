@@ -11,15 +11,15 @@ const Links: React.FC<Props> = () => {
     return (
         <Flex
             as="nav"
-            flexDirection={['column', 'column', 'row']}
-            justifyContent={['space-between', 'space-between', 'flex-start']}
+            flexDirection={['row']}
+            justifyContent="center"
             alignItems="center"
             py={[4, 4, 5]}
             sx={{
                 '& > a': {
                     textDecoration: 'none',
                     color: theme.colors.black[0],
-                    px: [0, 0, 3],
+                    px: [3],
                 },
             }}
         >

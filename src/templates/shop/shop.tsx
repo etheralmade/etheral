@@ -127,8 +127,6 @@ const Shop: React.FC<Props> = () => {
                     allProducts,
                 });
 
-                console.log(filtered);
-
                 setStore(filtered);
             }
         }
@@ -194,7 +192,9 @@ const Shop: React.FC<Props> = () => {
 
                     /* edge space-evenly progressive enhancement. */
                     @supports not (-ms-ime-align: auto) {
-                        justify-content: space-evenly;
+                        @media screen and (min-width: 48em) {
+                            justify-content: space-evenly;
+                        }
                     }
                 `}
             >
