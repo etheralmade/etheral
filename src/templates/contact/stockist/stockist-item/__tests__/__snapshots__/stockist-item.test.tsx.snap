@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StockistItem matches snapshot 1`] = `
+<li
+  className="css-1t6fcji"
+>
+  <div
+    className="css-m65dgr"
+  >
+    Toko C
+  </div>
+  <p
+    className="css-uuqk9f"
+  >
+    
+    <br />
+    12
+    <br />
+    1123
+    <br />
+  </p>
+  <a
+    className="css-1ihmdtl"
+    href="http://"
+  >
+    
+  </a>
+</li>
+`;

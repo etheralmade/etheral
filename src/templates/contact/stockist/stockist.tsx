@@ -43,8 +43,12 @@ const Stockist: React.FC<Props> = () => {
         const consignments = groupBy(consignmentsQuery, 'location');
 
         return (
-            <Box ml={[]} mt={[5, 5]}>
-                <Heading as="h4" variant="h4">
+            <Box ml={[0, 0, 6, 8]} mt={[5, 5]}>
+                <Heading
+                    as="h4"
+                    variant="h4"
+                    textAlign={['center', 'center', 'left']}
+                >
                     STOCKISTS
                 </Heading>
                 <Box mt={[4, 4]}>
@@ -56,7 +60,11 @@ const Stockist: React.FC<Props> = () => {
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
+                                    justifyContent: [
+                                        'center',
+                                        'center',
+                                        'flex-start',
+                                    ],
                                     svg: { mr: [] },
                                 }}
                             >

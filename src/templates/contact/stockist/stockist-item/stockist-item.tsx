@@ -19,9 +19,16 @@ const StockistItem: React.FC<Props> = ({
     web,
 }) => {
     return (
-        <Box as="li" sx={{ listStyleType: 'none' }} my={[4]}>
+        <Box
+            as="li"
+            sx={{
+                listStyleType: 'none',
+                textAlign: ['centerr', 'center', 'left'],
+            }}
+            my={[4]}
+        >
             <Text
-                fontSize={[1]}
+                fontSize={[1, 1, 2]}
                 fontWeight="semiBold"
                 fontFamily="body"
                 mb={[3]}
@@ -30,10 +37,10 @@ const StockistItem: React.FC<Props> = ({
             </Text>
             <Text
                 as="p"
-                fontSize={[0]}
+                fontSize={[0, 0, 1]}
                 fontWeight="regular"
                 fontFamily="body"
-                width="80%"
+                width={['80%', '80%', '100%']}
                 m="0 auto"
             >
                 {address}
@@ -47,7 +54,7 @@ const StockistItem: React.FC<Props> = ({
                 href={`http://${web}`}
                 mt={[1]}
                 sx={{
-                    fontSize: [0],
+                    fontSize: [0, 0, 1],
                     fontWeight: 'regular',
                     fontFamily: 'body',
                     textDecoration: 'none',

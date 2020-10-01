@@ -60,7 +60,7 @@ describe('Stockist', () => {
     });
 
     it('Should render based on location correctly', () => {
-        const { getByRole, getByTestId } = render(Element);
+        const { getByTestId } = render(Element);
 
         const Jkt = getByTestId('JAKARTA');
         const Bdg = getByTestId('BANDUNG');
@@ -81,7 +81,7 @@ describe('Stockist', () => {
     });
 
     it('matches snapshot', () => {
-        const run = false;
+        const run = true;
 
         if (run) {
             const tree = renderer.create(Element).toJSON();

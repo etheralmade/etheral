@@ -24,8 +24,7 @@ const Contact: React.FC<Props> = () => {
                 <br />
                 {heading2}
             </Heading>
-
-            <Flex flexDirection={['column', 'column']}>
+            <Flex flexDirection={['column', 'column', 'row']}>
                 <Form />
                 <Stockist />
             </Flex>

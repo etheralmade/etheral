@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stockist matches snapshot 1`] = `
+<div
+  className="css-vfyuw2"
+>
+  <h4
+    className="css-2xeirz"
+  >
+    STOCKISTS
+  </h4>
+  <div
+    className="css-1ynh1v9"
+  >
+    <ul
+      className="css-vurnku"
+      data-testid="JAKARTA"
+    >
+      <h2
+        className="css-12osdm3"
+      >
+        <svg
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path d=\\"M18.364 17.364L12 23.728l-6.364-6.364a9 9 0 1 1 12.728 0zM12 13a2 2 0 1 0 0-4a2 2 0 0 0 0 4z\\" fill=\\"currentColor\\"/>",
+            }
+          }
+          focusable={false}
+          height="1em"
+          preserveAspectRatio="xMidYMid meet"
+          style={
+            Object {
+              "transform": "rotate(360deg)",
+              "verticalAlign": "-0.125em",
+            }
+          }
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        JAKARTA
+      </h2>
+      <li
+        className="css-1t6fcji"
+      >
+        <div
+          className="css-m65dgr"
+        >
+          Toko A
+        </div>
+        <p
+          className="css-uuqk9f"
+        >
+          
+          <br />
+          123123
+          <br />
+          123
+          <br />
+        </p>
+        <a
+          className="css-1ihmdtl"
+          href="http://"
+        >
+          
+        </a>
+      </li>
+      <li
+        className="css-1t6fcji"
+      >
+        <div
+          className="css-m65dgr"
+        >
+          Toko B
+        </div>
+        <p
+          className="css-uuqk9f"
+        >
+          
+          <br />
+          12
+          <br />
+          1123
+          <br />
+        </p>
+        <a
+          className="css-1ihmdtl"
+          href="http://"
+        >
+          
+        </a>
+      </li>
+    </ul>
+    <ul
+      className="css-vurnku"
+      data-testid="BANDUNG"
+    >
+      <h2
+        className="css-12osdm3"
+      >
+        <svg
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path d=\\"M18.364 17.364L12 23.728l-6.364-6.364a9 9 0 1 1 12.728 0zM12 13a2 2 0 1 0 0-4a2 2 0 0 0 0 4z\\" fill=\\"currentColor\\"/>",
+            }
+          }
+          focusable={false}
+          height="1em"
+          preserveAspectRatio="xMidYMid meet"
+          style={
+            Object {
+              "transform": "rotate(360deg)",
+              "verticalAlign": "-0.125em",
+            }
+          }
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        BANDUNG
+      </h2>
+      <li
+        className="css-1t6fcji"
+      >
+        <div
+          className="css-m65dgr"
+        >
+          Toko C
+        </div>
+        <p
+          className="css-uuqk9f"
+        >
+          
+          <br />
+          12
+          <br />
+          1123
+          <br />
+        </p>
+        <a
+          className="css-1ihmdtl"
+          href="http://"
+        >
+          
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
