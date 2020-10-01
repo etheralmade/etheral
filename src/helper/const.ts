@@ -49,7 +49,14 @@ export const mockOrder: Order = {
             pid: mockProduct1.pid,
             amount: 12,
             discountPercentage: 10,
-            note: [],
+            note: [
+                {
+                    details: {
+                        size: 'S',
+                    },
+                    amount: 12,
+                },
+            ],
         },
     ],
     paid: false,
