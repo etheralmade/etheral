@@ -317,7 +317,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 </Text>
                                 <CSSTransition
                                     in={showDropdownL}
-                                    timeout={200}
+                                    timeout={50}
                                     unmountOnExit={true}
                                     classNames="dropdown"
                                 >

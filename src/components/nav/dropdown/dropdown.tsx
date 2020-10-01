@@ -92,6 +92,8 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                     position: relative;
                     left: 0;
 
+                    transition: 0.2s;
+
                     .box-L {
                         display: none;
                     }
@@ -104,8 +106,11 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                         top: 20vh;
                     }
 
-                    @media (min-width: 48em) and (orientation: landscape) {
+                    @media (min-width: 48em) {
                         top: 10vh;
+                        position: absolute;
+                        left: -6%;
+
                         .box-L {
                             display: block;
                         }
@@ -114,8 +119,14 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                         }
                     }
 
+                    @media (min-width: 48em) and (orientation: landscape) {
+                        top: 10vh;
+                        left: -9%;
+                    }
+
                     @media (min-width: 64em) {
-                        left: -7%;
+                        top: 9vh;
+                        left: -13%;
                     }
                 `}
             >
