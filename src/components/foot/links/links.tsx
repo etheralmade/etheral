@@ -23,7 +23,7 @@ const Links: React.FC<Props> = () => {
                 },
             }}
         >
-            <Link to="/">
+            <Link to="/contact">
                 <Text variant="linkSmall">CONTACT US</Text>
             </Link>
             <Link to="/">
