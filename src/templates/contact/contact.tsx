@@ -19,7 +19,7 @@ const Contact: React.FC<Props> = () => {
             width={['100%', '100%', '80%', '60%']}
             m="0 auto"
         >
-            <Heading as="h2" variant="h4" py={[4]}>
+            <Heading as="h1" variant="h4" py={[4]}>
                 {heading1}
                 <br />
                 {heading2}

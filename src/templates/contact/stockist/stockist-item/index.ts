@@ -1,4 +1,5 @@
+import { StockistItem, Props } from './stockist-item';
 
-import { StockistItem } from './stockist-item';
+export { Props };
 
 export default StockistItem;

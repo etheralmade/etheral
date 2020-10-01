@@ -1,7 +1,12 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
+import { groupBy, toPairs } from 'lodash';
 
 import { Box, Heading } from 'rebass';
+import { InlineIcon } from '@iconify/react';
+import mapPin2Fill from '@iconify/icons-ri/map-pin-2-fill';
+
+import StockistItem, { Props as StockistItemProps } from './stockist-item';
 
 type Props = {};
 
@@ -26,18 +31,49 @@ const Stockist: React.FC<Props> = () => {
     `);
 
     if (data) {
-        const consignments = data.allConsignment.edges.map(
-            (edge: any) => edge.node
-        );
+        // apply upercase to every consignemnt's location => case safety on grouping
+        const consignmentsQuery = data.allConsignment.edges
+            .map((edge: any) => edge.node)
+            .map((csg: any) => ({
+                ...csg,
+                location: csg.location.toUpperCase(),
+            }));
 
-        console.log(consignments);
+        // then grouping them by location.
+        const consignments = groupBy(consignmentsQuery, 'location');
 
         return (
             <Box ml={[]} mt={[5, 5]}>
                 <Heading as="h4" variant="h4">
                     STOCKISTS
                 </Heading>
-                <Box mt={[4, 4]}></Box>
+                <Box mt={[4, 4]}>
+                    {/* to pairs => map object key and value into an array. [0] = key, [1] = value */}
+                    {toPairs(consignments).map(pair => (
+                        <Box data-testid={pair[0]} as="ul" key={pair[0]}>
+                            <Heading
+                                variant="h4"
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    svg: { mr: [] },
+                                }}
+                            >
+                                <InlineIcon icon={mapPin2Fill} />
+                                {pair[0]}
+                            </Heading>
+                            <>
+                                {pair[1].map(val => (
+                                    <StockistItem
+                                        key={val.name}
+                                        {...(val as StockistItemProps)}
+                                    />
+                                ))}
+                            </>
+                        </Box>
+                    ))}
+                </Box>
             </Box>
         );
     } else {
