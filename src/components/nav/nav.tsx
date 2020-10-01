@@ -402,11 +402,12 @@ const Navigation: React.FC<Props & ICartState> = ({
                         classNames="links"
                     >
                         <Modal>
-                            <Box
+                            <Flex
                                 id="links-S"
                                 bg="#fff"
                                 px={[7]}
                                 py={[7]}
+                                flexDirection="column"
                                 sx={{
                                     height: '100vh',
                                     top: 0,
@@ -515,11 +516,11 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     </Text>
                                 </Link>
 
-                                <Box m="auto" />
-
                                 <Flex
                                     alignItems="center"
-                                    sx={{ position: 'absolute', bottom: [4] }}
+                                    justifyContent="space-between"
+                                    mt="auto"
+                                    sx={{ position: 'relative', bottom: [8] }}
                                 >
                                     <Account user={user} desktop={false} />
                                     <CurrencySelector
@@ -528,7 +529,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                         currLocation={currLocation}
                                     />
                                 </Flex>
-                            </Box>
+                            </Flex>
                         </Modal>
                     </CSSTransition>
 
