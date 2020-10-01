@@ -10,6 +10,7 @@ import {
 import { changeCurrency } from 'state/actions/currency';
 import { theme } from 'styles';
 
+import './styles.scss';
 export type Props = {
     showDropdown: boolean;
     desktop: boolean;
@@ -109,9 +110,10 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
     };
 
     // options for select component
+    // display IDR - Indonesia => just on menu => hardcoded id => on styles.scss
     const options = [
-        { value: Currencies.IDR, label: 'IDR' },
-        { value: Currencies.AUD, label: 'AUD' },
+        { value: Currencies.IDR, label: 'IDR', className: 'ID' },
+        { value: Currencies.AUD, label: 'AUD', className: 'AU' },
     ];
 
     // default value => fetched from global state
@@ -125,6 +127,7 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
             className={desktop ? 'hide-on-mobile' : 'hide-on-desktop'}
             styles={customStyles}
             aria-label="Change currency"
+            menuIsOpen={true}
         />
     );
 };

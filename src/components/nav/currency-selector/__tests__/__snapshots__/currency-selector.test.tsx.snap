@@ -104,5 +104,35 @@ exports[`CurrencySelector matches snapshot 1`] = `
       </div>
     </div>
   </div>
+  <div
+    className=" css-1kbdrxh-menu"
+    onMouseDown={[Function]}
+    onMouseMove={[Function]}
+  >
+    <div
+      className=" css-4ljt47-MenuList"
+    >
+      <div
+        className=" css-1pxkkmc-option"
+        id="react-select-3-option-0"
+        onClick={[Function]}
+        onMouseMove={[Function]}
+        onMouseOver={[Function]}
+        tabIndex={-1}
+      >
+        IDR
+      </div>
+      <div
+        className=" css-13dzwo8-option"
+        id="react-select-3-option-1"
+        onClick={[Function]}
+        onMouseMove={[Function]}
+        onMouseOver={[Function]}
+        tabIndex={-1}
+      >
+        AUD
+      </div>
+    </div>
+  </div>
 </div>
 `;
