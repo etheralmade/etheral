@@ -2,47 +2,17 @@
 
 exports[`Dropdown element matches snapshot 1`] = `
 <div
-  className="css-alw8el"
+  className="css-n3n0pt"
   id="dropdown"
 >
   <div
-    className="css-vurnku"
-    id="go-back-dropdown"
-    onClick={[MockFunction]}
-  >
-    <div
-      className="css-vurnku"
-    >
-      <svg
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<path d=\\"M7.828 11H20v2H7.828l5.364 5.364l-1.414 1.414L4 12l7.778-7.778l1.414 1.414z\\" fill=\\"currentColor\\"/>",
-          }
-        }
-        focusable={false}
-        height="1em"
-        preserveAspectRatio="xMidYMid meet"
-        style={
-          Object {
-            "transform": "rotate(360deg)",
-            "verticalAlign": "-0.125em",
-          }
-        }
-        viewBox="0 0 24 24"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-      Menu
-    </div>
-  </div>
-  <div
-    className="css-7l6abm"
+    className="css-aol0px"
   >
     <div
       className="css-idfoof"
     >
       <div
-        className="others css-1k3b5l4"
+        className="others css-37bsuj"
       >
         <a
           href="/shop"
@@ -82,14 +52,14 @@ exports[`Dropdown element matches snapshot 1`] = `
           onClick={[Function]}
         >
           <div
-            className="css-vurnku"
+            className="css-1q111xk"
           >
             Sale?
           </div>
         </a>
       </div>
       <div
-        className="collections css-1skn4m0"
+        className="collections box-L css-1skn4m0"
       >
         <h3
           className="css-13qynyj"
@@ -112,7 +82,7 @@ exports[`Dropdown element matches snapshot 1`] = `
         </div>
       </div>
       <div
-        className="categories css-1skn4m0"
+        className="categories box-L css-1skn4m0"
       >
         <h3
           className="css-13qynyj"
@@ -120,7 +90,7 @@ exports[`Dropdown element matches snapshot 1`] = `
           Categories
         </h3>
         <div
-          className="css-1g9axto"
+          className="css-e23ama"
         >
           <a
             aria-current="page"
@@ -155,6 +125,26 @@ exports[`Dropdown element matches snapshot 1`] = `
               Rings
             </div>
           </a>
+        </div>
+      </div>
+      <div
+        className="collections box-S css-vurnku"
+      >
+        <div
+          className="css-gqtvun"
+          onClick={[Function]}
+        >
+          Collections
+        </div>
+      </div>
+      <div
+        className="categories box-S css-vurnku"
+      >
+        <div
+          className="css-gqtvun"
+          onClick={[Function]}
+        >
+          Categories
         </div>
       </div>
     </div>

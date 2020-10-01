@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Link } from '@reach/router';
 import { findIndex } from 'lodash';
 import Img, { FluidObject } from 'gatsby-image';
+import { CSSTransition } from 'react-transition-group';
 
 import { Box, Flex, Text } from 'rebass';
-import { InlineIcon } from '@iconify/react';
-import arrowLeftLine from '@iconify/icons-ri/arrow-left-line';
 
 type Props = {
     currLocation: string;
@@ -20,7 +19,7 @@ const nameToSlug = (name: string) =>
         .split(' ')
         .join('-');
 
-const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
+const Dropdown: React.FC<Props> = ({ currLocation }) => {
     const data = useStaticQuery(graphql`
         query {
             collections: allCollection {
@@ -43,6 +42,9 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
             }
         }
     `);
+
+    const [displayCollectionS, setDisplayCollectionS] = useState(false);
+    const [displayCategoryS, setDisplayCategoryS] = useState(false);
 
     const { collections: allCollection, navImg } = data;
 
@@ -77,41 +79,37 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
 
         return (
             <Box
-                height={['92vh', '92vh', 'fit-content']}
+                height={['fit-content']}
                 width={['100%', '100%', '100vw', '101vw']}
-                pt={[4, 4, 5]}
-                pb={[4, 4, 9]}
+                pt={[0, 0, 5]}
+                pb={[0, 0, 9]}
                 px={[6, '10vw', 8, '10vw']}
                 id="dropdown"
-                bg={['brown.0', 'brown.0', '#fff']}
+                bg={['#fff']}
                 css={`
-                    position: absolute;
+                    position: relative;
                     left: 0;
-                    top: 10vh;
-                    z-index: 888;
 
-                    #go-back-dropdown {
-                        svg {
-                            margin-right: 12px;
-                            transform: translateY(1px) !important;
-                        }
+                    .box-L {
+                        display: none;
+                    }
+
+                    .box-S {
+                        display: block;
                     }
 
                     @media (min-width: 24em) and (orientation: landscape) {
                         top: 20vh;
                     }
 
-                    @media (min-width: 48em) {
-                        #go-back-dropdown {
-                            display: none;
-                        }
-
-                        top: 9vh;
-                        transform: translateX(-5%);
-                    }
-
                     @media (min-width: 48em) and (orientation: landscape) {
                         top: 10vh;
+                        .box-L {
+                            display: block;
+                        }
+                        .box-S {
+                            display: none;
+                        }
                     }
 
                     @media (min-width: 64em) {
@@ -119,13 +117,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                     }
                 `}
             >
-                <Box id="go-back-dropdown" onClick={goBack}>
-                    <Text variant="linkActive">
-                        <InlineIcon icon={arrowLeftLine} />
-                        Menu
-                    </Text>
-                </Box>
-                <Flex ml={[6, 6, 0]} justifyContent="space-between">
+                <Flex ml={[2, 2, 0]} justifyContent="space-between">
                     <Flex
                         flexDirection={['column', 'row', 'row']}
                         alignSelf="center"
@@ -133,7 +125,7 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                     >
                         <Box
                             className="others"
-                            my={[5, 5, 0]}
+                            my={0}
                             width={['fit-content', 'fit-content', '110px']}
                         >
                             <Link to="/shop">
@@ -146,10 +138,14 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                                 <Text variant="link">Best sellers</Text>
                             </Link>
                             <Link to="/">
-                                <Text variant="link">Sale?</Text>
+                                <Text variant="link" mb={1}>
+                                    Sale?
+                                </Text>
                             </Link>
                         </Box>
-                        <Box className="collections" ml={[0, 7]}>
+
+                        {/* links for desktops */}
+                        <Box className="collections box-L" ml={[0, 7]}>
                             <Text as="h3" variant="h3" mb={[3, 3, 5]}>
                                 Collections
                             </Text>
@@ -174,11 +170,11 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                                 ))}
                             </Box>
                         </Box>
-                        <Box className="categories" ml={[0, 7]}>
+                        <Box className="categories box-L" ml={[0, 7]}>
                             <Text as="h3" variant="h3" mb={[3, 3, 5]}>
                                 Categories
                             </Text>
-                            <Box ml={[4, 4, 0]} mb={[4, 4, 0]}>
+                            <Box ml={[4, 4, 0]}>
                                 <Link to="/">
                                     <Text variant="link">Bracelets</Text>
                                 </Link>
@@ -190,6 +186,80 @@ const Dropdown: React.FC<Props> = ({ goBack, currLocation }) => {
                                 </Link>
                             </Box>
                         </Box>
+                        {/* end links for desktop */}
+
+                        {/* links for mobile */}
+                        <Box className="collections box-S">
+                            <Text
+                                variant="link"
+                                onClick={() =>
+                                    setDisplayCollectionS(prev => !prev)
+                                }
+                                my={1}
+                            >
+                                Collections
+                            </Text>
+                            <CSSTransition
+                                in={displayCollectionS}
+                                timeout={0}
+                                unmountOnExit={true}
+                            >
+                                <Box ml={[2, 2, 0, 0]} mb={[4, 4, 0, 0]}>
+                                    {collections.map(collection => (
+                                        <Link
+                                            key={collection}
+                                            to={`shop/${nameToSlug(
+                                                collection
+                                            )}`}
+                                        >
+                                            <Text
+                                                variant={
+                                                    currLocation.includes(
+                                                        `/${nameToSlug(
+                                                            collection
+                                                        )}`
+                                                    )
+                                                        ? 'linkActive'
+                                                        : 'link'
+                                                }
+                                            >
+                                                {collection}
+                                            </Text>
+                                        </Link>
+                                    ))}
+                                </Box>
+                            </CSSTransition>
+                        </Box>
+                        <Box className="categories box-S">
+                            <Text
+                                variant="link"
+                                onClick={() =>
+                                    setDisplayCategoryS(prev => !prev)
+                                }
+                                my={1}
+                            >
+                                Categories
+                            </Text>
+                            <CSSTransition
+                                in={displayCategoryS}
+                                timeout={0}
+                                unmountOnExit={true}
+                            >
+                                <Box ml={[2, 2, 0]} mb={[4, 4, 0]}>
+                                    <Link to="/">
+                                        <Text variant="link">Bracelets</Text>
+                                    </Link>
+                                    <Link to="/">
+                                        <Text variant="link">Necklaces</Text>
+                                    </Link>
+                                    <Link to="/">
+                                        <Text variant="link">Rings</Text>
+                                    </Link>
+                                </Box>
+                            </CSSTransition>
+                        </Box>
+
+                        {/* end links for mobile */}
                     </Flex>
                     <Flex sx={{ display: ['none', 'none', 'flex'] }}>
                         <Box {...imgStyles} mr={[0, 0, 0, 5, 8]}>

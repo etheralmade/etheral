@@ -72,13 +72,26 @@ const Navigation: React.FC<Props & ICartState> = ({
         }
     }, []);
 
+    useEffect(() => {
+        const modal = document.getElementById('modal');
+
+        if (showMenuMobile) {
+            modal?.addEventListener(
+                'click',
+                e => {
+                    const { target } = e;
+
+                    // close mobile menu on clicking any element other than the menu
+                    if (target && (target as any).id === 'modal') {
+                        setShowMenuMobile(false);
+                    }
+                },
+                true
+            );
+        }
+    }, [showMenuMobile]);
+
     const handleMenuMobile = () => {
-        if (showDropdown) {
-            setShowDropdown(false);
-        }
-        if (showCart) {
-            setShowCart(false);
-        }
         setShowMenuMobile(prev => !prev);
     };
 
@@ -89,17 +102,7 @@ const Navigation: React.FC<Props & ICartState> = ({
         setShowCart(prev => !prev);
     };
 
-    // eslint-disable-next-line immutable/no-let, @typescript-eslint/tslint/config
-    let bg;
-    if (showMenuMobile) {
-        bg = 'brown.0';
-    } else {
-        if (showDropdownL || showCart) {
-            bg = '#fff';
-        } else {
-            bg = 'rgba(0, 0, 0, 0)';
-        }
-    }
+    const bg = showDropdownL || showCart ? '#fff' : 'transparent';
 
     const shouldRenderBanner = addBanner;
 
@@ -107,14 +110,8 @@ const Navigation: React.FC<Props & ICartState> = ({
     return (
         <Box as="header">
             {openModal && (
-                <Modal>
+                <Modal center={true}>
                     <MailingList closeModal={() => setOpenModal(false)} />
-                    {/* <div>
-                        <h1>Hello, World</h1>
-                        <button onClick={() => setOpenModal(false)}>
-                            close modal
-                        </button>
-                    </div> */}
                 </Modal>
             )}
             {shouldRenderBanner && <Banner />}
@@ -367,7 +364,11 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     showMenuMobile ? 'bigger' : ''
                                 }`}
                                 color={
-                                    showMenuMobile || showCart ? '#000' : '#fff'
+                                    showMenuMobile ||
+                                    showCart ||
+                                    currLocation !== '/'
+                                        ? '#000'
+                                        : '#fff'
                                 }
                             />
                         </Flex>
@@ -398,58 +399,122 @@ const Navigation: React.FC<Props & ICartState> = ({
                         unmountOnExit={true}
                         classNames="links"
                     >
-                        <Box id="links-S" minHeight={['92vh']} p={5}>
-                            <Flex alignItems="center">
-                                <Account user={user} desktop={false} />
-                                <CurrencySelector
-                                    showDropdown={true}
-                                    desktop={false}
-                                    currLocation={currLocation}
-                                />
-                            </Flex>
-                            <Link to="/about">
-                                <Text
-                                    variant={
-                                        currLocation.includes('about')
-                                            ? 'linkActive'
-                                            : 'link'
-                                    }
-                                    my={[2]}
-                                >
-                                    ABOUT
-                                </Text>
-                            </Link>
-                            <Box onClick={() => setShowDropdown(prev => !prev)}>
-                                <Text variant="link" my={[2]}>
-                                    SHOP
-                                </Text>
-                            </Box>
-                            <Link to="/blog">
-                                <Text
-                                    variant={
-                                        currLocation.includes('blog')
-                                            ? 'linkActive'
-                                            : 'link'
-                                    }
-                                    my={[2]}
-                                >
-                                    BLOG
-                                </Text>
-                            </Link>
-                        </Box>
-                    </CSSTransition>
+                        <Modal>
+                            <Box
+                                id="links-S"
+                                bg="#fff"
+                                px={[7]}
+                                py={[7]}
+                                sx={{
+                                    height: '100vh',
+                                    top: 0,
+                                    a: {
+                                        textDecoration: 'none',
+                                    },
+                                }}
+                            >
+                                <Link to="/about">
+                                    <Text
+                                        variant={
+                                            currLocation.includes('about')
+                                                ? 'linkActive'
+                                                : 'link'
+                                        }
+                                        my={[2]}
+                                    >
+                                        ABOUT
+                                    </Text>
+                                </Link>
+                                <Box>
+                                    <Text
+                                        variant="link"
+                                        my={[2]}
+                                        onClick={() =>
+                                            setShowDropdown(prev => !prev)
+                                        }
+                                    >
+                                        SHOP
+                                    </Text>
+                                    <CSSTransition
+                                        in={showDropdown}
+                                        timeout={100}
+                                        unmountOnExit={true}
+                                        classNames="dropdown"
+                                    >
+                                        <Dropdown
+                                            goBack={() =>
+                                                setShowDropdown(false)
+                                            }
+                                            currLocation={currLocation}
+                                        />
+                                    </CSSTransition>
+                                </Box>
+                                <Link to="/blog">
+                                    <Text
+                                        variant={
+                                            currLocation.includes('blog')
+                                                ? 'linkActive'
+                                                : 'link'
+                                        }
+                                        my={[2]}
+                                    >
+                                        BLOG
+                                    </Text>
+                                </Link>
+                                <Link to="/contact">
+                                    <Text
+                                        variant={
+                                            currLocation.includes('contact')
+                                                ? 'linkActive'
+                                                : 'link'
+                                        }
+                                        my={[2]}
+                                    >
+                                        CONTACT
+                                    </Text>
+                                </Link>
 
-                    {/* Dropdown element. */}
-                    <CSSTransition
-                        in={showDropdown}
-                        timeout={100}
-                        unmountOnExit={true}
-                        classNames="dropdown"
-                    >
-                        <Dropdown
-                            goBack={() => setShowDropdown(false)}
-                            currLocation={currLocation}
-                        />
+                                <Link to="/">
+                                    <Text
+                                        variant={
+                                            currLocation.includes('faq')
+                                                ? 'linkActive'
+                                                : 'link'
+                                        }
+                                        my={[2]}
+                                    >
+                                        FAQ
+                                    </Text>
+                                </Link>
+
+                                <Link to="/size-guide">
+                                    <Text
+                                        variant={
+                                            currLocation.includes('size-guide')
+                                                ? 'linkActive'
+                                                : 'link'
+                                        }
+                                        my={[2]}
+                                    >
+                                        SIZE GUIDE
+                                    </Text>
+                                </Link>
+
+                                <Box m="auto" />
+
+                                <Flex
+                                    alignItems="center"
+                                    sx={{ position: 'absolute', bottom: [4] }}
+                                >
+                                    <Account user={user} desktop={false} />
+                                    <CurrencySelector
+                                        showDropdown={true}
+                                        desktop={false}
+                                        currLocation={currLocation}
+                                    />
+                                </Flex>
+                            </Box>
+                        </Modal>
                     </CSSTransition>
 
                     {/* actual box where it displays all in-cart products */}

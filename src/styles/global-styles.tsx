@@ -12,6 +12,10 @@ const GlobalStyles = createGlobalStyle`
       border-radius: 0;
     }
 
+    html {
+      overflow-x: hidden;
+    }
+
     /* fixed border radius safari */
     input[type="search"], input[type="text"], input[type="email"] {
       -webkit-appearance: none;

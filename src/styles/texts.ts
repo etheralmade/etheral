@@ -1,10 +1,11 @@
 const baseLink = {
     fontFamily: 'body',
-    fontSize: [3, 3, 1],
-    fontWeight: 'medium',
+    fontSize: [2, 2, 1],
+    fontWeight: 'regular',
     mr: [0, 0, 5],
     transition: '0.2s, font-weight .4s ease-out',
-    my: [2, 2, 4],
+    my: [4],
+    width: [128],
 };
 
 const linkActiveAttrs = {

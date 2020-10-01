@@ -15,7 +15,7 @@ const HeroImage: React.FC<Props> = ({ img, buttonLink, buttonText }) => {
             width="100%"
             alignItems="flex-end"
             justifyContent="center"
-            sx={{ position: 'relative' }}
+            sx={{ position: 'relative', a: { height: 'fit-content' } }}
         >
             <Box
                 height="100%"

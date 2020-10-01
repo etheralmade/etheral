@@ -8,9 +8,10 @@ import { Box } from 'rebass';
 
 type Props = {
     children: React.ReactNode;
+    center?: boolean;
 };
 
-const Modal: React.FC<Props> = ({ children }) => {
+const Modal: React.FC<Props> = ({ children, center }) => {
     const portal =
         typeof document !== `undefined`
             ? document.getElementById('portal')
@@ -19,13 +20,13 @@ const Modal: React.FC<Props> = ({ children }) => {
     // TODO: which element to render within modal?
     const Element = (
         <Box
+            id="modal"
             sx={{
                 zIndex: 1000,
                 position: 'fixed',
                 top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
+                height: '100vh',
+                width: '100vw',
                 bg: 'rgba(0, 0, 0, 0.25)',
             }}
         >
@@ -33,10 +34,13 @@ const Modal: React.FC<Props> = ({ children }) => {
                 css={`
                     position: fixed;
                     z-index: 1000;
-                    top: 50%;
-                    left: 50%;
+                    ${center !== undefined &&
+                        `
+                        top: 50%;
+                        left: 50%;
 
-                    transform: translate(-50%, -50%);
+                        transform: translate(-50%, -50%);
+                        `}
                 `}
             >
                 {children}
