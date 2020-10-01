@@ -3,6 +3,7 @@ import React from 'react';
 import { Flex, Box, Heading } from 'rebass';
 
 import Form from './form';
+import Stockist from './stockist';
 
 type Props = {};
 
@@ -18,19 +19,15 @@ const Contact: React.FC<Props> = () => {
             width={['100%', '100%', '80%', '60%']}
             m="0 auto"
         >
-            <Heading
-                as="h1"
-                fontSize={[2, 2, 3]}
-                fontWeight="semiBold"
-                py={[4]}
-            >
+            <Heading as="h2" variant="h4" py={[4]}>
                 {heading1}
                 <br />
                 {heading2}
             </Heading>
 
-            <Flex>
+            <Flex flexDirection={['column', 'column']}>
                 <Form />
+                <Stockist />
             </Flex>
         </Box>
     );

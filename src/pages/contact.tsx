@@ -4,7 +4,7 @@ import { PageProps } from 'gatsby';
 import { Layout } from 'components/layout';
 import Contact from 'templates/contact';
 
-const AboutPage = (props: PageProps) => {
+const ContactPage = (props: PageProps) => {
     return (
         <Layout>
             <Contact />
@@ -12,4 +12,4 @@ const AboutPage = (props: PageProps) => {
     );
 };
 
-export default AboutPage;
+export default ContactPage;

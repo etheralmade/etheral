@@ -187,7 +187,8 @@ export default {
     },
     h4: {
         color: '#000',
-        fontSize: [3, 3, 4],
+        fontSize: [1, 1, 2],
+        fontWeight: 'semiBold',
     },
     h5: {
         fontSize: ['10px', '10px', '12px'],
