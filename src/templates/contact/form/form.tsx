@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 import { Flex, Box, Text, Button } from 'rebass';
 import { Input, Label, Textarea } from '@rebass/forms';
@@ -19,8 +20,27 @@ const Form: React.FC<Props> = () => {
     const { register, errors, handleSubmit } = useForm<Fields>();
 
     // call cloud function to send an email to asketheral@gmail
-    const send = (data: Fields) => {
-        console.log(data);
+    const send = async (data: Fields) => {
+        const { firstName, lastName, email, subject, phone, message } = data;
+
+        const url =
+            process.env.NODE_ENV === 'production'
+                ? ''
+                : '/send-email/?type=CONTACT';
+
+        const body = {
+            name: `${firstName} ${lastName}`,
+            email,
+            phone,
+            subject,
+            message: message.split('\n').join('//n'), // replace js linebreak to a code.
+        };
+
+        const req = await axios.post(url, body);
+        // const rsp = await req.data;
+
+        const { statusCode } = req;
+        // handle success submit form!
     };
 
     const textAlignAttr: 'left' | 'center' = 'left';

@@ -251,6 +251,7 @@ const Checkout: React.FC<Props> = ({
 
     // pay here
     const handleClickPay = async () => {
+        // add production payment url here!
         const paymentUrl =
             process.env.NODE_ENV === 'production' ? '' : '/payment/';
 
@@ -323,7 +324,9 @@ const Checkout: React.FC<Props> = ({
                     products: cart.map(cartItem => ({
                         pid: cartItem.product.pid,
                         amount: cartItem.amount,
-                        discountPercentage: cartItem.product.prices.discountPercentage,
+                        discountPercentage:
+                            cartItem.product.prices.discountPercentage,
+                        note: cartItem.note,
                     })),
                     paid: false,
                     delivered: false,

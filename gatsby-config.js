@@ -18,6 +18,7 @@ module.exports = {
         },
         { prefix: '/get-shipping-cost', url: 'http://localhost:9000' },
         { prefix: '/payment', url: 'http://localhost:9000' },
+        { prefix: '/send-email', url: 'http://localhost:9000' },
     ],
     siteMetadata: {
         title: siteTitle,
