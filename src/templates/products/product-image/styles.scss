@@ -1,19 +1,54 @@
-.carousel__dot {
-    background: none;
-    border-radius: 0;
+.product-carousel {
+    position: relative;
 
-    height: 48px;
-    width: 48px;
-    margin: 0 8px;
+    .carousel__dot {
+        background: none;
+        border-radius: 0;
 
-    @media screen and (min-width: 48em) {
-        height: 64px;
-        width: 64px;
+        height: 48px;
+        width: 48px;
+        margin: 0 8px;
+
+        @media screen and (min-width: 48em) {
+            height: 64px;
+            width: 64px;
+        }
+
+        @media screen and (min-width: 64em) {
+            height: 82px;
+            width: 82px;
+        }
     }
 
-    @media screen and (min-width: 64em) {
-        height: 82px;
-        width: 82px;
+    button.carousel-button {
+        background: none;
+        border: none;
+
+        position: absolute;
+        opacity: 0.7;
+        top: 50%;
+        transform: translateY(-50%);
+
+        & > svg {
+            height: 24px;
+            width: 24px;
+        }
+
+        &.carousel-next {
+            right: 2%;
+        }
+
+        &.carousel-back {
+            left: 2%;
+        }
+    }
+
+    // theme breakpoint[0]
+    @media screen and (min-width: 40em) {
+        button.carousel-button > svg {
+            height: 36px;
+            width: 36px;
+        }
     }
 }
 

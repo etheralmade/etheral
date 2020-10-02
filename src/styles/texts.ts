@@ -14,10 +14,10 @@ const linkActiveAttrs = {
 
 const statusBadge = {
     fontFamily: 'body',
-    fontSize: [0],
+    fontSize: [1],
     px: [2],
     py: [1],
-    fontWeight: 'bold',
+    fontWeight: 'medium',
     color: '#fff',
     width: 'fit-content',
 };

@@ -82,7 +82,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
             >
                 <Heading
                     as="h1"
-                    fontWeight={200}
+                    fontWeight="body"
                     color="#333"
                     fontSize={[3]}
                     mb={[3]}
