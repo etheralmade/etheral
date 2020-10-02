@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Flex, Button } from 'rebass';
+import { Flex, Button, Text } from 'rebass';
 
 import { theme } from 'styles';
 import ContainerBox, { Type } from './container-box';
 import { LatestProducts, LatestBlogs, LatestCollections } from '.';
+import Modal from 'components/modal';
+import SurePopupSettings from 'components/popups/sure-popup-settings';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -14,6 +16,12 @@ type Props = {
     fromDate: (date: Date) => firebase.firestore.Timestamp;
 };
 
+// choice to update website
+export enum DoUpdate {
+    YES = 'update',
+    NO = 'do_not_update',
+}
+
 const Settings: React.FC<Props> = ({
     db,
     latestProducts,
@@ -21,10 +29,29 @@ const Settings: React.FC<Props> = ({
     latestCollections,
     fromDate,
 }) => {
-    // const [onFocus, setOnFocus] = useState<Product | Collection | null>(null);
+    // state to show a popup asking about the choice to update the website.
+    const [showModal, setShowModal] = useState(false);
+    const [doUpdateWebsite, setDoUpdateWebsite] = useState<
+        DoUpdate | undefined
+    >(undefined);
+    const [isUpdating, setIsUpdating] = useState(false);
+
+    useEffect(() => {
+        console.log(doUpdateWebsite);
+        // fetch build hook if admin decide to update it.
+        if (doUpdateWebsite !== undefined) {
+            if (doUpdateWebsite === DoUpdate.YES) {
+                updateWebsite();
+            } else {
+                setShowModal(false);
+                setDoUpdateWebsite(undefined);
+            }
+        }
+    }, [doUpdateWebsite]);
 
     const updateWebsite = async () => {
         try {
+            await setIsUpdating(true);
             const req = await fetch(
                 process.env.GATSBY_NETLIFY_BUILD_HOOK || '',
                 {
@@ -42,9 +69,17 @@ const Settings: React.FC<Props> = ({
                     .doc(nowDate.getTime().toString())
                     .set({ lastUpdate: fromDate(nowDate) });
             }
+
+            await setIsUpdating(false);
+            await setShowModal(false);
+            await setDoUpdateWebsite(undefined);
         } catch (err) {
             console.error(err);
         }
+    };
+
+    const initUpdateWebsite = () => {
+        setShowModal(true);
     };
 
     return (
@@ -54,6 +89,21 @@ const Settings: React.FC<Props> = ({
             flexDirection="column"
             className="custom-scrollbar"
         >
+            {showModal && (
+                <Modal center={true}>
+                    {!isUpdating ? (
+                        <SurePopupSettings
+                            yes={() => setDoUpdateWebsite(DoUpdate.YES)}
+                            no={() => setDoUpdateWebsite(DoUpdate.NO)}
+                            close={() => setShowModal(false)}
+                        />
+                    ) : (
+                        <Text variant="tileText" color="black.0">
+                            UPDATING...
+                        </Text>
+                    )}
+                </Modal>
+            )}
             <Flex alignSelf="flex-end" mb={[6]}>
                 <a
                     href="https://app.flamelink.io/"
@@ -67,11 +117,15 @@ const Settings: React.FC<Props> = ({
                         Content Management System
                     </Button>
                 </a>
-                <Button onClick={updateWebsite} ml={[4]}>
+                <Button onClick={initUpdateWebsite} ml={[4]}>
                     Update Website
                 </Button>
             </Flex>
-            <Flex flexWrap="wrap" justifyContent="space-between">
+            <Flex
+                flexWrap="wrap"
+                justifyContent="space-between"
+                sx={{ position: 'relative' }}
+            >
                 {/* render updated products. */}
                 {latestProducts.length > 0 && (
                     <ContainerBox type={Type.PRODUCT} item={latestProducts} />
@@ -88,6 +142,24 @@ const Settings: React.FC<Props> = ({
                 {/* render updated blogs */}
                 {latestBlogs.length > 0 && (
                     <ContainerBox type={Type.BLOG} item={latestBlogs} />
+                )}
+                {latestProducts.length === 0 &&
+                latestCollections.length === 0 &&
+                latestBlogs.length === 0 ? (
+                    <Text
+                        variant="tileText"
+                        color="black.0"
+                        sx={{
+                            position: 'absolute',
+                            top: '50vh',
+                            left: '50%',
+                            transform: 'translate(-50%, -25vh)',
+                        }}
+                    >
+                        WEBSITE IS UP TO DATE
+                    </Text>
+                ) : (
+                    <></>
                 )}
             </Flex>
         </Flex>
