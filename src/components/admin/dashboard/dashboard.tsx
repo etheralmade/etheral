@@ -5,6 +5,7 @@ import Orders from './orders';
 import Links from './links';
 import Navigation from './navigation';
 import Settings from './settings';
+import Admins from './admins';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -33,7 +34,7 @@ const Dashboard: React.FC<Props> = ({ logout, db }) => {
             toRender = <Orders db={db} />;
             break;
         case StateViews.ADMINS:
-            toRender = <h1>Admins</h1>;
+            toRender = <Admins db={db} />;
             break;
         case StateViews.LINKS:
             toRender = <Links />;

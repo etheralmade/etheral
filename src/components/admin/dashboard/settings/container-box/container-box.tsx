@@ -47,13 +47,7 @@ const ContainerBox: React.FC<Props> = ({ type, item }) => {
 
     return (
         <ReBox {...boxStyling} my={[5]}>
-            <Heading
-                as="h2"
-                fontWeight="body"
-                color="#333"
-                fontSize={[3]}
-                mb={[3]}
-            >
+            <Heading as="h2" color="#333" fontSize={[3]} mb={[3]}>
                 {capitalize(type)}
             </Heading>
 
