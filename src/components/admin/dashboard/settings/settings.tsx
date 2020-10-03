@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { Flex, Button, Text } from 'rebass';
 
-import { theme } from 'styles';
 import ContainerBox, { Type } from './container-box';
 import { LatestProducts, LatestBlogs, LatestCollections } from '.';
 import Modal from 'components/modal';

@@ -25,7 +25,7 @@ const blogAttrs = ['Slug', ...timestampAttrs, ''];
 const ContainerBox: React.FC<Props> = ({ type, item }) => {
     const tabletopStyling = {
         fontFamily: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1],
         color: '#555',
     };
 

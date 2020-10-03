@@ -27,7 +27,7 @@ const OrderBox: React.FC<Props> = ({
 }) => {
     const textStyling = {
         fontFamily: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1],
         color: 'black.0',
         fontWeight: 'bold',
         css: `

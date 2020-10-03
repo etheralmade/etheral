@@ -39,7 +39,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
 
     const tabletopStyling = {
         fontFamily: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1],
         color: '#555',
     };
 
