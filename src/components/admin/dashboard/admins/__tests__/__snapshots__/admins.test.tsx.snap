@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Admins matches snapshot 1`] = `
+<div
+  className="css-oj3wi7"
+>
+  <div
+    className="css-1i2ulx9"
+  >
+    <h2
+      className="css-qjyand"
+    >
+      Admins
+    </h2>
+    <div
+      className="css-j8e453"
+      onClick={[Function]}
+    >
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      <div
+        className="css-xhwwgz"
+      >
+        Add admin
+      </div>
+    </div>
+  </div>
+  <div
+    className="css-tepf1i"
+  >
+    <div
+      className="css-1sg5rwc"
+    >
+      Email
+    </div>
+    <div
+      className="css-1sg5rwc"
+    >
+      Invited by
+    </div>
+    <div
+      className="css-111vuy8"
+    />
+  </div>
+</div>
+`;

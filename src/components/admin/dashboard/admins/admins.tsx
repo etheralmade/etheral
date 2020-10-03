@@ -9,6 +9,7 @@ import AdminBox from './admin-box';
 import { Admin } from 'helper/schema';
 import Modal from 'components/modal';
 import AddAdminModal from './add-admin-modal';
+import RemoveAdminModal from './remove-admin-modal';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -22,6 +23,7 @@ enum State {
     REMOVING,
     ERROR,
     ADDED,
+    REMOVED,
 }
 
 const DEFAULT_ADMIN_PASSWORD = '123456';
@@ -30,7 +32,7 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
     // state to store admin member(s) from db.
     const [allAdmins, setAllAdmins] = useState<Admin[]>([]);
     const [showModal, setShowModal] = useState(false);
-    const [compState, setCompState] = useState<State>(State.ERROR);
+    const [compState, setCompState] = useState<State>(State.DEFAULT);
 
     // temporary state to store to be removed email
     const [toRemoveAdmin, setToRemoveAdmin] = useState('');
@@ -41,7 +43,11 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
     }, []);
 
     useEffect(() => {
-        if (compState === State.ADDED || compState === State.ERROR) {
+        if (
+            compState === State.ADDED ||
+            compState === State.ERROR ||
+            compState === State.REMOVED
+        ) {
             setTimeout(() => {
                 setCompState(State.DEFAULT);
             }, 2000);
@@ -88,7 +94,37 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
      * Function to remove admin user to the db.
      */
     const removeAdmin = async (email: string) => {
-        if (true) {
+        if (showModal) {
+            setShowModal(false);
+        }
+
+        if (toRemoveAdmin) {
+            try {
+                await setCompState(State.REMOVING);
+
+                const req = await db
+                    .collection('admin-user')
+                    .where('email', '==', email)
+                    .get();
+
+                if (await !req.empty) {
+                    await req.docs.forEach(snapshot => {
+                        snapshot.ref.delete();
+                    });
+
+                    await setCompState(State.REMOVED);
+                } else {
+                    setCompState(State.ERROR);
+                }
+
+                // send email notification
+
+                // refetch admins.
+                await fetchAdmin();
+            } catch (e) {
+                console.error(e);
+                setCompState(State.ERROR);
+            }
         }
     };
 
@@ -107,11 +143,34 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
         color: '#555',
     };
 
+    const stateText =
+        compState === State.ADDING
+            ? 'ADDING ADMIN USER...'
+            : compState === State.ADDED
+            ? 'NEW ADMIN USER SUCCESSFULLY ADDED!'
+            : compState === State.REMOVING
+            ? `REMOVING ${toRemoveAdmin}...`
+            : compState === State.REMOVED
+            ? `SUCCESFULLY REMOVED ${toRemoveAdmin} FROM ADMIN DATABASE`
+            : 'OH NO! SOMETHING WENT WRONG';
+
     return (
         <Box bg="#fff" width={['100%', '100%', '60%']} p={[4]}>
+            {/* show modal => ask for confirmation to add and/or remove admin user(s) */}
             {showModal && (
                 <Modal center={true}>
-                    {compState === State.ASK_REMOVE ? null : (
+                    {compState === State.ASK_REMOVE ? (
+                        <RemoveAdminModal
+                            toRemoveAdmin={toRemoveAdmin}
+                            yes={() => {
+                                removeAdmin(toRemoveAdmin);
+                            }}
+                            no={() => {
+                                setCompState(State.DEFAULT);
+                                setToRemoveAdmin('');
+                            }}
+                        />
+                    ) : (
                         <AddAdminModal
                             yes={addAdmin}
                             no={() => {
@@ -122,7 +181,8 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
                 </Modal>
             )}
 
-            {compState !== State.DEFAULT ? (
+            {/* show component state (e.g adding, removing.) */}
+            {!showModal && compState !== State.DEFAULT ? (
                 <Modal center={true}>
                     <Heading
                         fontSize={5}
@@ -130,11 +190,7 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
                         bg="black.0"
                         color="#fff"
                     >
-                        {compState === State.ADDING
-                            ? 'ADDING ADMIN USER'
-                            : compState === State.ADDED
-                            ? 'NEW ADMIN USER SUCCESSFULLY ADDED!'
-                            : 'OH NO! SOMETHING WENT WRONG'}
+                        {stateText}
                     </Heading>
                 </Modal>
             ) : null}
@@ -175,7 +231,9 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
                             key={`${admin.email}-list`}
                             bg={i % 2 === 0 ? 'white.2' : 'white.3'}
                             removeAdmin={() => {
-                                removeAdmin(admin.email);
+                                setShowModal(true);
+                                setCompState(State.ASK_REMOVE);
+                                setToRemoveAdmin(admin.email);
                             }}
                             adminEmail={adminEmail}
                             {...admin}

@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminBox matches snapshot 1`] = `
+<div
+  className="css-1cx2s4a"
+>
+  <div
+    className="css-welxbt"
+  >
+    lolo@mock
+  </div>
+  <div
+    className="css-welxbt"
+  >
+    loha@gmail.com
+  </div>
+  <div
+    className="css-vurnku"
+  >
+    <div
+      className="css-1i8tx31"
+      onClick={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              Class {
+                "_dispatchInstances": null,
+                "_dispatchListeners": null,
+                "_targetInst": null,
+                "altKey": null,
+                "bubbles": null,
+                "button": null,
+                "buttons": null,
+                "cancelable": null,
+                "clientX": null,
+                "clientY": null,
+                "ctrlKey": null,
+                "currentTarget": [Function],
+                "defaultPrevented": null,
+                "detail": null,
+                "dispatchConfig": null,
+                "eventPhase": null,
+                "getModifierState": [Function],
+                "isDefaultPrevented": [Function],
+                "isPropagationStopped": [Function],
+                "isTrusted": null,
+                "metaKey": null,
+                "movementX": [Function],
+                "movementY": [Function],
+                "nativeEvent": null,
+                "pageX": null,
+                "pageY": null,
+                "relatedTarget": [Function],
+                "screenX": null,
+                "screenY": null,
+                "shiftKey": null,
+                "target": null,
+                "timeStamp": [Function],
+                "type": null,
+                "view": null,
+              },
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      role="button"
+    >
+      <svg
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm-8 5v6h2v-6H9zm4 0v6h2v-6h-2zM9 4v2h6V4H9z\\" fill=\\"currentColor\\"/>",
+          }
+        }
+        focusable={false}
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        style={
+          Object {
+            "transform": "rotate(360deg)",
+            "verticalAlign": "-0.125em",
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      Remove
+    </div>
+  </div>
+</div>
+`;

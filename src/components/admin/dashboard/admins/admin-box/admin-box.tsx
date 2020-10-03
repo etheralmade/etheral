@@ -47,41 +47,40 @@ const AdminBox: React.FC<Props> = ({
             <Text {...textStyling} color="black.0">
                 {invitedBy}
             </Text>
-            {invitedBy !== 'root' ||
-                (adminEmail === email && (
-                    <Box>
-                        <Text
-                            {...textStyling}
-                            p={[1]}
-                            width="fit-content"
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                color: 'misc.discount',
-                                bg: 'transparent',
-                                transition: '0.2s',
-                                svg: {
-                                    mr: 2,
-                                    path: {
-                                        fill: 'misc.discount',
-                                        transition: '0.2s',
-                                    },
+            {invitedBy !== 'root' || adminEmail !== email ? (
+                <Box>
+                    <Text
+                        {...textStyling}
+                        p={[1]}
+                        width="fit-content"
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            color: 'misc.discount',
+                            bg: 'transparent',
+                            transition: '0.2s',
+                            svg: {
+                                mr: 2,
+                                path: {
+                                    fill: 'misc.discount',
+                                    transition: '0.2s',
                                 },
-                                '&:hover': {
-                                    cursor: 'pointer',
-                                    bg: 'misc.discount',
-                                    color: '#fff',
-                                    'svg path': { fill: '#fff' },
-                                },
-                            }}
-                            onClick={removeAdmin}
-                            role="button"
-                        >
-                            <InlineIcon icon={deleteBinFill} />
-                            Remove
-                        </Text>
-                    </Box>
-                ))}
+                            },
+                            '&:hover': {
+                                cursor: 'pointer',
+                                bg: 'misc.discount',
+                                color: '#fff',
+                                'svg path': { fill: '#fff' },
+                            },
+                        }}
+                        onClick={removeAdmin}
+                        role="button"
+                    >
+                        <InlineIcon icon={deleteBinFill} />
+                        Remove
+                    </Text>
+                </Box>
+            ) : null}
         </Box>
     );
 };

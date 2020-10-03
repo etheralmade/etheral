@@ -6,14 +6,16 @@ import renderer from 'react-test-renderer';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { AddAdminModal } from '../add-admin-modal';
+import { RemoveAdminModal } from '../remove-admin-modal';
 
-describe('AddAdminModal', () => {
-    const mockyes = jest.fn((email: string) => {
-        console.log(email);
-    });
-
-    const Element = <AddAdminModal yes={mockyes} no={jest.fn(() => {})} />;
+describe('RemoveAdminModal', () => {
+    const Element = (
+        <RemoveAdminModal
+            yes={jest.fn(() => {})}
+            no={jest.fn(() => {})}
+            toRemoveAdmin=""
+        />
+    );
 
     afterEach(cleanup);
 

@@ -8,7 +8,9 @@ type Props = {
     yes: (email: string) => void; // calls addAdmin() from admins component
     no: () => void; // close modal.
 };
-
+/**
+ * basic component to make sure admin is going to be added
+ */
 const AddAdminModal: React.FC<Props> = ({ yes, no }) => {
     const [showSure, setShowSure] = useState(false);
     const [email, setEmail] = useState('');
