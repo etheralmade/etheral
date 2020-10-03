@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { sha256 } from 'js-sha256';
+import axios from 'axios';
 
 import { Box, Heading, Text, Flex } from 'rebass';
 import { Icon } from '@iconify/react';
@@ -36,6 +37,13 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
 
     // temporary state to store to be removed email
     const [toRemoveAdmin, setToRemoveAdmin] = useState('');
+
+    const url = process.env.NODE_ENV === 'production' ? '' : '/send-email/';
+
+    const webUrl =
+        process.env.NODE_ENV === 'production'
+            ? ''
+            : 'http://localhost:8000/admin';
 
     useEffect(() => {
         // fetch all admin members
@@ -80,10 +88,11 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
             // set state to added.
             await setCompState(State.ADDED);
 
-            // send email to the added admin.
-
-            // refetch admins.
             await fetchAdmin();
+
+            // send email to the added admin.
+            sendNotifAdd(email);
+            // refetch admins.
         } catch (e) {
             console.error(e);
             setCompState(State.ERROR);
@@ -117,10 +126,11 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
                     setCompState(State.ERROR);
                 }
 
-                // send email notification
-
-                // refetch admins.
                 await fetchAdmin();
+
+                // send email notification
+                sendNotifRemove(toRemoveAdmin);
+                // refetch admins.
             } catch (e) {
                 console.error(e);
                 setCompState(State.ERROR);
@@ -135,6 +145,22 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
         const docs = await req.docs.map(snapshot => snapshot.data());
 
         await setAllAdmins(docs as Admin[]);
+    };
+
+    // send email to the added admin
+    const sendNotifAdd = (email: string) => {
+        const body = {
+            invitedBy: adminEmail,
+            webUrl,
+            to: email,
+        };
+
+        axios.post(`${url}?type=ADD_ADMIN`, body);
+    };
+
+    // send email to the removed admin email
+    const sendNotifRemove = (email: string) => {
+        axios.post(`${url}?type=REMOVE_ADMIN`, { to: email });
     };
 
     const tabletopStyling = {
