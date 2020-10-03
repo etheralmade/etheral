@@ -9,6 +9,7 @@ import Admins from './admins';
 
 type Props = {
     db: firebase.firestore.Firestore;
+    adminEmail: string;
     logout: () => void;
 };
 
@@ -20,7 +21,7 @@ export enum StateViews {
     NONE,
 }
 
-const Dashboard: React.FC<Props> = ({ logout, db }) => {
+const Dashboard: React.FC<Props> = ({ logout, db, adminEmail }) => {
     const [view, setView] = useState<StateViews>(StateViews.NONE);
 
     const changeView = (viewName: StateViews) => {
@@ -34,7 +35,7 @@ const Dashboard: React.FC<Props> = ({ logout, db }) => {
             toRender = <Orders db={db} />;
             break;
         case StateViews.ADMINS:
-            toRender = <Admins db={db} />;
+            toRender = <Admins db={db} adminEmail={adminEmail} />;
             break;
         case StateViews.LINKS:
             toRender = <Links />;

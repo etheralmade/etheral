@@ -15,9 +15,11 @@ type Props = {
 const Admin: React.FC<Props> = ({ db }) => {
     // set defult to true -> development only
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [adminEmail, setAdminEmail] = useState('');
 
     const adminUserDbRef = db.collection('admin-user');
 
+    // password encrypted with sha256!!
     const login = async ({ email, password }: LoginProps) => {
         // authenticate user first
         const adminUser = await adminUserDbRef
@@ -29,6 +31,7 @@ const Admin: React.FC<Props> = ({ db }) => {
 
         if (await adminUserExists) {
             setIsAuthenticated(true);
+            setAdminEmail(email);
         } else {
             console.log('unauthorized');
         }
@@ -42,7 +45,7 @@ const Admin: React.FC<Props> = ({ db }) => {
         <ThemeProvider theme={theme}>
             <GlobalStyles />
             {isAuthenticated ? (
-                <Dashboard db={db} logout={logout} />
+                <Dashboard db={db} logout={logout} adminEmail={adminEmail} />
             ) : (
                 <Login login={login} submitValue="Login as admin" />
             )}

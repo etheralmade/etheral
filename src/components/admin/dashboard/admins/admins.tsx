@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { sha256 } from 'js-sha256';
 
 import { Box, Heading, Text, Flex } from 'rebass';
 import { Icon } from '@iconify/react';
@@ -6,35 +7,89 @@ import addFill from '@iconify/icons-ri/add-fill';
 
 import AdminBox from './admin-box';
 import { Admin } from 'helper/schema';
+import Modal from 'components/modal';
+import AddAdminModal from './add-admin-modal';
 
 type Props = {
     db: firebase.firestore.Firestore;
+    adminEmail: string;
 };
+
+enum State {
+    DEFAULT,
+    ASK_REMOVE,
+    ADDING,
+    REMOVING,
+    ERROR,
+    ADDED,
+}
 
 const DEFAULT_ADMIN_PASSWORD = '123456';
 
-const Admins: React.FC<Props> = ({ db }) => {
+const Admins: React.FC<Props> = ({ db, adminEmail }) => {
     // state to store admin member(s) from db.
     const [allAdmins, setAllAdmins] = useState<Admin[]>([]);
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [compState, setCompState] = useState<State>(State.ERROR);
+
+    // temporary state to store to be removed email
+    const [toRemoveAdmin, setToRemoveAdmin] = useState('');
 
     useEffect(() => {
         // fetch all admin members
         fetchAdmin();
     }, []);
 
+    useEffect(() => {
+        if (compState === State.ADDED || compState === State.ERROR) {
+            setTimeout(() => {
+                setCompState(State.DEFAULT);
+            }, 2000);
+        }
+    }, [compState]);
+
     /**
      * Function to add admin user to the db.
      * !! set default password to be => 123456.
      * calls cloud function to notify the invited admin user (to email addr.)
      */
-    const addAdmin = async (email: string) => {};
+    const addAdmin = async (email: string) => {
+        // console.log(`adding ${email}`);
+        if (showModal) {
+            await setShowModal(false);
+        }
+
+        await setCompState(State.ADDING);
+
+        try {
+            const doc = await {
+                email,
+                password: sha256(DEFAULT_ADMIN_PASSWORD),
+                invitedBy: adminEmail,
+            };
+
+            // add data to db
+            await db.collection('admin-user').add(doc);
+
+            // set state to added.
+            await setCompState(State.ADDED);
+
+            // send email to the added admin.
+
+            // refetch admins.
+            await fetchAdmin();
+        } catch (e) {
+            console.error(e);
+            setCompState(State.ERROR);
+        }
+    };
 
     /**
      * Function to remove admin user to the db.
      */
     const removeAdmin = async (email: string) => {
-        console.log(`removing ${email}`);
+        if (true) {
+        }
     };
 
     const fetchAdmin = async () => {
@@ -54,6 +109,36 @@ const Admins: React.FC<Props> = ({ db }) => {
 
     return (
         <Box bg="#fff" width={['100%', '100%', '60%']} p={[4]}>
+            {showModal && (
+                <Modal center={true}>
+                    {compState === State.ASK_REMOVE ? null : (
+                        <AddAdminModal
+                            yes={addAdmin}
+                            no={() => {
+                                setShowModal(false);
+                            }}
+                        />
+                    )}
+                </Modal>
+            )}
+
+            {compState !== State.DEFAULT ? (
+                <Modal center={true}>
+                    <Heading
+                        fontSize={5}
+                        fontWeight="body"
+                        bg="black.0"
+                        color="#fff"
+                    >
+                        {compState === State.ADDING
+                            ? 'ADDING ADMIN USER'
+                            : compState === State.ADDED
+                            ? 'NEW ADMIN USER SUCCESSFULLY ADDED!'
+                            : 'OH NO! SOMETHING WENT WRONG'}
+                    </Heading>
+                </Modal>
+            ) : null}
+
             <Flex alignItems="center" justifyContent="space-between" mb={[3]}>
                 <Heading>Admins</Heading>
                 <Flex
@@ -64,6 +149,7 @@ const Admins: React.FC<Props> = ({ db }) => {
                         bg: 'white.2',
                         '&:hover': { cursor: 'pointer', bg: 'white.3' },
                     }}
+                    onClick={() => setShowModal(true)}
                 >
                     <Icon icon={addFill} />
                     <Text {...tabletopStyling} fontWeight="bold" ml={[2]}>
@@ -91,6 +177,7 @@ const Admins: React.FC<Props> = ({ db }) => {
                             removeAdmin={() => {
                                 removeAdmin(admin.email);
                             }}
+                            adminEmail={adminEmail}
                             {...admin}
                         />
                     ))}
