@@ -190,6 +190,7 @@ export default {
         color: '#000',
         fontSize: [1, 1, 2],
         fontWeight: 'semiBold',
+        fontFamily: 'heading',
     },
     h5: {
         fontSize: ['10px', '10px', '12px'],

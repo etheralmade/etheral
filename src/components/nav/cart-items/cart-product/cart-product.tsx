@@ -5,9 +5,8 @@ import { useDispatch } from 'react-redux';
 
 import { Flex, Text, Box } from 'rebass';
 import { Icon, InlineIcon } from '@iconify/react';
-import addBoxLine from '@iconify/icons-ri/add-box-line';
-import checkboxIndeterminateLine from '@iconify/icons-ri/checkbox-indeterminate-line';
-import deleteBin5Line from '@iconify/icons-ri/delete-bin-5-line';
+import addLine from '@iconify/icons-ri/add-line';
+import subtractLine from '@iconify/icons-ri/subtract-line';
 import priceTag3Fill from '@iconify/icons-ri/price-tag-3-fill';
 
 import { Product } from 'helper/schema/product';
@@ -20,7 +19,7 @@ import {
 import { withDiscount } from 'helper/with-discount';
 import { theme } from 'styles';
 
-export type Props = {
+export type Props = ICurrencyState & {
     item: {
         product: Product;
         amount: number;
@@ -32,7 +31,7 @@ export type Props = {
     };
 };
 
-const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
+const CartProduct: React.FC<Props> = ({ item, currency }) => {
     const { amount, product, details } = item;
 
     const { extractImgs } = useAllProductImages();
@@ -160,7 +159,7 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
                             >
                                 <Icon
                                     className="cart-icons"
-                                    icon={checkboxIndeterminateLine}
+                                    icon={subtractLine}
                                 />
                             </Flex>
                             <Text
@@ -171,10 +170,7 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
                                 {amount}
                             </Text>
                             <Flex variant="center" ml={[1]} onClick={handleAdd}>
-                                <Icon
-                                    className="cart-icons"
-                                    icon={addBoxLine}
-                                />
+                                <Icon className="cart-icons" icon={addLine} />
                             </Flex>
                         </Flex>
                         <Text

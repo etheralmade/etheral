@@ -77,11 +77,15 @@ const Navigation: React.FC<Props & ICartState> = ({
     useEffect(() => {
         const modal = document.getElementById('modal');
 
+        console.log('aa');
+
         if (showMenuMobile) {
             modal?.addEventListener(
                 'click',
                 e => {
                     const { target } = e;
+
+                    console.log(target);
 
                     // close mobile menu on clicking any element other than the menu
                     if (target && (target as any).id === 'modal') {
@@ -91,7 +95,22 @@ const Navigation: React.FC<Props & ICartState> = ({
                 true
             );
         }
-    }, [showMenuMobile]);
+
+        if (showCart) {
+            modal?.addEventListener(
+                'click',
+                e => {
+                    const { target } = e;
+
+                    // close cart on clicking any element other than the menu
+                    if (target && (target as any).id === 'modal') {
+                        setShowMenuMobile(false);
+                    }
+                },
+                true
+            );
+        }
+    }, [showMenuMobile, showCart]);
 
     const handleMenuMobile = () => {
         setShowMenuMobile(prev => !prev);
@@ -103,8 +122,6 @@ const Navigation: React.FC<Props & ICartState> = ({
         }
         setShowCart(prev => !prev);
     };
-
-    const bg = showDropdownL || showCart ? '#fff' : 'transparent';
 
     const shouldRenderBanner = addBanner;
 
@@ -119,7 +136,7 @@ const Navigation: React.FC<Props & ICartState> = ({
             {shouldRenderBanner && <Banner />}
             <Flex
                 variant="outerWrapper"
-                bg={bg}
+                bg={showDropdownL ? '#fff' : 'transparent'}
                 className={shouldRenderBanner ? 'with-banner' : ''}
                 css={`
                     margin: 0 !important;
@@ -157,19 +174,13 @@ const Navigation: React.FC<Props & ICartState> = ({
                             }
 
                             &.black-on-dropdown path {
-                                fill: ${showDropdownL ||
-                                showMenuMobile ||
-                                showCart ||
-                                currLocation !== '/'
+                                fill: ${showDropdownL || currLocation !== '/'
                                     ? '#000'
                                     : '#fff'};
                             }
 
                             &.black-on-dropdown-stroke path {
-                                stroke: ${showDropdownL ||
-                                showMenuMobile ||
-                                showCart ||
-                                currLocation !== '/'
+                                stroke: ${showDropdownL || currLocation !== '/'
                                     ? '#000'
                                     : '#fff'};
                             }
@@ -191,9 +202,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                         }
 
                         .cart-badge {
-                            color: ${showDropdownL ||
-                            showCart ||
-                            currLocation !== '/'
+                            color: ${showDropdownL || currLocation !== '/'
                                 ? '#000'
                                 : '#fff'} !important;
                         }
@@ -217,8 +226,6 @@ const Navigation: React.FC<Props & ICartState> = ({
 
                                 & svg path {
                                     fill: ${showDropdownL ||
-                                    showCart ||
-                                    showMenuMobile ||
                                     currLocation !== '/'
                                         ? '#000'
                                         : '#fff'};
@@ -275,10 +282,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                             : 'link'
                                     }
                                     color={
-                                        showDropdownL ||
-                                        showCart ||
-                                        showMenuMobile ||
-                                        currLocation !== '/'
+                                        showDropdownL || currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
                                     }
@@ -300,10 +304,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     variant="link"
                                     py={[0, 0, '5vh']}
                                     color={
-                                        showDropdownL ||
-                                        showCart ||
-                                        showMenuMobile ||
-                                        currLocation !== '/'
+                                        showDropdownL || currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
                                     }
@@ -335,10 +336,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                             : 'link'
                                     }
                                     color={
-                                        showDropdownL ||
-                                        showCart ||
-                                        showMenuMobile ||
-                                        currLocation !== '/'
+                                        showDropdownL || currLocation !== '/'
                                             ? '#000'
                                             : '#fff'
                                     }
@@ -365,13 +363,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 className={`icons ${
                                     showMenuMobile ? 'bigger' : ''
                                 }`}
-                                color={
-                                    showMenuMobile ||
-                                    showCart ||
-                                    currLocation !== '/'
-                                        ? '#000'
-                                        : '#fff'
-                                }
+                                color={currLocation !== '/' ? '#000' : '#fff'}
                             />
                         </Flex>
 
