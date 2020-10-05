@@ -101,16 +101,18 @@ const CartProduct: React.FC<Props> = ({ item, currency }) => {
                 alignItems="center"
                 justifyContent="space-between"
                 my={[3]}
-                py={[2]}
-                px={[2]}
-                width={[300]}
+                py={[2, 3]}
+                px={[2, 3]}
+                width={[300, 340, 400]}
                 css={`
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                     position: relative;
                 `}
             >
                 <Img fixed={sources} />
-                <Box width={[160]}>
+                <Box
+                    width={[160, 'calc(340px - 140px)', 'calc(400px - 220px)']}
+                >
                     {/* product name */}
                     <Text
                         fontFamily="heading"
@@ -154,8 +156,10 @@ const CartProduct: React.FC<Props> = ({ item, currency }) => {
                         >
                             <Flex
                                 variant="center"
+                                role="button"
                                 mr={[1]}
                                 onClick={handleRemove}
+                                sx={{ cursor: 'pointer' }}
                             >
                                 <Icon
                                     className="cart-icons"
@@ -169,7 +173,13 @@ const CartProduct: React.FC<Props> = ({ item, currency }) => {
                             >
                                 {amount}
                             </Text>
-                            <Flex variant="center" ml={[1]} onClick={handleAdd}>
+                            <Flex
+                                variant="center"
+                                role="button"
+                                ml={[1]}
+                                onClick={handleAdd}
+                                sx={{ cursor: 'pointer' }}
+                            >
                                 <Icon className="cart-icons" icon={addLine} />
                             </Flex>
                         </Flex>
@@ -199,6 +209,9 @@ const CartProduct: React.FC<Props> = ({ item, currency }) => {
                         bottom: '6px',
                         right: '6px',
                         textDecoration: 'underline',
+                        '&:hover': {
+                            cursor: 'pointer',
+                        },
                     }}
                     onClick={handleRemoveAll}
                 >

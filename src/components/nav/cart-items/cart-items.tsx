@@ -117,7 +117,7 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
                         fontSize={[10]}
                         color="black.1"
                         textAlign="center"
-                        sx={{ textDecoration: 'underline' }}
+                        sx={{ textDecoration: 'underline', cursor: 'pointer' }}
                     >
                         Continue Shopping
                     </Text>

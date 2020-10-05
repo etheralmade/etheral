@@ -3,6 +3,8 @@ const buttonBaseStyle = {
     outline: 'none',
     borderRadius: 0,
     whiteSpace: 'nowrap',
+    fontSize: [1, 1, 2],
+    py: [4],
     '&: hover': {
         cursor: 'pointer',
     },
@@ -50,8 +52,6 @@ export default {
         color: 'white.0',
         fontFamily: 'body',
         fontWeight: 'body',
-        fontSize: [1, 1, 2],
-        py: [4],
     },
     secondary: {
         ...buttonBaseStyle,
@@ -59,6 +59,5 @@ export default {
         color: '#fff',
         fontFamily: 'body',
         fontWeight: 'body',
-        fontSize: [1, 1, 2],
     },
 };
