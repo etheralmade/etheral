@@ -42,7 +42,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [showDropdown, setShowDropdown] = useState(false);
     const [showDropdownL, setShowDropdownL] = useState(false);
     const [currLocation, setCurrLocation] = useState('/');
-    const [showCart, setShowCart] = useState(true);
+    const [showCart, setShowCart] = useState(false);
 
     const [user, setUser] = useState<firebase.User | null>(null);
     // const dispatch = useDispatch();

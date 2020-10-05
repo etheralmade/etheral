@@ -33,24 +33,20 @@ export type Props = {
 };
 
 const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
-    const { amount, product } = item;
+    const { amount, product, details } = item;
 
     const { extractImgs } = useAllProductImages();
     const dispatch = useDispatch();
 
     const { xs, s }: any = extractImgs(product, false);
 
-    // img sources gatsby image.
+    const handleAdd = () => {
+        dispatch(addToCart({ ...product, orderNote: details }, false, 1));
+    };
 
-    // handle add and handle rmove => which one to add / remove?
-
-    // const handleAdd = () => {
-    //     dispatch(addToCart(product));
-    // };
-
-    // const handleRemove = () => {
-    //     dispatch(removeFromCart(product, 1));
-    // };
+    const handleRemove = () => {
+        dispatch(removeFromCart({ ...product, orderNote: details }, false, 1));
+    };
 
     // option to remove the product from cart.
     const handleRemoveAll = () => {
@@ -60,6 +56,7 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
     // destructure attrs needed.
     const {
         prices: { idrPrice, ausPrice, discountPercentage },
+        name,
     } = product;
     const discounted = discountPercentage > 0;
 
@@ -91,6 +88,7 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
     }
 
     if (s) {
+        // img sources gatsby image.
         const sources = [
             {
                 ...get(xs, 'img[0].childImageSharp.fixed'),
@@ -102,75 +100,114 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
         return (
             <Flex
                 alignItems="center"
+                justifyContent="space-between"
                 my={[3]}
                 py={[2]}
+                px={[2]}
+                width={[300]}
                 css={`
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    position: relative;
                 `}
             >
                 <Img fixed={sources} />
-                <Box ml={[5]}>
+                <Box width={[160]}>
+                    {/* product name */}
                     <Text
                         fontFamily="heading"
-                        fontSize={[2, 2, 3]}
+                        fontSize={[1, 1, 2]}
                         fontWeight="bold"
                     >
-                        {product.name}
+                        {name}
                     </Text>
-                    <Flex
-                        alignItems="center"
-                        css={`
-                            .cart-icons {
-                                height: 16px;
-                                width: 16px;
-                            }
-                        `}
-                    >
-                        <Text
-                            fontFamily="heading"
-                            fontSize={[2, 2, 3]}
-                            fontWeight="bold"
-                        >
-                            qty: {amount}
-                        </Text>
-                        {/* <Flex variant="center" ml={[3]} onClick={handleRemove}>
-                            <Icon
-                                className="cart-icons"
-                                icon={checkboxIndeterminateLine}
-                            />
-                        </Flex> */}
-                        {/* <Flex variant="center" ml={[1]} onClick={handleAdd}>
-                            <Icon className="cart-icons" icon={addBoxLine} />
-                        </Flex> */}
-                    </Flex>
                     <Text
-                        fontFamily="body"
-                        fontSize={[2, 2, 3]}
+                        fontFamily="heading"
+                        fontSize={[1, 1, 2]}
                         fontWeight="body"
-                        sx={{ svg: { ml: [4] } }}
+                        as="section"
                     >
-                        {price}
-                        {discounted && (
-                            <InlineIcon
-                                icon={priceTag3Fill}
-                                color={theme.colors.misc.discount}
-                            />
+                        {/* render details of the product => conditional. */}
+                        Size: {details.size}
+                        {details.gemType && (
+                            <>
+                                <br />
+                                Gem: {details.gemType}
+                            </>
+                        )}
+                        {details.gemSize && (
+                            <>
+                                <br />
+                                Gem diameter: {details.gemSize}
+                            </>
                         )}
                     </Text>
+                    <Flex justifyContent="space-between" width="100%" mt={[2]}>
+                        <Flex
+                            alignItems="center"
+                            bg="black.1"
+                            color="#fff"
+                            css={`
+                                .cart-icons {
+                                    height: 16px;
+                                    width: 16px;
+                                }
+                            `}
+                        >
+                            <Flex
+                                variant="center"
+                                mr={[1]}
+                                onClick={handleRemove}
+                            >
+                                <Icon
+                                    className="cart-icons"
+                                    icon={checkboxIndeterminateLine}
+                                />
+                            </Flex>
+                            <Text
+                                fontFamily="heading"
+                                fontSize={[10]}
+                                fontWeight="medium"
+                            >
+                                {amount}
+                            </Text>
+                            <Flex variant="center" ml={[1]} onClick={handleAdd}>
+                                <Icon
+                                    className="cart-icons"
+                                    icon={addBoxLine}
+                                />
+                            </Flex>
+                        </Flex>
+                        <Text
+                            fontFamily="body"
+                            fontSize={[1]}
+                            fontWeight="semiBold"
+                            sx={{ svg: { ml: [4] } }}
+                        >
+                            {price}
+                            {discounted && (
+                                <InlineIcon
+                                    icon={priceTag3Fill}
+                                    color={theme.colors.misc.discount}
+                                />
+                            )}
+                        </Text>
+                    </Flex>
                 </Box>
-                <Flex
-                    variant="center"
-                    ml="auto"
-                    css={`
-                        & > svg {
-                            height: 24px;
-                            width: 24px;
-                        }
-                    `}
+                <Text
+                    fontFamily="body"
+                    fontWeight="body"
+                    fontSize={[0, 0, 1]}
+                    color="black.1"
+                    sx={{
+                        position: 'absolute',
+                        bottom: '6px',
+                        right: '6px',
+                        textDecoration: 'underline',
+                    }}
                     onClick={handleRemoveAll}
                 >
-                    <Icon icon={deleteBin5Line} />
-                </Flex>
+                    Remove
+                </Text>
             </Flex>
         );
     }

@@ -49,10 +49,16 @@ const CartItems: React.FC<Props> = ({ cart: { cart } }) => {
                 </Heading>
 
                 {/* cart prodcuts */}
-                <Box>
+                <Box
+                    height="auto"
+                    className="custom-scrollbar"
+                    sx={{ overflowY: 'scroll' }}
+                >
                     {data.map(ctItem => (
                         <CartProduct
-                            key={`cart-${ctItem.product.pid}`}
+                            key={`cart-${ctItem.product.pid}-${JSON.stringify(
+                                ctItem.details
+                            )}`}
                             item={ctItem}
                         />
                     ))}

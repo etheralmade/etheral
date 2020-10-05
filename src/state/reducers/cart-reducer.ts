@@ -45,6 +45,8 @@ export type IState = {
     wishlist: CartState;
 };
 
+// reducer does add / remove notes from the products within cart state, but orderNote property is just a identifier. => cause confusionss
+// TODO: remove orderNote props from product, add another 'details' props on ActionPayload!
 const reducer = (state: IState = initialState, action: Action): IState => {
     const { type, payload } = action;
     switch (type) {
