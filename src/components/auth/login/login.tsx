@@ -14,7 +14,7 @@ type Props = {
     submitValue?: string;
     firebaseError?: firebase.auth.Error;
     login: (args: LoginProps) => void;
-    withGoogle: () => void;
+    withGoogle?: () => void;
 };
 
 type Inputs = {
@@ -125,28 +125,30 @@ const Login: React.FC<Props> = ({
                 <Button type="submit" py={[4]}>
                     {submitValue || 'LOGIN'}
                 </Button>
-                <Button
-                    bg="#fff"
-                    color="black.0"
-                    py={[4]}
-                    mt={4}
-                    onClick={withGoogle}
-                    sx={{
-                        borderWidth: 2,
-                        borderStyle: 'solid',
-                        borderColor: 'black.0',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        svg: {
-                            height: [24, 24, 28],
-                            mr: 4,
-                        },
-                    }}
-                >
-                    <GoogleButton />
-                    Sign in with google
-                </Button>
+                {withGoogle && (
+                    <Button
+                        bg="#fff"
+                        color="black.0"
+                        py={[4]}
+                        mt={4}
+                        onClick={withGoogle}
+                        sx={{
+                            borderWidth: 2,
+                            borderStyle: 'solid',
+                            borderColor: 'black.0',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            svg: {
+                                height: [24, 24, 28],
+                                mr: 4,
+                            },
+                        }}
+                    >
+                        <GoogleButton />
+                        Sign in with google
+                    </Button>
+                )}
             </Flex>
         </Box>
     );

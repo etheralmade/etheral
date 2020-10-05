@@ -2,7 +2,7 @@
 
 exports[`Form matches snapshot 1`] = `
 <form
-  className="css-16vu25q"
+  className="css-zdrrq2"
   onSubmit={[Function]}
 >
   <div
@@ -96,7 +96,7 @@ exports[`Form matches snapshot 1`] = `
       MESSAGE
     </label>
     <textarea
-      className="css-1xoz5r4"
+      className="custom-scrollbar css-1ef54ob"
       id="message"
       name="message"
       placeholder="Message"
@@ -108,5 +108,11 @@ exports[`Form matches snapshot 1`] = `
   >
     SEND
   </button>
+  <div
+    className="css-j0cg6v"
+    role="alert"
+  >
+    Oops! something is not right. Please try again
+  </div>
 </form>
 `;

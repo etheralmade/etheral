@@ -37,7 +37,7 @@ const ProductImage: React.FC<Props> = ({ images, productName }) => {
                 totalSlides={images.length}
                 dragEnabled={false}
                 infinite={true}
-                className="carousel"
+                className="product-carousel"
             >
                 <Slider className="carousel-slide">
                     {/* add zoom on hover */}

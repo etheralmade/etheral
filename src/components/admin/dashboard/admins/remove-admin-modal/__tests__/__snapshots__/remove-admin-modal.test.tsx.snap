@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RemoveAdminModal matches snapshot 1`] = `
+<div
+  className="css-w99zwe"
+>
+  <h2
+    className="css-1l4uv3m"
+  >
+    Are you sure you want to remove 
+    
+     from etheral admin?
+  </h2>
+  <div
+    className="css-4cffwv"
+  >
+    <button
+      className="css-o6xwpa"
+      onClick={[MockFunction]}
+    >
+      Yes
+    </button>
+    <button
+      className="css-w7s90k"
+      onClick={[MockFunction]}
+    >
+      No
+    </button>
+  </div>
+</div>
+`;

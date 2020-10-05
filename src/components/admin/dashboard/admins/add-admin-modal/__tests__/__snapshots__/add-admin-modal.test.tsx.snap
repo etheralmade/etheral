@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddAdminModal matches snapshot 1`] = `
+<form
+  className="css-1eye3dk"
+  onSubmit={[Function]}
+>
+  <h2
+    className="css-aeusdd"
+  >
+    Add admin member
+  </h2>
+  <label
+    className="css-cf12dr"
+    htmlFor="admin-email"
+  >
+    Admin email address:
+  </label>
+  <input
+    className="css-4y926w"
+    id="admin-email"
+    name="adminEmail"
+    placeholder="New admin email address"
+    type="email"
+  />
+  <button
+    className="css-s17rj8"
+    type="submit"
+  >
+    Add admin
+  </button>
+  <button
+    className="css-14fcrsr"
+    onClick={[MockFunction]}
+  >
+    Cancel
+  </button>
+</form>
+`;

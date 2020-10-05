@@ -44,7 +44,7 @@ const Hero: React.FC<Props> = ({ heroData }) => {
                 interval={5000}
                 dragEnabled={false}
                 infinite={true}
-                className="carousel"
+                className="hero-carousel"
             >
                 <Slider className="carousel-slide">
                     {heroData.map((data, i) => (

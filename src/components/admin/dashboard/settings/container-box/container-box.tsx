@@ -25,7 +25,7 @@ const blogAttrs = ['Slug', ...timestampAttrs, ''];
 const ContainerBox: React.FC<Props> = ({ type, item }) => {
     const tabletopStyling = {
         fontFamily: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1],
         color: '#555',
     };
 
@@ -47,13 +47,7 @@ const ContainerBox: React.FC<Props> = ({ type, item }) => {
 
     return (
         <ReBox {...boxStyling} my={[5]}>
-            <Heading
-                as="h1"
-                fontWeight={200}
-                color="#333"
-                fontSize={[3]}
-                mb={[3]}
-            >
+            <Heading as="h2" color="#333" fontSize={[3]} mb={[3]}>
                 {capitalize(type)}
             </Heading>
 

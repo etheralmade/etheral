@@ -13,36 +13,38 @@ const Orders: React.FC<Props> = ({ db }) => {
     const [orders, setOrders] = useState<Order[] | undefined>(undefined);
 
     useEffect(() => {
-        (async () => {
-            // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-let
-            let ordersContainer: Order[] = [];
-            const reqOrders = await db.collection('order').get();
+        fetchData();
+    }, []);
 
-            await reqOrders.forEach(doc => {
-                const orderData: Order = doc.data() as Order;
+    const fetchData = async () => {
+        // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-let
+        let ordersContainer: Order[] = [];
+        const reqOrders = await db.collection('order').get();
+
+        await reqOrders.forEach(doc => {
+            const orderData: Order = doc.data() as Order;
+            set(
+                orderData,
+                'date',
+                new Date((orderData.date as any).seconds * 1000)
+            );
+
+            if (orderData.shippingData) {
                 set(
                     orderData,
-                    'date',
-                    new Date((orderData.date as any).seconds * 1000)
+                    'shippingData.shippingDate',
+                    new Date(
+                        (orderData.shippingData.shippingDate as any).seconds *
+                            1000
+                    )
                 );
+            }
 
-                if (orderData.shippingData) {
-                    set(
-                        orderData,
-                        'shippingData.shippingDate',
-                        new Date(
-                            (orderData.shippingData.shippingDate as any)
-                                .seconds * 1000
-                        )
-                    );
-                }
+            ordersContainer = [...ordersContainer, orderData];
+        });
 
-                ordersContainer = [...ordersContainer, orderData];
-            });
-
-            setOrders(await ordersContainer);
-        })();
-    }, []);
+        setOrders(await ordersContainer);
+    };
 
     return orders ? <OrdersEl orders={orders} db={db} /> : <></>;
 };

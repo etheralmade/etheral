@@ -7,7 +7,7 @@ exports[`OrderBox matches snapshot 1`] = `
   onClick={[Function]}
 >
   <div
-    className="css-te8eeg"
+    className="css-ln9bhs"
   >
     asdadwda
   </div>
@@ -26,12 +26,12 @@ exports[`OrderBox matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="css-fjt3vn"
+    className="css-6l89o3"
   >
     IDR
   </div>
   <div
-    className="css-1wi5gb3"
+    className="css-ab2wo"
   >
     2020-10-05 21:30
   </div>

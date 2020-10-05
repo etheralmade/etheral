@@ -1,8 +1,9 @@
 import React from 'react';
-import { findIndex, get } from 'lodash';
+import { findIndex, get, toPairs, startCase } from 'lodash';
 import Img, { FixedObject } from 'gatsby-image';
 
 import { Box, Flex, Heading, Text } from 'rebass';
+import { Label } from '@rebass/forms';
 import { InlineIcon } from '@iconify/react';
 import priceTag3Fill from '@iconify/icons-ri/price-tag-3-fill';
 
@@ -40,41 +41,115 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
 
         const { xs }: any = extractImgs(product, false);
         return index !== -1 ? (
-            <Flex
-                alignItems="center"
-                py={[1]}
-                sx={{
-                    borderColor: 'black.1',
-                    borderStyle: 'solid',
-                    borderWidth: 0,
-                    borderBottomWidth: 1,
-                }}
-            >
-                <Img
-                    fixed={
-                        get(xs, 'img[0].childImageSharp.fixed') as FixedObject
-                    }
-                />
-                <Text variant="productPrice" ml={[5]} my={[2]}>
-                    {orderedProduct.amount} x {product.name}
-                    {product.prices.discountPercentage > 0 && (
-                        <Box as="span" display="inline-block">
-                            <Text
-                                color="misc.discount"
-                                fontWeight="bold"
-                                ml={[4]}
-                                sx={{ '& svg': { mr: [2] } }}
-                            >
-                                <InlineIcon
-                                    icon={priceTag3Fill}
-                                    color={theme.colors.misc.discount}
-                                />
-                                {product.prices.discountPercentage}%
-                            </Text>
-                        </Box>
-                    )}
-                </Text>
-            </Flex>
+            <Box>
+                <Flex
+                    alignItems="center"
+                    py={[1]}
+                    sx={{
+                        borderColor: 'black.1',
+                        borderStyle: 'solid',
+                        borderWidth: 0,
+                        borderBottomWidth: 1,
+                    }}
+                >
+                    <Img
+                        fixed={
+                            get(
+                                xs,
+                                'img[0].childImageSharp.fixed'
+                            ) as FixedObject
+                        }
+                    />
+                    <Text variant="productPrice" ml={[5]} my={[2]}>
+                        {orderedProduct.amount} x {product.name}
+                        {product.prices.discountPercentage > 0 && (
+                            <Box as="span" display="inline-block">
+                                <Text
+                                    color="misc.discount"
+                                    fontWeight="bold"
+                                    ml={[4]}
+                                    sx={{ '& svg': { mr: [2] } }}
+                                >
+                                    <InlineIcon
+                                        icon={priceTag3Fill}
+                                        color={theme.colors.misc.discount}
+                                    />
+                                    {product.prices.discountPercentage}%
+                                </Text>
+                            </Box>
+                        )}
+                    </Text>
+                </Flex>
+                <Box
+                    my={[4]}
+                    sx={{
+                        fontFamily: 'body',
+                        width: '100%',
+                        overflow: 'hidden',
+                        '.info': {
+                            height: 0,
+                            width: 0,
+                            overflow: 'hidden',
+                            transition: '0.2s',
+                        },
+                        'input[type=checkbox]': { display: 'none' },
+                        'input[type=checkbox]:checked + .info': {
+                            height: 'fit-content',
+                            width: '100%',
+                        },
+                    }}
+                >
+                    <Label
+                        htmlFor={`${product.name}-info`}
+                        mt={[4]}
+                        sx={{
+                            textDecoration: 'underline',
+                            fontWeight: 'bold',
+                            '&:hover': { cursor: 'pointer' },
+                        }}
+                    >
+                        View order details:
+                    </Label>
+                    <input type="checkbox" id={`${product.name}-info`} />
+
+                    {/* render notes here! */}
+                    <Box m={[3]} className="info">
+                        {orderedProduct.note.map(noteItem => {
+                            const { amount, details } = noteItem;
+
+                            // { size: S, gemType: A, gemSize: '' }
+                            const renderDetails = toPairs(details) // [['size', 'S'], ['gemType', 'A'], ['gemSize', '']]
+                                .filter(arr => arr[1]) // [['size', 'S'], ['gemType', 'A'],]
+                                .map(arr => `${startCase(arr[0])}: ${arr[1]}`); // ['Size: S', 'Gem Type: A',]
+
+                            return (
+                                <Flex
+                                    key={`note-${product.name}-${JSON.stringify(
+                                        renderDetails
+                                    )}`}
+                                >
+                                    <Text
+                                        as="span"
+                                        fontFamily="heading"
+                                        mr={[4]}
+                                    >
+                                        {amount} x
+                                    </Text>
+                                    <Box>
+                                        {renderDetails.map((rd, i) => (
+                                            <Text
+                                                key={`${product.name}-${rd}-${i}`}
+                                            >
+                                                {rd}
+                                            </Text>
+                                        ))}
+                                    </Box>
+                                </Flex>
+                            );
+                        })}
+                    </Box>
+                </Box>
+            </Box>
         ) : (
             <></>
         );

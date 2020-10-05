@@ -6,7 +6,6 @@ import { Text, Heading, Box, Flex } from 'rebass';
 import { Order } from 'helper/schema/order';
 import OrderItem from './order-item';
 import OrderBox from './order-box';
-import { theme } from 'styles';
 
 type Props = {
     orders: Order[];
@@ -40,7 +39,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
 
     const tabletopStyling = {
         fontFamily: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1],
         color: '#555',
     };
 
@@ -80,13 +79,7 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                     }
                 `}
             >
-                <Heading
-                    as="h1"
-                    fontWeight={200}
-                    color="#333"
-                    fontSize={[3]}
-                    mb={[3]}
-                >
+                <Heading as="h1" color="#333" fontSize={[3]} mb={[3]}>
                     Orders
                 </Heading>
                 {/* Grid table to show: 
@@ -96,7 +89,9 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                     sx={{
                         display: 'grid',
                         gridGap: 2,
-                        gridTemplateColumns: 'repeat(4, minmax(64, 1fr))',
+                        gridTemplateColumns: 'repeat(4, minmax(64px, 1fr))',
+                        // gridTemplateColumns:
+                        //     'minmax(64, 1fr) minmax(64, 1fr) minmax(64, 1fr) ',
                     }}
                 >
                     <Text {...tabletopStyling}>Order ID</Text>
