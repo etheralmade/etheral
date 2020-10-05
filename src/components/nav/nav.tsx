@@ -42,7 +42,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [showDropdown, setShowDropdown] = useState(false);
     const [showDropdownL, setShowDropdownL] = useState(false);
     const [currLocation, setCurrLocation] = useState('/');
-    const [showCart, setShowCart] = useState(false);
+    const [showCart, setShowCart] = useState(true);
 
     const [user, setUser] = useState<firebase.User | null>(null);
     // const dispatch = useDispatch();
@@ -50,7 +50,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [openModal, setOpenModal] = useState(false);
 
     // set to true to show modal on homepage.
-    const runModal = true;
+    const runModal = false;
 
     useEffect(() => {
         if (auth.currentUser) {
@@ -540,7 +540,12 @@ const Navigation: React.FC<Props & ICartState> = ({
                         unmountOnExit={true}
                         classNames="cart-items"
                     >
-                        <CartItems cart={{ cart, wishlist }} />
+                        <CartItems
+                            closeCart={() => {
+                                setShowCart(false);
+                            }}
+                            cart={{ cart, wishlist }}
+                        />
                     </CSSTransition>
                 </Box>
             </Flex>

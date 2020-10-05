@@ -24,6 +24,11 @@ export type Props = {
     item: {
         product: Product;
         amount: number;
+        details: {
+            size: string;
+            gemSize?: string;
+            gemType?: string;
+        };
     };
 };
 
@@ -33,7 +38,9 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
     const { extractImgs } = useAllProductImages();
     const dispatch = useDispatch();
 
-    const { xs }: any = extractImgs(product, false);
+    const { xs, s }: any = extractImgs(product, false);
+
+    // img sources gatsby image.
 
     // handle add and handle rmove => which one to add / remove?
 
@@ -83,82 +90,92 @@ const CartProduct: React.FC<Props & ICurrencyState> = ({ item, currency }) => {
             break;
     }
 
-    return (
-        <Flex
-            alignItems="center"
-            my={[3]}
-            py={[2]}
-            css={`
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            `}
-        >
-            <Img
-                fixed={get(xs, 'img[0].childImageSharp.fixed') as FixedObject}
-            />
-            <Box ml={[5]}>
-                <Text
-                    fontFamily="heading"
-                    fontSize={[2, 2, 3]}
-                    fontWeight="bold"
-                >
-                    {product.name}
-                </Text>
-                <Flex
-                    alignItems="center"
-                    css={`
-                        .cart-icons {
-                            height: 16px;
-                            width: 16px;
-                        }
-                    `}
-                >
+    if (s) {
+        const sources = [
+            {
+                ...get(xs, 'img[0].childImageSharp.fixed'),
+                media: '(max-width: 700px)',
+            } as FixedObject,
+            get(s, 'img[0].childImageSharp.fixed') as FixedObject,
+        ];
+
+        return (
+            <Flex
+                alignItems="center"
+                my={[3]}
+                py={[2]}
+                css={`
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                `}
+            >
+                <Img fixed={sources} />
+                <Box ml={[5]}>
                     <Text
                         fontFamily="heading"
                         fontSize={[2, 2, 3]}
                         fontWeight="bold"
                     >
-                        qty: {amount}
+                        {product.name}
                     </Text>
-                    {/* <Flex variant="center" ml={[3]} onClick={handleRemove}>
-                        <Icon
-                            className="cart-icons"
-                            icon={checkboxIndeterminateLine}
-                        />
-                    </Flex> */}
-                    {/* <Flex variant="center" ml={[1]} onClick={handleAdd}>
-                        <Icon className="cart-icons" icon={addBoxLine} />
-                    </Flex> */}
-                </Flex>
-                <Text
-                    fontFamily="body"
-                    fontSize={[2, 2, 3]}
-                    fontWeight="body"
-                    sx={{ svg: { ml: [4] } }}
+                    <Flex
+                        alignItems="center"
+                        css={`
+                            .cart-icons {
+                                height: 16px;
+                                width: 16px;
+                            }
+                        `}
+                    >
+                        <Text
+                            fontFamily="heading"
+                            fontSize={[2, 2, 3]}
+                            fontWeight="bold"
+                        >
+                            qty: {amount}
+                        </Text>
+                        {/* <Flex variant="center" ml={[3]} onClick={handleRemove}>
+                            <Icon
+                                className="cart-icons"
+                                icon={checkboxIndeterminateLine}
+                            />
+                        </Flex> */}
+                        {/* <Flex variant="center" ml={[1]} onClick={handleAdd}>
+                            <Icon className="cart-icons" icon={addBoxLine} />
+                        </Flex> */}
+                    </Flex>
+                    <Text
+                        fontFamily="body"
+                        fontSize={[2, 2, 3]}
+                        fontWeight="body"
+                        sx={{ svg: { ml: [4] } }}
+                    >
+                        {price}
+                        {discounted && (
+                            <InlineIcon
+                                icon={priceTag3Fill}
+                                color={theme.colors.misc.discount}
+                            />
+                        )}
+                    </Text>
+                </Box>
+                <Flex
+                    variant="center"
+                    ml="auto"
+                    css={`
+                        & > svg {
+                            height: 24px;
+                            width: 24px;
+                        }
+                    `}
+                    onClick={handleRemoveAll}
                 >
-                    {price}
-                    {discounted && (
-                        <InlineIcon
-                            icon={priceTag3Fill}
-                            color={theme.colors.misc.discount}
-                        />
-                    )}
-                </Text>
-            </Box>
-            <Flex
-                variant="center"
-                ml="auto"
-                css={`
-                    & > svg {
-                        height: 24px;
-                        width: 24px;
-                    }
-                `}
-                onClick={handleRemoveAll}
-            >
-                <Icon icon={deleteBin5Line} />
+                    <Icon icon={deleteBin5Line} />
+                </Flex>
             </Flex>
-        </Flex>
-    );
+        );
+    }
+
+    return null;
 };
 
 export { CartProduct };

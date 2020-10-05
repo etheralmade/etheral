@@ -34,12 +34,12 @@ const useAllProductImages = () => {
                         productImages {
                             url
                             childImageSharp {
-                                fixed(width: 60, height: 60, quality: 100) {
+                                fixed(width: 120, height: 120, quality: 100) {
                                     ...GatsbyImageSharpFixed
                                 }
                                 fluid(
-                                    maxWidth: 60
-                                    maxHeight: 60
+                                    maxWidth: 120
+                                    maxHeight: 120
                                     quality: 100
                                 ) {
                                     ...GatsbyImageSharpFluid

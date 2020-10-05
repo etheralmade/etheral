@@ -20,6 +20,9 @@ export type Props = {
     toggleShowCart: () => void;
 };
 
+/**
+ * Cart component => JUST the cart icon and where cart and/or wishlist sync with db is done
+ */
 const Cart: React.FC<Props & ICartState> = ({
     cart,
     wishlist,
@@ -60,7 +63,7 @@ const Cart: React.FC<Props & ICartState> = ({
     useEffect(() => {
         // sync with firestore just if the user is authenticated.
         if (user) {
-            if (JSON.stringify(wishlist) !== cartSnapshot) {
+            if (JSON.stringify(wishlist) !== wishlistSnapshot) {
                 updateWishlist();
             }
         }
@@ -169,7 +172,7 @@ const Cart: React.FC<Props & ICartState> = ({
                     <CartIcon className="icons black-on-dropdown" />
                 )}
                 {cart.length > 0 && !showCart ? (
-                    <CartBadge cart={cart} />
+                    <CartBadge cart={cart} wishlist={wishlist} />
                 ) : (
                     <></>
                 )}
