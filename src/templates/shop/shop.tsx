@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from '@reach/router';
+import { fromPairs } from 'lodash';
 
 import { Flex } from 'rebass';
 
@@ -13,6 +14,7 @@ import Pagination from 'components/pagination';
 import Breadcrumbs from 'components/breadcrumbs';
 import Filter, { SortPrice } from './filter';
 import { doFilter } from './do-filter';
+import { renderName } from 'helper/render-name';
 
 import './styles.scss'; // styling on links component => cleaner component file.
 
@@ -25,6 +27,18 @@ type Props = {};
 type PaginationState = {
     productPerPage: number;
     currIndex: number;
+};
+
+export type FilterState = {
+    sort: SortPrice;
+    collections: string[];
+    categories: string[];
+};
+
+const initialFilter = {
+    sort: SortPrice.NONE,
+    collections: [],
+    categories: [],
 };
 
 const initialPagination = {
@@ -52,12 +66,50 @@ const Shop: React.FC<Props> = () => {
     const [display, setDisplay] = useState<Product[]>([]);
     // filter state.
     const [withFilters, setWithFilters] = useState(false);
+    const [filters, setFilters] = useState<FilterState>(initialFilter);
     // add filter.
+    const [withUrlParams, setWithUrlParams] = useState(false);
+    const [urlParams, setUrlParams] = useState('');
+
     const { extractImgs } = useAllProductImages();
     const allProducts = useAllProducts();
 
+    // extract filter(s) from page query.
+    useEffect(() => {
+        if (window) {
+            const { search } = location;
+
+            if (search) {
+                setWithUrlParams(true);
+                setUrlParams(search);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
+        const { sort, categories, collections } = filters;
+
+        // map to url?
+
+        setStore(doFilter({ sort, categories, collections, allProducts }));
+    }, [filters]);
+
+    // stores variable IF url query is provided.
+    useEffect(() => {
+        if (allProducts.length > 0 && withUrlParams) {
+            extractQuery(urlParams);
+            setWithUrlParams(false);
+        }
+    }, [allProducts]);
+
+    useEffect(() => {
+        paginate({ ...pagination }, store);
+        calculateNumOfPages({ ...pagination }, store);
+    }, [store, pagination]);
+
     const debug = true;
 
+    // debug mock products
     useEffect(() => {
         const multipliedProducts = [
             ...allProducts,
@@ -82,11 +134,6 @@ const Shop: React.FC<Props> = () => {
         }
     }, [setStore, withFilters, allProducts, debug]);
 
-    useEffect(() => {
-        paginate({ ...pagination }, store);
-        calculateNumOfPages({ ...pagination }, store);
-    }, [store, pagination]);
-
     const paginate = (
         { productPerPage, currIndex }: PaginationState,
         inStore: Product[]
@@ -105,31 +152,9 @@ const Shop: React.FC<Props> = () => {
         setDisplay(temp);
     };
 
-    const setFilter = ({
-        clearFilter,
-        sort,
-        categories,
-        collections,
-    }: SetFilterArgs) => {
-        if (clearFilter) {
-            setWithFilters(false);
-        } else {
-            setWithFilters(true);
-            if (
-                sort !== undefined &&
-                categories !== undefined &&
-                collections !== undefined
-            ) {
-                const filtered = doFilter({
-                    sort,
-                    categories,
-                    collections,
-                    allProducts,
-                });
-
-                setStore(filtered);
-            }
-        }
+    const clearFilters = () => {
+        setWithFilters(false);
+        setFilters(initialFilter);
     };
 
     const calculateNumOfPages = (
@@ -142,6 +167,34 @@ const Shop: React.FC<Props> = () => {
                 ? initialNumOfPages
                 : Math.floor(initialNumOfPages + 1) // add an extra page if any rest is there.
         );
+    };
+
+    const extractQuery = async (search: string) => {
+        // ?category=ring+bracelet&collection=collection%201
+
+        // extract query(ies) => space: %20, multiple filters: +
+        const extracted = await search
+            .substr(1)
+            .split('&') // ['category=ring+bracelet', 'collection=collection%201']
+            .map(query => query.split('=')) // [['category','ring+bracelet'], ['collection','collection%201']]
+            .map(query => [
+                query[0],
+                query[1]
+                    .split('+') // [['category',['ring', 'bracelet']], ['collection',['collection%201']]]
+                    .map(
+                        param => renderName(param.split('%20').join(' ')) // [['category',['RING', 'BRACELET']], ['collection',['COLLECTION_1']]]
+                    ),
+            ]);
+
+        if (await extracted) {
+            const query = fromPairs(extracted);
+
+            setFilters({
+                sort: SortPrice.NONE,
+                categories: query.categories || [],
+                collections: query.collections || [],
+            });
+        }
     };
 
     const handleClickPage = (pageNum: number) => {
@@ -177,7 +230,11 @@ const Shop: React.FC<Props> = () => {
                     appendText={'SHOP ALL'}
                 />
                 {/* filter component */}
-                <Filter setFilter={setFilter} />
+                <Filter
+                    filters={filters}
+                    setFilters={setFilters}
+                    clearFilters={clearFilters}
+                />
             </Flex>
             {/* render products. */}
             <Flex
