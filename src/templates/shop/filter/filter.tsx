@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import { startCase, without } from 'lodash';
@@ -8,10 +8,12 @@ import { Input, Label } from '@rebass/forms';
 import { Icon } from '@iconify/react';
 import closeFill from '@iconify/icons-ri/close-fill';
 import { renderName } from 'helper/render-name';
-import { SetFilterArgs } from '..';
+import { FilterState } from '..';
 
 type Props = {
-    setFilter: (args: SetFilterArgs) => void;
+    filters: FilterState;
+    setFilters: React.Dispatch<React.SetStateAction<FilterState>>;
+    clearFilters: () => void;
 };
 
 export enum SortPrice {
@@ -22,12 +24,18 @@ export enum SortPrice {
 // hard coded => change if needed?
 export const LIST_OF_CATEGORIES = ['BRACELET', 'RING', 'EARRINGS', 'NECKLACE'];
 
-const Filter: React.FC<Props> = ({ setFilter }) => {
+const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
     const [sortPrice, setSortPrice] = useState<SortPrice>(SortPrice.NONE);
     const [collections, setCollections] = useState<string[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
 
     const [showFilter, setShowFilter] = useState(true);
+
+    useEffect(() => {
+        setCollections(filters.collections);
+        setCategories(filters.categories);
+        setSortPrice(filters.sort);
+    }, [filters]);
 
     const data = useStaticQuery(graphql`
         query {
@@ -47,12 +55,7 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
      */
     const submitFilter = (event: React.FormEvent<HTMLDivElement>) => {
         event.preventDefault();
-        setFilter({
-            clearFilter: false,
-            collections,
-            categories,
-            sort: sortPrice,
-        });
+        setFilters({ sort: sortPrice, collections, categories });
     };
 
     // manual state management => can't rlly figure out how to handle radio inputs with react-hook-horm
@@ -98,7 +101,7 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
             (el as HTMLInputElement).checked = false;
         });
 
-        setFilter({ clearFilter: true });
+        clearFilters();
     };
 
     const textStyling = {
@@ -184,6 +187,7 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
                         id="price-lth"
                         name="priceSort"
                         onChange={handleChangeSort}
+                        checked={sortPrice === SortPrice.LOW_TO_HIGH}
                     />
                     <Label htmlFor="price-lth">Low To High</Label>
 
@@ -193,6 +197,7 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
                         id="price-htl"
                         name="priceSort"
                         onChange={handleChangeSort}
+                        checked={sortPrice === SortPrice.HIGH_TO_LOW}
                     />
                     <Label htmlFor="price-htl">High To Low</Label>
                 </Flex>
@@ -209,6 +214,9 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
                                     type="checkbox"
                                     value={renderName(e.node.name)}
                                     id={`filter-${e.node.name.toLowerCase()}`}
+                                    checked={collections.includes(
+                                        renderName(e.node.name)
+                                    )}
                                     onChange={handleChangeCollections}
                                 />
                                 <Label
@@ -233,6 +241,7 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
                                 value={renderName(e)}
                                 id={`filter-${e.toLowerCase()}`}
                                 onChange={handleChangeCategories}
+                                checked={categories.includes(renderName(e))}
                             />
                             <Label htmlFor={`filter-${e.toLowerCase()}`}>
                                 {startCase(e.toLowerCase())}

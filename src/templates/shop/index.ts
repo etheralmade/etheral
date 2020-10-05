@@ -1,5 +1,5 @@
-import { Shop, SetFilterArgs } from './shop';
+import { Shop, FilterState } from './shop';
 
-export { SetFilterArgs };
+export { FilterState };
 
 export default Shop;
