@@ -10,7 +10,10 @@ import { mockOrder } from 'helper/const';
 import { OrderBox } from '../order-box';
 
 describe('OrderBox', () => {
-    const { oid, date, delivered: shipped, currency, paid } = mockOrder;
+    const { oid, delivered: shipped, currency, paid } = mockOrder;
+
+    // 5 Okt 2020
+    const dateTimestamp = 1601909676260;
 
     const mockFocusOrder = jest.fn(() => {});
     const mockBg = '#fafafa';
@@ -18,7 +21,7 @@ describe('OrderBox', () => {
     const Element = (
         <OrderBox
             oid={oid}
-            date={date}
+            date={new Date(dateTimestamp)}
             shipped={shipped}
             currency={currency}
             focusOrder={mockFocusOrder}
