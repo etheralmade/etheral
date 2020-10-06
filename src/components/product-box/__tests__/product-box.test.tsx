@@ -5,6 +5,10 @@ import renderer from 'react-test-renderer';
 import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
+// mock gatsby
+import * as Gatsby from 'gatsby';
+const useStaticQuery = jest.spyOn(Gatsby, 'useStaticQuery');
+
 // mock store
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -30,6 +34,24 @@ describe('ProductBox', () => {
     let ElementWithDispatch: any;
 
     beforeEach(() => {
+        useStaticQuery.mockImplementationOnce(() => ({
+            imgXS: {
+                edges: [],
+            },
+            imgS: {
+                edges: [],
+            },
+            imgM: {
+                edges: [],
+            },
+            imgL: {
+                edges: [],
+            },
+            imgXL: {
+                edges: [],
+            },
+        }));
+
         store = mockStore({
             currencyReducer: {
                 currency: Currencies.IDR,
@@ -66,6 +88,8 @@ describe('ProductBox', () => {
         ReactDOM.render(Element, div);
     });
 
+    // cannot be tested, as imgS is not defined...
+
     // it('User should NOT be able to add and/or remove element (product from cart) if the element is NOT CONNECTED to dispatch.', () => {
     //     const { queryByTestId } = render(Element);
 
@@ -93,12 +117,12 @@ describe('ProductBox', () => {
     //     }
     // });
 
-    // it('matches snapshot', () => {
-    //     const run = true;
+    it('matches snapshot', () => {
+        const run = true;
 
-    //     if (run) {
-    //         const tree = renderer.create(Element).toJSON();
-    //         expect(tree).toMatchSnapshot();
-    //     }
-    // });
+        if (run) {
+            const tree = renderer.create(Element).toJSON();
+            expect(tree).toMatchSnapshot();
+        }
+    });
 });
