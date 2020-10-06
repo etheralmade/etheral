@@ -1,12 +1,13 @@
 import React from 'react';
 import { flatten } from 'lodash';
 
-import { Box, Heading, Text } from 'rebass';
+import { Box, Heading, Text, Flex } from 'rebass';
 
 import Product from './product';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import { Currencies } from 'state/reducers/currency-reducer';
+import { getTotalPriceIdr, getTotalPriceAud } from 'helper/get-total-price';
 
 type Props = ICartState & {
     currency: Currencies;
@@ -38,7 +39,7 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
     };
 
     return (
-        <Box px={[4, 4, 9, 10, 11]}>
+        <Box px={[4, 4, 9, 10]}>
             <Heading as="h2" variant="h3" mb={[5]}>
                 ORDER SUMMARY
             </Heading>
@@ -96,6 +97,27 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
                     />
                 ))}
             </Box>
+
+            {/* TOTAL PRICE */}
+            <Flex
+                py={[4]}
+                justifyContent="space-between"
+                sx={{
+                    borderWidth: 0,
+                    borderColor: 'black.0',
+                    borderStyle: 'solid',
+                    borderBottomWidth: 1,
+                }}
+            >
+                <Text variant="h4" fontSize={[1, 1, 1]}>
+                    TOTAL
+                </Text>
+                <Text variant="h4" fontSize={[1, 1, 1]}>
+                    {currency === Currencies.IDR
+                        ? `IDR ${getTotalPriceIdr(data)}`
+                        : `AUD ${getTotalPriceAud(data)}`}
+                </Text>
+            </Flex>
         </Box>
     );
 };

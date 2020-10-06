@@ -51,7 +51,7 @@ const Product: React.FC<Props> = ({ item, currency, gridTemplate, first }) => {
         <Box
             className={first ? 'checkout-product' : ''}
             py={[4]}
-            mx={[4]}
+            // mx={[4]}
             sx={{
                 display: 'grid',
                 gridColumn: '1/6',
