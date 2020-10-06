@@ -102,6 +102,11 @@ const checkIfExist = (
     }
 };
 
+/**
+ * function to add a product in global cart state
+ * @param payload action payload
+ * @param state current state
+ */
 const addToCart = (payload: ActionPayload, state: IState): IState => {
     const { product, amount, toWishlist } = payload;
     // check if action is valid.
@@ -128,75 +133,84 @@ const addToCart = (payload: ActionPayload, state: IState): IState => {
 
             // add product to wishlist.
             if (toWishlist) {
+                const { wishlist } = state;
+
+                // handle if product with the same details is available within the wishlist state
                 if (noteIndex !== -1) {
                     const note = item.note[noteIndex];
+
                     return {
                         ...state,
                         wishlist: [
-                            ...without(state.wishlist, item),
+                            ...wishlist.slice(0, index),
                             {
                                 ...item,
                                 amount: item.amount + amount,
                                 note: [
-                                    ...without(item.note, note),
-                                    {
-                                        ...note,
-                                        amount: note.amount + amount,
-                                    },
+                                    ...item.note.slice(0, noteIndex),
+                                    { ...note, amount: note.amount + amount },
+                                    ...item.note.slice(noteIndex + 1),
                                 ],
                             },
+                            ...wishlist.slice(index + 1),
                         ],
                     };
                 } else {
                     return {
                         ...state,
                         wishlist: [
-                            ...without(state.wishlist, item),
+                            ...wishlist.slice(0, index),
                             {
                                 ...item,
                                 amount: item.amount + amount,
                                 note: [
-                                    ...item.note,
+                                    ...item.note.slice(0, noteIndex),
                                     { details: productNote, amount },
+                                    ...item.note.slice(noteIndex + 1),
                                 ],
                             },
+                            ...wishlist.slice(index + 1),
                         ],
                     };
                 }
                 // add product to cart.
             } else {
+                const { cart } = state;
+
+                // handle if product with the same details is available within the cart state
                 if (noteIndex !== -1) {
                     const note = item.note[noteIndex];
                     return {
                         ...state,
                         cart: [
-                            ...without(state.cart, item),
+                            ...cart.slice(0, index),
                             {
                                 ...item,
                                 amount: item.amount + amount,
                                 note: [
-                                    ...without(item.note, note),
-                                    {
-                                        ...note,
-                                        amount: note.amount + amount,
-                                    },
+                                    ...item.note.slice(0, noteIndex),
+                                    { ...note, amount: note.amount + amount },
+                                    ...item.note.slice(noteIndex + 1),
                                 ],
                             },
+                            ...cart.slice(index + 1),
                         ],
                     };
                 } else {
                     return {
                         ...state,
                         cart: [
-                            ...without(state.cart, item),
+                            ...cart.slice(0, index),
                             {
                                 ...item,
                                 amount: item.amount + amount,
                                 note: [
-                                    ...item.note,
+                                    ...item.note.slice(0, noteIndex),
                                     { details: productNote, amount },
+                                    ...item.note.slice(noteIndex + 1),
                                 ],
                             },
+                            ...cart.slice(index + 1),
                         ],
                     };
                 }
@@ -283,11 +297,12 @@ const removeFromCart = (payload: ActionPayload, state: IState): IState => {
                     };
                 } else {
                     const note = item.note[noteIndex];
-                    //
+                    const { wishlist } = state;
+
                     return {
                         ...state,
                         wishlist: [
-                            ...without(state.wishlist, item),
+                            ...wishlist.slice(0, index),
                             {
                                 ...item,
                                 amount: item.amount - amount,
@@ -295,13 +310,15 @@ const removeFromCart = (payload: ActionPayload, state: IState): IState => {
                                     amount === note.amount
                                         ? without(item.note, note)
                                         : [
-                                              ...without(item.note, note),
+                                              ...item.note.slice(0, noteIndex),
                                               {
                                                   ...note,
                                                   amount: note.amount - amount,
                                               },
+                                              ...item.note.slice(noteIndex + 1),
                                           ],
                             },
+                            ...wishlist.slice(index + 1),
                         ],
                     };
                 }
@@ -313,11 +330,12 @@ const removeFromCart = (payload: ActionPayload, state: IState): IState => {
                     };
                 } else {
                     const note = item.note[noteIndex];
-                    //
+                    const { cart } = state;
+
                     return {
                         ...state,
                         cart: [
-                            ...without(state.cart, item),
+                            ...cart.slice(0, index),
                             {
                                 ...item,
                                 amount: item.amount - amount,
@@ -325,13 +343,15 @@ const removeFromCart = (payload: ActionPayload, state: IState): IState => {
                                     amount === note.amount
                                         ? without(item.note, note)
                                         : [
-                                              ...without(item.note, note),
+                                              ...item.note.slice(0, noteIndex),
                                               {
                                                   ...note,
                                                   amount: note.amount - amount,
                                               },
+                                              ...item.note.slice(noteIndex + 1),
                                           ],
                             },
+                            ...cart.slice(index + 1),
                         ],
                     };
                 }

@@ -9,9 +9,10 @@ import {
     IState as ICurrencyState,
     Currencies,
 } from 'state/reducers/currency-reducer';
-import CartProduct from './cart-product';
+// import CartProduct from './cart-product';
 import Modal from 'components/modal';
 import { getTotalPriceIdr, getTotalPriceAud } from 'helper/get-total-price';
+import ProductBox from 'components/product-box';
 
 export type Props = {
     cart: ICartState;
@@ -33,7 +34,49 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
         return notes;
     });
 
-    const data = flatten(cartMapped);
+    /**
+     * sorting the mapped data => avoid unconsistent order of items on cart component
+     */
+    const data = [...flatten(cartMapped)].sort((a, b) => {
+        // check by name
+        const ab = a.product.name > b.product.name;
+
+        if (ab) {
+            return ab;
+        } else if (a.product.name < b.product.name) {
+            // make sure a and b is not the same
+            return ab;
+        }
+
+        // then check the other props if a and b is the same
+        const abSize = a.details.size > b.details.size;
+
+        if (abSize) {
+            return abSize;
+        } else if (a.details.size < b.details.size) {
+            return false;
+        }
+
+        if (a.details.gemType && b.details.gemType) {
+            // iterate
+            const abType = a.details.gemType > b.details.gemType;
+
+            if (abType) {
+                return abType;
+            } else if (a.details.gemType < b.details.gemType) {
+                return false;
+            }
+        }
+
+        if (a.details.gemSize && b.details.gemSize) {
+            // return gemsize comparasion if all of the other properties are the same.
+            return a.details.gemSize > b.details.gemSize;
+        }
+
+        return false;
+    });
+
+    console.log(data);
 
     const subtotal =
         currency === Currencies.IDR
@@ -76,12 +119,13 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
                     }}
                 >
                     {data.map(ctItem => (
-                        <CartProduct
+                        <ProductBox
                             key={`cart-${ctItem.product.pid}-${JSON.stringify(
                                 ctItem.details
                             )}`}
                             item={ctItem}
                             currency={currency}
+                            connectDispatch={true}
                         />
                     ))}
                 </Box>
@@ -126,65 +170,5 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
         </Modal>
     );
 };
-
-{
-    /* <Flex
-                className="custom-scrollbar"
-                height="100vh"
-                width={['100vw', '100%', '50vw', '35vw', '25vw']}
-                pt={[4, 4, 5]}
-                pb={[4, 4, 5]}
-                px={[6, 6, 8]}
-                flexDirection="column"
-                id="cart"
-                bg={['#fff']}
-                css={`
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    z-index: 2;
-                    transition: 0.2s;
-
-                    overflow-y: scroll;
-                `}
-            >
-                {cart.length > 0 ? (
-                    <>
-                        <Link to="cart">
-                            <Text variant="linkActive">My cart</Text>
-                        </Link>
-                        <Flex
-                            height="90%"
-                            flexDirection="column"
-                            justifyContent="space-between"
-                        >
-                            <Box>
-                                {cart.map(ctItem => (
-                                    <CartProduct
-                                        key={`cart-${ctItem.product.pid}`}
-                                        item={ctItem}
-                                    />
-                                ))}
-                            </Box>
-                            <Link
-                                to="/checkout"
-                                css={`
-                                    display: inline-block;
-                                    width: 100%;
-                                `}
-                            >
-                                <Button mt={[2, 2, 4]} width="100%">
-                                    Go to checkout
-                                </Button>
-                            </Link>
-                        </Flex>
-                    </>
-                ) : (
-                    <Text variant="linkActive">
-                        There&apos;s no item in your cart
-                    </Text>
-                )}
-            </Flex> */
-}
 
 export { CartItems };
