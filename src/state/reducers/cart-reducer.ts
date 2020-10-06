@@ -34,15 +34,15 @@ const initialState: IState = {
     wishlist: [],
 };
 
-type CartState = {
+export type CartState = {
     product: Product;
     amount: number;
     note: { details: ProductNote; amount: number }[];
-}[];
+};
 
 export type IState = {
-    cart: CartState;
-    wishlist: CartState;
+    cart: CartState[];
+    wishlist: CartState[];
 };
 
 // reducer does add / remove notes from the products within cart state, but orderNote property is just a identifier. => cause confusionss

@@ -37,46 +37,7 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
     /**
      * sorting the mapped data => avoid unconsistent order of items on cart component
      */
-    const data = [...flatten(cartMapped)].sort((a, b) => {
-        // check by name
-        const ab = a.product.name > b.product.name;
-
-        if (ab) {
-            return ab;
-        } else if (a.product.name < b.product.name) {
-            // make sure a and b is not the same
-            return ab;
-        }
-
-        // then check the other props if a and b is the same
-        const abSize = a.details.size > b.details.size;
-
-        if (abSize) {
-            return abSize;
-        } else if (a.details.size < b.details.size) {
-            return false;
-        }
-
-        if (a.details.gemType && b.details.gemType) {
-            // iterate
-            const abType = a.details.gemType > b.details.gemType;
-
-            if (abType) {
-                return abType;
-            } else if (a.details.gemType < b.details.gemType) {
-                return false;
-            }
-        }
-
-        if (a.details.gemSize && b.details.gemSize) {
-            // return gemsize comparasion if all of the other properties are the same.
-            return a.details.gemSize > b.details.gemSize;
-        }
-
-        return false;
-    });
-
-    console.log(data);
+    const data = flatten(cartMapped);
 
     const subtotal =
         currency === Currencies.IDR
