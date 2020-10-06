@@ -183,7 +183,7 @@ export default {
     h3: {
         fontFamily: 'heading',
         fontWeight: 'bold',
-        fontSize: [3, 3, 4],
+        fontSize: [2, 2, 1],
         color: 'black.0',
     },
     h4: {

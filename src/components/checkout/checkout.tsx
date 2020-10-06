@@ -13,6 +13,7 @@ import { Order, IpaymuData } from 'helper/schema/order';
 import { Currencies } from 'state/reducers/currency-reducer';
 import { withDiscount } from 'helper/with-discount';
 import DiscountCodeInput from './discount-code-input';
+import ProductsSummary from './products-summary';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -58,7 +59,7 @@ const Checkout: React.FC<Props> = ({
     user,
     firestoreFieldValue,
     currency,
-    cartObj: { cart },
+    cartObj: { cart, wishlist },
 }) => {
     // state for prices based on currency
     const [price, setPrice] = useState(0);
@@ -397,7 +398,12 @@ const Checkout: React.FC<Props> = ({
     };
 
     return (
-        <Box className="content">
+        <Box className="content" sx={{ textAlign: 'center' }}>
+            <ProductsSummary
+                currency={currency}
+                cart={cart}
+                wishlist={wishlist}
+            />
             <Form getUserData={getUserData} />
             {shippingVariants.length > 0 &&
                 shippingVariants.map(variant => (
