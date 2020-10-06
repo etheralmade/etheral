@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 
-import { render, cleanup } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
+// import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 // mock gatsby
@@ -31,7 +32,7 @@ describe('ProductBox', () => {
 
     let store;
     let Element: any;
-    let ElementWithDispatch: any;
+    // let ElementWithDispatch: any;
 
     beforeEach(() => {
         useStaticQuery.mockImplementationOnce(() => ({
@@ -70,15 +71,15 @@ describe('ProductBox', () => {
             </Provider>
         );
 
-        ElementWithDispatch = (
-            <Provider store={store}>
-                <ProductBox
-                    item={mockItem}
-                    currency={Currencies.IDR}
-                    connectDispatch={true}
-                />
-            </Provider>
-        );
+        // ElementWithDispatch = (
+        //     <Provider store={store}>
+        //         <ProductBox
+        //             item={mockItem}
+        //             currency={Currencies.IDR}
+        //             connectDispatch={true}
+        //         />
+        //     </Provider>
+        // );
     });
 
     afterEach(cleanup);
