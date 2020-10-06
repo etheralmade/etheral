@@ -28,7 +28,7 @@ const Message: React.FC<Props> = ({ register }) => {
     };
 
     return (
-        <Box>
+        <Box width={['100%', '100%', '48%']}>
             <Heading as="h3" variant="h4" fontSize={[1, 1, 3]} my={[6]}>
                 PERSONALIZED MESSAGE (OPTIONAL)
             </Heading>

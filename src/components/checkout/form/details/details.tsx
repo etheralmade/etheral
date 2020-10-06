@@ -19,11 +19,6 @@ type Props = {
     errors: any;
 };
 
-type SelectProps = {
-    value: string;
-    label: string;
-};
-
 /**
  * form to input details on checkout component
  */
@@ -84,12 +79,14 @@ const Details: React.FC<Props> = ({ register, control, errors }) => {
 
     return (
         <Box
+            width={['100%', '100%', '48%']}
+            // px={[0, 0, 6]}
             mt={[5, 5, 0]}
             sx={{
                 borderColor: 'black.0',
                 borderWidth: 0,
                 borderStyle: 'solid',
-                borderTopWidth: 1,
+                borderTopWidth: [1, 1, 0],
             }}
         >
             <Heading as="h3" variant="h4" fontSize={[1, 1, 3]} my={[6]}>
@@ -99,7 +96,7 @@ const Details: React.FC<Props> = ({ register, control, errors }) => {
             <Flex flexWrap="wrap" justifyContent="space-between">
                 {/* first name */}
                 <Box width="48%">
-                    <Label htmlFor="first-name" variant="text.formLabel">
+                    <Label htmlFor="first-name" variant="text.formLabel" mt={0}>
                         FIRST NAME
                     </Label>
                     <Input
@@ -110,11 +107,14 @@ const Details: React.FC<Props> = ({ register, control, errors }) => {
                         placeholder="First Name"
                         ref={register({ required: true })}
                     />
+                    {errors.firstName && (
+                        <Text {...errorStyling}>Please enter your name</Text>
+                    )}
                 </Box>
 
                 {/* last name */}
                 <Box width="48%">
-                    <Label htmlFor="last-name" variant="text.formLabel">
+                    <Label htmlFor="last-name" variant="text.formLabel" mt={0}>
                         LAST NAME
                     </Label>
                     <Input
@@ -140,6 +140,11 @@ const Details: React.FC<Props> = ({ register, control, errors }) => {
                         placeholder="Phone"
                         ref={register({ required: true })}
                     />
+                    {errors.phone && (
+                        <Text {...errorStyling}>
+                            Please enter your phone number
+                        </Text>
+                    )}
                 </Box>
 
                 {/* country => temp: INDONESIA && disabled = true */}
@@ -188,6 +193,9 @@ const Details: React.FC<Props> = ({ register, control, errors }) => {
                         placeholder="Address"
                         ref={register({ required: true })}
                     />
+                    {errors.address && (
+                        <Text {...errorStyling}>Please enter your address</Text>
+                    )}
                 </Box>
 
                 {/* apartment suite etc. */}
@@ -297,6 +305,8 @@ const Details: React.FC<Props> = ({ register, control, errors }) => {
             {/* {get(errors, 'city.type', '') === 'provinceIncorrect' && (
                 <p>Nama kota dan lokasi provinsi tidak tepat</p>
             )} */}
+
+            {/* to add: Checkbox! */}
             <input type="submit" value="confirm details" />
         </Box>
     );

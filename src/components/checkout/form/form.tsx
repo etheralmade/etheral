@@ -38,7 +38,12 @@ const Form: React.FC<Props> = ({ getUserData }) => {
 
     return (
         <Box as="form" onSubmit={handleSubmit(submit)} px={[4]}>
-            <Flex flexDirection={['column', 'column', 'row']}>
+            <Flex
+                flexDirection={['column', 'column', 'row-reverse']}
+                mt={[0, 0, 2]}
+                px={[4, 4, 9, 10]}
+                justifyContent="space-between"
+            >
                 <Message register={register} />
                 <Details
                     register={register}

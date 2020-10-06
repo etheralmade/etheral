@@ -16,7 +16,7 @@ exports[`Select matches snapshot 1`] = `
       <div
         className="custom-select__placeholder css-1wa3eu0-placeholder"
       >
-        PICK ONE
+        Select...
       </div>
       <div
         className="css-b8ldur-Input"
