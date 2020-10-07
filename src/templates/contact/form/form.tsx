@@ -7,6 +7,8 @@ import { Input, Label, Textarea } from '@rebass/forms';
 
 import Modal from 'components/modal';
 
+import 'regenerator-runtime/runtime';
+
 type Props = {};
 
 type Fields = {

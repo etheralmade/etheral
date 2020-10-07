@@ -1,5 +1,5 @@
 import React from 'react';
-import { indexOf } from 'lodash';
+// import { indexOf } from 'lodash';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { Box, Flex } from 'rebass';
@@ -36,7 +36,7 @@ const Form: React.FC<Props> = ({ getUserData }) => {
             postal,
             email,
             // province,
-            save,
+            // save,
         } = data;
 
         // personalized msg info
