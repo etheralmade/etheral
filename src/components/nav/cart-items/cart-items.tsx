@@ -48,10 +48,14 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
         <Modal>
             <Flex
                 height="100vh"
-                width="fit-content"
                 flexDirection="column"
                 bg="#fff"
-                sx={{ top: 0, right: 0, position: 'fixed' }}
+                width={[300, 340, 400]}
+                sx={{
+                    top: 0,
+                    right: 0,
+                    position: 'fixed',
+                }}
             >
                 {/* cart text */}
                 <Heading
@@ -72,11 +76,15 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
                     className="custom-scrollbar"
                     sx={{
                         overflowY: 'scroll',
+                        overflowX: 'hidden',
                         borderWidth: 0,
                         borderStyle: 'solid',
                         borderColor: 'black.1',
                         borderTopWidth: 1,
                         borderBottomWidth: 1,
+                        display: cart.length === 0 ? 'flex' : 'unset',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                     }}
                 >
                     {data.map(ctItem => (
@@ -89,6 +97,11 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
                             connectDispatch={true}
                         />
                     ))}
+                    {data.length === 0 && (
+                        <Text variant="h4" fontFamily="heading">
+                            YOUR CART IS EMPTY
+                        </Text>
+                    )}
                 </Box>
 
                 {/* buttons */}

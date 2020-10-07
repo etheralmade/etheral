@@ -74,18 +74,18 @@ exports[`Signup component matches snapshot 1`] = `
       type="password"
     />
     <input
-      className="css-34q1wz"
+      className="css-1rqeot7"
       id="signup-newsletter"
       name="signupNewsletter"
       type="checkbox"
     />
     <label
-      className="css-7tv9me"
+      className="css-1nzula4"
       htmlFor="signup-newsletter"
     >
       <div
-        className="css-4cffwv"
-        id="newsletter-checkbox"
+        className="css-6fx4ca"
+        id="signup-newsletter-checkbox"
       >
         <svg
           dangerouslySetInnerHTML={

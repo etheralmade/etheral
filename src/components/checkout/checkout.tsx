@@ -4,13 +4,15 @@ import { get, findIndex } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from '@reach/router';
 
-import { Box, Flex } from 'rebass';
+import { Box, Flex, Text } from 'rebass';
 
 import ProductsSummary from './products-summary';
 import BillingSummary from './billing-summary';
-
-import { IState as ICartState } from 'state/reducers/cart-reducer';
+import Payment, { RadioInput } from './payment';
 import Form from './form';
+
+import Modal from 'components/modal';
+import { IState as ICartState } from 'state/reducers/cart-reducer';
 import { clearCart } from 'state/actions/cart';
 import { Order, IpaymuData } from 'helper/schema/order';
 import { Currencies } from 'state/reducers/currency-reducer';
@@ -83,6 +85,8 @@ const Checkout: React.FC<Props> = ({
     const [discountedAmount, setDiscountedAmount] = useState(0);
 
     const [errorShipping, setErrorShipping] = useState(false);
+
+    const [processingPayment, setProcessingPayment] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -278,7 +282,9 @@ const Checkout: React.FC<Props> = ({
     };
 
     // pay here
-    const handleClickPay = async () => {
+    const handleClickPay = async ({ method, channel }: RadioInput) => {
+        await setProcessingPayment(true);
+
         // add production payment url here!
         const paymentUrl =
             process.env.NODE_ENV === 'production' ? '' : '/payment/';
@@ -291,8 +297,8 @@ const Checkout: React.FC<Props> = ({
                 phone: userData.phone.toString(),
                 email: userData.email,
                 amount: totalPrice,
-                paymentMethod: 'va',
-                paymentChannel: 'bni',
+                paymentMethod: method,
+                paymentChannel: channel,
                 oid,
             };
 
@@ -326,6 +332,8 @@ const Checkout: React.FC<Props> = ({
         } else if (!shipping) {
             setErrorShipping(true);
         }
+
+        await setProcessingPayment(false);
     };
 
     // create new order object
@@ -419,6 +427,18 @@ const Checkout: React.FC<Props> = ({
             sx={{ textAlign: 'center' }}
             px={[4, 4, 9, 10]}
         >
+            {processingPayment && (
+                <Modal center={true}>
+                    <Text
+                        fontFamily="body"
+                        fontSize={[2, 2, 3]}
+                        fontWeight="regular"
+                        color="#fff"
+                    >
+                        PROCESSING PAYMENT...
+                    </Text>
+                </Modal>
+            )}
             <ProductsSummary
                 currency={currency}
                 cart={cart}
@@ -427,14 +447,28 @@ const Checkout: React.FC<Props> = ({
             <Form getUserData={getUserData} />
             <Flex
                 flexDirection={['column', 'column', 'row']}
+                justifyContent="space-between"
                 mt={[5]}
                 sx={{
+                    position: 'relative',
                     borderColor: 'black.0',
                     borderWidth: 0,
                     borderStyle: 'solid',
                     borderTopWidth: 1,
                 }}
             >
+                {!userData && (
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            height: '100%',
+                            width: '100%',
+                            bg: 'rgba(255, 255, 255, 0.8)',
+                            top: 0,
+                            left: 0,
+                        }}
+                    />
+                )}
                 <BillingSummary
                     price={price}
                     shipping={shipping}
@@ -449,8 +483,8 @@ const Checkout: React.FC<Props> = ({
                         discountedAmount,
                     }}
                 />
+                <Payment handleClickPay={handleClickPay} />
             </Flex>
-            {userData && <button onClick={handleClickPay}>Pay</button>}
             {/* handle unclickable if shipping hasn't been selected */}
         </Box>
     );

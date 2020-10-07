@@ -48,6 +48,7 @@ const BillingSummary: React.FC<Props> = ({
     return (
         <Box
             py={[4]}
+            width={['100%', '100%', '48%']}
             sx={{
                 textAlign: ['center'],
             }}

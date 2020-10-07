@@ -5,12 +5,13 @@ exports[`DiscountCodeInput matches snapshot 1`] = `
   className="css-vurnku"
 >
   <form
-    className="css-4cffwv"
+    className="css-fbcqx2"
     onSubmit={[Function]}
   >
     <input
       aria-label="Discount code input"
-      className="css-4y926w"
+      className="css-ekevfh"
+      maxLength={6}
       name="discountCodeInput"
       onBlur={[Function]}
       onChange={[Function]}
@@ -20,7 +21,7 @@ exports[`DiscountCodeInput matches snapshot 1`] = `
     />
     <input
       aria-label="Apply discount code"
-      className="css-4y926w"
+      className="css-10dt3s7"
       type="submit"
       value="GET MY DISCOUNT"
     />

@@ -68,7 +68,6 @@ export const mockOrder: Order = {
         expired: '1231241412',
         fee: 3000,
     },
-    shippingMethod: 'OKE',
 };
 
 export const mockOrders: Order[] = [mockOrder];

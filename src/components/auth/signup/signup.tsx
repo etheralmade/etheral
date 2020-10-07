@@ -2,10 +2,8 @@ import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { debounce } from 'lodash';
 
-import { Box, Flex, Heading, Text, Button } from 'rebass';
+import { Box, Heading, Text, Button } from 'rebass';
 import { Input, Label } from '@rebass/forms';
-import { Icon } from '@iconify/react';
-import checkFill from '@iconify/icons-ri/check-fill';
 
 import { SignUpProps } from '../auth';
 import Checkbox from 'components/checkbox';
