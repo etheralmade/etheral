@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { Box, Heading, Flex } from 'rebass';
 import { Input, Label, Textarea } from '@rebass/forms';
 
-type Props = {
-    register: any; // register attr from useForm.
-};
+type Props = {};
 
 const TEXTAREA_MAX_CHARS = 100;
 
 /**
  * personalised msg form => user should be able to add personalized msg on their order.
  */
-const Message: React.FC<Props> = ({ register }) => {
+const Message: React.FC<Props> = () => {
+    const { register } = useFormContext();
+
     // word counter on textarea
     const [char, setChar] = useState(TEXTAREA_MAX_CHARS);
 

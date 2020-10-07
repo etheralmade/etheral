@@ -26,7 +26,7 @@ enum Status {
 }
 
 const Form: React.FC<Props> = () => {
-    const [status, setStatus] = useState<Status>(Status.ERROR);
+    const [status, setStatus] = useState<Status>(Status.NONE);
 
     const { register, errors, handleSubmit } = useForm<Fields>();
 

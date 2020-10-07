@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { uniq, findIndex, get } from 'lodash';
 import { ValueType } from 'react-select';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { Box, Heading, Flex, Text } from 'rebass';
 import { Label, Input } from '@rebass/forms';
 
 import Select from 'components/select';
+import Checkbox from 'components/checkbox';
 
 import useAllCities from 'helper/use-all-cities';
 
-/**
- * all props are the return value of useForm() => react-hook-form
- */
-type Props = {
-    control: any;
-    register: any;
-    errors: any;
-};
+type Props = {};
 
 /**
  * form to input details on checkout component
  */
-const Details: React.FC<Props> = ({ register, control, errors }) => {
+const Details: React.FC<Props> = () => {
+    const { register, control, errors } = useFormContext();
+
     const [province, setProvince] = useState('');
     const [selectCityOptions, setSelectCityOptions] = useState<string[]>([]);
 
@@ -299,6 +295,14 @@ const Details: React.FC<Props> = ({ register, control, errors }) => {
                             Please enter your postal code
                         </Text>
                     )}
+                </Box>
+
+                <Box width="100%">
+                    <Checkbox
+                        id="save"
+                        name="save"
+                        text="Save this information for next order"
+                    />
                 </Box>
             </Flex>
 
