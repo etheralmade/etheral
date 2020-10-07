@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { get } from 'lodash';
+import { get, findIndex } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from '@reach/router';
 
-import { Box, Text } from 'rebass';
+import { Box, Flex } from 'rebass';
+
+import ProductsSummary from './products-summary';
+import BillingSummary from './billing-summary';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import Form from './form';
@@ -12,8 +15,6 @@ import { clearCart } from 'state/actions/cart';
 import { Order, IpaymuData } from 'helper/schema/order';
 import { Currencies } from 'state/reducers/currency-reducer';
 import { withDiscount } from 'helper/with-discount';
-import DiscountCodeInput from './discount-code-input';
-import ProductsSummary from './products-summary';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -29,6 +30,12 @@ export type UserData = {
     phone: number;
     address: string;
     postal: number;
+    country: string;
+    message?: {
+        message: string;
+        forName: string;
+        fromName: string;
+    };
 };
 
 export type UserLocation = {
@@ -68,10 +75,7 @@ const Checkout: React.FC<Props> = ({
     const [userData, setUserData] = useState<
         (UserData & UserLocation) | undefined
     >(undefined);
-    const [shippingVariants, setShippingVariants] = useState<ShippingVars[]>(
-        []
-    );
-    const [shipping, setShipping] = useState<Shipping | undefined>(undefined);
+    const [shipping, setShipping] = useState(-1);
     const [totalPrice, setTotalPrice] = useState(0);
 
     const [discountCode, setDiscountCode] = useState('');
@@ -154,23 +158,26 @@ const Checkout: React.FC<Props> = ({
 
     useEffect(() => {
         if (shipping) {
-            setTotalPrice(price + shipping.value);
+            setTotalPrice(price + shipping);
         }
     }, [price, shipping]);
 
     // basic formatting.
-    const formatPriceIDR = (priceUnformatted: number): string => {
-        const matchPriceRegex = priceUnformatted
-            .toString()
-            .match(/.{1,3}(?=(.{3})+(?!.))|.{1,3}$/g);
+    // const formatPriceIDR = (priceUnformatted: number): string => {
+    //     const matchPriceRegex = priceUnformatted
+    //         .toString()
+    //         .match(/.{1,3}(?=(.{3})+(?!.))|.{1,3}$/g);
 
-        if (matchPriceRegex !== null) {
-            return matchPriceRegex.join('.');
-        } else {
-            return priceUnformatted.toString();
-        }
-    };
+    //     if (matchPriceRegex !== null) {
+    //         return matchPriceRegex.join('.');
+    //     } else {
+    //         return priceUnformatted.toString();
+    //     }
+    // };
 
+    /**
+     * random id generator for document id on db.
+     */
     const generateUniqueId = () =>
         Math.random()
             .toString(36)
@@ -231,13 +238,33 @@ const Checkout: React.FC<Props> = ({
             const statusCode = await get(rajaongkir, 'status.code', 400);
             // status code is OK.
             if (statusCode < 299) {
-                const rspVariants = (await get(
+                const rspVariants = await get(
                     rajaongkir,
                     'results[0].costs',
                     []
-                )) as ShippingVars[];
+                );
 
-                await setShippingVariants(rspVariants);
+                // get REG service.
+                const REGIndex = findIndex(
+                    await rspVariants,
+                    o => o.service === 'REG'
+                );
+
+                // REG unavailable when sending within the same city?
+                if (REGIndex === -1) {
+                    const CTCIndex = findIndex(
+                        await rspVariants,
+                        o => o.service === 'CTC'
+                    );
+
+                    setShipping(
+                        get(await rspVariants[CTCIndex], 'cost[0].value', 0)
+                    );
+                } else {
+                    setShipping(
+                        get(await rspVariants[REGIndex], 'cost[0].value', 0)
+                    );
+                }
             }
         } catch (e) {
             console.error(e);
@@ -332,10 +359,10 @@ const Checkout: React.FC<Props> = ({
                     paid: false,
                     delivered: false,
                     transactionData: ipaymuData,
-                    shippingMethod: shipping ? shipping.service : '',
                     discountCode,
                     discountedAmount,
                     discount: discountValue,
+                    message: userData.message ? userData.message : undefined,
                 };
 
                 await docRef.set({
@@ -382,85 +409,47 @@ const Checkout: React.FC<Props> = ({
         }
     };
 
-    const handleChangeShipping = (variant: ShippingVars) => {
-        if (errorShipping) {
-            setErrorShipping(false);
-        }
-        setShipping({
-            value: variant.cost[0].value,
-            service: variant.service,
-        });
-    };
-
     const applyCode = (code: string, value: number) => {
         setDiscountCode(code);
         setDiscountValue(value);
     };
-
     return (
-        <Box className="content" sx={{ textAlign: 'center' }}>
+        <Box
+            className="content"
+            sx={{ textAlign: 'center' }}
+            px={[4, 4, 9, 10]}
+        >
             <ProductsSummary
                 currency={currency}
                 cart={cart}
                 wishlist={wishlist}
             />
             <Form getUserData={getUserData} />
-            {shippingVariants.length > 0 &&
-                shippingVariants.map(variant => (
-                    <React.Fragment key={variant.service}>
-                        <label htmlFor={variant.service}>
-                            {variant.description} ({variant.service}).
-                            <br />
-                            Harga: {variant.cost[0].value}
-                            Etd: {variant.cost[0].etd}
-                        </label>
-                        <input
-                            name="shipping"
-                            type="radio"
-                            value={variant.service}
-                            onChange={() => handleChangeShipping(variant)}
-                        />
-                    </React.Fragment>
-                ))}
-            {errorShipping && <p>{msgErrorShipping} </p>}
-            {!discounted ? (
-                <DiscountCodeInput db={db} applyCode={applyCode} />
-            ) : (
-                <Box>
-                    <Text>Discount code: {discountCode} is applied!</Text>
-                    <Text>{discountValue}% off your purchase!</Text>
-                </Box>
-            )}
-            <h2>
-                Price: {currencyPrefix}{' '}
-                {currency === Currencies.IDR ? formatPriceIDR(price) : price}
-                {discounted && (
-                    <Text>
-                        -{currencyPrefix}{' '}
-                        {currency === Currencies.IDR
-                            ? formatPriceIDR(discountedAmount)
-                            : discountedAmount}
-                    </Text>
-                )}
-            </h2>
-            {shipping && shipping.value ? (
-                <>
-                    <h2>
-                        Shipping cost:{' '}
-                        {currency === Currencies.IDR
-                            ? formatPriceIDR(shipping.value)
-                            : shipping.value}
-                    </h2>
-                    <h1>
-                        Subtotal:{' '}
-                        {currency === Currencies.IDR
-                            ? formatPriceIDR(totalPrice)
-                            : totalPrice}
-                    </h1>
-                </>
-            ) : (
-                <></>
-            )}
+            <Flex
+                flexDirection={['column', 'column', 'row']}
+                mt={[5]}
+                sx={{
+                    borderColor: 'black.0',
+                    borderWidth: 0,
+                    borderStyle: 'solid',
+                    borderTopWidth: 1,
+                }}
+            >
+                <BillingSummary
+                    price={price}
+                    shipping={shipping}
+                    currencyPrefix={currencyPrefix}
+                    totalPrice={totalPrice}
+                    db={db}
+                    applyCode={applyCode}
+                    discount={{
+                        discounted,
+                        discountCode,
+                        discountValue,
+                        discountedAmount,
+                    }}
+                />
+            </Flex>
             {userData && <button onClick={handleClickPay}>Pay</button>}
             {/* handle unclickable if shipping hasn't been selected */}
         </Box>

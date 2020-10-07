@@ -161,6 +161,21 @@ const Details: React.FC<Props> = () => {
                     />
                 </Box>
 
+                {/* email */}
+                <Box width="100%">
+                    <Label htmlFor="email" variant="text.formLabel">
+                        EMAIL
+                    </Label>
+                    <Input
+                        type="text"
+                        id="email"
+                        name="email"
+                        variant="variants.authInput"
+                        placeholder="Email address"
+                        ref={register}
+                    />
+                </Box>
+
                 {/* company */}
                 <Box width="100%">
                     <Label htmlFor="company" variant="text.formLabel">

@@ -39,7 +39,7 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
     };
 
     return (
-        <Box px={[4, 4, 9, 10]}>
+        <Box>
             <Heading as="h2" variant="h3" mb={[5]}>
                 ORDER SUMMARY
             </Heading>
