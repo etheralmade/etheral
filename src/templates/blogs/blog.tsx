@@ -42,6 +42,7 @@ const Blog: React.FC<Props> = ({ blog }) => {
                     maxWidth={[400, 400, 700, 1200]} // taken from queryimgs breakpoints.
                     as="header"
                     mb={[3, 3, 4, 6]}
+                    sx={{ position: 'relative' }}
                 >
                     {imgs && (
                         <Img
@@ -54,7 +55,7 @@ const Blog: React.FC<Props> = ({ blog }) => {
                         />
                     )}
                     <Flex
-                        mt={[6]}
+                        my={[6]}
                         alignItems="center"
                         justifyContent="space-between"
                         flexWrap="wrap"
@@ -73,6 +74,9 @@ const Blog: React.FC<Props> = ({ blog }) => {
                     sx={{
                         fontFamily: 'body',
                         lineHeight: ['6px', '6px', '7px'],
+                        img: {
+                            height: 'auto',
+                        },
                     }}
                     dangerouslySetInnerHTML={{ __html: content }}
                 />

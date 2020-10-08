@@ -367,7 +367,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                         {/* Auth and cart. Always show auth component, as it is not in the menu */}
                         <Flex alignItems="center">
                             <CurrencySelector
-                                showDropdown={showDropdownL || showCart}
+                                showDropdown={showDropdownL}
                                 desktop={true}
                                 currLocation={currLocation}
                             />
