@@ -9,17 +9,19 @@ import { Box, Flex, Text } from 'rebass';
 import { InlineIcon } from '@iconify/react';
 import arrowDownSLine from '@iconify/icons-ri/arrow-down-s-line';
 
+import { createUrlParam } from 'helper/url-param';
+
 type Props = {
     currLocation: string;
     goBack: () => void;
 };
 
 // function from gatsby-node.js to transform  a name to a certain slug format
-const nameToSlug = (name: string) =>
-    name
-        .toLowerCase()
-        .split(' ')
-        .join('-');
+// const nameToSlug = (name: string) =>
+//     name
+//         .toLowerCase()
+//         .split(' ')
+//         .join('-');
 
 const Dropdown: React.FC<Props> = ({ currLocation }) => {
     const data = useStaticQuery(graphql`
@@ -77,6 +79,14 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
         const imgStyles = {
             height: [0, 0, 0, 250, 300],
             width: [0, 0, 0, 250, 300],
+        };
+
+        const handleClickWithQuery = () => {
+            if (window && currLocation.includes('shop')) {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 200);
+            }
         };
 
         return (
@@ -166,19 +176,12 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                                 {collections.map(collection => (
                                     <Link
                                         key={collection}
-                                        to={`shop/${nameToSlug(collection)}`}
+                                        to={`shop?collections=${createUrlParam(
+                                            collection
+                                        )}`}
+                                        onClick={handleClickWithQuery}
                                     >
-                                        <Text
-                                            variant={
-                                                currLocation.includes(
-                                                    `/${nameToSlug(collection)}`
-                                                )
-                                                    ? 'linkActive'
-                                                    : 'link'
-                                            }
-                                        >
-                                            {collection}
-                                        </Text>
+                                        <Text variant="link">{collection}</Text>
                                     </Link>
                                 ))}
                             </Box>
@@ -187,14 +190,23 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                             <Text as="h3" variant="h3" mb={[3, 3, 5]}>
                                 Categories
                             </Text>
-                            <Box ml={[4, 4, 0]}>
-                                <Link to="/">
+                            <Box ml={[4, 4, 0]} mb={[4, 4, 0]}>
+                                <Link
+                                    to="/shop?categories=bracelet"
+                                    onClick={handleClickWithQuery}
+                                >
                                     <Text variant="link">Bracelets</Text>
                                 </Link>
-                                <Link to="/">
+                                <Link
+                                    to="/shop?categories=necklace"
+                                    onClick={handleClickWithQuery}
+                                >
                                     <Text variant="link">Necklaces</Text>
                                 </Link>
-                                <Link to="/">
+                                <Link
+                                    to="/shop?categories=ring"
+                                    onClick={handleClickWithQuery}
+                                >
                                     <Text variant="link">Rings</Text>
                                 </Link>
                             </Box>
@@ -233,21 +245,12 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                                     {collections.map(collection => (
                                         <Link
                                             key={collection}
-                                            to={`shop/${nameToSlug(
+                                            to={`shop?collections=${createUrlParam(
                                                 collection
                                             )}`}
+                                            onClick={handleClickWithQuery}
                                         >
-                                            <Text
-                                                variant={
-                                                    currLocation.includes(
-                                                        `/${nameToSlug(
-                                                            collection
-                                                        )}`
-                                                    )
-                                                        ? 'linkActive'
-                                                        : 'link'
-                                                }
-                                            >
+                                            <Text variant="link">
                                                 {collection}
                                             </Text>
                                         </Link>
@@ -283,13 +286,22 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                                 unmountOnExit={true}
                             >
                                 <Box ml={[2, 2, 0]} mb={[4, 4, 0]}>
-                                    <Link to="/">
+                                    <Link
+                                        to="/shop?categories=bracelet"
+                                        onClick={handleClickWithQuery}
+                                    >
                                         <Text variant="link">Bracelets</Text>
                                     </Link>
-                                    <Link to="/">
+                                    <Link
+                                        to="/shop?categories=necklace"
+                                        onClick={handleClickWithQuery}
+                                    >
                                         <Text variant="link">Necklaces</Text>
                                     </Link>
-                                    <Link to="/">
+                                    <Link
+                                        to="/shop?categories=ring"
+                                        onClick={handleClickWithQuery}
+                                    >
                                         <Text variant="link">Rings</Text>
                                     </Link>
                                 </Box>

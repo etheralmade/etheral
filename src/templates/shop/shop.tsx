@@ -209,6 +209,8 @@ const Shop: React.FC<Props> = () => {
         setPagination(prev => ({ ...prev, currIndex: numOfPages - 1 }));
     };
 
+    console.log({ urlParams, filters });
+
     return (
         <Flex
             className="content"

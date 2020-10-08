@@ -70,7 +70,7 @@ exports[`Dropdown element matches snapshot 1`] = `
           className="css-1pgcd23"
         >
           <a
-            href="/shop/collection1"
+            href="/shop?collections=collection1"
             onClick={[Function]}
           >
             <div
@@ -93,8 +93,7 @@ exports[`Dropdown element matches snapshot 1`] = `
           className="css-e23ama"
         >
           <a
-            aria-current="page"
-            href="/"
+            href="/shop?categories=bracelet"
             onClick={[Function]}
           >
             <div
@@ -104,8 +103,7 @@ exports[`Dropdown element matches snapshot 1`] = `
             </div>
           </a>
           <a
-            aria-current="page"
-            href="/"
+            href="/shop?categories=necklace"
             onClick={[Function]}
           >
             <div
@@ -115,8 +113,7 @@ exports[`Dropdown element matches snapshot 1`] = `
             </div>
           </a>
           <a
-            aria-current="page"
-            href="/"
+            href="/shop?categories=ring"
             onClick={[Function]}
           >
             <div
