@@ -80,7 +80,7 @@ exports[`Signup component matches snapshot 1`] = `
       type="checkbox"
     />
     <label
-      className="css-1nzula4"
+      className="css-ben2oq"
       htmlFor="signup-newsletter"
     >
       <div

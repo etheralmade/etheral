@@ -50,6 +50,7 @@ const Checkbox: React.FC<Props> = ({ name, id, text }) => {
                     display: 'flex',
                     alignItems: 'center',
                     cursor: 'pointer',
+                    fontSize: [10, 10, 1],
                 }}
             >
                 <Flex

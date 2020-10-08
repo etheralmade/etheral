@@ -3,7 +3,7 @@ import { uniq, findIndex, get } from 'lodash';
 import { ValueType } from 'react-select';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { Box, Heading, Flex, Text } from 'rebass';
+import { Box, Heading, Flex, Text, Button } from 'rebass';
 import { Label, Input } from '@rebass/forms';
 
 import Select from 'components/select';
@@ -321,12 +321,10 @@ const Details: React.FC<Props> = () => {
                 </Box>
             </Flex>
 
-            {/* {get(errors, 'city.type', '') === 'provinceIncorrect' && (
-                <p>Nama kota dan lokasi provinsi tidak tepat</p>
-            )} */}
-
-            {/* to add: Checkbox! */}
-            <input type="submit" value="confirm details" />
+            {/* <input type="submit" value="confirm details" /> */}
+            <Button mt={[4]} type="submit" width="100%">
+                CONFIRM DETAILS
+            </Button>
         </Box>
     );
 };

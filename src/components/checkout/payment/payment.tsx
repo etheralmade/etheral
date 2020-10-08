@@ -5,6 +5,7 @@ import { Input, Label } from '@rebass/forms';
 // import local components
 
 type Props = {
+    paymentError: boolean;
     handleClickPay: (args: RadioInput) => void;
 };
 
@@ -16,7 +17,7 @@ export type RadioInput = {
 /**
  * component to determine which payment method the user is going to use
  */
-const Payment: React.FC<Props> = ({ handleClickPay }) => {
+const Payment: React.FC<Props> = ({ paymentError, handleClickPay }) => {
     const [payment, setPayment] = useState<RadioInput>({
         method: '',
         channel: '',
@@ -116,8 +117,29 @@ const Payment: React.FC<Props> = ({ handleClickPay }) => {
             </Button>
             {/* alert if pay is clicked without setting a payment method */}
             {error && (
-                <Text variant="formError" role="alert" mt={[4]}>
+                <Text
+                    variant="formError"
+                    role="alert"
+                    mt={[4]}
+                    sx={{ float: ['center', 'center', 'left'] }}
+                >
                     Please choose a payment method
+                </Text>
+            )}
+
+            {paymentError && (
+                <Text
+                    variant="formError"
+                    role="alert"
+                    my={[4]}
+                    sx={{ float: ['center', 'center', 'left'] }}
+                >
+                    Oops! Problem occured when processing your order. Please
+                    contact{' '}
+                    <a href="mailto:asketheral@gmail.com">
+                        asketheral@gmail.com
+                    </a>{' '}
+                    or try again later
                 </Text>
             )}
         </Box>

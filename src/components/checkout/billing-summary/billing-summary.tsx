@@ -19,6 +19,7 @@ type Props = {
     currencyPrefix: Currencies;
     totalPrice: number;
     discount: Discounts;
+    error: boolean;
     db: firebase.firestore.Firestore;
     applyCode: (code: string, value: number) => void;
 };
@@ -29,6 +30,7 @@ const BillingSummary: React.FC<Props> = ({
     currencyPrefix,
     totalPrice,
     db,
+    error,
     discount,
     applyCode,
 }) => {
@@ -40,7 +42,7 @@ const BillingSummary: React.FC<Props> = ({
     } = discount;
 
     const textStyling = {
-        fontSize: [10],
+        fontSize: [10, 10, 1],
         fontWeight: 'regular',
         fontFamily: 'body',
     };
@@ -90,6 +92,14 @@ const BillingSummary: React.FC<Props> = ({
                             -{currencyPrefix} {discountedAmount}
                         </Text>
                     </Flex>
+                )}
+
+                {/* error handling if shipping cost can't be fetched */}
+                {error && (
+                    <Text variant="formError" role="alert">
+                        Oops, error calculating your shipping cost. Please try
+                        again{' '}
+                    </Text>
                 )}
 
                 {/* order subtotal */}

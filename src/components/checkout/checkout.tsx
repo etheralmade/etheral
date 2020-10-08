@@ -45,23 +45,13 @@ export type UserLocation = {
     provinceId: number;
 };
 
-// got from rajaongkir api
-type ShippingVars = {
-    cost: ShippingCost[];
-    service: string;
-    description: string;
-};
-
-type ShippingCost = {
-    etd: string;
-    value: number;
-};
-
-type Shipping = {
-    value: number;
-    service: string;
-};
-// end of rajaongir api types
+enum Status {
+    NONE,
+    ERROR_SHIPPNG,
+    ERROR_PAYMENT,
+    ERROR_SHIPPING_COST,
+    ERROR_CREATE_ORDER,
+}
 
 const Checkout: React.FC<Props> = ({
     db,
@@ -84,14 +74,12 @@ const Checkout: React.FC<Props> = ({
     const [discountValue, setDiscountValue] = useState(0);
     const [discountedAmount, setDiscountedAmount] = useState(0);
 
-    const [errorShipping, setErrorShipping] = useState(false);
+    const [status, setStatus] = useState<Status>(Status.NONE);
 
     const [processingPayment, setProcessingPayment] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const msgErrorShipping = 'Please choose a shipping method';
 
     const discounted = discountCode !== '' && discountValue !== 0;
 
@@ -251,14 +239,14 @@ const Checkout: React.FC<Props> = ({
                 // get REG service.
                 const REGIndex = findIndex(
                     await rspVariants,
-                    o => o.service === 'REG'
+                    (o: any) => o.service === 'REG'
                 );
 
                 // REG unavailable when sending within the same city?
                 if (REGIndex === -1) {
                     const CTCIndex = findIndex(
                         await rspVariants,
-                        o => o.service === 'CTC'
+                        (o: any) => o.service === 'CTC'
                     );
 
                     setShipping(
@@ -272,6 +260,7 @@ const Checkout: React.FC<Props> = ({
             }
         } catch (e) {
             console.error(e);
+            setStatus(Status.ERROR_SHIPPING_COST); // set status to error!
         }
     };
 
@@ -291,46 +280,50 @@ const Checkout: React.FC<Props> = ({
 
         const oid = await generateOrderId();
         // interact with 3rd party api for payment.
-        if (userData && shipping) {
-            const bodyReq = await {
-                name: userData.name,
-                phone: userData.phone.toString(),
-                email: userData.email,
-                amount: totalPrice,
-                paymentMethod: method,
-                paymentChannel: channel,
-                oid,
-            };
-
-            const req = await axios.post(paymentUrl, bodyReq);
-
-            const { status, data } = await req;
-
-            if ((await status) < 299) {
-                const {
-                    SessionId,
-                    PaymentNo,
-                    PaymentName,
-                    Expired,
-                    Fee,
-                } = data;
-
-                const ipaymuData: IpaymuData = {
-                    sessionId: SessionId,
-                    paymentNo: PaymentNo,
-                    paymentName: PaymentName,
-                    expired: Expired,
-                    fee: Fee,
+        try {
+            if (userData && shipping) {
+                const bodyReq = await {
+                    name: userData.name,
+                    phone: userData.phone.toString(),
+                    email: userData.email,
+                    amount: totalPrice,
+                    paymentMethod: method,
+                    paymentChannel: channel,
+                    oid,
                 };
 
-                // create new order object
-                createOrder(oid, ipaymuData);
-            } else {
-                // handle error
-                console.log('s');
+                const req = await axios.post(paymentUrl, bodyReq);
+
+                const { status: reqStatus, data } = await req;
+
+                if ((await reqStatus) < 299) {
+                    const {
+                        SessionId,
+                        PaymentNo,
+                        PaymentName,
+                        Expired,
+                        Fee,
+                    } = data;
+
+                    const ipaymuData: IpaymuData = {
+                        sessionId: SessionId,
+                        paymentNo: PaymentNo,
+                        paymentName: PaymentName,
+                        expired: Expired,
+                        fee: Fee,
+                    };
+
+                    // create new order object
+                    createOrder(oid, ipaymuData);
+                } else {
+                    // handle error
+                    setStatus(Status.ERROR_PAYMENT);
+                }
+            } else if (!shipping) {
+                setStatus(Status.ERROR_SHIPPING_COST);
             }
-        } else if (!shipping) {
-            setErrorShipping(true);
+        } catch (e) {
+            setStatus(Status.ERROR_PAYMENT);
         }
 
         await setProcessingPayment(false);
@@ -413,6 +406,7 @@ const Checkout: React.FC<Props> = ({
                 }); // navigate to thank you page and use oid state!
             } catch (e) {
                 console.error(e);
+                setStatus(Status.ERROR_CREATE_ORDER);
             }
         }
     };
@@ -476,6 +470,7 @@ const Checkout: React.FC<Props> = ({
                     totalPrice={totalPrice}
                     db={db}
                     applyCode={applyCode}
+                    error={status === Status.ERROR_SHIPPING_COST} // apply error if failed to fetch shipping cost from api
                     discount={{
                         discounted,
                         discountCode,
@@ -483,7 +478,10 @@ const Checkout: React.FC<Props> = ({
                         discountedAmount,
                     }}
                 />
-                <Payment handleClickPay={handleClickPay} />
+                <Payment
+                    handleClickPay={handleClickPay}
+                    paymentError={status === Status.ERROR_PAYMENT}
+                />
             </Flex>
             {/* handle unclickable if shipping hasn't been selected */}
         </Box>
