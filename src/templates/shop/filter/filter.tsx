@@ -208,6 +208,7 @@ const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
                                 id="price-lth"
                                 name="priceSort"
                                 onChange={handleChangeSort}
+                                checked={sortPrice === SortPrice.LOW_TO_HIGH}
                             />
                             <Label htmlFor="price-lth">Low To High</Label>
 
@@ -217,6 +218,7 @@ const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
                                 id="price-htl"
                                 name="priceSort"
                                 onChange={handleChangeSort}
+                                checked={sortPrice === SortPrice.HIGH_TO_LOW}
                             />
                             <Label htmlFor="price-htl">High To Low</Label>
                         </Flex>
@@ -234,6 +236,9 @@ const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
                                             value={renderName(e.node.name)}
                                             id={`filter-${e.node.name.toLowerCase()}`}
                                             onChange={handleChangeCollections}
+                                            checked={collections.includes(
+                                                renderName(e.node.name)
+                                            )}
                                         />
                                         <Label
                                             htmlFor={`filter-${e.node.name.toLowerCase()}`}
@@ -257,6 +262,9 @@ const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
                                         value={renderName(e)}
                                         id={`filter-${e.toLowerCase()}`}
                                         onChange={handleChangeCategories}
+                                        checked={categories.includes(
+                                            renderName(e)
+                                        )}
                                     />
                                     <Label
                                         htmlFor={`filter-${e.toLowerCase()}`}

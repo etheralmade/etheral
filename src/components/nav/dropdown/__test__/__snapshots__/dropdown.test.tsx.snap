@@ -90,7 +90,7 @@ exports[`Dropdown element matches snapshot 1`] = `
           Categories
         </h3>
         <div
-          className="css-e23ama"
+          className="css-1g9axto"
         >
           <a
             href="/shop?categories=bracelet"
