@@ -65,7 +65,7 @@ const Select: React.FC<Props> = ({
             classNamePrefix="custom-select"
             styles={customStyles}
             onChange={handleChange}
-            placeholder={placeholder.toUpperCase()}
+            // placeholder={placeholder.toUpperCase()}
             options={options.map(o => ({
                 value: o,
                 // eslint-disable-next-line @typescript-eslint/tslint/config

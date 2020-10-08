@@ -1,129 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
-import { uniqBy, findIndex, get } from 'lodash';
-import { useForm, Controller } from 'react-hook-form';
+import React from 'react';
+// import { indexOf } from 'lodash';
+import { useForm, FormProvider } from 'react-hook-form';
 
-import useAllCities from 'helper/use-all-cities';
+import { Box, Flex } from 'rebass';
+
 import { UserData, UserLocation } from '../checkout';
+import Message from './message';
+import Details from './details';
+import useAllCities from 'helper/use-all-cities';
 
 type Props = {
     getUserData: (data: UserData & UserLocation, origin: number) => void;
 };
 
-type SelectProps = {
-    value: number;
-    label: string;
-};
-
 const Form: React.FC<Props> = ({ getUserData }) => {
-    const [province, setProvince] = useState(-1);
-    const [selectCityOptions, setSelectCityOptions] = useState<SelectProps[]>(
-        []
-    );
-    const { allCities } = useAllCities();
-    const originCity = allCities.filter(
-        cityItem => cityItem.name.toUpperCase() === 'JAKARTA BARAT'
-    )[0];
+    const methods = useForm();
+    const { handleSubmit } = methods;
 
-    const { control, handleSubmit, errors } = useForm();
-
-    const allProvinces = allCities.map(cityItem => ({
-        value: cityItem.provinceId,
-        label: cityItem.provinceName,
-    }));
-
-    useEffect(() => {
-        if (province === -1) {
-            setSelectCityOptions([]);
-        } else {
-            const options = allCities
-                .filter(cityItem => cityItem.provinceId === province)
-                .map(cityItem => ({
-                    value: cityItem.cityId,
-                    label: cityItem.name,
-                }));
-            setSelectCityOptions(options);
-        }
-    }, [province]);
-
-    const handleChangeProvince = ({ value }: SelectProps) => {
-        setProvince(value);
-    };
-
-    const cityValidation = ({ value }: SelectProps) => {
-        if (value) {
-            const cityOnFocusIndex = findIndex(
-                allCities,
-                o => o.cityId === value
-            );
-            return allCities[cityOnFocusIndex].provinceId === province;
-        } else {
-            return false;
-        }
-    };
+    const { filterByStr } = useAllCities();
 
     const submit = (data: any) => {
-        const userData: UserData & UserLocation = {
-            cityId: get(data, 'city.value', 0),
-            provinceId: get(data, 'province.value', 0),
-            name: 'Jane Doe',
-            email: 'Jane.doe@email.email',
-            address: 'Storkowerstrasse',
-            phone: 1231432123,
-            postal: 213456,
-        };
+        const COUNTRY = 'INDONESIA'; // temporary unchangeable
 
-        getUserData(userData, originCity.cityId);
+        const origin = filterByStr('Jakarta Barat')[0];
+
+        // shipment info
+        const {
+            address,
+            addAddress,
+            city,
+            company,
+            firstName,
+            lastName,
+            phone,
+            postal,
+            email,
+            // province,
+            // save,
+        } = data;
+
+        // personalized msg info
+        const { forName, fromName, message } = data;
+
+        const cityName = city.value;
+        // const provinceName = province.value;
+
+        const cityOnFocus = filterByStr(cityName);
+
+        if (cityOnFocus.length > 0) {
+            const formattedAddr = `${
+                company ? company + '. ' : ''
+            }${address}${addAddress && '. ' + addAddress}`;
+
+            const userData: UserData & UserLocation = {
+                cityId: cityOnFocus[0].cityId,
+                provinceId: cityOnFocus[0].provinceId,
+                name: `${firstName}${lastName ? ' ' + lastName : ''}`,
+                country: COUNTRY,
+                email,
+                address: formattedAddr,
+                phone: parseInt(phone, 10),
+                postal: parseInt(postal, 10),
+                message: message
+                    ? {
+                          message,
+                          forName,
+                          fromName,
+                      }
+                    : undefined,
+            };
+
+            getUserData(userData, origin.cityId);
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit(submit)}>
-            <label htmlFor="province">Isi provinsi</label>
-            <Controller
-                control={control}
-                defaultValue={-1}
-                name="province"
-                id="province"
-                render={({ onChange, onBlur, value }) => (
-                    <Select
-                        onChange={e => {
-                            handleChangeProvince(e as SelectProps);
-                            onChange(e);
-                        }}
-                        onBlur={onBlur}
-                        selected={value}
-                        options={uniqBy(allProvinces, 'value')}
-                    />
-                )}
-                rules={{ required: true }}
-            />
-            <label htmlFor="city">Isi kota</label>
-
-            <Controller
-                control={control}
-                name="city"
-                id="city"
-                defaultValue={-1}
-                rules={{
-                    required: true,
-                    validate: {
-                        provinceIncorrect: value => cityValidation(value),
-                    },
-                }}
-                render={({ onChange, onBlur, value }) => (
-                    <Select
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        selected={value}
-                        options={selectCityOptions}
-                    />
-                )}
-            />
-            {get(errors, 'city.type', '') === 'provinceIncorrect' && (
-                <p>Nama kota dan lokasi provinsi tidak tepat</p>
-            )}
-            <input type="submit" value="confirm details" />
-        </form>
+        <FormProvider {...methods}>
+            <Box as="form" onSubmit={handleSubmit(submit)}>
+                <Flex
+                    flexDirection={['column', 'column', 'row-reverse']}
+                    mt={[0, 0, 2]}
+                    justifyContent="space-between"
+                >
+                    <Message />
+                    <Details />
+                </Flex>
+            </Box>
+        </FormProvider>
     );
 };
 

@@ -77,16 +77,11 @@ const Navigation: React.FC<Props & ICartState> = ({
     useEffect(() => {
         const modal = document.getElementById('modal');
 
-        console.log('aa');
-
         if (showMenuMobile) {
             modal?.addEventListener(
                 'click',
                 e => {
                     const { target } = e;
-
-                    console.log(target);
-
                     // close mobile menu on clicking any element other than the menu
                     if (target && (target as any).id === 'modal') {
                         setShowMenuMobile(false);
@@ -97,14 +92,16 @@ const Navigation: React.FC<Props & ICartState> = ({
         }
 
         if (showCart) {
-            modal?.addEventListener(
+            document.addEventListener(
                 'click',
                 e => {
                     const { target } = e;
-
                     // close cart on clicking any element other than the menu
-                    if (target && (target as any).id === 'modal') {
-                        setShowMenuMobile(false);
+                    if (
+                        (target && (target as any).id === 'modal') ||
+                        (target as any).id === 'portal'
+                    ) {
+                        setShowCart(false);
                     }
                 },
                 true

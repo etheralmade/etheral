@@ -34,7 +34,6 @@ export interface Order {
     date: Date;
     via?: string;
     channel?: string;
-    shippingMethod: string;
     products: ProductWithAmount[];
 
     paid: boolean;
@@ -46,4 +45,10 @@ export interface Order {
     discountCode?: string;
     discount?: number;
     discountedAmount?: number;
+
+    message?: {
+        message: string;
+        forName: string;
+        fromName: string;
+    };
 }

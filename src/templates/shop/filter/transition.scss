@@ -1,0 +1,14 @@
+.product-filter-enter {
+    opacity: 0;
+}
+.product-filter-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+}
+.product-filter-exit {
+    opacity: 1;
+}
+.product-filter-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+}

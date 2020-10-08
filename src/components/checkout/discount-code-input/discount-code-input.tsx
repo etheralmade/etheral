@@ -64,7 +64,11 @@ const DiscountCodeInput: React.FC<Props> = ({ db, applyCode }) => {
 
     return (
         <Box>
-            <Flex as="form" onSubmit={handleSubmit(submitCode)}>
+            <Flex
+                as="form"
+                justifyContent="space-between"
+                onSubmit={handleSubmit(submitCode)}
+            >
                 <Controller
                     control={control}
                     name="discountCodeInput"
@@ -75,13 +79,15 @@ const DiscountCodeInput: React.FC<Props> = ({ db, applyCode }) => {
                     }}
                     render={({ onChange, ...props }) => (
                         <Input
-                            variant="variants.textInput"
+                            variant="variants.authInput"
                             type="text"
                             placeholder="ENTER YOUR DISCOUNT CODE HERE"
                             aria-label="Discount code input"
+                            maxLength={6}
                             onChange={e =>
                                 onChange(e.target.value.toUpperCase())
                             } // forcing uppercase input
+                            sx={{ width: '49%' }}
                             {...props}
                         />
                     )}
@@ -92,16 +98,17 @@ const DiscountCodeInput: React.FC<Props> = ({ db, applyCode }) => {
                     variant="buttons.primary"
                     aria-label="Apply discount code"
                     value="GET MY DISCOUNT"
+                    sx={{ border: '1px solid #222', width: '49%' }}
                 />
             </Flex>
             {(errors.discountCodeInput?.type === 'maxLength' ||
                 errors.discountCodeInput?.type === 'minLength') && (
-                <Text display="block">
+                <Text display="block" variant="formError" role="alert" mt={[3]}>
                     Discount code must be 6 character long
                 </Text>
             )}
             {onError && (
-                <Text role="alert" display="block">
+                <Text role="alert" display="block" variant="formError" mt={[3]}>
                     {errMsg}
                 </Text>
             )}

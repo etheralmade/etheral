@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
+import { CSSTransition } from 'react-transition-group';
 
 import { startCase, without } from 'lodash';
 
@@ -9,6 +10,8 @@ import { Icon } from '@iconify/react';
 import closeFill from '@iconify/icons-ri/close-fill';
 import { renderName } from 'helper/render-name';
 import { FilterState } from '..';
+
+import './transition.scss';
 
 type Props = {
     filters: FilterState;
@@ -121,180 +124,165 @@ const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
         },
     };
 
-    return showFilter ? (
-        <Box
-            as="form"
-            className="filter-form"
-            onSubmit={submitFilter}
-            p={[5]}
-            bg="#fff"
-            sx={{
-                position: 'absolute',
-                right: ['5%'],
-                width: ['90%', '90%', 'fit-content'],
-                zIndex: 500,
-                borderColor: 'black.1',
-                borderStyle: 'solid',
-                borderWidth: '2px',
-
-                '& label': labelStyling,
-                input: {
-                    display: 'none',
-                    '& + label::before': {
-                        content: "''",
-                        height: ['10px'],
-                        width: ['10px'],
-                        display: 'block',
-                        mr: [3],
-                        borderColor: 'black.0',
-                        borderStyle: 'solid',
-                        borderWidth: '1px',
-                        borderRadius: '50%',
-                        position: 'relative',
-                        top: ['2pt', '2pt', '5pt'],
-                        transition: '.2s',
-                    },
-                    '&:checked + label::before': {
-                        bg: 'black.0',
-                    },
-                },
-            }}
-        >
-            <Box
+    return (
+        <>
+            <Text
                 role="button"
-                onClick={() => setShowFilter(false)}
-                sx={{
-                    position: 'absolute',
-                    right: '8px',
-                    top: '8px',
-                    '& svg': {
-                        height: ['16px', '16px', '24px'],
-                        width: ['16px', '16px', '24px'],
-                    },
-                }}
+                onClick={() => setShowFilter(true)}
+                fontFamily="heading"
+                fontWeight="medium"
+                fontSize={[1, 1, 2]}
+                sx={{ '&:hover': { cursor: 'pointer' } }}
             >
-                <Icon icon={closeFill} />
-            </Box>
-            {/* sort price filter */}
-            <Box as="section">
-                <Text {...textStyling}>PRICE</Text>
+                FILTER
+            </Text>
+            <CSSTransition
+                in={showFilter}
+                timeout={100}
+                classNames="product-filter"
+                unmountOnExit={true}
+            >
+                <Box
+                    as="form"
+                    className="filter-form"
+                    onSubmit={submitFilter}
+                    p={[5]}
+                    bg="#fff"
+                    sx={{
+                        position: 'absolute',
+                        right: ['5%', '5%', '2%'],
+                        width: ['90%', '90%', 'fit-content'],
+                        zIndex: 500,
+                        borderColor: 'black.1',
+                        borderStyle: 'solid',
+                        borderWidth: '2px',
 
-                {/* controller component not compatible with radio? */}
-                <Flex flexWrap="wrap">
-                    <Input
-                        type="radio"
-                        value={SortPrice.LOW_TO_HIGH}
-                        id="price-lth"
-                        name="priceSort"
-                        onChange={handleChangeSort}
-                        checked={sortPrice === SortPrice.LOW_TO_HIGH}
-                    />
-                    <Label htmlFor="price-lth">Low To High</Label>
+                        '& label': labelStyling,
+                        input: {
+                            display: 'none',
+                            '& + label::before': {
+                                content: "''",
+                                height: ['10px'],
+                                width: ['10px'],
+                                display: 'block',
+                                mr: [3],
+                                borderColor: 'black.0',
+                                borderStyle: 'solid',
+                                borderWidth: '1px',
+                                borderRadius: '50%',
+                                position: 'relative',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                transition: '.2s',
+                            },
+                            '&:checked + label::before': {
+                                bg: 'black.0',
+                            },
+                        },
+                    }}
+                >
+                    <Box
+                        role="button"
+                        onClick={() => setShowFilter(false)}
+                        sx={{
+                            position: 'absolute',
+                            right: '8px',
+                            top: '8px',
+                            '& svg': {
+                                height: ['16px', '16px', '24px'],
+                                width: ['16px', '16px', '24px'],
+                            },
+                        }}
+                    >
+                        <Icon icon={closeFill} />
+                    </Box>
+                    {/* sort price filter */}
+                    <Box as="section">
+                        <Text {...textStyling}>PRICE</Text>
 
-                    <Input
-                        type="radio"
-                        value={SortPrice.HIGH_TO_LOW}
-                        id="price-htl"
-                        name="priceSort"
-                        onChange={handleChangeSort}
-                        checked={sortPrice === SortPrice.HIGH_TO_LOW}
-                    />
-                    <Label htmlFor="price-htl">High To Low</Label>
-                </Flex>
-            </Box>
+                        {/* controller component not compatible with radio? */}
+                        <Flex flexWrap="wrap">
+                            <Input
+                                type="radio"
+                                value={SortPrice.LOW_TO_HIGH}
+                                id="price-lth"
+                                name="priceSort"
+                                onChange={handleChangeSort}
+                            />
+                            <Label htmlFor="price-lth">Low To High</Label>
 
-            {/* collection(s) filter => render if data is available. */}
-            {data && (
-                <Box as="section">
-                    <Text {...textStyling}>COLLECTIONS</Text>
-                    <Flex flexWrap="wrap">
-                        {data.collections.edges.map((e: any) => (
-                            <React.Fragment key={e.node.name}>
-                                <Input
-                                    type="checkbox"
-                                    value={renderName(e.node.name)}
-                                    id={`filter-${e.node.name.toLowerCase()}`}
-                                    checked={collections.includes(
-                                        renderName(e.node.name)
-                                    )}
-                                    onChange={handleChangeCollections}
-                                />
-                                <Label
-                                    htmlFor={`filter-${e.node.name.toLowerCase()}`}
-                                >
-                                    {startCase(e.node.name)}
-                                </Label>
-                            </React.Fragment>
-                        ))}
+                            <Input
+                                type="radio"
+                                value={SortPrice.HIGH_TO_LOW}
+                                id="price-htl"
+                                name="priceSort"
+                                onChange={handleChangeSort}
+                            />
+                            <Label htmlFor="price-htl">High To Low</Label>
+                        </Flex>
+                    </Box>
+
+                    {/* collection(s) filter => render if data is available. */}
+                    {data && (
+                        <Box as="section">
+                            <Text {...textStyling}>COLLECTIONS</Text>
+                            <Flex flexWrap="wrap">
+                                {data.collections.edges.map((e: any) => (
+                                    <React.Fragment key={e.node.name}>
+                                        <Input
+                                            type="checkbox"
+                                            value={renderName(e.node.name)}
+                                            id={`filter-${e.node.name.toLowerCase()}`}
+                                            onChange={handleChangeCollections}
+                                        />
+                                        <Label
+                                            htmlFor={`filter-${e.node.name.toLowerCase()}`}
+                                        >
+                                            {startCase(e.node.name)}
+                                        </Label>
+                                    </React.Fragment>
+                                ))}
+                            </Flex>
+                        </Box>
+                    )}
+
+                    {/* category/ies filter */}
+                    <Box as="section">
+                        <Text {...textStyling}>CATEGORIES</Text>
+                        <Flex flexWrap="wrap">
+                            {LIST_OF_CATEGORIES.map(e => (
+                                <React.Fragment key={e}>
+                                    <Input
+                                        type="checkbox"
+                                        value={renderName(e)}
+                                        id={`filter-${e.toLowerCase()}`}
+                                        onChange={handleChangeCategories}
+                                    />
+                                    <Label
+                                        htmlFor={`filter-${e.toLowerCase()}`}
+                                    >
+                                        {startCase(e.toLowerCase())}
+                                    </Label>
+                                </React.Fragment>
+                            ))}
+                        </Flex>
+                    </Box>
+                    <Flex justifyContent="space-between" mt={[3]}>
+                        <Button type="submit" width={['48%']}>
+                            APPLY
+                        </Button>
+                        <Button
+                            onClick={clear}
+                            variant="secondary"
+                            width={['48%']}
+                        >
+                            CLEAR ALL
+                        </Button>
                     </Flex>
                 </Box>
-            )}
-
-            {/* category/ies filter */}
-            <Box as="section">
-                <Text {...textStyling}>CATEGORIES</Text>
-                <Flex flexWrap="wrap">
-                    {LIST_OF_CATEGORIES.map(e => (
-                        <React.Fragment key={e}>
-                            <Input
-                                type="checkbox"
-                                value={renderName(e)}
-                                id={`filter-${e.toLowerCase()}`}
-                                onChange={handleChangeCategories}
-                                checked={categories.includes(renderName(e))}
-                            />
-                            <Label htmlFor={`filter-${e.toLowerCase()}`}>
-                                {startCase(e.toLowerCase())}
-                            </Label>
-                        </React.Fragment>
-                    ))}
-                </Flex>
-            </Box>
-            <Flex justifyContent="space-between" mt={[3]}>
-                <Button type="submit" width={['48%']}>
-                    APPLY
-                </Button>
-                <Button onClick={clear} variant="secondary" width={['48%']}>
-                    CLEAR ALL
-                </Button>
-            </Flex>
-        </Box>
-    ) : (
-        <Text
-            role="button"
-            onClick={() => setShowFilter(true)}
-            fontFamily="heading"
-            fontWeight="medium"
-            fontSize={[1, 1, 2]}
-            sx={{ '&:hover': { cursor: 'pointer' } }}
-        >
-            FILTER
-        </Text>
+            </CSSTransition>
+        </>
     );
 };
-
-/*
- *	<Controller
-                    control={control}
-                    name="discountCodeInput"
-                    defaultValue={initialFields.discountCodeInput}
-                    rules={{
-                        maxLength: 6,
-                        minLength: 6,
-                    }}
-                    render={({ onChange, ...props }) => (
-                        <Input
-                            variant="variants.textInput"
-                            type="text"
-                            placeholder="ENTER YOUR DISCOUNT CODE HERE"
-                            aria-label="Discount code input"
-                            onChange={e =>
-                                onChange(e.target.value.toUpperCase())
-                            } // forcing uppercase input
-                            {...props}
-                        />
-                    )}
-                />
- */
 
 export { Filter };

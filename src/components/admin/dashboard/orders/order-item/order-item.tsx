@@ -175,10 +175,10 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
         total,
         buyerAddr,
         buyerPostal,
-        shippingMethod,
         shippingData,
         discount,
         discountCode,
+        message,
     } = order;
 
     return (
@@ -299,12 +299,31 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
                         Postal code:{' '}
                         <span style={spanStyle}>{buyerPostal}</span>
                     </Text>
-                    <Text variant="bodyMedium">
-                        Shipping method:{' '}
-                        <span style={spanStyle}>{shippingMethod}</span>
-                    </Text>
                 </Box>
             </Box>
+
+            {/* messages (if available) */}
+            {message && (
+                <Box my={[5]}>
+                    <Heading as="h4" variant="adminOrderBody">
+                        Message
+                    </Heading>
+                    <Box ml={[3, 3, 4]}>
+                        <Text variant="bodyMedium">
+                            For:{' '}
+                            <span style={spanStyle}>{message.forName}</span>
+                        </Text>
+                        <Text variant="bodyMedium">
+                            From:{' '}
+                            <span style={spanStyle}>{message.fromName}</span>
+                        </Text>
+                        <Text variant="bodyMedium">
+                            Message: <br />
+                            <span style={spanStyle}>{message.message}</span>
+                        </Text>
+                    </Box>
+                </Box>
+            )}
 
             {/* confirm shipping. */}
             {delivered && shippingData ? (

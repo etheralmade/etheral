@@ -7,6 +7,8 @@ import { Input, Label, Textarea } from '@rebass/forms';
 
 import Modal from 'components/modal';
 
+import 'regenerator-runtime/runtime';
+
 type Props = {};
 
 type Fields = {
@@ -26,7 +28,7 @@ enum Status {
 }
 
 const Form: React.FC<Props> = () => {
-    const [status, setStatus] = useState<Status>(Status.ERROR);
+    const [status, setStatus] = useState<Status>(Status.NONE);
 
     const { register, errors, handleSubmit } = useForm<Fields>();
 

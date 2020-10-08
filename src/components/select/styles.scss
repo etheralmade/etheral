@@ -1,9 +1,27 @@
 .custom-select {
     font-family: Poppins, sans-serif;
-    font-size: 10pt;
+    font-size: 10px;
     width: 100%;
 
     .custom-select__value-container {
         width: 100%;
+    }
+
+    .custom-select__indicator-separator {
+        display: none;
+    }
+
+    svg {
+        height: 12px;
+        width: 12px;
+    }
+
+    @media screen and (min-width: 48em) {
+        font-size: 12px;
+
+        svg {
+            height: 14px;
+            width: 14px;
+        }
     }
 }

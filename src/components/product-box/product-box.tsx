@@ -29,9 +29,10 @@ export type Props = ICurrencyState & {
             gemType?: string;
         };
     };
+    connectDispatch: boolean;
 };
 
-const CartProduct: React.FC<Props> = ({ item, currency }) => {
+const ProductBox: React.FC<Props> = ({ item, currency, connectDispatch }) => {
     const { amount, product, details } = item;
 
     const { extractImgs } = useAllProductImages();
@@ -142,62 +143,86 @@ const CartProduct: React.FC<Props> = ({ item, currency }) => {
                             </>
                         )}
                     </Text>
-                    <Flex justifyContent="space-between" width="100%" mt={[2]}>
+
+                    {/* render buttons with available actions just if connectDispatch is set to true => reusability */}
+                    {connectDispatch ? (
                         <Flex
-                            alignItems="center"
-                            bg="black.1"
-                            color="#fff"
-                            css={`
-                                .cart-icons {
-                                    height: 16px;
-                                    width: 16px;
-                                }
-                            `}
+                            justifyContent="space-between"
+                            width="100%"
+                            mt={[2]}
                         >
                             <Flex
-                                variant="center"
-                                role="button"
-                                mr={[1]}
-                                onClick={handleRemove}
-                                sx={{ cursor: 'pointer' }}
+                                alignItems="center"
+                                bg="black.1"
+                                color="#fff"
+                                css={`
+                                    .cart-icons {
+                                        height: 16px;
+                                        width: 16px;
+                                    }
+                                `}
                             >
-                                <Icon
-                                    className="cart-icons"
-                                    icon={subtractLine}
-                                />
+                                <Flex
+                                    variant="center"
+                                    role="button"
+                                    data-testid="remove-button"
+                                    mr={[1]}
+                                    onClick={handleRemove}
+                                    sx={{ cursor: 'pointer' }}
+                                >
+                                    <Icon
+                                        className="cart-icons"
+                                        icon={subtractLine}
+                                    />
+                                </Flex>
+                                <Text
+                                    fontFamily="heading"
+                                    fontSize={[10]}
+                                    fontWeight="medium"
+                                >
+                                    {amount}
+                                </Text>
+                                <Flex
+                                    variant="center"
+                                    role="button"
+                                    data-testid="add-button"
+                                    ml={[1]}
+                                    onClick={handleAdd}
+                                    sx={{ cursor: 'pointer' }}
+                                >
+                                    <Icon
+                                        className="cart-icons"
+                                        icon={addLine}
+                                    />
+                                </Flex>
                             </Flex>
                             <Text
-                                fontFamily="heading"
-                                fontSize={[10]}
-                                fontWeight="medium"
+                                fontFamily="body"
+                                fontSize={[1]}
+                                fontWeight="semiBold"
+                                sx={{ svg: { ml: [4] } }}
                             >
-                                {amount}
+                                {price}
+                                {discounted && (
+                                    <InlineIcon
+                                        icon={priceTag3Fill}
+                                        color={theme.colors.misc.discount}
+                                    />
+                                )}
                             </Text>
-                            <Flex
-                                variant="center"
-                                role="button"
-                                ml={[1]}
-                                onClick={handleAdd}
-                                sx={{ cursor: 'pointer' }}
-                            >
-                                <Icon className="cart-icons" icon={addLine} />
-                            </Flex>
                         </Flex>
+                    ) : (
                         <Text
-                            fontFamily="body"
-                            fontSize={[1]}
-                            fontWeight="semiBold"
-                            sx={{ svg: { ml: [4] } }}
+                            fontFamily="heading"
+                            fontSize={[1, 1, 2]}
+                            fontWeight="body"
+                            as="section"
                         >
+                            Quantity: {amount}
+                            <br />
                             {price}
-                            {discounted && (
-                                <InlineIcon
-                                    icon={priceTag3Fill}
-                                    color={theme.colors.misc.discount}
-                                />
-                            )}
                         </Text>
-                    </Flex>
+                    )}
                 </Box>
                 <Text
                     fontFamily="body"
@@ -224,4 +249,4 @@ const CartProduct: React.FC<Props> = ({ item, currency }) => {
     return null;
 };
 
-export { CartProduct };
+export { ProductBox };
