@@ -2,3 +2,5 @@
 
 Gatsby Starter basically cloned from: https://github.com/gojutin/gatsby-starter-typescript-deluxe
 but deleted files that i personally don't need. Going to create lots of projects using this boilerplate.
+
+https://suspicious-shaw-fc0d0c.netlify.app
