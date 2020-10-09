@@ -22,7 +22,7 @@ const DeteleButton: React.FC<Props> = ({ onClick }) => {
     };
 
     return (
-        <Box role="button" width="100%">
+        <Box width="100%">
             <Text
                 {...textStyling}
                 p={[1]}
