@@ -15,60 +15,12 @@ exports[`AdminBox matches snapshot 1`] = `
     loha@gmail.com
   </div>
   <div
-    className="css-vurnku"
+    className="css-16vu25q"
+    role="button"
   >
     <div
       className="css-ecnxzw"
-      onClick={
-        [MockFunction] {
-          "calls": Array [
-            Array [
-              Class {
-                "_dispatchInstances": null,
-                "_dispatchListeners": null,
-                "_targetInst": null,
-                "altKey": null,
-                "bubbles": null,
-                "button": null,
-                "buttons": null,
-                "cancelable": null,
-                "clientX": null,
-                "clientY": null,
-                "ctrlKey": null,
-                "currentTarget": [Function],
-                "defaultPrevented": null,
-                "detail": null,
-                "dispatchConfig": null,
-                "eventPhase": null,
-                "getModifierState": [Function],
-                "isDefaultPrevented": [Function],
-                "isPropagationStopped": [Function],
-                "isTrusted": null,
-                "metaKey": null,
-                "movementX": [Function],
-                "movementY": [Function],
-                "nativeEvent": null,
-                "pageX": null,
-                "pageY": null,
-                "relatedTarget": [Function],
-                "screenX": null,
-                "screenY": null,
-                "shiftKey": null,
-                "target": null,
-                "timeStamp": [Function],
-                "type": null,
-                "view": null,
-              },
-            ],
-          ],
-          "results": Array [
-            Object {
-              "type": "return",
-              "value": undefined,
-            },
-          ],
-        }
-      }
+      onClick={[MockFunction]}
       role="button"
     >
       <svg

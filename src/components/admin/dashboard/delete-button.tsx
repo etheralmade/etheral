@@ -12,7 +12,6 @@ const DeteleButton: React.FC<Props> = ({ onClick }) => {
     const textStyling = {
         fontFamily: 'body',
         fontSize: [1],
-        textAlign: 'center',
         // color: 'black.0' => removed to be able to apply custom color on remove text,
         fontWeight: 'medium',
         css: `

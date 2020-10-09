@@ -11,6 +11,7 @@ import {
 } from '.';
 import Modal from 'components/modal';
 import SurePopupSettings from 'components/popups/sure-popup-settings';
+import DiscountCode from 'components/popups/discount-code';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -51,7 +52,6 @@ const Settings: React.FC<Props> = ({
     const [doUpdateWebsite, setDoUpdateWebsite] = useState<
         DoUpdate | undefined
     >(undefined);
-    const [isUpdating, setIsUpdating] = useState(false);
 
     useEffect(() => {
         // fetch build hook if admin decide to update it.
@@ -67,7 +67,6 @@ const Settings: React.FC<Props> = ({
 
     const updateWebsite = async () => {
         try {
-            await setIsUpdating(true);
             const req = await fetch(
                 process.env.GATSBY_NETLIFY_BUILD_HOOK || '',
                 {
@@ -86,9 +85,10 @@ const Settings: React.FC<Props> = ({
                     .set({ lastUpdate: fromDate(nowDate) });
             }
 
-            await setIsUpdating(false);
             await setShowModal(false);
             await setDoUpdateWebsite(undefined);
+
+            await setState(ComponentState.NONE);
 
             await doRerender();
         } catch (err) {
@@ -98,6 +98,7 @@ const Settings: React.FC<Props> = ({
 
     const initUpdateWebsite = () => {
         setShowModal(true);
+        setState(ComponentState.SURE_UPDATE);
     };
 
     // function to remove discount code from db
@@ -150,7 +151,14 @@ const Settings: React.FC<Props> = ({
             );
             break;
         case ComponentState.SURE_DISCOUNT:
-            modal = <h1>Hello world!</h1>;
+            modal = (
+                <DiscountCode
+                    yes={addDiscountCode}
+                    no={() => {
+                        setShowModal(false);
+                    }}
+                />
+            );
             break;
         default:
             modal = (
