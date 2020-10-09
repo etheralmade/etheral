@@ -9,10 +9,10 @@ type Props = {};
 const Links: React.FC<Props> = () => {
     return (
         <Box
-            height="100vh"
-            maxHeight="100vh"
+            height={['90vh', '90vh', '100vh']}
             pb={[5]}
             className="custom-scrollbar"
+            sx={{ overflowX: 'hidden' }}
         >
             <NotionExport />
         </Box>

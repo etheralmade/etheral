@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { sha256 } from 'js-sha256';
 
+import { Box, Text } from 'rebass';
 import { ThemeProvider } from 'emotion-theming';
 
 import Login from 'components/auth/login';
@@ -21,6 +22,8 @@ const Admin: React.FC<Props> = ({ db }) => {
 
     const [showModal, setShowModal] = useState(false);
     const [changePassId, setChangePassId] = useState('');
+
+    const [isUnauthorized, setIsUnauthorized] = useState(false);
 
     const adminUserDbRef = db.collection('admin-user');
 
@@ -43,7 +46,7 @@ const Admin: React.FC<Props> = ({ db }) => {
                 setChangePassId(adminUser.docs[0].id);
             }
         } else {
-            console.log('unauthorized');
+            setIsUnauthorized(true);
         }
     };
 
@@ -68,7 +71,20 @@ const Admin: React.FC<Props> = ({ db }) => {
             {isAuthenticated ? (
                 <Dashboard db={db} logout={logout} adminEmail={adminEmail} />
             ) : (
-                <Login login={login} submitValue="Login as admin" />
+                <Modal center={true}>
+                    <Box bg="#fff" p={[5]} width={['80vw', '70vw', '400px']}>
+                        <Login login={login} submitValue="Login as admin" />
+                        {isUnauthorized && (
+                            <Text
+                                variant="formError"
+                                mt={[4]}
+                                sx={{ textAlign: 'center' }}
+                            >
+                                Admin user unauthorized
+                            </Text>
+                        )}
+                    </Box>
+                </Modal>
             )}
         </ThemeProvider>
     );

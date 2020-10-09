@@ -21,7 +21,7 @@ const AdminBox: React.FC<Props> = ({
 }) => {
     const textStyling = {
         fontFamily: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1],
         // color: 'black.0' => removed to be able to apply custom color on remove text,
         fontWeight: 'medium',
         css: `
@@ -47,7 +47,7 @@ const AdminBox: React.FC<Props> = ({
             <Text {...textStyling} color="black.0">
                 {invitedBy}
             </Text>
-            {invitedBy !== 'root' || adminEmail !== email ? (
+            {invitedBy.toLowerCase() !== 'root' && adminEmail !== email ? (
                 <Box>
                     <Text
                         {...textStyling}
