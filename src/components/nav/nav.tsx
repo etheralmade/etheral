@@ -235,8 +235,8 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 }
 
                                 @media screen and (min-width: 64em) {
-                                    width: 10vw;
-                                    max-width: 150px;
+                                    width: 7vw;
+                                    max-width: 100px;
                                     transform: translate(-60%, 8px);
                                 }
                             `}
