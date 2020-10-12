@@ -40,7 +40,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     // states for ui changes
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showDropdownL, setShowDropdownL] = useState(false);
+    const [showDropdownL, setShowDropdownL] = useState(true);
     const [currLocation, setCurrLocation] = useState('/');
     const [showCart, setShowCart] = useState(false);
 
@@ -174,6 +174,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 fill: ${showDropdownL || currLocation !== '/'
                                     ? '#000'
                                     : '#fff'};
+                                stroke: 'transparent';
                             }
 
                             &.black-on-dropdown-stroke path {
