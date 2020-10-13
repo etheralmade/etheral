@@ -56,6 +56,10 @@ const GlobalStyles = createGlobalStyle`
           padding-top: 22vh;
         }
 
+        @media screen and (min-width: 48em) {
+          padding-top: 14vh;
+        }
+
         @media screen and (min-width: 48em) and (orientation: landscape) {
           padding-top: 15vh;
         }
@@ -63,6 +67,10 @@ const GlobalStyles = createGlobalStyle`
         @media screen and (min-width: 48em) and (max-height: 500px) and (orientation: landscape) {
           padding-top: 30vh;
         }
+
+        /* @media screen and (min-width: 64em) {
+          padding-top: 18vh;
+        }  */
 
         &.blog {
           @media screen and (min-width: 48em) {

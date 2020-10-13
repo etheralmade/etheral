@@ -9,7 +9,6 @@ import ProductCard, {
     Props as ProductCardProps,
 } from 'components/product-card';
 import useAllProductImages from 'helper/use-all-product-images';
-import useAllProducts from 'helper/use-all-products';
 import Pagination from 'components/pagination';
 import Breadcrumbs from 'components/breadcrumbs';
 import Filter, { SortPrice } from './filter';
@@ -18,7 +17,17 @@ import { renderName } from 'helper/render-name';
 
 import './styles.scss'; // styling on links component => cleaner component file.
 
-type Props = {};
+export enum ShopType {
+    SHOP_ALL = 'SHOP ALL',
+    NEW_ARRIVALS = 'NEW ARRIVALS',
+    BEST_SELLERS = 'BEST SELLERS',
+    BACK_IN_STOCK = 'BACK IN STOCK',
+}
+
+type Props = {
+    products: Product[];
+    type: ShopType;
+};
 
 /**
  * productPerPage: num of products to be rendered per page.
@@ -53,7 +62,7 @@ export type SetFilterArgs = {
     collections?: string[];
 };
 
-const Shop: React.FC<Props> = () => {
+const Shop: React.FC<Props> = ({ products, type }) => {
     // store: all products to be displayed (not filtered by pagination.)
     const [store, setStore] = useState<Product[]>([]);
     // add product per page
@@ -72,7 +81,6 @@ const Shop: React.FC<Props> = () => {
     const [urlParams, setUrlParams] = useState('');
 
     const { extractImgs } = useAllProductImages();
-    const allProducts = useAllProducts();
 
     // extract filter(s) from page query.
     useEffect(() => {
@@ -91,16 +99,18 @@ const Shop: React.FC<Props> = () => {
 
         // map to url?
 
-        setStore(doFilter({ sort, categories, collections, allProducts }));
+        setStore(
+            doFilter({ sort, categories, collections, allProducts: products })
+        );
     }, [filters]);
 
     // stores variable IF url query is provided.
     useEffect(() => {
-        if (allProducts.length > 0 && withUrlParams) {
+        if (products.length > 0 && withUrlParams) {
             extractQuery(urlParams);
             setWithUrlParams(false);
         }
-    }, [allProducts]);
+    }, [products]);
 
     useEffect(() => {
         paginate({ ...pagination }, store);
@@ -112,27 +122,27 @@ const Shop: React.FC<Props> = () => {
     // debug mock products
     useEffect(() => {
         const multipliedProducts = [
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
-            ...allProducts,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
+            ...products,
         ].sort((a, b) => a.name.localeCompare(b.name));
         if (!withFilters) {
-            setStore(debug ? multipliedProducts : allProducts);
+            setStore(debug ? multipliedProducts : products);
         }
-    }, [setStore, withFilters, allProducts, debug]);
+    }, [setStore, withFilters, products, debug]);
 
     const paginate = (
         { productPerPage, currIndex }: PaginationState,
@@ -209,8 +219,6 @@ const Shop: React.FC<Props> = () => {
         setPagination(prev => ({ ...prev, currIndex: numOfPages - 1 }));
     };
 
-    console.log({ urlParams, filters });
-
     return (
         <Flex
             className="content"
@@ -229,7 +237,7 @@ const Shop: React.FC<Props> = () => {
                 <Breadcrumbs
                     location={'shop'}
                     append={true}
-                    appendText={'SHOP ALL'}
+                    appendText={type}
                 />
                 {/* filter component */}
                 <Filter

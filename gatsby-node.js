@@ -208,6 +208,9 @@ exports.sourceNodes = async ({
             slug: data.collection
                 ? `shop/${nameToSlug(data.collection)}/${nameToSlug(data.name)}`
                 : `shop/${noCollection}/${nameToSlug(data.name)}`,
+            onBestSellers: data.onBestSellers,
+            onNewArrivals: data.onNewArrival,
+            onBackInStock: data.onBackInStock,
         };
 
         return await createNode({
