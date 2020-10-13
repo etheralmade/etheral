@@ -151,18 +151,18 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                             my={0}
                             width={['fit-content', 'fit-content', '110px']}
                         >
-                            <Link to="/shop">
+                            <Link to="shop">
                                 <Text variant="link">Shop all</Text>
                             </Link>
-                            <Link to="/">
+                            <Link to="shop/new-arrivals">
                                 <Text variant="link">New arrivals</Text>
                             </Link>
-                            <Link to="/">
+                            <Link to="shop/best-sellers">
                                 <Text variant="link">Best sellers</Text>
                             </Link>
-                            <Link to="/">
+                            <Link to="shop/back-in-stock">
                                 <Text variant="link" mb={1}>
-                                    Sale?
+                                    Back In Stock
                                 </Text>
                             </Link>
                         </Box>

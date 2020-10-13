@@ -1,12 +1,16 @@
 import React from 'react';
 
 import { Layout } from 'components/layout';
-import Shop from 'templates/shop';
+import Shop, { ShopType } from 'templates/shop';
+
+import useAllProducts from 'helper/use-all-products';
 
 const ShopPage = () => {
+    const allProducts = useAllProducts();
+
     return (
         <Layout>
-            <Shop />
+            <Shop products={allProducts} type={ShopType.SHOP_ALL} />
         </Layout>
     );
 };

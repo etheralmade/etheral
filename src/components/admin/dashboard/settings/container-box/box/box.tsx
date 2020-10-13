@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Box as ReBox, Text, Flex, Button } from 'rebass';
 
+import DeleteButton from 'components/admin/dashboard/delete-button';
+
 import { Type } from '..';
 import StatusBadge, { BadgeTypes } from '../../../orders/status-badge';
 import { getDateReadable } from 'helper/get-date';
@@ -11,9 +13,10 @@ type Props = {
     item: any;
     type: Type;
     bg: string;
+    removeDiscountCode?: (code: string) => Promise<void>;
 };
 
-const Box: React.FC<Props> = ({ item, type, bg }) => {
+const Box: React.FC<Props> = ({ item, type, bg, removeDiscountCode }) => {
     // handleClick preview blog
     const previewBlog = () => {
         console.log('Preview');
@@ -21,7 +24,7 @@ const Box: React.FC<Props> = ({ item, type, bg }) => {
 
     const textStyling = {
         fontFamily: 'body',
-        fontSize: [0, 0, 1],
+        fontSize: [1],
         color: 'black.0',
         fontWeight: 'bold',
         css: `
@@ -107,6 +110,38 @@ const Box: React.FC<Props> = ({ item, type, bg }) => {
                 >
                     Preview
                 </Button>
+            </ReBox>
+        );
+    } else if (type === Type.DISCOUNT && removeDiscountCode) {
+        return (
+            <ReBox
+                bg={bg}
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, minmax(64px, 1fr))',
+                    gridGap: 2,
+                    transition: '0.2s',
+                    '&:hover': {
+                        cursor: 'pointer',
+                    },
+                }}
+                px={[2]}
+                py={[2]}
+            >
+                <Text sx={{ gridColumn: '1/2' }} {...textStyling}>
+                    {item.code}
+                </Text>
+                <Text sx={{ gridColumn: '2/3' }} {...textStyling}>
+                    {item.value} %
+                </Text>
+                <Text sx={{ gridColumn: '3/4' }} {...textStyling}>
+                    {getDateReadable(item.expiresIn)}
+                </Text>
+                <DeleteButton
+                    onClick={() => {
+                        removeDiscountCode(item.code);
+                    }}
+                />
             </ReBox>
         );
     } else {
