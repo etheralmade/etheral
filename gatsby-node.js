@@ -70,6 +70,10 @@ exports.sourceNodes = async ({
         .firestore()
         .collection('fl_content')
         .where('_fl_meta_.schema', '==', 'consignment');
+    const pages = firebaseApp
+        .firestore()
+        .collection('fl_content')
+        .where('_fl_meta_.schema', '==', 'pages');
 
     const storage = firebaseApp.storage();
 
@@ -79,6 +83,11 @@ exports.sourceNodes = async ({
     let consignmentDocs = [];
     let homepageDoc;
     let aboutUsDoc;
+
+    // newer codes, didn't know you could map firestore query.
+    const pagesDocs = await pages
+        .get()
+        .then(snapshot => snapshot.docs.map(doc => doc.data()));
 
     await products.get().then(docs => {
         docs.forEach(doc => {
@@ -461,11 +470,6 @@ exports.sourceNodes = async ({
                 .getDownloadURL();
             await set(data, 'url', imgDownloadUrl);
         }
-        // content
-        // date
-        // slug
-        // summary
-        // title
 
         const fields = await {
             content: data.content,
@@ -482,6 +486,28 @@ exports.sourceNodes = async ({
             id: createNodeId(fields.title),
             internal: {
                 type: 'Blog',
+                contentDigest: createContentDigest(fields),
+            },
+        });
+    });
+
+    // create nodes from given pages data.
+    const createNodesPages = await pagesDocs.map(async data => {
+        // extract content and page name!
+        const { pageName, content } = await data;
+
+        const fields = {
+            pageName,
+            content,
+        };
+
+        // create node for each data.
+        return await createNode({
+            // data for the node
+            ...fields,
+            id: createNodeId(fields.pageName),
+            internal: {
+                type: 'Pages',
                 contentDigest: createContentDigest(fields),
             },
         });
@@ -531,6 +557,7 @@ exports.sourceNodes = async ({
             createNodesCollections,
             createNodesBlogs,
             createNodesConsignments,
+            createNodesPages,
             requestCitiesCalculateShipping(),
             createNodeHomepage(),
             createNodeAboutUs(),
