@@ -1,6 +1,13 @@
-# Gatsby Starter Kit using Storybook, Styled-Comp, SEO, TS, Prettier, ESLint, Framer Motion. 🏈
+# Etheral official website 💎
 
-Gatsby Starter basically cloned from: https://github.com/gojutin/gatsby-starter-typescript-deluxe
-but deleted files that i personally don't need. Going to create lots of projects using this boilerplate.
+## Technologies used:
+- React + Typescript
+- Gatsby
+- Rebass + Styled System
+- Redux
 
-https://suspicious-shaw-fc0d0c.netlify.app
+- Firebase on the backend
+- Netlify lambda
+- Hosted on netlify
+
+@Author: github.com/LouisAndrew.
