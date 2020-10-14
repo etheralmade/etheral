@@ -16,19 +16,21 @@ import './product-card.scss';
 
 export type Props = BoxProps & {
     product: Product;
-    // imgs?: {
-    //     sources: FixedObject | FixedObject[];
-    // }[];
+    hidePrices?: boolean; // identifier: set to true if product's price should be hidden.
     imgs?: {
         sources: FluidObject | FluidObject[];
     }[];
 };
 
+/**
+ * Reusable product card component
+ */
 const ProductCard: React.FC<ICurrencyState & Props> = ({
     product,
     imgs,
     css,
     currency,
+    hidePrices,
     ...rest
 }) => {
     const {
@@ -80,21 +82,28 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                     </Box>
                 </Box>
 
-                <Text variant="productName" width="100%" my={[3, 3, 2]}>
+                <Text
+                    variant="productName"
+                    width="100%"
+                    my={[3, 3, 2]}
+                    textAlign={hidePrices ? 'center' : 'left'}
+                >
                     {name}
                 </Text>
-                <Text
-                    variant="productPrice"
-                    width="fit-content"
-                    color={
-                        discounted
-                            ? theme.colors.misc.discount
-                            : theme.colors.black[0]
-                    }
-                    className={discounted ? 'discount' : ''}
-                    css={`
-                        ${discounted &&
-                            `
+                {!hidePrices && (
+                    <>
+                        <Text
+                            variant="productPrice"
+                            width="fit-content"
+                            color={
+                                discounted
+                                    ? theme.colors.misc.discount
+                                    : theme.colors.black[0]
+                            }
+                            className={discounted ? 'discount' : ''}
+                            css={`
+                                ${discounted &&
+                                    `
                             :after {
                                 content: '-${discountPercentage}%';
                                 color: ${theme.colors.misc.discount};
@@ -107,22 +116,24 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                                 display: block;
                             }
                         `}
-                    `}
-                >
-                    {price}
-                </Text>
-                {discounted && (
-                    <Text
-                        variant="productPrice"
-                        width="fit-content"
-                        fontWeight="bold"
-                    >
-                        NOW: {price.split(' ')[0]}{' '}
-                        {withDiscount(
-                            Number(price.split(' ')[1]), // parse splitted price as a number
-                            discountPercentage
+                            `}
+                        >
+                            {price}
+                        </Text>
+                        {discounted && (
+                            <Text
+                                variant="productPrice"
+                                width="fit-content"
+                                fontWeight="bold"
+                            >
+                                NOW: {price.split(' ')[0]}{' '}
+                                {withDiscount(
+                                    Number(price.split(' ')[1]), // parse splitted price as a number
+                                    discountPercentage
+                                )}
+                            </Text>
                         )}
-                    </Text>
+                    </>
                 )}
             </Box>
         );

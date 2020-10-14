@@ -123,8 +123,7 @@ exports[`ProductForm matches snapshot 1`] = `
       </div>
     </div>
     <a
-      aria-current="page"
-      href="/"
+      href="/size-guide"
       onClick={[Function]}
       role="button"
     >
@@ -257,16 +256,10 @@ exports[`ProductForm matches snapshot 1`] = `
     className="css-1antd95"
   >
     <input
-      className="css-1w96qc3"
+      className="css-qn6h7v"
       type="submit"
       value="ADD TO CART"
     />
-    <button
-      className="css-1huhmd2"
-      onClick={[Function]}
-    >
-      ADD TO WISHLIST
-    </button>
   </div>
 </form>
 `;

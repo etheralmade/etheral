@@ -50,8 +50,7 @@ exports[`Footer element matches snapshot 1`] = `
         </div>
       </a>
       <a
-        aria-current="page"
-        href="/"
+        href="/faq"
         onClick={[Function]}
       >
         <div
@@ -61,8 +60,7 @@ exports[`Footer element matches snapshot 1`] = `
         </div>
       </a>
       <a
-        aria-current="page"
-        href="/"
+        href="/size-guide"
         onClick={[Function]}
       >
         <div

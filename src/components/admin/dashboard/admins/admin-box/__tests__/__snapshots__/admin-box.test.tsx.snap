@@ -5,20 +5,20 @@ exports[`AdminBox matches snapshot 1`] = `
   className="css-1cx2s4a"
 >
   <div
-    className="css-welxbt"
+    className="css-4k8lca"
   >
     lolo@mock
   </div>
   <div
-    className="css-welxbt"
+    className="css-4k8lca"
   >
     loha@gmail.com
   </div>
   <div
-    className="css-vurnku"
+    className="css-16vu25q"
   >
     <div
-      className="css-1i8tx31"
+      className="css-ecnxzw"
       onClick={
         [MockFunction] {
           "calls": Array [

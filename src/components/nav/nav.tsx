@@ -50,7 +50,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [openModal, setOpenModal] = useState(false);
 
     // set to true to show modal on homepage.
-    const runModal = false;
+    const runModal = true;
 
     useEffect(() => {
         if (auth.currentUser) {
@@ -174,6 +174,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 fill: ${showDropdownL || currLocation !== '/'
                                     ? '#000'
                                     : '#fff'};
+                                stroke: 'transparent';
                             }
 
                             &.black-on-dropdown-stroke path {
@@ -235,8 +236,8 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 }
 
                                 @media screen and (min-width: 64em) {
-                                    width: 10vw;
-                                    max-width: 150px;
+                                    width: 7vw;
+                                    max-width: 100px;
                                     transform: translate(-60%, 8px);
                                 }
                             `}

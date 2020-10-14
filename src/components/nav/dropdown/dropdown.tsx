@@ -92,7 +92,7 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
         return (
             <Box
                 height={['fit-content']}
-                width={['100%', '100%', '100vw', '101vw']}
+                width={['100%', '100%', '101vw', '101vw']}
                 pt={[0, 0, 5]}
                 pb={[0, 0, 9]}
                 px={[6, '10vw', 8, '10vw']}
@@ -119,7 +119,7 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                     @media (min-width: 48em) {
                         top: 10vh;
                         position: absolute;
-                        left: -6%;
+                        left: -5.5%;
 
                         .box-L {
                             display: block;
@@ -131,7 +131,7 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
 
                     @media (min-width: 48em) and (orientation: landscape) {
                         top: 10vh;
-                        left: -9%;
+                        left: -6%;
                     }
 
                     @media (min-width: 64em) {
@@ -151,18 +151,18 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                             my={0}
                             width={['fit-content', 'fit-content', '110px']}
                         >
-                            <Link to="/shop">
+                            <Link to="shop">
                                 <Text variant="link">Shop all</Text>
                             </Link>
-                            <Link to="/">
+                            <Link to="shop/new-arrivals">
                                 <Text variant="link">New arrivals</Text>
                             </Link>
-                            <Link to="/">
+                            <Link to="shop/best-sellers">
                                 <Text variant="link">Best sellers</Text>
                             </Link>
-                            <Link to="/">
+                            <Link to="shop/back-in-stock">
                                 <Text variant="link" mb={1}>
-                                    Sale?
+                                    Back In Stock
                                 </Text>
                             </Link>
                         </Box>

@@ -31,6 +31,12 @@ export type LatestBlogs = Timestamps & {
     slug: string;
 };
 
+export type DiscountCodes = {
+    value: number;
+    expiresIn: Date;
+    code: string;
+};
+
 const Settings: React.FC<{}> = () => {
     const [db, setDb] = useState<firebase.firestore.Firestore | null>(null);
 
@@ -41,9 +47,9 @@ const Settings: React.FC<{}> = () => {
         LatestCollections[]
     >([]);
     const [latestBlogs, setLatestBlogs] = useState<LatestBlogs[]>([]);
-    // const [latestHomepage, setLatestHomepage] = useState<
-    //     LatestHomepage | undefined
-    // >(undefined);
+    const [latestCodes, setLatestCodes] = useState<DiscountCodes[]>([]);
+
+    const [rerender, setRerender] = useState(false);
 
     useEffect(() => {
         setDb(firebase.firestore());
@@ -56,6 +62,12 @@ const Settings: React.FC<{}> = () => {
             fetchData();
         }
     }, [db]);
+
+    useEffect(() => {
+        if (rerender) {
+            checkRerender();
+        }
+    }, [rerender]);
 
     const fetchData = async () => {
         if (db) {
@@ -87,6 +99,7 @@ const Settings: React.FC<{}> = () => {
                 '==',
                 'collection'
             );
+            const discountCodeRef = db.collection('discount');
 
             // const homepageRef = contentRef.where(
             //     '_fl_meta_.schema',
@@ -100,32 +113,6 @@ const Settings: React.FC<{}> = () => {
             let blogDocs: firebase.firestore.DocumentData[] = [];
 
             // not sure why, but whenever i fetched homepage data, latest products and collections won't be fetched
-
-            // await homepageRef // fetch homepage data
-            //     .get()
-            //     .then(docs => {
-            //         if (docs.size > 0) {
-            //             docs.forEach(doc => {
-            //                 // homepageDoc = doc.data();
-            //                 if (doc) {
-            //                     const data = doc.data();
-
-            //                     if (
-            //                         data._fl_meta_.createdDate.seconds >
-            //                             lastUpdate ||
-            //                         data._fl_meta_.lastModifiedDate.seconds >
-            //                             lastUpdate
-            //                     ) {
-            //                         setLatestHomepage({
-            //                             createdDate: data._fl_meta_.createdDate.toDate(),
-            //                             lastModifiedDate: data._fl_meta_.lastModifiedDate.toDate(),
-            //                             status: Status.UPDATE,
-            //                         });
-            //                     }
-            //                 }
-            //             });
-            //         }
-            //     });
 
             // fetch all products
             await productsRef.get().then(docs =>
@@ -220,8 +207,31 @@ const Settings: React.FC<{}> = () => {
                     }))
             );
 
+            const discountCodes: DiscountCodes[] = await discountCodeRef
+                .get()
+                .then(snapshot =>
+                    snapshot.docs.map(doc => {
+                        const data = doc.data();
+
+                        const { value, expiresIn } = data;
+
+                        return {
+                            code: doc.id,
+                            value,
+                            expiresIn: expiresIn.toDate(),
+                        } as DiscountCodes;
+                    })
+                );
+
+            await setLatestCodes(discountCodes);
+
             await setIsLoading(false);
         }
+    };
+
+    const checkRerender = async () => {
+        await fetchData();
+        await setRerender(false);
     };
 
     if (db && !isLoading) {
@@ -231,7 +241,11 @@ const Settings: React.FC<{}> = () => {
                 latestProducts={latestProducts}
                 latestCollections={latestCollections}
                 latestBlogs={latestBlogs}
+                latestCodes={latestCodes}
                 fromDate={firebase.firestore.Timestamp.fromDate}
+                doRerender={() => {
+                    setRerender(true);
+                }}
             />
         );
     }

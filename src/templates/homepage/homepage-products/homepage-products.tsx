@@ -62,6 +62,7 @@ const HomepageProducts: React.FC<Props> = ({ products, displayText }) => {
                                 css={``}
                                 mb={[7]}
                                 width="100%"
+                                hidePrices={true} // do not show prices on homepage
                             />
                         </Link>
                     );

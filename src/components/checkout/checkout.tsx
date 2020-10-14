@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { get, findIndex } from 'lodash';
+import { get, findIndex, set } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from '@reach/router';
 
@@ -314,7 +314,7 @@ const Checkout: React.FC<Props> = ({
                     };
 
                     // create new order object
-                    createOrder(oid, ipaymuData);
+                    createOrder(oid, ipaymuData, { method, channel });
                 } else {
                     // handle error
                     setStatus(Status.ERROR_PAYMENT);
@@ -330,7 +330,11 @@ const Checkout: React.FC<Props> = ({
     };
 
     // create new order object
-    const createOrder = async (oid: string, ipaymuData: IpaymuData) => {
+    const createOrder = async (
+        oid: string,
+        ipaymuData: IpaymuData,
+        { method, channel }: RadioInput
+    ) => {
         if (userData) {
             try {
                 const docRef = db.collection('order').doc(oid);
@@ -346,6 +350,9 @@ const Checkout: React.FC<Props> = ({
                     buyerUId: user ? user.uid : 'admin',
                     buyerAddr: userData.address,
                     buyerPostal: userData.postal,
+
+                    via: method,
+                    channel,
 
                     total: totalPrice,
                     currency: Currencies.IDR, // temporary
@@ -363,8 +370,12 @@ const Checkout: React.FC<Props> = ({
                     discountCode,
                     discountedAmount,
                     discount: discountValue,
-                    message: userData.message ? userData.message : undefined,
                 };
+
+                // set order.message if userData.message is provided => error by firestore: firestore doesn't accept undefined!
+                if (await userData.message) {
+                    await set(order, 'message', userData.message);
+                }
 
                 await docRef.set({
                     ...order,

@@ -6,10 +6,11 @@ import ReactDOM from 'react-dom';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { Shop } from '../shop';
+import { Shop, ShopType } from '../shop';
+import { mockProducts } from 'helper/const';
 
 describe('Shop', () => {
-    const Element = <Shop />;
+    const Element = <Shop products={mockProducts} type={ShopType.SHOP_ALL} />;
 
     afterEach(cleanup);
 
