@@ -7,6 +7,24 @@ const GlobalStyles = createGlobalStyle`
       box-sizing: border-box;
     }
 
+    /* fix button(s) on far bottom size not working on mobile safari */
+    @media screen and (max-width: 600px) {
+
+      /* am not sure if this line(s) of codes do target specifically on safari */
+      @media not all and (min-resolution:.001dpcm) { 
+        @supports (-webkit-appearance:none) {
+          body { 
+            /* force the bottom bar to always show. */
+            
+            height: 100%;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+          }
+        }
+      }
+
+    }
+
     /* fixed border radius safari */
     input {
       border-radius: 0;
