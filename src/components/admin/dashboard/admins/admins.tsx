@@ -38,7 +38,10 @@ const Admins: React.FC<Props> = ({ db, adminEmail }) => {
     // temporary state to store to be removed email
     const [toRemoveAdmin, setToRemoveAdmin] = useState('');
 
-    const url = process.env.NODE_ENV === 'production' ? '' : '/send-email/';
+    const url =
+        process.env.NODE_ENV === 'production'
+            ? '/.netlify/functions/send-email'
+            : '/send-email/';
 
     const webUrl =
         process.env.NODE_ENV === 'production'

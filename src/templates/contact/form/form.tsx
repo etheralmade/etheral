@@ -40,7 +40,7 @@ const Form: React.FC<Props> = () => {
 
         const url =
             process.env.NODE_ENV === 'production'
-                ? ''
+                ? '/.netlify/functions/send-email?type=CONTACT'
                 : '/send-email/?type=CONTACT';
 
         const body = {

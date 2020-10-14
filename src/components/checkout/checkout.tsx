@@ -276,7 +276,9 @@ const Checkout: React.FC<Props> = ({
 
         // add production payment url here!
         const paymentUrl =
-            process.env.NODE_ENV === 'production' ? '' : '/payment/';
+            process.env.NODE_ENV === 'production'
+                ? '/.netlify/functions/payment'
+                : '/payment/';
 
         const oid = await generateOrderId();
         // interact with 3rd party api for payment.
