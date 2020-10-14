@@ -29,12 +29,12 @@ const Links: React.FC<Props> = () => {
                     CONTACT US
                 </Text>
             </Link>
-            <Link to="/">
+            <Link to="/faq">
                 <Text variant="linkSmall" width="fit-content">
                     FAQ
                 </Text>
             </Link>
-            <Link to="/">
+            <Link to="/size-guide">
                 <Text variant="linkSmall" width="fit-content">
                     SIZE GUIDE
                 </Text>

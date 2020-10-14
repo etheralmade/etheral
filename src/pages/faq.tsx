@@ -16,7 +16,11 @@ const FAQPage = ({ data }: PageProps) => {
 
     return (
         <Layout>
-            <Box className="content" px={[6, 9, 9, '10vw', '13vw']}>
+            <Box
+                className="content"
+                px={[6, 9, 9, '10vw', '13vw']}
+                sx={{ 'h1, h2, h3, h4, h5, h6': { fontFamily: 'heading' } }}
+            >
                 <Box dangerouslySetInnerHTML={{ __html: pageContent }} />
             </Box>
         </Layout>
