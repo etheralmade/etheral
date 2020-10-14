@@ -10,4 +10,4 @@
 - Netlify lambda
 - Hosted on netlify
 
-@Author: github.com/LouisAndrew.
+@Author: https://github.com/LouisAndrew.
