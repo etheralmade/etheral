@@ -40,7 +40,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     // states for ui changes
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showDropdownL, setShowDropdownL] = useState(true);
+    const [showDropdownL, setShowDropdownL] = useState(false);
     const [currLocation, setCurrLocation] = useState('/');
     const [showCart, setShowCart] = useState(false);
 
@@ -50,7 +50,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [openModal, setOpenModal] = useState(false);
 
     // set to true to show modal on homepage.
-    const runModal = false;
+    const runModal = true;
 
     useEffect(() => {
         if (auth.currentUser) {

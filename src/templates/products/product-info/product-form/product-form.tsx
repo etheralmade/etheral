@@ -245,7 +245,7 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems, submit }) => {
                         <Text {...errorMsg}>Please select a size</Text>
                     )}
                 </Box>
-                <Link to="/" role="button">
+                <Link to="/size-guide" role="button">
                     <Text variant="productPrice">SIZE GUIDE</Text>
                 </Link>
             </Flex>

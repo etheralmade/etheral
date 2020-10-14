@@ -123,8 +123,7 @@ exports[`ProductForm matches snapshot 1`] = `
       </div>
     </div>
     <a
-      aria-current="page"
-      href="/"
+      href="/size-guide"
       onClick={[Function]}
       role="button"
     >
