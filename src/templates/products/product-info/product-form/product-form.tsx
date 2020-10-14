@@ -3,7 +3,7 @@ import { Link } from '@reach/router';
 import { useForm, Controller } from 'react-hook-form';
 import { get, startCase, set } from 'lodash';
 
-import { Box, Flex, Text, Button } from 'rebass';
+import { Box, Flex, Text } from 'rebass';
 import { Input } from '@rebass/forms';
 
 import { extractTextArea } from 'helper/extract-textarea';
@@ -60,21 +60,22 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems, submit }) => {
         });
     };
 
-    const addToWishlist = (data: any) => {
-        const extracted = extractData(data);
+    // removed the functionality as it is no longer needed.
+    // const addToWishlist = (data: any) => {
+    //     const extracted = extractData(data);
 
-        const { size, gemType, gemSize } = extracted;
+    //     const { size, gemType, gemSize } = extracted;
 
-        submit({
-            amount: extracted.quantity,
-            note: {
-                size,
-                gemType,
-                gemSize,
-            },
-            toWishlist: true,
-        });
-    };
+    //     submit({
+    //         amount: extracted.quantity,
+    //         note: {
+    //             size,
+    //             gemType,
+    //             gemSize,
+    //         },
+    //         toWishlist: true,
+    //     });
+    // };
 
     /**
      * extract data from input(s) => provided by react-hook-form
@@ -286,17 +287,8 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems, submit }) => {
                     type="submit"
                     variant="buttons.primary"
                     value="ADD TO CART"
-                    width={['100%', '100%', '100%', '58%']}
                     sx={{ border: 'none' }}
                 />
-                <Button
-                    variant="secondary"
-                    onClick={handleSubmit(addToWishlist)}
-                    width={['100%', '100%', '100%', '40%']}
-                    mt={[2, 3, 4, 0]}
-                >
-                    ADD TO WISHLIST
-                </Button>
             </Flex>
         </Box>
     );

@@ -22,6 +22,8 @@ export type Props = {
 
 /**
  * Cart component => JUST the cart icon and where cart and/or wishlist sync with db is done
+ *
+ * SIDE NOTE: ⚠ Removed wishlist functionality as in: 10.14.20 => no longer needed by the client
  */
 const Cart: React.FC<Props & ICartState> = ({
     cart,
@@ -32,9 +34,9 @@ const Cart: React.FC<Props & ICartState> = ({
     toggleShowCart,
 }) => {
     const [cartSnapshot, setCartSnapshot] = useState(JSON.stringify(cart));
-    const [wishlistSnapshot, setWishlistSnapshot] = useState(
-        JSON.stringify(wishlist)
-    );
+    // const [wishlistSnapshot, setWishlistSnapshot] = useState(
+    //     JSON.stringify(wishlist)
+    // );
     const [isLoadingCart, setIsLoadingCart] = useState(false);
 
     const dispatch = useDispatch();
@@ -60,14 +62,14 @@ const Cart: React.FC<Props & ICartState> = ({
         }
     }, [cart]);
 
-    useEffect(() => {
-        // sync with firestore just if the user is authenticated.
-        if (user) {
-            if (JSON.stringify(wishlist) !== wishlistSnapshot) {
-                updateWishlist();
-            }
-        }
-    }, [wishlist]);
+    // useEffect(() => {
+    //     // sync with firestore just if the user is authenticated.
+    //     if (user) {
+    //         if (JSON.stringify(wishlist) !== wishlistSnapshot) {
+    //             updateWishlist();
+    //         }
+    //     }
+    // }, [wishlist]);
 
     const updateCart = () => {
         if (user) {
@@ -88,24 +90,24 @@ const Cart: React.FC<Props & ICartState> = ({
         }
     };
 
-    const updateWishlist = () => {
-        if (user) {
-            setIsLoadingCart(true);
-            db.collection('user')
-                .doc(user.uid)
-                .update({
-                    wishlist: wishlist.map(wishlistItem => ({
-                        pid: wishlistItem.product.pid,
-                        amount: wishlistItem.amount,
-                        note: wishlistItem.note,
-                    })),
-                })
-                .then(() => {
-                    setWishlistSnapshot(JSON.stringify(wishlist));
-                    setIsLoadingCart(false);
-                });
-        }
-    };
+    // const updateWishlist = () => {
+    //     if (user) {
+    //         setIsLoadingCart(true);
+    //         db.collection('user')
+    //             .doc(user.uid)
+    //             .update({
+    //                 wishlist: wishlist.map(wishlistItem => ({
+    //                     pid: wishlistItem.product.pid,
+    //                     amount: wishlistItem.amount,
+    //                     note: wishlistItem.note,
+    //                 })),
+    //             })
+    //             .then(() => {
+    //                 setWishlistSnapshot(JSON.stringify(wishlist));
+    //                 setIsLoadingCart(false);
+    //             });
+    //     }
+    // };
 
     // exactly the same function as auth.tsx -> fetchCartItems.
     // fetch items on cart and wishlist of the user => on new window and if logged in..
@@ -122,21 +124,23 @@ const Cart: React.FC<Props & ICartState> = ({
 
                 if ((await docRef.exists) && userData) {
                     const inCart = (await (userData.inCart as any)) as InCart;
-                    const onWishlist = (await (userData.wishlist as any)) as InCart;
+                    // const onWishlist = (await (userData.wishlist as any)) as InCart;
 
                     const filteredInCartData = await extractCartFirestore({
                         firestoreCartData: inCart,
                         allProducts,
                     });
-                    const filteredWishlistData = await extractCartFirestore({
-                        firestoreCartData: onWishlist,
-                        allProducts,
-                    });
+                    // const filteredWishlistData = await extractCartFirestore({
+                    //     firestoreCartData: onWishlist,
+                    //     allProducts,
+                    // });
 
                     await dispatch(
                         setCart({
                             cart: filteredInCartData,
-                            wishlist: filteredWishlistData,
+                            // wishlist: filteredWishlistData,
+                            wishlist: [], // simple and easy way to remove the wishlist functionality, without having to rlly change its implementation
+                            // future requirement changes?
                         })
                     );
                 }
