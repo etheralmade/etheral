@@ -98,7 +98,8 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                     <Box sx={{ textAlign: ['center', 'center', 'left'] }}>
                         <Heading
                             as="h3"
-                            variant="h3"
+                            variant="h2"
+                            fontWeight="bold"
                             id="subscribe-newsletter-popup"
                         >
                             SUBSCRIBE TO OUR NEWSLETTER

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 import { Box, Flex, Text } from 'rebass';
@@ -19,18 +19,32 @@ const initialFields = {
 
 const CODE_NOT_EXISTS = "Discount code doesn't exsist!";
 const CODE_EXPIRED = 'Discount code is already expired';
+const CODE_ALREADY_USED = 'Discount code has already been used.';
 const UNKNOWN = 'Oops, something went wrong';
 
 const DiscountCodeInput: React.FC<Props> = ({ db, applyCode }) => {
     const [onError, setOnError] = useState(false);
     const [errMsg, setErrMsg] = useState('');
+    const [appliedCodes, setAppliedCodes] = useState<string[]>([]);
 
     const { control, errors, handleSubmit } = useForm<Fields>();
 
     const dbDiscountRef = db.collection('discount');
 
+    // get all applied codes from localstorage.
+    useEffect(() => {
+        getAppliedCodes();
+    }, []);
+
     // fetch data from fs and check if discount code is available
     const checkCode = async (code: string) => {
+        if (appliedCodes.includes(code)) {
+            setOnError(true);
+            setErrMsg(CODE_ALREADY_USED);
+
+            return;
+        }
+
         const doc = await dbDiscountRef.doc(code).get();
         if (doc.exists) {
             const data = doc.data();
@@ -60,6 +74,31 @@ const DiscountCodeInput: React.FC<Props> = ({ db, applyCode }) => {
 
     const submitCode = (data: Fields) => {
         checkCode(data.discountCodeInput);
+    };
+
+    /**
+     * get all applied codes from the localstorage.
+     * note: almost the same as saveDiscountCode function from checkout.tsx
+     */
+    const getAppliedCodes = () => {
+        const LOCALSTORAGE_KEY = 'appliedCodes'; // key.
+
+        if (window) {
+            const codesStringified = window.localStorage.getItem(
+                LOCALSTORAGE_KEY
+            );
+
+            if (!codesStringified) {
+                setAppliedCodes([]);
+                return;
+            }
+
+            // splitting the saved code.
+            const codes = codesStringified
+                .split(';')
+                .map(code => window.atob(code));
+            setAppliedCodes(codes);
+        }
     };
 
     return (

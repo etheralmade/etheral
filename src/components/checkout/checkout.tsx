@@ -58,7 +58,7 @@ const Checkout: React.FC<Props> = ({
     user,
     firestoreFieldValue,
     currency,
-    cartObj: { cart, wishlist },
+    cartObj: { cart, wishlist, showCart },
 }) => {
     // state for prices based on currency
     const [price, setPrice] = useState(0);
@@ -407,6 +407,11 @@ const Checkout: React.FC<Props> = ({
 
                 const { paymentNo, paymentName, expired } = ipaymuData;
 
+                // save code to localhost
+                if (discountCode) {
+                    saveDiscountCode(discountCode);
+                }
+
                 await dispatch(clearCart());
                 await navigate('/thankyou', {
                     state: {
@@ -421,6 +426,36 @@ const Checkout: React.FC<Props> = ({
                 console.error(e);
                 setStatus(Status.ERROR_CREATE_ORDER);
             }
+        }
+    };
+
+    /**
+     * save discount code on localstorage, so user can't use the code multiple times.
+     * @param code the discount code.
+     */
+    const saveDiscountCode = (code: string) => {
+        const LOCALSTORAGE_KEY = 'appliedCodes';
+
+        if (window) {
+            const codesStringified = window.localStorage.getItem(
+                LOCALSTORAGE_KEY
+            );
+
+            if (!codesStringified) {
+                window.localStorage.setItem(
+                    LOCALSTORAGE_KEY,
+                    window.btoa(code)
+                );
+                return;
+            }
+
+            // splitting the saved code.
+            const codes = codesStringified.split(';');
+
+            window.localStorage.setItem(
+                LOCALSTORAGE_KEY,
+                [...codes, window.btoa(code)].join(';') // rejoin, with the newest code
+            );
         }
     };
 
@@ -450,6 +485,7 @@ const Checkout: React.FC<Props> = ({
                 currency={currency}
                 cart={cart}
                 wishlist={wishlist}
+                showCart={showCart}
             />
             <Form getUserData={getUserData} />
             <Flex
