@@ -22,6 +22,7 @@ export type Props = {
         gemTypes: string;
         gemSizes: string;
     };
+    productAmount: number; // identifier if the product is still in stock
     submit: (args: {
         note: ProductNote;
         amount: number;
@@ -37,6 +38,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
     productDetails,
     availableSizes,
     gems,
+    productAmount,
     submit,
 }) => {
     const { idrPrice, ausPrice, discountPercentage } = prices;
@@ -105,12 +107,18 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
                 )}
             </Flex>
 
-            {/* render forms. */}
-            <ProductForm
-                availableSizes={availableSizes}
-                gems={gems}
-                submit={submit}
-            />
+            {/* hide product form and add-to-cart button if the product is not available. */}
+            {productAmount > 0 ? (
+                <ProductForm
+                    availableSizes={availableSizes}
+                    gems={gems}
+                    submit={submit}
+                />
+            ) : (
+                <Heading mb={[4]} fontWeight="medium">
+                    The product is currently out of stock
+                </Heading>
+            )}
 
             {/* render description section */}
             {description !== '' && <Description description={description} />}

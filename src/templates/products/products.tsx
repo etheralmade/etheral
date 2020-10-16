@@ -85,6 +85,7 @@ const Products: React.FC<Props> = product => {
                     availableSizes={availableSizes}
                     gems={gems}
                     submit={submit}
+                    productAmount={productAmount}
                 />
             </Flex>
 

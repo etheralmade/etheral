@@ -36,6 +36,7 @@ export default (preloadedState: State) => {
                     namespace: 'etheral_states',
                     debounce: 800,
                     namespaceSeparator: '::',
+                    // ignoreStates: ['cartReducer'],
                 })
             )
         )
