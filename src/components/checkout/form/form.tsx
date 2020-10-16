@@ -1,5 +1,5 @@
-import React from 'react';
-// import { indexOf } from 'lodash';
+import React, { useEffect } from 'react';
+import { toPairs } from 'lodash';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { Box, Flex } from 'rebass';
@@ -13,11 +13,19 @@ type Props = {
     getUserData: (data: UserData & UserLocation, origin: number) => void;
 };
 
+// localstorage key identifier
+const LOCALSTORAGE_KEY = 'userData';
+
 const Form: React.FC<Props> = ({ getUserData }) => {
     const methods = useForm();
-    const { handleSubmit } = methods;
+    const { handleSubmit, setValue } = methods;
 
     const { filterByStr } = useAllCities();
+
+    // fetch data from localstorage.
+    useEffect(() => {
+        loadUserData();
+    }, []);
 
     const submit = (data: any) => {
         const COUNTRY = 'INDONESIA'; // temporary unchangeable
@@ -35,8 +43,7 @@ const Form: React.FC<Props> = ({ getUserData }) => {
             phone,
             postal,
             email,
-            // province,
-            // save,
+            save,
         } = data;
 
         // personalized msg info
@@ -71,6 +78,47 @@ const Form: React.FC<Props> = ({ getUserData }) => {
             };
 
             getUserData(userData, origin.cityId);
+        }
+
+        if (save) {
+            const dataStringified = JSON.stringify(data);
+
+            saveUserData(dataStringified);
+        }
+    };
+
+    /**
+     * save user data to local storage
+     * @param data stringified data
+     */
+    const saveUserData = (data: string) => {
+        if (window) {
+            window.localStorage.setItem(LOCALSTORAGE_KEY, data);
+        }
+    };
+
+    /**
+     * load user data from localstorage
+     */
+    const loadUserData = () => {
+        if (window) {
+            const dataStringified = window.localStorage.getItem(
+                LOCALSTORAGE_KEY
+            );
+
+            if (!dataStringified) {
+                return; // no data available, abort function.
+            }
+
+            // parse data string
+            const data = JSON.parse(dataStringified);
+
+            // set data to an array of [key, value] array.
+            toPairs(data).forEach(([key, value]) => {
+                if (key !== undefined && value !== undefined) {
+                    setValue(key, value);
+                }
+            });
         }
     };
 
