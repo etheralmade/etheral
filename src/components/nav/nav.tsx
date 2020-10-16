@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from '@reach/router';
 
 import { Text, Flex, Box } from 'rebass';
@@ -20,6 +20,7 @@ import Account from './account';
 import Banner from './banner';
 import Modal from '../modal';
 import MailingList from '../popups/mailing-list';
+import { setShowCart as dispatchShowCart } from 'state/actions/cart';
 
 import './styles.scss';
 import './transition.scss';
@@ -35,6 +36,7 @@ const Navigation: React.FC<Props & ICartState> = ({
     db,
     cart,
     wishlist,
+    showCart,
     addBanner,
 }) => {
     // states for ui changes
@@ -42,12 +44,21 @@ const Navigation: React.FC<Props & ICartState> = ({
     const [showDropdown, setShowDropdown] = useState(false);
     const [showDropdownL, setShowDropdownL] = useState(false);
     const [currLocation, setCurrLocation] = useState('/');
-    const [showCart, setShowCart] = useState(false);
 
     const [user, setUser] = useState<firebase.User | null>(null);
     // const dispatch = useDispatch();
 
     const [openModal, setOpenModal] = useState(false);
+
+    const dispatch = useDispatch();
+
+    /**
+     * Dispatching action into the global state store.
+     * @param show set TRUE to show cart component.
+     */
+    const setShowCart = (show: boolean) => {
+        dispatch(dispatchShowCart(show));
+    };
 
     // set to true to show modal on homepage.
     const runModal = true;
@@ -117,7 +128,7 @@ const Navigation: React.FC<Props & ICartState> = ({
         if (showMenuMobile) {
             setShowMenuMobile(false);
         }
-        setShowCart(prev => !prev);
+        setShowCart(!showCart);
     };
 
     const shouldRenderBanner = addBanner;
@@ -534,7 +545,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                             closeCart={() => {
                                 setShowCart(false);
                             }}
-                            cart={{ cart, wishlist }}
+                            cart={{ cart, wishlist, showCart }}
                         />
                     </CSSTransition>
                 </Box>

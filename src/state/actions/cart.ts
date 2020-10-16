@@ -56,7 +56,11 @@ export const setCart = (args: {
 
 /**
  * function to show/hide cart by dispatching action to global state store.
+ * @params show: set to TRUE if cart component should be shown
  */
-export const setShowCart = (): Action => ({
+export const setShowCart = (show?: boolean): Action => ({
     type: SET_SHOW_CART,
+    payload: {
+        show,
+    },
 });

@@ -22,6 +22,7 @@ type ActionPayload = {
     cartItems?: { cart: SetCartArgs; wishlist: SetCartArgs };
     toWishlist?: boolean;
     fromWishlist?: boolean;
+    show?: boolean;
 };
 
 export interface ProductNote {
@@ -77,10 +78,18 @@ const reducer = (state: IState = initialState, action: Action): IState => {
                 return state;
             }
         case SET_SHOW_CART:
-            return {
-                ...state,
-                showCart: !state.showCart, // returning the opposite value of current state.
-            };
+            if (payload && payload.show !== undefined) {
+                return {
+                    ...state,
+                    showCart: payload.show,
+                };
+            } else {
+                return {
+                    ...state,
+                    showCart: !state.showCart, // returning the opposite value of current state.
+                };
+            }
+
         default:
             return state;
     }
