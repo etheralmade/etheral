@@ -6,6 +6,7 @@ import {
     REMOVE_FROM_CART,
     CLEAR_CART,
     SET_CART,
+    SET_SHOW_CART,
 } from '../types/cart';
 import { SetCartArgs } from 'state/actions/cart';
 
@@ -32,6 +33,7 @@ export interface ProductNote {
 const initialState: IState = {
     cart: [],
     wishlist: [],
+    showCart: false,
 };
 
 export type CartState = {
@@ -43,10 +45,10 @@ export type CartState = {
 export type IState = {
     cart: CartState[];
     wishlist: CartState[];
+    showCart: boolean;
 };
 
 // reducer does add / remove notes from the products within cart state, but orderNote property is just a identifier. => cause confusionss
-// TODO: remove orderNote props from product, add another 'details' props on ActionPayload!
 const reducer = (state: IState = initialState, action: Action): IState => {
     const { type, payload } = action;
     switch (type) {
@@ -70,10 +72,15 @@ const reducer = (state: IState = initialState, action: Action): IState => {
                 const {
                     cartItems: { cart, wishlist },
                 } = payload;
-                return { cart, wishlist };
+                return { ...state, cart, wishlist };
             } else {
                 return state;
             }
+        case SET_SHOW_CART:
+            return {
+                ...state,
+                showCart: !state.showCart, // returning the opposite value of current state.
+            };
         default:
             return state;
     }

@@ -5,6 +5,7 @@ import {
     REMOVE_FROM_CART,
     CLEAR_CART,
     SET_CART,
+    SET_SHOW_CART,
 } from '../types/cart';
 
 export const addToCart = (
@@ -51,4 +52,11 @@ export const setCart = (args: {
     payload: {
         cartItems: args,
     },
+});
+
+/**
+ * function to show/hide cart by dispatching action to global state store.
+ */
+export const setShowCart = (): Action => ({
+    type: SET_SHOW_CART,
 });
