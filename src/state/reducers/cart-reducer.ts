@@ -211,6 +211,7 @@ const addToCart = (payload: ActionPayload, state: IState): IState => {
                             },
                             ...cart.slice(index + 1),
                         ],
+                        showCart: true,
                     };
                 } else {
                     return {
@@ -228,6 +229,7 @@ const addToCart = (payload: ActionPayload, state: IState): IState => {
                             },
                             ...cart.slice(index + 1),
                         ],
+                        showCart: true,
                     };
                 }
             }
@@ -266,6 +268,7 @@ const addToCart = (payload: ActionPayload, state: IState): IState => {
                             ],
                         },
                     ],
+                    showCart: true,
                 };
             }
         }
@@ -343,6 +346,7 @@ const removeFromCart = (payload: ActionPayload, state: IState): IState => {
                     return {
                         ...state,
                         cart: without(state.cart, item),
+                        showCart: true,
                     };
                 } else {
                     const note = item.note[noteIndex];
@@ -369,6 +373,7 @@ const removeFromCart = (payload: ActionPayload, state: IState): IState => {
                             },
                             ...cart.slice(index + 1),
                         ],
+                        showCart: true,
                     };
                 }
             }
