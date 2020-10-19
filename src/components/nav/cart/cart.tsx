@@ -176,7 +176,11 @@ const Cart: React.FC<Props & ICartState> = ({
                     <CartIcon className="icons black-on-dropdown" />
                 )}
                 {cart.length > 0 && !showCart ? (
-                    <CartBadge cart={cart} wishlist={wishlist} />
+                    <CartBadge
+                        cart={cart}
+                        wishlist={wishlist}
+                        showCart={showCart}
+                    />
                 ) : (
                     <></>
                 )}

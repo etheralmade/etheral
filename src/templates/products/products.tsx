@@ -13,9 +13,11 @@ import ProductInfo from './product-info';
 import RelatedProducts from './related-products';
 import { ProductNote } from 'state/reducers/cart-reducer';
 
-type Props = ProductSchema;
+type Props = ProductSchema & {
+    availableAmount: number;
+};
 
-const Products: React.FC<Props> = product => {
+const Products: React.FC<Props> = ({ availableAmount, ...product }) => {
     const {
         name,
         description,
@@ -53,6 +55,8 @@ const Products: React.FC<Props> = product => {
     // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //     setQty(parseInt(event.target.value, 10));
     // };
+
+    console.log({ availableAmount });
 
     return (
         <Box

@@ -1,14 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageProps, graphql } from 'gatsby';
+import { connect } from 'react-redux';
 
 import { set } from 'lodash';
+import firebase from 'gatsby-plugin-firebase';
 
 import { Product } from 'helper/schema/product';
 import Products from './products';
 import { Layout } from 'components/layout';
+import { State as ReduxState } from 'state/createStore';
+import { IState as ICartState } from 'state/reducers/cart-reducer';
+/**
+ * Product page templating.
+ *
+ * - Source images
+ * - Source datas from graphql
+ * - Source product amount from db (actual)
+ * - Source (remaining) allowed product order amount
+ *
+ * @param props
+ */
+const ProductsTemplate: React.FC<PageProps & ICartState> = props => {
+    const { data, cart } = props;
 
-const ProductsTemplate = (props: PageProps) => {
-    const { data } = props;
+    const [db, setDb] = useState<firebase.firestore.Firestore | null>(null);
+
+    // amount of the product(s) noted on the database.
+    const [actualAmount, setActualAmount] = useState(0);
+    const [cartAmount, setCartAmount] = useState(0);
+
+    // initialize db instance
+    useEffect(() => {
+        setDb(firebase.firestore());
+    }, []);
+
+    // fetch actual amount from db
+    useEffect(() => {
+        if (db) {
+            fetchAmount();
+        }
+    }, [db]);
+
+    useEffect(() => {
+        if (db) {
+            updateCart();
+        }
+    }, [cart, db]);
 
     const productData: Product = (data as any).product as Product;
 
@@ -42,14 +79,64 @@ const ProductsTemplate = (props: PageProps) => {
 
     set(productData, 'productImages', imgs);
 
+    if (!db) {
+        return null;
+    }
+
+    /**
+     * fetch the actual amount of a product from the database.
+     *
+     * => realtime-update of the product inventorial state.
+     */
+    const fetchAmount = async () => {
+        const ref = db.collection('fl_content').doc(productData.pid);
+
+        try {
+            const req = await ref.get().then(doc => doc.data());
+
+            if (req) {
+                setActualAmount(req.amount);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    /**
+     * update cartAmount everytime cart state get updated.
+     */
+    const updateCart = () => {
+        const productFiltered = cart.filter(
+            item => item.product.pid === productData.pid
+        );
+
+        if (productFiltered.length > 0) {
+            const inCartProduct = productFiltered[0]; // get the first index as it SHOULD be the on the first index.
+
+            setCartAmount(inCartProduct.amount);
+        }
+    };
+
     return (
         <Layout>
-            <Products {...productData} />
+            <Products
+                {...productData}
+                availableAmount={actualAmount - cartAmount}
+            />
         </Layout>
     );
 };
 
-export default ProductsTemplate;
+// connect to redux global state
+const mapStateToProps = (state: ReduxState) => ({
+    cart: state.cartReducer.cart,
+    wishlist: state.cartReducer.wishlist,
+    showCart: state.cartReducer.showCart,
+});
+
+export default connect<ICartState, {}, PageProps, ReduxState>(mapStateToProps)(
+    ProductsTemplate
+);
 
 export const query = graphql`
     query($slug: String) {
