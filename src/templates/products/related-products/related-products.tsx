@@ -20,10 +20,10 @@ const RelatedProducts: React.FC<Props> = ({ products }) => {
     // code snippet basically taken from homepage-products.tsx
     return (
         <Flex
-            flexDirection={['column', 'column', 'row']}
-            alignItems={['flex-start']}
+            flexDirection="row"
+            // alignItems='space'
             flexWrap="wrap"
-            px={[6, 6, 8]}
+            px={[0, 0, 8]}
             css={`
                 justify-content: space-between;
 
@@ -44,12 +44,7 @@ const RelatedProducts: React.FC<Props> = ({ products }) => {
                         to={product.slug}
                         className="product-link"
                     >
-                        <ProductCard
-                            {...props}
-                            css={``}
-                            mb={[7]}
-                            width="100%"
-                        />
+                        <ProductCard {...props} css={``} mb={[7]} width="90%" />
                     </Link>
                 );
             })}
