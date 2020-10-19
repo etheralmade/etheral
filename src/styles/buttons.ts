@@ -5,9 +5,7 @@ const buttonBaseStyle = {
     whiteSpace: 'nowrap',
     fontSize: [1, 1, 2],
     py: [4],
-    '&: hover': {
-        cursor: 'pointer',
-    },
+    cursor: 'pointer',
 };
 
 const buttonAdminLinkStyle = {
@@ -52,6 +50,10 @@ export default {
         color: 'white.0',
         fontFamily: 'body',
         fontWeight: 'body',
+        '&:disabled': {
+            bg: 'black.1',
+            cursor: 'not-allowed',
+        },
     },
     secondary: {
         ...buttonBaseStyle,

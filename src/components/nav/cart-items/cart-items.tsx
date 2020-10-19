@@ -121,7 +121,11 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
                             width: 100%;
                         `}
                     >
-                        <Button width="100%" my={[4]}>
+                        <Button
+                            width="100%"
+                            my={[4]}
+                            disabled={cart.length === 0}
+                        >
                             CHECKOUT
                         </Button>
                     </Link>
