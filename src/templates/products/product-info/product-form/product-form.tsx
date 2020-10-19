@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from '@reach/router';
 import { useForm, Controller } from 'react-hook-form';
 import { get, startCase, set } from 'lodash';
@@ -12,6 +12,7 @@ import { ProductNote } from 'state/reducers/cart-reducer';
 
 type Props = {
     availableSizes: string;
+    productAmount: number;
     gems: {
         withGems: boolean;
         gemTypes: string;
@@ -38,11 +39,34 @@ type Input = {
     'gem-size'?: string;
 };
 
-const ProductForm: React.FC<Props> = ({ availableSizes, gems, submit }) => {
+/**
+ * create an array of "numbers - in string" based on max available product amount
+ * @param productAmount max avlble product amount
+ */
+const createQtyArray = (productAmount: number) => {
+    return [...Array(productAmount)].map((_, i) => (i + 1).toString());
+};
+
+const DEFAULT_QTY = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+const ProductForm: React.FC<Props> = ({
+    availableSizes,
+    gems,
+    productAmount,
+    submit,
+}) => {
+    const [qty, setQty] = useState<string[]>([]);
     const { control, handleSubmit, errors } = useForm<Input>();
 
     const sizes = extractTextArea(availableSizes);
-    const quantities = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+    useEffect(() => {
+        if (productAmount > 9) {
+            setQty(DEFAULT_QTY);
+        } else {
+            setQty(createQtyArray(productAmount));
+        }
+    }, [productAmount]);
 
     const addToCart = (data: any) => {
         const extracted = extractData(data);
@@ -266,7 +290,7 @@ const ProductForm: React.FC<Props> = ({ availableSizes, gems, submit }) => {
                         }}
                         render={({ onChange, onBlur, value }) => (
                             <Select
-                                options={quantities}
+                                options={qty}
                                 placeholder="select quantity"
                                 aria-labelledby="quantity-label"
                                 handleChange={onChange}

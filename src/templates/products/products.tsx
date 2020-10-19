@@ -15,13 +15,17 @@ import { ProductNote } from 'state/reducers/cart-reducer';
 
 type Props = ProductSchema & {
     availableAmount: number;
+    maxInCart: boolean;
 };
 
-const Products: React.FC<Props> = ({ availableAmount, ...product }) => {
+const Products: React.FC<Props> = ({
+    availableAmount,
+    maxInCart,
+    ...product
+}) => {
     const {
         name,
         description,
-        amount: productAmount,
         collection,
         productImages,
         prices,
@@ -56,8 +60,6 @@ const Products: React.FC<Props> = ({ availableAmount, ...product }) => {
     //     setQty(parseInt(event.target.value, 10));
     // };
 
-    console.log({ availableAmount });
-
     return (
         <Box
             px={[6, 6, 8, 9, 11]}
@@ -89,7 +91,8 @@ const Products: React.FC<Props> = ({ availableAmount, ...product }) => {
                     availableSizes={availableSizes}
                     gems={gems}
                     submit={submit}
-                    productAmount={productAmount}
+                    productAmount={availableAmount}
+                    maxInCart={maxInCart}
                 />
             </Flex>
 

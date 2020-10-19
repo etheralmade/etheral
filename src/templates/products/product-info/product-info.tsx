@@ -23,6 +23,7 @@ export type Props = {
         gemSizes: string;
     };
     productAmount: number; // identifier if the product is still in stock
+    maxInCart: boolean;
     submit: (args: {
         note: ProductNote;
         amount: number;
@@ -39,6 +40,7 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
     availableSizes,
     gems,
     productAmount,
+    maxInCart,
     submit,
 }) => {
     const { idrPrice, ausPrice, discountPercentage } = prices;
@@ -113,10 +115,13 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
                     availableSizes={availableSizes}
                     gems={gems}
                     submit={submit}
+                    productAmount={productAmount}
                 />
             ) : (
                 <Heading mb={[4]} fontWeight="medium">
-                    The product is currently out of stock
+                    {maxInCart
+                        ? 'You have ordered the max amount of this product'
+                        : 'The product is currently out of stock'}
                 </Heading>
             )}
 

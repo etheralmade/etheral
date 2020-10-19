@@ -122,6 +122,7 @@ const ProductsTemplate: React.FC<PageProps & ICartState> = props => {
             <Products
                 {...productData}
                 availableAmount={actualAmount - cartAmount}
+                maxInCart={actualAmount === cartAmount}
             />
         </Layout>
     );
