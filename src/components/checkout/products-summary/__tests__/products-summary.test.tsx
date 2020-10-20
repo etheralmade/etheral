@@ -11,7 +11,12 @@ import { Currencies } from 'state/reducers/currency-reducer';
 
 describe('ProductsSummary', () => {
     const Element = (
-        <ProductsSummary currency={Currencies.IDR} cart={[]} wishlist={[]} />
+        <ProductsSummary
+            showCart={false}
+            currency={Currencies.IDR}
+            cart={[]}
+            wishlist={[]}
+        />
     );
 
     afterEach(cleanup);

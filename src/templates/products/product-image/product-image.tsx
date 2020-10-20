@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Img, { FluidObject } from 'gatsby-image';
 import {
     CarouselProvider,
@@ -24,6 +24,33 @@ type Props = {
 };
 
 const ProductImage: React.FC<Props> = ({ images, productName }) => {
+    const [x, setX] = useState(0);
+    const [y, setY] = useState(0);
+
+    const zoom = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        i: number
+    ) => {
+        const el = document.getElementById(`img-${i}`);
+        if (el) {
+            const { height, width, left, top } = el.getBoundingClientRect();
+
+            const { clientX, clientY } = event;
+
+            // calculate where mouse is in comparison to the actual image.
+            // minus the actual img position from the left side of the screen
+            const eventX = clientX - left;
+            const eventY = clientY - top;
+
+            // convert comparison to percentage
+            const transformX = Math.ceil((eventX / width) * 100); // in decimal
+            const transformY = Math.ceil((eventY / height) * 100);
+
+            setX(transformX);
+            setY(transformY);
+        }
+    };
+
     return (
         <Box
             height="fit-content"
@@ -41,22 +68,41 @@ const ProductImage: React.FC<Props> = ({ images, productName }) => {
             >
                 <Slider className="carousel-slide">
                     {/* add zoom on hover */}
-                    {images.map((img, i) => (
-                        <Slide index={i} key={i} innerClassName="slide">
-                            <Box width="100%" height="100%">
-                                <Img
-                                    fluid={img.sources}
-                                    style={{
-                                        height: '100%',
-                                        width: '100%',
+                    {images.map((img, i) => {
+                        return (
+                            <Slide index={i} key={i} innerClassName="slide">
+                                <Box
+                                    width="100%"
+                                    height="100%"
+                                    sx={{
+                                        transition: '0.2s',
+                                        transformOrigin: `${x}% ${y}%`,
+                                        cursor: 'crosshair',
+                                        '&:hover': {
+                                            transform: `scale(2)`,
+                                        },
                                     }}
-                                    imgStyle={{ objectPosition: 'center' }}
-                                    alt={`${productName} image ${i}`}
-                                    className="product-page-img"
-                                />
-                            </Box>
-                        </Slide>
-                    ))}
+                                    onMouseMove={e => {
+                                        zoom(e, i);
+                                    }}
+                                    id={`img-${i}`}
+                                >
+                                    <Img
+                                        fluid={img.sources}
+                                        style={{
+                                            height: '100%',
+                                            width: '100%',
+                                        }}
+                                        imgStyle={{
+                                            objectPosition: 'center',
+                                        }}
+                                        alt={`${productName} image ${i}`}
+                                        className="product-page-img"
+                                    />
+                                </Box>
+                            </Slide>
+                        );
+                    })}
                 </Slider>
                 <Flex justifyContent="center" my={[3, 3, 5]}>
                     {images.map((img, i) => (

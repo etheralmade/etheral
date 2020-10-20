@@ -18,8 +18,11 @@ describe('ProductInfo', () => {
             description={mockProduct1.description}
             productDetails={mockProduct1.productDetails}
             currency={Currencies.IDR}
+            productAmount={1}
+            maxInCart={false}
             availableSizes="S, M, L"
             gems={{ withGems: false, gemTypes: '', gemSizes: '' }}
+            submit={jest.fn(() => {})}
         />
     );
 

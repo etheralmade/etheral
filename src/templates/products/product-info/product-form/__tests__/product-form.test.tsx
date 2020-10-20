@@ -12,6 +12,8 @@ describe('ProductForm', () => {
         <ProductForm
             availableSizes="S, M, L"
             gems={{ withGems: false, gemTypes: '', gemSizes: '' }}
+            productAmount={1}
+            submit={jest.fn(() => {})}
         />
     );
 
@@ -19,6 +21,8 @@ describe('ProductForm', () => {
         <ProductForm
             availableSizes="S, M, L"
             gems={{ withGems: true, gemTypes: 'A, B', gemSizes: 'S, M' }}
+            productAmount={1}
+            submit={jest.fn(() => {})}
         />
     );
 

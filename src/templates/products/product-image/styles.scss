@@ -20,6 +20,12 @@
         }
     }
 
+    .carousel-slide {
+        .slide {
+            overflow: hidden;
+        }
+    }
+
     button.carousel-button {
         background: none;
         border: none;
@@ -55,7 +61,7 @@
 .product-page-img {
     transition: 0.2s;
 
-    &:hover {
-        transform: scale(1.6);
-    }
+    // &:hover {
+    //     transform: scale(1.6);
+    // }
 }
