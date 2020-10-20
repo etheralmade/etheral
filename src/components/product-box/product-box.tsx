@@ -50,7 +50,9 @@ const ProductBox: React.FC<Props> = ({ item, currency, connectDispatch }) => {
 
     // option to remove the product from cart.
     const handleRemoveAll = () => {
-        dispatch(removeFromCart(product, false, amount));
+        dispatch(
+            removeFromCart({ ...product, orderNote: details }, false, amount)
+        );
     };
 
     // destructure attrs needed.

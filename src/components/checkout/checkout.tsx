@@ -500,7 +500,7 @@ const Checkout: React.FC<Props> = ({
                     borderTopWidth: 1,
                 }}
             >
-                {!userData && (
+                {!userData || totalPrice === 0 ? (
                     <Box
                         sx={{
                             position: 'absolute',
@@ -511,7 +511,7 @@ const Checkout: React.FC<Props> = ({
                             left: 0,
                         }}
                     />
-                )}
+                ) : null}
                 <BillingSummary
                     price={price}
                     shipping={shipping}
