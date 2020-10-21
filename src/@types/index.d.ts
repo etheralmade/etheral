@@ -22,6 +22,8 @@ declare module '*.svg' {
     export default content;
 }
 
+declare module '*.png';
+
 // Add support for Jest configuration
 declare global {
     namespace NodeJS {

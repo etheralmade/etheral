@@ -4,6 +4,9 @@ import { Box, Flex, Heading, Button, Text } from 'rebass';
 import { Input, Label } from '@rebass/forms';
 // import local components
 
+import bcaImg from './assets/BCA_logo_Bank_Central_Asia.png';
+import mandiriImg from './assets/Mandiri_logo.png';
+
 type Props = {
     paymentError: boolean;
     handleClickPay: (args: RadioInput) => void;
@@ -37,7 +40,7 @@ const Payment: React.FC<Props> = ({ paymentError, handleClickPay }) => {
 
     const inputStyling = {
         display: 'none',
-        '&:checked + label .bank-check': { bg: 'black.0' },
+        '&:checked + label': { borderColor: 'black.0' },
     };
 
     const labelStyling = {
@@ -46,12 +49,13 @@ const Payment: React.FC<Props> = ({ paymentError, handleClickPay }) => {
         flexDirection: 'column',
         fontFamily: 'body',
         fontSize: [1, 1, 2],
-        '.bank-check': {
-            borderColor: 'black.1',
-            borderWidth: 1,
-            borderStyle: 'solid',
-            height: [64],
-            width: [64],
+        transition: '0.2s',
+        border: '1px solid transparent',
+        py: [5],
+        px: [0, 0, 3],
+        cursor: 'pointer',
+        '& img': {
+            width: [128, 128, 82, 128],
             mb: [5],
         },
     };
@@ -83,7 +87,7 @@ const Payment: React.FC<Props> = ({ paymentError, handleClickPay }) => {
                         }}
                     />
                     <Label htmlFor="mandiri-va" sx={labelStyling}>
-                        <Box className="bank-check" />
+                        <img src={mandiriImg} alt="Logo bank mandiri" />
                         Mandiri (Virtual Account)
                     </Label>
                 </Box>
@@ -102,7 +106,7 @@ const Payment: React.FC<Props> = ({ paymentError, handleClickPay }) => {
                         }}
                     />
                     <Label htmlFor="bca-transfer" sx={labelStyling}>
-                        <Box className="bank-check" />
+                        <img src={bcaImg} alt="Logo bank BCA" />
                         BCA (Transfer Bank)
                     </Label>
                 </Box>
