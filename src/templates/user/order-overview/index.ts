@@ -1,3 +1,5 @@
-import { OrderOverview } from './order-overview';
+import { OrderOverview, DetailBox } from './order-overview';
+
+export { DetailBox };
 
 export default OrderOverview;

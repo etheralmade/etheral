@@ -88,7 +88,7 @@ const OrderOverview: React.FC<Props> = ({ order }) => {
             {/* order date */}
             <DetailBox heading="Order date" text={`${getDateReadable(date)}`} />
 
-            <Link to={`/orders?oid=${oid}`}>
+            <Link to={`/order?oid=${oid}`} state={{ order }}>
                 <Button width="100%" mt={[5]}>
                     View Order
                 </Button>
@@ -112,4 +112,4 @@ const DetailBox: React.FC<DetailBoxProps> = ({ heading, text }) => {
     );
 };
 
-export { OrderOverview };
+export { OrderOverview, DetailBox };
