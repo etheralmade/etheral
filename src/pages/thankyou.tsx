@@ -6,19 +6,13 @@ const ThankyouPage = (props: PageProps) => {
     const { state } = props.location;
 
     if (state) {
-        const {
-            oid,
-            paymentNo,
-            paymentName,
-            expired,
-            totalPrice,
-        } = state as any;
+        const { paymentNo, paymentName, expired, total } = state as any;
 
         return (
             <Layout>
                 <h2>Hi thank you for your order!</h2>
                 <p>
-                    Please transfer IDR {totalPrice} to {paymentNo} with the
+                    Please transfer IDR {total} to {paymentNo} with the
                     following name: {paymentName} before {expired}
                 </p>
             </Layout>

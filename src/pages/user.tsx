@@ -3,10 +3,14 @@ import firebase from 'gatsby-plugin-firebase';
 
 import { Layout } from 'components/layout';
 
+import { Order } from 'helper/schema';
+
 const UserPage = () => {
     const [user, setUser] = useState<firebase.User | null>(null);
     const [auth, setAuth] = useState<firebase.auth.Auth | undefined>(undefined);
     const [db, setDb] = useState<firebase.firestore.Firestore | null>(null);
+
+    const [orders, setOrders] = useState<Order[]>([]);
 
     useEffect(() => {
         setUser(firebase.auth().currentUser);
@@ -16,6 +20,12 @@ const UserPage = () => {
         // fetching all items ordered by this user.
         fetchItems();
     }, []);
+
+    useEffect(() => {
+        if (user) {
+            fetchItems();
+        }
+    }, [user]);
 
     /**
      * fetching items ordered by this user.
@@ -57,16 +67,25 @@ const UserPage = () => {
                             .collection('order')
                             .doc(order)
                             .get();
+
+                        const data = await req.data();
+                        if (data) {
+                            return data;
+                        }
+
+                        return undefined;
                     } catch (e) {
                         console.error(e);
-                        return [];
+                        return undefined;
                     }
                 })
             );
+
+            setOrders(await items);
         }
     };
 
-    console.log(user);
+    console.log(orders);
 
     return user && auth ? (
         <Layout>

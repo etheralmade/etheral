@@ -305,6 +305,7 @@ const Checkout: React.FC<Props> = ({
                         PaymentName,
                         Expired,
                         Fee,
+                        Total,
                     } = data;
 
                     const ipaymuData: IpaymuData = {
@@ -313,6 +314,7 @@ const Checkout: React.FC<Props> = ({
                         paymentName: PaymentName,
                         expired: Expired,
                         fee: Fee,
+                        total: Total, // fetching total price from ipaymu as it sometimes charges extra for virtual account payments
                     };
 
                     // create new order object
@@ -339,6 +341,8 @@ const Checkout: React.FC<Props> = ({
     ) => {
         if (userData) {
             try {
+                const { total, ...data } = ipaymuData;
+
                 const docRef = db.collection('order').doc(oid);
                 const { increment, arrayUnion } = firestoreFieldValue;
 
@@ -356,7 +360,7 @@ const Checkout: React.FC<Props> = ({
                     via: method,
                     channel,
 
-                    total: totalPrice,
+                    total,
                     currency: Currencies.IDR, // temporary
                     date: new Date(),
                     products: cart.map(cartItem => ({
@@ -368,7 +372,7 @@ const Checkout: React.FC<Props> = ({
                     })),
                     paid: false,
                     delivered: false,
-                    transactionData: ipaymuData,
+                    transactionData: data,
                     discountCode,
                     discountedAmount,
                     discount: discountValue,
@@ -419,7 +423,7 @@ const Checkout: React.FC<Props> = ({
                         paymentNo,
                         paymentName,
                         expired,
-                        totalPrice,
+                        total,
                     },
                 }); // navigate to thank you page and use oid state!
             } catch (e) {
