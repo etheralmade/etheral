@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'gatsby-plugin-firebase';
+import { useNavigate } from '@reach/router';
 
 import { Layout } from 'components/layout';
 
 import { Order } from 'helper/schema';
+import User from 'templates/user';
 
 const UserPage = () => {
     const [user, setUser] = useState<firebase.User | null>(null);
@@ -11,6 +13,9 @@ const UserPage = () => {
     const [db, setDb] = useState<firebase.firestore.Firestore | null>(null);
 
     const [orders, setOrders] = useState<Order[]>([]);
+    const [mounted, setMounted] = useState(false); // variable to identify if the component is mounted
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setUser(firebase.auth().currentUser);
@@ -19,6 +24,7 @@ const UserPage = () => {
 
         // fetching all items ordered by this user.
         fetchItems();
+        setMounted(true); // set component mounted to true!
     }, []);
 
     useEffect(() => {
@@ -43,10 +49,10 @@ const UserPage = () => {
 
                 if (req.exists && data) {
                     // fetch user's orders
-                    const orders = await data.orders;
+                    const ordersData = await data.orders;
 
                     // fetch items ordered within these orders
-                    await fetchOrders(orders);
+                    await fetchOrders(ordersData);
                 }
             } catch (e) {
                 console.error(e);
@@ -70,7 +76,7 @@ const UserPage = () => {
 
                         const data = await req.data();
                         if (data) {
-                            return data;
+                            return { ...data, date: data.date.toDate() };
                         }
 
                         return undefined;
@@ -81,18 +87,21 @@ const UserPage = () => {
                 })
             );
 
-            setOrders(await items);
+            setOrders((await items) as Order[]);
         }
     };
 
-    console.log(orders);
+    if (!mounted) {
+        return null; // return blank page if the component is not mounted yet
+    }
+
+    if (!user || !auth) {
+        navigate('/auth'); // navigate to auth page if no user is provided
+    }
 
     return user && auth ? (
         <Layout>
-            <div className="content">
-                <h1>User: {user.displayName}</h1>
-                <button onClick={() => auth.signOut()}>Logout</button>
-            </div>
+            <User user={user} auth={auth} orders={orders} />
         </Layout>
     ) : null;
 };

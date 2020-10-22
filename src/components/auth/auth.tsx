@@ -48,7 +48,7 @@ const Auth: React.FC<Props> = ({
     const [error, setError] = useState<firebase.auth.Error | undefined>(
         undefined
     );
-    const [errTarget, setErrTarget] = useState<ErrorTaget>(ErrorTarget.NONE);
+    const [errTarget, setErrTarget] = useState<ErrorTarget>(ErrorTarget.NONE);
 
     const navigate = useNavigate();
     const allProducts = useAllProducts();
