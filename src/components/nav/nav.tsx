@@ -118,7 +118,40 @@ const Navigation: React.FC<Props & ICartState> = ({
                 true
             );
         }
+
+        // disable scrolling when menu / cart is opened on mobile devices
+        if (showCart || showMenuMobile) {
+            // check viewport?
+            const width =
+                window.innerWidth > 0 ? window.innerWidth : screen.width;
+
+            // disable scrolling
+            if (width < 768) {
+                adjustScrolling(true);
+            }
+        } else {
+            const html = document.querySelector('html');
+
+            // reset the no-scroll behavior
+            if (html && html.style.overflow === 'hidden') {
+                adjustScrolling(false); // re-enable scrolling
+            }
+        }
     }, [showMenuMobile, showCart]);
+
+    /**
+     * toggle scrolling when menu and / or cart is open on mobile devices
+     * @params noScroll true to disable scrolling
+     *
+     */
+    const adjustScrolling = (noScroll: boolean) => {
+        const html = document.querySelector('html');
+
+        if (html) {
+            // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-mutation
+            html.style.overflow = noScroll ? 'hidden' : 'scroll';
+        }
+    };
 
     const handleMenuMobile = () => {
         setShowMenuMobile(prev => !prev);
