@@ -40,7 +40,15 @@ const Order: React.FC<Props> = ({ order }) => {
         })
         .filter(product => product !== undefined) as CartState[]; // filtering all undefined attrs.
 
-    const { oid, date, total, currency, delivered, paid } = order;
+    const {
+        oid,
+        date,
+        total,
+        currency,
+        delivered,
+        paid,
+        transactionData: { paymentName, paymentNo, expired },
+    } = order;
 
     return (
         <Box className="content" px={[6, 6, 8, 9, 11]}>
@@ -66,7 +74,67 @@ const Order: React.FC<Props> = ({ order }) => {
                 <DetailBox
                     heading="Payment status"
                     text={paid ? 'Paid' : 'Payment not yet received'}
-                />
+                    sx={{ position: 'relative' }}
+                >
+                    <Box
+                        as="span"
+                        sx={{
+                            position: 'absolute',
+                            right: '-32px',
+                            bottom: '50%',
+                            transform: 'translateY(50%)',
+                            fontFamily: 'body',
+                            zIndex: 150,
+                        }}
+                    >
+                        {/* question mark to show tooltip */}
+                        <Flex
+                            variant="center"
+                            sx={{
+                                borderColor: 'black.0',
+                                borderWidth: 1,
+                                borderStyle: 'solid',
+                                height: 16,
+                                width: 16,
+                                borderRadius: '50%',
+                                cursor: 'pointer',
+                                fontSize: 1,
+                                transition: '0.2s',
+                                '& + div': { opacity: 0, display: 'none' },
+                                '&:hover': {
+                                    bg: 'black.0',
+                                    color: '#fff',
+                                    '& + div': {
+                                        opacity: 1,
+                                        display: 'block',
+                                    },
+                                },
+                            }}
+                        >
+                            ?
+                        </Flex>
+
+                        {/* payment info (where to transfer and so on) */}
+                        <Box
+                            width={['80vw', 250]}
+                            bg="#fff"
+                            p={[4]}
+                            sx={{
+                                position: 'absolute',
+                                left: ['-80vw', -250],
+                                top: [5],
+                                borderColor: 'black.0',
+                                borderWidth: 1,
+                                borderStyle: 'solid',
+                                fontSize: [1],
+                            }}
+                        >
+                            Please transfer {currency} {total} to {paymentNo}{' '}
+                            with the following name: {paymentName} before{' '}
+                            {expired}
+                        </Box>
+                    </Box>
+                </DetailBox>
             </Flex>
 
             <ProductsSummary

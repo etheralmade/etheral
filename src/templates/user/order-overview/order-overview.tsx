@@ -22,8 +22,10 @@ type Props = {
  * text: the actual data to be shown
  */
 type DetailBoxProps = {
+    [key: string]: any; // additional props
     heading: string;
     text: string;
+    children?: React.ReactElement;
 };
 
 /**
@@ -101,13 +103,19 @@ const OrderOverview: React.FC<Props> = ({ order }) => {
  * component to show data(s) in a seperate manner.
  * @param param0 detail box props
  */
-const DetailBox: React.FC<DetailBoxProps> = ({ heading, text }) => {
+const DetailBox: React.FC<DetailBoxProps> = ({
+    heading,
+    text,
+    children,
+    ...rest
+}) => {
     return (
-        <Box py={[2]}>
+        <Box py={[2]} {...rest}>
             <Heading variant="h4">{heading}</Heading>
             <Text variant="h3" mt={[2]}>
                 {text}
             </Text>
+            {children}
         </Box>
     );
 };
