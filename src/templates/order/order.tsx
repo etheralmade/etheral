@@ -48,13 +48,30 @@ const Order: React.FC<Props> = ({ order }) => {
         delivered,
         paid,
         transactionData: { paymentName, paymentNo, expired },
+        buyerName,
+        buyerPhone,
+        buyerPostal,
+        buyerAddr,
     } = order;
+
+    const flexWrap: 'wrap' | 'nowrap' = 'wrap';
+
+    const detailsStyling = {
+        my: [5],
+        flexWrap,
+        justifyContent: 'space-between',
+        sx: {
+            '& > div': {
+                width: ['45%', '45%', '20%'],
+            },
+        },
+    };
 
     return (
         <Box className="content" px={[6, 6, 8, 9, 11]}>
             <Heading variant="h3">Order ID: {oid}</Heading>
 
-            <Flex my={[5]} sx={{ div: { mr: [5] } }} flexWrap="wrap">
+            <Flex {...detailsStyling}>
                 {/* total cost */}
                 <DetailBox heading="Total cost" text={`${currency} ${total}`} />
 
@@ -76,66 +93,83 @@ const Order: React.FC<Props> = ({ order }) => {
                     text={paid ? 'Paid' : 'Payment not yet received'}
                     sx={{ position: 'relative' }}
                 >
-                    <Box
-                        as="span"
-                        sx={{
-                            position: 'absolute',
-                            right: '-32px',
-                            bottom: '50%',
-                            transform: 'translateY(50%)',
-                            fontFamily: 'body',
-                            zIndex: 150,
-                        }}
-                    >
-                        {/* question mark to show tooltip */}
-                        <Flex
-                            variant="center"
-                            sx={{
-                                borderColor: 'black.0',
-                                borderWidth: 1,
-                                borderStyle: 'solid',
-                                height: 16,
-                                width: 16,
-                                borderRadius: '50%',
-                                cursor: 'pointer',
-                                fontSize: 1,
-                                transition: '0.2s',
-                                '& + div': { opacity: 0, display: 'none' },
-                                '&:hover': {
-                                    bg: 'black.0',
-                                    color: '#fff',
-                                    '& + div': {
-                                        opacity: 1,
-                                        display: 'block',
-                                    },
-                                },
-                            }}
-                        >
-                            ?
-                        </Flex>
-
-                        {/* payment info (where to transfer and so on) */}
+                    {!paid ? (
                         <Box
-                            width={['80vw', 250]}
-                            bg="#fff"
-                            p={[4]}
+                            as="span"
                             sx={{
                                 position: 'absolute',
-                                left: ['-80vw', -250],
-                                top: [5],
-                                borderColor: 'black.0',
-                                borderWidth: 1,
-                                borderStyle: 'solid',
-                                fontSize: [1],
+                                right: [0, 0, 0, 1],
+                                bottom: '50%',
+                                transform: 'translateY(50%)',
+                                fontFamily: 'body',
+                                zIndex: 150,
                             }}
                         >
-                            Please transfer {currency} {total} to {paymentNo}{' '}
-                            with the following name: {paymentName} before{' '}
-                            {expired}
+                            {/* question mark to show tooltip */}
+                            <Flex
+                                variant="center"
+                                sx={{
+                                    borderColor: 'black.0',
+                                    borderWidth: 1,
+                                    borderStyle: 'solid',
+                                    height: 16,
+                                    width: 16,
+                                    borderRadius: '50%',
+                                    cursor: 'pointer',
+                                    fontSize: 1,
+                                    transition: '0.2s',
+                                    '& > div': { opacity: 0, display: 'none' },
+                                    '&:hover': {
+                                        bg: 'black.0',
+                                        color: '#fff',
+                                        '& > div': {
+                                            opacity: 1,
+                                            display: 'block',
+                                            color: '#000',
+                                        },
+                                    },
+                                }}
+                            >
+                                ?
+                                {/* payment info (where to transfer and so on) */}
+                                <Box
+                                    width={['80vw', 250]}
+                                    bg="#fff"
+                                    p={[4]}
+                                    sx={{
+                                        position: 'absolute',
+                                        left: ['-80vw', -250],
+                                        top: [5],
+                                        borderColor: 'black.0',
+                                        borderWidth: 1,
+                                        borderStyle: 'solid',
+                                        fontSize: [1],
+                                    }}
+                                >
+                                    Please transfer {currency} {total} to{' '}
+                                    {paymentNo} with the following name:{' '}
+                                    {paymentName} before {expired}
+                                </Box>
+                            </Flex>
                         </Box>
-                    </Box>
+                    ) : (
+                        undefined
+                    )}
                 </DetailBox>
             </Flex>
+
+            <Box>
+                <Heading>Details</Heading>
+                <Flex {...detailsStyling}>
+                    <DetailBox heading="Name" text={buyerName} />
+                    <DetailBox heading="Phone" text={buyerPhone.toString()} />
+                    <DetailBox heading="Address" text={buyerAddr} />
+                    <DetailBox
+                        heading="ZIP Code"
+                        text={buyerPostal.toString()}
+                    />
+                </Flex>
+            </Box>
 
             <ProductsSummary
                 currency={order.currency}
@@ -143,6 +177,8 @@ const Order: React.FC<Props> = ({ order }) => {
                 wishlist={[]} // mock
                 showCart={false} // mock
             />
+
+            {/* shipping information. */}
         </Box>
     );
 };
