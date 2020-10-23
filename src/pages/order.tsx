@@ -1,6 +1,5 @@
 import React from 'react';
 import { PageProps } from 'gatsby';
-import { useNavigate } from '@reach/router';
 
 import { Layout } from 'components/layout';
 
@@ -10,8 +9,6 @@ import Order from 'templates/order';
 const OrderPage = (props: PageProps) => {
     // extract state from the location props.
     const { state } = props.location;
-
-    const navigate = useNavigate();
 
     // get order attr from state
     if (state) {
@@ -24,10 +21,8 @@ const OrderPage = (props: PageProps) => {
         );
     } else {
         // redirect to homepage if state is not available
-        navigate('/');
+        return null;
     }
-
-    return null;
 };
 
 export default OrderPage;

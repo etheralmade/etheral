@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
       box-sizing: border-box;
     }
 
+    
     /* fix button(s) on far bottom size not working on mobile safari */
     @media screen and (max-width: 600px) {
 
@@ -23,7 +24,7 @@ const GlobalStyles = createGlobalStyle`
         }
       }
 
-    }
+    } 
 
     /* fixed border radius safari */
     input {
@@ -42,6 +43,11 @@ const GlobalStyles = createGlobalStyle`
     body {
       max-width: 100vw;
       overflow-x: hidden;
+
+      @media screen and (max-width: 600px) {
+        height: 100%;
+        overflow-y: scroll;
+      }
 
       header {
         

@@ -105,7 +105,7 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
                 </Box>
 
                 {/* buttons */}
-                <Box width="100%" px={[6]} py={[6]}>
+                <Box width="100%" px={[6]} pt={[6]} pb={[128, 128, 6]}>
                     {/* total price. */}
                     <Flex justifyContent="space-between">
                         <Text variant="h4" fontFamily="heading">

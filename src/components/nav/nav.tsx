@@ -407,7 +407,8 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 id="links-S"
                                 bg="#fff"
                                 px={[7]}
-                                py={[7]}
+                                pt={[7]}
+                                pb={128}
                                 flexDirection="column"
                                 sx={{
                                     height: '100vh',
