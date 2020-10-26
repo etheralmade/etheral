@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { findIndex } from 'lodash';
+import React, { useState, useEffect } from 'react';
+import { findIndex, difference } from 'lodash';
 
-import { Text, Heading, Box, Flex } from 'rebass';
+import { Text, Heading, Box, Flex, Button } from 'rebass';
 
 import { Order } from 'helper/schema/order';
 import OrderItem from './order-item';
@@ -10,17 +10,37 @@ import OrderBox from './order-box';
 type Props = {
     orders: Order[];
     db: firebase.firestore.Firestore;
+    rerenderParent: () => void;
 };
 
-const Orders: React.FC<Props> = ({ orders, db }) => {
+const Orders: React.FC<Props> = ({ orders, db, rerenderParent }) => {
     // onFocus state -> which order is on focus.
     const [onFocus, setOnFocus] = useState<Order | undefined>(undefined);
 
     // state to determine which orders to be shown. (filtering)
-    const [display, setDisplay] = useState([
+    const [display, setDisplay] = useState<Order[]>([]);
+
+    // state to determine which order(s) to display (hidden / not)
+    const [displayHidden, setDisplayHidden] = useState(false);
+
+    useEffect(() => {
+        // get all hidden orders
+        const hidden = orders.filter(order => order.hidden);
+
+        // set display based on the actual displayHidden state
+        setDisplay(
+            sortOrders(displayHidden ? hidden : difference(orders, hidden))
+        );
+    }, [displayHidden]);
+
+    /**
+     * function to sort orders based on its date (descending)
+     * @param items to be ordered
+     */
+    const sortOrders = (items: Order[]) => [
         // eslint-disable-next-line @typescript-eslint/tslint/config
-        ...orders.sort((a, b) => b.date.getTime() - a.date.getTime()),
-    ]);
+        ...items.sort((a, b) => b.date.getTime() - a.date.getTime()),
+    ];
 
     // switch focus order display.
     const focusOrder = (oid: string) => {
@@ -34,7 +54,6 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
 
     const goBack = () => {
         setOnFocus(undefined);
-        console.log(setDisplay);
     };
 
     const tabletopStyling = {
@@ -79,9 +98,30 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                     }
                 `}
             >
-                <Heading as="h1" color="#333" fontSize={[3]} mb={[3]}>
-                    Orders
-                </Heading>
+                <Flex justifyContent="space-between" mb={[4]}>
+                    <Heading as="h1" color="#333" fontSize={[3]} mb={[3]}>
+                        Orders
+                    </Heading>
+
+                    <Button
+                        sx={{
+                            transition: '0.2s',
+                            bg: 'white.2',
+                            fontFamily: 'body',
+                            fontSize: [1],
+                            fontWeight: 'medium',
+                            color: '#555',
+                            '&:hover': { cursor: 'pointer', bg: 'white.3' },
+                            p: [3],
+                        }}
+                        onClick={() => {
+                            setDisplayHidden(prev => !prev);
+                        }}
+                    >
+                        {displayHidden ? 'Show orders' : 'Show hidden orders'}
+                    </Button>
+                </Flex>
+
                 {/* Grid table to show: 
                     |Order ID|Payment status|Currency|Date
                 */}
@@ -130,7 +170,12 @@ const Orders: React.FC<Props> = ({ orders, db }) => {
                 `}
             >
                 {onFocus && (
-                    <OrderItem order={onFocus} db={db} goBack={goBack} />
+                    <OrderItem
+                        order={onFocus}
+                        db={db}
+                        goBack={goBack}
+                        rerenderParent={rerenderParent}
+                    />
                 )}
             </Box>
         </Flex>

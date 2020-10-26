@@ -11,10 +11,16 @@ type Props = {
 
 const Orders: React.FC<Props> = ({ db }) => {
     const [orders, setOrders] = useState<Order[] | undefined>(undefined);
+    const [rerender, setRerender] = useState(true);
 
+    /**
+     * fetch data everytime rerender is callled.
+     */
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (rerender) {
+            fetchData();
+        }
+    }, [rerender]);
 
     const fetchData = async () => {
         // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-let
@@ -44,9 +50,19 @@ const Orders: React.FC<Props> = ({ db }) => {
         });
 
         setOrders(await ordersContainer);
+
+        await setRerender(false);
     };
 
-    return orders ? <OrdersEl orders={orders} db={db} /> : <></>;
+    return orders && !rerender ? (
+        <OrdersEl
+            orders={orders}
+            db={db}
+            rerenderParent={() => setRerender(true)}
+        />
+    ) : (
+        <h1>Loading</h1>
+    );
 };
 
 export default Orders;

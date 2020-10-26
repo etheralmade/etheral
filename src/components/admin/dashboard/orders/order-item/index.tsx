@@ -13,9 +13,10 @@ type Props = {
     order: Order;
     db: firebase.firestore.Firestore;
     goBack: () => void;
+    rerenderParent: () => void; // function to call rerender on ../orders.tsx
 };
 
-const OrderItem: React.FC<Props> = ({ order, db, goBack }) => {
+const OrderItem: React.FC<Props> = ({ order, db, goBack, rerenderParent }) => {
     const [doRerender, setDoRerender] = useState(false);
     const allProducts = useAllProducts();
 
@@ -35,7 +36,33 @@ const OrderItem: React.FC<Props> = ({ order, db, goBack }) => {
                 delivered: true,
             });
 
-            await setDoRerender(true);
+            await rerenderParent();
+        }
+    };
+
+    /**
+     * function to hide order from the admin dashboard.
+     *
+     * !! function can only be called whenever order is completed (shipped + paid)
+     *
+     * @param oid order-to-be-hidden!
+     */
+    const hideOrder = async (oid: string) => {
+        try {
+            const ref = db.collection('order').doc(oid);
+
+            const data = await ref.get().then(doc => doc.data());
+
+            if (await data) {
+                await ref.set({
+                    ...data,
+                    hidden: true,
+                });
+
+                await rerenderParent();
+            }
+        } catch (e) {
+            console.error(e);
         }
     };
 
@@ -59,6 +86,7 @@ const OrderItem: React.FC<Props> = ({ order, db, goBack }) => {
                 order={order}
                 allProducts={allProducts}
                 updateShipping={updateShipping}
+                hideOrder={hideOrder}
             />
         </>
     ) : (

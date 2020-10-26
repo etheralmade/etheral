@@ -2,7 +2,7 @@ import React from 'react';
 import { findIndex, get, toPairs, startCase } from 'lodash';
 import Img, { FixedObject } from 'gatsby-image';
 
-import { Box, Flex, Heading, Text } from 'rebass';
+import { Box, Flex, Heading, Text, Button } from 'rebass';
 import { Label } from '@rebass/forms';
 import { InlineIcon } from '@iconify/react';
 import priceTag3Fill from '@iconify/icons-ri/price-tag-3-fill';
@@ -23,9 +23,15 @@ type Props = {
     order: Order;
     allProducts: Product[];
     updateShipping: (data: Inputs) => void;
+    hideOrder: (oid: string) => void;
 };
 
-const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
+const OrderItem: React.FC<Props> = ({
+    order,
+    allProducts,
+    updateShipping,
+    hideOrder,
+}) => {
     const { extractImgs } = useAllProductImages();
 
     const spanStyle = {
@@ -179,12 +185,13 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
         discount,
         discountCode,
         message,
+        oid,
     } = order;
 
     return (
         <Box mt={[5]} mx={[3]}>
             <Heading fontFamily="body" fontWeight="body" color="black.0">
-                Order ID: <strong>{order.oid}</strong>
+                Order ID: <strong>{oid}</strong>
             </Heading>
 
             {/* status badges */}
@@ -357,6 +364,11 @@ const OrderItem: React.FC<Props> = ({ order, allProducts, updateShipping }) => {
             ) : (
                 <ShippingConfirmation confirmShipping={confirmShipping} />
             )}
+
+            {/* button to hide order */}
+            {delivered && paid ? (
+                <Button onClick={() => hideOrder(oid)}>Hide order</Button>
+            ) : null}
         </Box>
     );
 };

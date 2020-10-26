@@ -55,4 +55,6 @@ export interface Order {
         forName: string;
         fromName: string;
     };
+
+    hidden?: boolean;
 }
