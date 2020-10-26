@@ -68,16 +68,6 @@ const BillingSummary: React.FC<Props> = ({
                     </Text>
                 </Flex>
 
-                {/* shipping cost here! */}
-                {shipping !== -1 && (
-                    <Flex justifyContent="space-between">
-                        <Text {...textStyling}>Shipping (JNE)</Text>
-                        <Text {...textStyling}>
-                            {currencyPrefix} {shipping}
-                        </Text>
-                    </Flex>
-                )}
-
                 {/* discount notifierr */}
                 {discounted && (
                     <Flex justifyContent="space-between">
@@ -90,6 +80,16 @@ const BillingSummary: React.FC<Props> = ({
                         </Text>
                         <Text {...textStyling} color="misc.discount">
                             -{currencyPrefix} {discountedAmount}
+                        </Text>
+                    </Flex>
+                )}
+
+                {/* shipping cost here! */}
+                {shipping !== -1 && (
+                    <Flex justifyContent="space-between">
+                        <Text {...textStyling}>Shipping (JNE)</Text>
+                        <Text {...textStyling}>
+                            {currencyPrefix} {shipping}
                         </Text>
                     </Flex>
                 )}

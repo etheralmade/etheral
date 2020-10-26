@@ -144,6 +144,8 @@ const Checkout: React.FC<Props> = ({
     useEffect(() => {
         if (discounted) {
             setDiscountedAmount((discountValue / 100) * price);
+
+            // just apply discount for the products' costs, not the shipping cost!
             setPrice(withDiscount(price, discountValue));
         }
     }, [discountCode, discountValue]);

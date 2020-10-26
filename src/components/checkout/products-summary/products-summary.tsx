@@ -36,11 +36,17 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
         display: ['none', 'none', 'block'],
         gridRow: '1/2',
         mb: 5,
+        textAlign: ['left', 'left', 'center'],
     };
 
     return (
         <Box>
-            <Heading as="h2" variant="h3" mb={[5]}>
+            <Heading
+                as="h2"
+                variant="h3"
+                mb={[5]}
+                textAlign={['center', 'center', 'left']}
+            >
                 ORDER SUMMARY
             </Heading>
 
