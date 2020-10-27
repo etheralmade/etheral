@@ -149,7 +149,7 @@ const Navigation: React.FC<Props & ICartState> = ({
 
         if (html) {
             // eslint-disable-next-line @typescript-eslint/tslint/config, immutable/no-mutation
-            html.style.overflow = noScroll ? 'hidden' : 'scroll';
+            html.style.overflow = noScroll ? 'hidden' : 'unset'; // unset rather than scroll, to avoid unecessary scrollbar.
         }
     };
 

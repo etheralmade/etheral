@@ -44,11 +44,6 @@ const GlobalStyles = createGlobalStyle`
       max-width: 100vw;
       overflow-x: hidden;
 
-      @media screen and (max-width: 600px) {
-        height: 100%;
-        overflow-y: scroll;
-      }
-
       header {
         
       }
