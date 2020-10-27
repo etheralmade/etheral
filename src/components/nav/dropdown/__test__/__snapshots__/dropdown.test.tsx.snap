@@ -67,7 +67,7 @@ exports[`Dropdown element matches snapshot 1`] = `
           className="css-1pgcd23"
         >
           <a
-            href="/shop?collections=collection1"
+            href="/shop/collection1"
             onClick={[Function]}
           >
             <div

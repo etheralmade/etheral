@@ -26,7 +26,8 @@ export enum ShopType {
 
 type Props = {
     products: Product[];
-    type: ShopType;
+    type: ShopType | string;
+    isCollectionPage?: boolean; // set to true if component is to be mounted on a collection page -> disable category filter
 };
 
 /**
@@ -62,7 +63,7 @@ export type SetFilterArgs = {
     collections?: string[];
 };
 
-const Shop: React.FC<Props> = ({ products, type }) => {
+const Shop: React.FC<Props> = ({ products, type, isCollectionPage }) => {
     // store: all products to be displayed (not filtered by pagination.)
     const [store, setStore] = useState<Product[]>([]);
     // add product per page
@@ -244,6 +245,7 @@ const Shop: React.FC<Props> = ({ products, type }) => {
                     filters={filters}
                     setFilters={setFilters}
                     clearFilters={clearFilters}
+                    hideCollections={isCollectionPage}
                 />
             </Flex>
             {/* render products. */}

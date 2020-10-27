@@ -16,12 +16,16 @@ type Props = {
     goBack: () => void;
 };
 
-// function from gatsby-node.js to transform  a name to a certain slug format
-// const nameToSlug = (name: string) =>
-//     name
-//         .toLowerCase()
-//         .split(' ')
-//         .join('-');
+/**
+ * function from gatsby-node.js to transform  a name to a certain slug format
+ *
+ * @params name: collection name => to be transformed to slug
+ */
+const nameToSlug = (name: string) =>
+    name
+        .toLowerCase()
+        .split(' ')
+        .join('-');
 
 const Dropdown: React.FC<Props> = ({ currLocation }) => {
     const data = useStaticQuery(graphql`
@@ -176,10 +180,7 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                                 {collections.map(collection => (
                                     <Link
                                         key={collection}
-                                        to={`shop?collections=${createUrlParam(
-                                            collection
-                                        )}`}
-                                        onClick={handleClickWithQuery}
+                                        to={`shop/${nameToSlug(collection)}`}
                                     >
                                         <Text variant="link">{collection}</Text>
                                     </Link>

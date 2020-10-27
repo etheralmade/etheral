@@ -231,7 +231,7 @@ const Filter: React.FC<Props> = ({
                     </Box>
 
                     {/* collection(s) filter => render if data is available. */}
-                    {data && hideCollections ? (
+                    {data && !hideCollections ? (
                         <Box as="section">
                             <Text {...textStyling}>COLLECTIONS</Text>
                             <Flex flexWrap="wrap">
