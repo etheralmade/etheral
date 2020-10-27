@@ -17,11 +17,14 @@ import { mockOrder, mockProducts } from 'helper/const';
 
 describe('OrderItem Component', () => {
     const mockUpdateShipping = jest.fn(() => {});
+    const mockHideOrder = jest.fn(() => {});
+
     const el: React.ReactElement = (
         <OrderItem
             order={mockOrder}
             allProducts={mockProducts}
             updateShipping={mockUpdateShipping}
+            hideOrder={mockHideOrder}
         />
     );
 

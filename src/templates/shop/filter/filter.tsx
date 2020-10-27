@@ -15,6 +15,7 @@ import './transition.scss';
 
 type Props = {
     filters: FilterState;
+    hideCollections?: boolean; // set to true to hide collection filter. (used in collection)
     setFilters: React.Dispatch<React.SetStateAction<FilterState>>;
     clearFilters: () => void;
 };
@@ -27,7 +28,12 @@ export enum SortPrice {
 // hard coded => change if needed?
 export const LIST_OF_CATEGORIES = ['BRACELET', 'RING', 'EARRINGS', 'NECKLACE'];
 
-const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
+const Filter: React.FC<Props> = ({
+    filters,
+    hideCollections,
+    setFilters,
+    clearFilters,
+}) => {
     const [sortPrice, setSortPrice] = useState<SortPrice>(SortPrice.NONE);
     const [collections, setCollections] = useState<string[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
@@ -225,7 +231,7 @@ const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
                     </Box>
 
                     {/* collection(s) filter => render if data is available. */}
-                    {data && (
+                    {data && hideCollections ? (
                         <Box as="section">
                             <Text {...textStyling}>COLLECTIONS</Text>
                             <Flex flexWrap="wrap">
@@ -249,7 +255,7 @@ const Filter: React.FC<Props> = ({ setFilters, clearFilters, filters }) => {
                                 ))}
                             </Flex>
                         </Box>
-                    )}
+                    ) : null}
 
                     {/* category/ies filter */}
                     <Box as="section">
