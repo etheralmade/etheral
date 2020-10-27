@@ -19,7 +19,7 @@ exports[`BlogPreview matches snapshot 1`] = `
         10 September 2020
       </h5>
       <h3
-        className="css-d2e41n"
+        className="css-1f43e98"
         data-testid="title"
       >
         Mock title

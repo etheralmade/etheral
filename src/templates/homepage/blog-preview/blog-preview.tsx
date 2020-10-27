@@ -42,7 +42,13 @@ const BlogPreview: React.FC<Props> = ({ blog }) => {
                         {getDateReadable(date)}
                     </Text>
                     {/* title */}
-                    <Heading as="h3" variant="h3" data-testid="title" mb={[4]}>
+                    <Heading
+                        as="h3"
+                        variant="h3"
+                        fontSize={[2, 2, 3]}
+                        data-testid="title"
+                        mb={[4]}
+                    >
                         {title}
                     </Heading>
                     {/* summary */}
