@@ -17,6 +17,7 @@ import { clearCart } from 'state/actions/cart';
 import { Order, IpaymuData } from 'helper/schema/order';
 import { Currencies } from 'state/reducers/currency-reducer';
 import { withDiscount } from 'helper/with-discount';
+import { getDateReadable } from 'helper/get-date';
 
 import useAllProducts from 'helper/use-all-products';
 
@@ -158,19 +159,6 @@ const Checkout: React.FC<Props> = ({
             setTotalPrice(price + shipping);
         }
     }, [price, shipping]);
-
-    // basic formatting.
-    // const formatPriceIDR = (priceUnformatted: number): string => {
-    //     const matchPriceRegex = priceUnformatted
-    //         .toString()
-    //         .match(/.{1,3}(?=(.{3})+(?!.))|.{1,3}$/g);
-
-    //     if (matchPriceRegex !== null) {
-    //         return matchPriceRegex.join('.');
-    //     } else {
-    //         return priceUnformatted.toString();
-    //     }
-    // };
 
     /**
      * random id generator for document id on db.
@@ -353,6 +341,8 @@ const Checkout: React.FC<Props> = ({
 
                 const decrement = (num: number) => increment(-1 * num);
 
+                const orderDate = new Date();
+
                 const order: Order = {
                     oid,
                     buyerName: userData.name,
@@ -367,7 +357,7 @@ const Checkout: React.FC<Props> = ({
 
                     total,
                     currency: Currencies.IDR, // temporary
-                    date: new Date(),
+                    date: orderDate,
                     products: cart.map(cartItem => ({
                         pid: cartItem.product.pid,
                         amount: cartItem.amount,
@@ -421,41 +411,9 @@ const Checkout: React.FC<Props> = ({
                         : '/verify-order/';
 
                 const verifyBody = {
-                    products: cart.map(cartItem => {
-                        const index = findIndex(
-                            allProducts,
-                            o => o.pid === cartItem.product.pid
-                        );
-
-                        if (index === -1) {
-                            return {
-                                pid: cartItem.product.pid,
-                                amount: cartItem.amount,
-                                discountPercentage:
-                                    cartItem.product.prices.discountPercentage,
-                                note: cartItem.note,
-                                idrPrice: 0,
-                                ausPrice: 0,
-                                img: '',
-                            };
-                        }
-
-                        const {
-                            prices: { idrPrice, ausPrice },
-                            urls,
-                        } = allProducts[index];
-
-                        return {
-                            pid: cartItem.product.pid,
-                            amount: cartItem.amount,
-                            discountPercentage:
-                                cartItem.product.prices.discountPercentage,
-                            note: cartItem.note,
-                            img: urls[0],
-                            ausPrice,
-                            idrPrice,
-                        };
-                    }),
+                    date: getDateReadable(orderDate),
+                    email: userData.email,
+                    oid,
                 };
 
                 const req = await axios.post(verifyUrl, verifyBody);
