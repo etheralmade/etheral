@@ -18,6 +18,8 @@ import { Order, IpaymuData } from 'helper/schema/order';
 import { Currencies } from 'state/reducers/currency-reducer';
 import { withDiscount } from 'helper/with-discount';
 
+import useAllProducts from 'helper/use-all-products';
+
 type Props = {
     db: firebase.firestore.Firestore;
     user: firebase.User | null;
@@ -80,6 +82,7 @@ const Checkout: React.FC<Props> = ({
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const allProducts = useAllProducts();
 
     const discounted = discountCode !== '' && discountValue !== 0;
 
@@ -410,6 +413,54 @@ const Checkout: React.FC<Props> = ({
                             orders: arrayUnion(oid),
                         });
                 }
+
+                // calls verify-order
+                const verifyUrl =
+                    process.env.NODE_ENV === 'production'
+                        ? ''
+                        : '/verify-order/';
+
+                const verifyBody = {
+                    products: cart.map(cartItem => {
+                        const index = findIndex(
+                            allProducts,
+                            o => o.pid === cartItem.product.pid
+                        );
+
+                        if (index === -1) {
+                            return {
+                                pid: cartItem.product.pid,
+                                amount: cartItem.amount,
+                                discountPercentage:
+                                    cartItem.product.prices.discountPercentage,
+                                note: cartItem.note,
+                                idrPrice: 0,
+                                ausPrice: 0,
+                                img: '',
+                            };
+                        }
+
+                        const {
+                            prices: { idrPrice, ausPrice },
+                            urls,
+                        } = allProducts[index];
+
+                        return {
+                            pid: cartItem.product.pid,
+                            amount: cartItem.amount,
+                            discountPercentage:
+                                cartItem.product.prices.discountPercentage,
+                            note: cartItem.note,
+                            img: urls[0],
+                            ausPrice,
+                            idrPrice,
+                        };
+                    }),
+                };
+
+                const req = await axios.post(verifyUrl, verifyBody);
+
+                console.log(await req);
 
                 const { paymentNo, paymentName, expired } = ipaymuData;
 
