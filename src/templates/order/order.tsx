@@ -68,7 +68,7 @@ const Order: React.FC<Props> = ({ order }) => {
     };
 
     return (
-        <Box className="content" px={[6, 6, 8, 9, 11]}>
+        <Box className="content" id="order" px={[6, 6, 8, 9, 11]}>
             <Heading variant="h3">Order ID: {oid}</Heading>
 
             <Flex {...detailsStyling}>
