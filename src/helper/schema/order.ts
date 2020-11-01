@@ -57,4 +57,5 @@ export interface Order {
     };
 
     hidden?: boolean;
+    shippingCost?: number; // optional = not available on older orders.
 }
