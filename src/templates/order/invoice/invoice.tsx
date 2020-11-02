@@ -1,12 +1,18 @@
-import React, { useRef } from 'react';
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/tslint/config */
+/* eslint-disable immutable/no-let */
+
+import React, { useRef, useState } from 'react';
 import { findIndex } from 'lodash';
-import ReactToPdf from 'react-to-pdf';
 // import styling libs
 import { Box, Flex, Heading, Text, Button } from 'rebass';
 // import local components
 import { Order as OrderSchema } from 'helper/schema';
 import { getDateReadable } from 'helper/get-date';
 import useAllProducts from 'helper/use-all-products';
+
+// variable to conditinally import
+let ReactToPdf: any = null;
 
 type Props = OrderSchema & {
     goBack: () => void;
@@ -25,6 +31,7 @@ const Invoice: React.FC<Props> = ({
     oid,
     goBack,
 }) => {
+    const [isClient, setIsClient] = useState(false);
     const ref = useRef();
     const allProducts = useAllProducts();
 
@@ -62,7 +69,16 @@ const Invoice: React.FC<Props> = ({
         my: [2],
     };
 
-    return products.length > 0 ? (
+    // conditional import, as react-to-pdf uses jspdf and jspdf is not available on SSR.
+    if (typeof window !== 'undefined') {
+        import('react-to-pdf').then(module => {
+            ReactToPdf = module.default;
+            setIsClient(true);
+        });
+    }
+
+    // isClient determines if ReactToPdf is loaded.
+    return products.length > 0 && isClient ? (
         <Box className="content" p={[5]} sx={{ overflowX: 'scroll' }}>
             <Box ref={ref} sx={{ width: 768 }} mx="auto" mb={[4]}>
                 <Flex justifyContent="space-between" mb={[5]}>
@@ -185,7 +201,7 @@ const Invoice: React.FC<Props> = ({
                 <Button onClick={goBack} mr={[3]}>
                     Go back
                 </Button>
-                <ReactToPdf targetRef={ref} x={4} y={4} filename="div-blue.pdf">
+                <ReactToPdf targetRef={ref} x={4} y={4} filename="invoice.pdf">
                     {({ toPdf }: any) => (
                         <Button onClick={toPdf}>Generate pdf</Button>
                     )}
