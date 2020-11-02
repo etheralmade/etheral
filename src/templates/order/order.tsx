@@ -23,7 +23,8 @@ type Props = {
  * Component to show details of an order.
  */
 const Order: React.FC<Props> = ({ order }) => {
-    const [showInvoice, setShowInvoice] = useState(true);
+    // set to true to show invoice (and evtlly download it)
+    const [showInvoice, setShowInvoice] = useState(false);
     const allProducts = useAllProducts();
 
     // products from the order object do not have any actual product instance
