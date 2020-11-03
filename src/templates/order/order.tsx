@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { findIndex } from 'lodash';
 // import styling libs
-import { Box, Heading, Flex } from 'rebass';
+import { Box, Heading, Flex, Button } from 'rebass';
 // import local components
+import Invoice from './invoice';
 import ProductsSummary from 'components/checkout/products-summary';
 import { DetailBox } from 'templates/user/order-overview';
 
@@ -22,6 +23,8 @@ type Props = {
  * Component to show details of an order.
  */
 const Order: React.FC<Props> = ({ order }) => {
+    // set to true to show invoice (and evtlly download it)
+    const [showInvoice, setShowInvoice] = useState(false);
     const allProducts = useAllProducts();
 
     // products from the order object do not have any actual product instance
@@ -67,119 +70,135 @@ const Order: React.FC<Props> = ({ order }) => {
         },
     };
 
-    return (
+    return !showInvoice ? (
         <Box className="content" px={[6, 6, 8, 9, 11]}>
-            <Heading variant="h3">Order ID: {oid}</Heading>
+            <Box id="order">
+                <Heading variant="h3">Order ID: {oid}</Heading>
 
-            <Flex {...detailsStyling}>
-                {/* total cost */}
-                <DetailBox heading="Total cost" text={`${currency} ${total}`} />
+                <Flex {...detailsStyling}>
+                    {/* total cost */}
+                    <DetailBox
+                        heading="Total cost"
+                        text={`${currency} ${total}`}
+                    />
 
-                {/* order date */}
-                <DetailBox
-                    heading="Order date"
-                    text={`${getDateReadable(date)}`}
-                />
+                    {/* order date */}
+                    <DetailBox
+                        heading="Order date"
+                        text={`${getDateReadable(date)}`}
+                    />
 
-                {/* status if order is delivered */}
-                <DetailBox
-                    heading="Delivery status"
-                    text={delivered ? 'Shipped' : 'In process'}
-                />
+                    {/* status if order is delivered */}
+                    <DetailBox
+                        heading="Delivery status"
+                        text={delivered ? 'Shipped' : 'In process'}
+                    />
 
-                {/* status if order is paid */}
-                <DetailBox
-                    heading="Payment status"
-                    text={paid ? 'Paid' : 'Payment not yet received'}
-                    sx={{ position: 'relative' }}
-                >
-                    {!paid ? (
-                        <Box
-                            as="span"
-                            sx={{
-                                position: 'absolute',
-                                right: [0, 0, 0, 1],
-                                bottom: '50%',
-                                transform: 'translateY(50%)',
-                                fontFamily: 'body',
-                                zIndex: 150,
-                            }}
-                        >
-                            {/* question mark to show tooltip */}
-                            <Flex
-                                variant="center"
+                    {/* status if order is paid */}
+                    <DetailBox
+                        heading="Payment status"
+                        text={paid ? 'Paid' : 'Payment not yet received'}
+                        sx={{ position: 'relative' }}
+                    >
+                        {!paid ? (
+                            <Box
+                                as="span"
                                 sx={{
-                                    borderColor: 'black.0',
-                                    borderWidth: 1,
-                                    borderStyle: 'solid',
-                                    height: 16,
-                                    width: 16,
-                                    borderRadius: '50%',
-                                    cursor: 'pointer',
-                                    fontSize: 1,
-                                    transition: '0.2s',
-                                    '& > div': { opacity: 0, display: 'none' },
-                                    '&:hover': {
-                                        bg: 'black.0',
-                                        color: '#fff',
-                                        '& > div': {
-                                            opacity: 1,
-                                            display: 'block',
-                                            color: '#000',
-                                        },
-                                    },
+                                    position: 'absolute',
+                                    right: [0, 0, 0, 1],
+                                    bottom: '50%',
+                                    transform: 'translateY(50%)',
+                                    fontFamily: 'body',
+                                    zIndex: 150,
                                 }}
                             >
-                                ?
-                                {/* payment info (where to transfer and so on) */}
-                                <Box
-                                    width={['80vw', 250]}
-                                    bg="#fff"
-                                    p={[4]}
+                                {/* question mark to show tooltip */}
+                                <Flex
+                                    variant="center"
                                     sx={{
-                                        position: 'absolute',
-                                        left: ['-80vw', -250],
-                                        top: [5],
                                         borderColor: 'black.0',
                                         borderWidth: 1,
                                         borderStyle: 'solid',
-                                        fontSize: [1],
+                                        height: 16,
+                                        width: 16,
+                                        borderRadius: '50%',
+                                        cursor: 'pointer',
+                                        fontSize: 1,
+                                        transition: '0.2s',
+                                        '& > div': {
+                                            opacity: 0,
+                                            display: 'none',
+                                        },
+                                        '&:hover': {
+                                            bg: 'black.0',
+                                            color: '#fff',
+                                            '& > div': {
+                                                opacity: 1,
+                                                display: 'block',
+                                                color: '#000',
+                                            },
+                                        },
                                     }}
                                 >
-                                    Please transfer {currency} {total} to{' '}
-                                    {paymentNo} with the following name:{' '}
-                                    {paymentName} before {expired}
-                                </Box>
-                            </Flex>
-                        </Box>
-                    ) : (
-                        undefined
-                    )}
-                </DetailBox>
-            </Flex>
-
-            <Box>
-                <Heading>Details</Heading>
-                <Flex {...detailsStyling}>
-                    <DetailBox heading="Name" text={buyerName} />
-                    <DetailBox heading="Phone" text={buyerPhone.toString()} />
-                    <DetailBox heading="Address" text={buyerAddr} />
-                    <DetailBox
-                        heading="ZIP Code"
-                        text={buyerPostal.toString()}
-                    />
+                                    ?
+                                    {/* payment info (where to transfer and so on) */}
+                                    <Box
+                                        width={['80vw', 250]}
+                                        bg="#fff"
+                                        p={[4]}
+                                        sx={{
+                                            position: 'absolute',
+                                            left: ['-80vw', -250],
+                                            top: [5],
+                                            borderColor: 'black.0',
+                                            borderWidth: 1,
+                                            borderStyle: 'solid',
+                                            fontSize: [1],
+                                        }}
+                                    >
+                                        Please transfer {currency} {total} to{' '}
+                                        {paymentNo} with the following name:{' '}
+                                        {paymentName} before {expired}
+                                    </Box>
+                                </Flex>
+                            </Box>
+                        ) : (
+                            undefined
+                        )}
+                    </DetailBox>
                 </Flex>
+
+                <Box>
+                    <Heading>Details</Heading>
+                    <Flex {...detailsStyling}>
+                        <DetailBox heading="Name" text={buyerName} />
+                        <DetailBox
+                            heading="Phone"
+                            text={buyerPhone.toString()}
+                        />
+                        <DetailBox heading="Address" text={buyerAddr} />
+                        <DetailBox
+                            heading="ZIP Code"
+                            text={buyerPostal.toString()}
+                        />
+                    </Flex>
+                </Box>
+
+                <ProductsSummary
+                    currency={order.currency}
+                    cart={products}
+                    wishlist={[]} // mock
+                    showCart={false} // mock
+                />
+
+                {/* shipping information. */}
             </Box>
-
-            <ProductsSummary
-                currency={order.currency}
-                cart={products}
-                wishlist={[]} // mock
-                showCart={false} // mock
-            />
-
-            {/* shipping information. */}
+            <Button mt={[5]} onClick={() => setShowInvoice(true)}>
+                View invoice
+            </Button>
         </Box>
+    ) : (
+        <Invoice {...order} goBack={() => setShowInvoice(false)} />
     );
 };
 

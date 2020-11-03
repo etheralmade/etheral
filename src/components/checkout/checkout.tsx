@@ -17,6 +17,9 @@ import { clearCart } from 'state/actions/cart';
 import { Order, IpaymuData } from 'helper/schema/order';
 import { Currencies } from 'state/reducers/currency-reducer';
 import { withDiscount } from 'helper/with-discount';
+import { getDateReadable } from 'helper/get-date';
+
+import useAllProducts from 'helper/use-all-products';
 
 type Props = {
     db: firebase.firestore.Firestore;
@@ -83,6 +86,7 @@ const Checkout: React.FC<Props> = ({
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const allProducts = useAllProducts();
 
     const discounted = discountCode !== '' && discountValue !== 0;
 
@@ -340,6 +344,8 @@ const Checkout: React.FC<Props> = ({
 
                 const decrement = (num: number) => increment(-1 * num);
 
+                const orderDate = new Date();
+
                 const order: Order = {
                     oid,
                     buyerName: userData.name,
@@ -354,7 +360,7 @@ const Checkout: React.FC<Props> = ({
 
                     total,
                     currency: Currencies.IDR, // temporary
-                    date: new Date(),
+                    date: orderDate,
                     products: cart.map(cartItem => ({
                         pid: cartItem.product.pid,
                         amount: cartItem.amount,
@@ -401,6 +407,22 @@ const Checkout: React.FC<Props> = ({
                             orders: arrayUnion(oid),
                         });
                 }
+
+                // calls verify-order
+                const verifyUrl =
+                    process.env.NODE_ENV === 'production'
+                        ? ''
+                        : '/verify-order/';
+
+                const verifyBody = {
+                    date: getDateReadable(orderDate),
+                    email: userData.email,
+                    oid,
+                };
+
+                const req = await axios.post(verifyUrl, verifyBody);
+
+                console.log(await req);
 
                 const { paymentNo, paymentName, expired } = ipaymuData;
 
