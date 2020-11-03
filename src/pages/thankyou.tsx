@@ -1,20 +1,18 @@
 import React from 'react';
-import { PageProps } from 'gatsby';
+import { PageProps, graphql } from 'gatsby';
+
+import Thankyou, { Props } from 'templates/thankyou';
 import { Layout } from 'components/layout';
 
 const ThankyouPage = (props: PageProps) => {
+    console.log(props);
+
     const { state } = props.location;
 
     if (state) {
-        const { paymentNo, paymentName, expired, total } = state as any;
-
         return (
             <Layout>
-                <h2>Hi thank you for your order!</h2>
-                <p>
-                    Please transfer IDR {total} to {paymentNo} with the
-                    following name: {paymentName} before {expired}
-                </p>
+                <Thankyou {...(state as Props)} />
             </Layout>
         );
     } else {
@@ -23,5 +21,32 @@ const ThankyouPage = (props: PageProps) => {
 
     // handle messages if: va, alfa, cstore usw.
 };
+
+export const query = graphql`
+    query {
+        mobile: file(
+            absolutePath: {
+                eq: "/mnt/c/Users/louis/Documents/dev/etheral/src/images/thx-mobile.png"
+            }
+        ) {
+            childImageSharp {
+                fluid {
+                    ...GatsbyImageSharpFluid
+                }
+            }
+        }
+        desktop: file(
+            absolutePath: {
+                eq: "/mnt/c/Users/louis/Documents/dev/etheral/src/images/thx.png"
+            }
+        ) {
+            childImageSharp {
+                fluid {
+                    ...GatsbyImageSharpFluid
+                }
+            }
+        }
+    }
+`;
 
 export default ThankyouPage;
