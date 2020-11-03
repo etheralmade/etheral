@@ -1,12 +1,14 @@
 import React from 'react';
-import { PageProps, graphql } from 'gatsby';
+import { PageProps } from 'gatsby';
 
 import Thankyou, { Props } from 'templates/thankyou';
 import { Layout } from 'components/layout';
 
+/**
+ * Page component for thankyou page
+ * @param props State and Page query
+ */
 const ThankyouPage = (props: PageProps) => {
-    console.log(props);
-
     const { state } = props.location;
 
     if (state) {
@@ -21,32 +23,5 @@ const ThankyouPage = (props: PageProps) => {
 
     // handle messages if: va, alfa, cstore usw.
 };
-
-export const query = graphql`
-    query {
-        mobile: file(
-            absolutePath: {
-                eq: "/mnt/c/Users/louis/Documents/dev/etheral/src/images/thx-mobile.png"
-            }
-        ) {
-            childImageSharp {
-                fluid {
-                    ...GatsbyImageSharpFluid
-                }
-            }
-        }
-        desktop: file(
-            absolutePath: {
-                eq: "/mnt/c/Users/louis/Documents/dev/etheral/src/images/thx.png"
-            }
-        ) {
-            childImageSharp {
-                fluid {
-                    ...GatsbyImageSharpFluid
-                }
-            }
-        }
-    }
-`;
 
 export default ThankyouPage;

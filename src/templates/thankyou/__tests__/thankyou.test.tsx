@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 
-import { render, cleanup } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { Thankyou } from '../thankyou';
@@ -25,24 +25,24 @@ describe('Thankyou', () => {
         ReactDOM.render(Element, div);
     });
 
-    it('should render all data(s) correctly correctly', () => {
-        const { getByTestId } = render(Element);
+    // it('should render all data(s) correctly correctly', () => {
+    //     const { getByTestId } = render(Element);
 
-        const Total = getByTestId('total');
-        const PaymentNo = getByTestId('paymentNo');
-        const PaymentName = getByTestId('paymentName');
-        const Expired = getByTestId('expired');
+    //     const Total = getByTestId('total');
+    //     const PaymentNo = getByTestId('paymentNo');
+    //     const PaymentName = getByTestId('paymentName');
+    //     const Expired = getByTestId('expired');
 
-        const { total, paymentNo, paymentName, expired } = mockData;
+    //     const { total, paymentNo, paymentName, expired } = mockData;
 
-        expect(Total).toHaveTextContent(total.toString());
-        expect(PaymentNo).toHaveTextContent(paymentNo.toString());
-        expect(PaymentName).toHaveTextContent(paymentName);
-        expect(Expired).toHaveTextContent(expired);
-    });
+    //     expect(Total).toHaveTextContent(total.toString());
+    //     expect(PaymentNo).toHaveTextContent(paymentNo.toString());
+    //     expect(PaymentName).toHaveTextContent(paymentName);
+    //     expect(Expired).toHaveTextContent(expired);
+    // });
 
     it('matches snapshot', () => {
-        const run = false;
+        const run = true;
 
         if (run) {
             const tree = renderer.create(Element).toJSON();
