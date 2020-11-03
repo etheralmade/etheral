@@ -109,6 +109,7 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                             mt={[3]}
                             fontWeight="body"
                             color="black.1"
+                            fontSize={[2, 2, 3]}
                         >
                             To get your 10% off your first purchase
                         </Text>

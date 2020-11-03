@@ -6,10 +6,10 @@ import renderer from 'react-test-renderer';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { Table } from '../table';
+import { Sizes } from '../sizes';
 
-describe('Table', () => {
-    const Element = <Table data={[]} />;
+describe('Sizes', () => {
+    const Element = <Sizes data={[]} />;
 
     afterEach(cleanup);
 
@@ -23,7 +23,7 @@ describe('Table', () => {
 	}) */
 
     it('matches snapshot', () => {
-        const run = true;
+        const run = false;
 
         if (run) {
             const tree = renderer.create(Element).toJSON();

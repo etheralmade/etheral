@@ -37,6 +37,7 @@ const Select: React.FC<Props> = ({
             backgroundColor: '#fff',
             color: '#222',
             fontWeight: state.isSelected || state.isFocused ? 600 : 400,
+            cursor: 'pointer',
         }),
         control: () => ({
             // none of react-select's styles are passed to <Control />

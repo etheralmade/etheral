@@ -2,34 +2,23 @@ import React from 'react';
 // import styling libs
 import { Box, Text } from 'rebass';
 // import local components
+import { Data } from '..';
 
-type Props = {};
-
-type Data = {
-    size: number;
-    diameter: number;
-    circum: number;
+type Props = {
+    data: Data[];
 };
 
 /**
  * Table component to display available sizes available..
  */
-const Table: React.FC<Props> = () => {
-    // data to be rendered.
-    const data: Data[] = [
-        { size: 5, diameter: 15.7, circum: 49.3 },
-        { size: 6, diameter: 16.5, circum: 51.5 },
-        { size: 7, diameter: 17.3, circum: 54.3 },
-        { size: 8, diameter: 18.2, circum: 57.1 },
-    ];
-
+const Table: React.FC<Props> = ({ data }) => {
     const border = '2px solid #222';
     const textAlign: 'center' | 'left' = 'center';
 
     const baseTextStyle = {
         fontFamily: 'body',
         fontSize: 1,
-        px: [6],
+        px: [4, 4, 6],
         py: [2],
         textAlign,
     };
@@ -41,6 +30,8 @@ const Table: React.FC<Props> = () => {
 
     return (
         <Box
+            mb={[6, 6, 0]}
+            mr={[0, 0, 4, 9]}
             sx={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, auto)',

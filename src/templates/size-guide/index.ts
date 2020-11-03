@@ -1,4 +1,5 @@
+import { SizeGuide, Data } from './size-guide';
 
-import { SizeGuide } from './size-guide';
+export { Data };
 
 export default SizeGuide;

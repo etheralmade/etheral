@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { Box, Button, Heading, Text, Flex } from 'rebass';
-import { InlineIcon, Icon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import closeFill from '@iconify/icons-ri/close-fill';
-import checkLine from '@iconify/icons-ri/check-line';
 
 type Props = {
     yes: () => void;
@@ -33,42 +32,11 @@ const SurePopupSettings: React.FC<Props> = ({ yes, no, close }) => {
                 By clicking &apos;yes&apos; the website would be automatically
                 updated and ready to browse in about 5 minutes
             </Text>
-            <Flex mt={[3]}>
-                <Button
-                    onClick={yes}
-                    bg="badges.3"
-                    color="#000"
-                    mr={[3]}
-                    fontWeight="bold"
-                    sx={{
-                        borderRadius: 4,
-                        '& svg': {
-                            width: 16,
-                            height: 16,
-                            transform: 'translate(0, 20%) !important',
-                            mr: [3],
-                        },
-                    }}
-                >
-                    <InlineIcon icon={checkLine} />
+            <Flex mt={[3]} justifyContent="space-between">
+                <Button onClick={yes} width="49%">
                     Yes
                 </Button>
-                <Button
-                    onClick={no}
-                    bg="badges.4"
-                    color="#000"
-                    fontWeight="bold"
-                    sx={{
-                        borderRadius: 4,
-                        '& svg': {
-                            width: 16,
-                            height: 16,
-                            transform: 'translate(0, 20%) !important',
-                            mr: [3],
-                        },
-                    }}
-                >
-                    <InlineIcon icon={closeFill} />
+                <Button onClick={no} bg="misc.discount" width="49%">
                     No
                 </Button>
             </Flex>
