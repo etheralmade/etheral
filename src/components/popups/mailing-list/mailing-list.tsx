@@ -95,7 +95,7 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                         }
                     `}
                 >
-                    <Box sx={{ textAlign: ['center', 'center', 'left'] }}>
+                    <Box sx={{ textAlign: 'center' }}>
                         <Heading
                             as="h3"
                             variant="h2"
@@ -104,7 +104,12 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                         >
                             SUBSCRIBE TO OUR NEWSLETTER
                         </Heading>
-                        <Text variant="body" mt={[3]}>
+                        <Text
+                            variant="h2"
+                            mt={[3]}
+                            fontWeight="body"
+                            color="black.1"
+                        >
                             To get your 10% off your first purchase
                         </Text>
                     </Box>

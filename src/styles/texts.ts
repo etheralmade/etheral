@@ -71,7 +71,7 @@ const links = {
     },
     linkSmall: {
         ...baseLink,
-        color: '#555',
+        color: '#000',
         fontSize: [1],
         '&:hover': {
             ...linkActiveAttrs,

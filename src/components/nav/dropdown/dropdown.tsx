@@ -152,7 +152,7 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                     >
                         <Box
                             className="others"
-                            my={0}
+                            mt={[0, 0, 19]}
                             width={['fit-content', 'fit-content', '110px']}
                         >
                             <Link to="shop">

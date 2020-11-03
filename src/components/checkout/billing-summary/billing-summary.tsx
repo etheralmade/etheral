@@ -55,7 +55,13 @@ const BillingSummary: React.FC<Props> = ({
                 textAlign: ['center'],
             }}
         >
-            <Heading as="h3" variant="h4" fontSize={[1, 1, 3]} mb={[6]}>
+            <Heading
+                as="h3"
+                variant="h4"
+                fontSize={[1, 1, 3]}
+                mb={[6]}
+                textAlign="left"
+            >
                 BILLNG SUMMARY
             </Heading>
             {!discounted && <DiscountCodeInput db={db} applyCode={applyCode} />}

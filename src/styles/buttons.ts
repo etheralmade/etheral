@@ -4,7 +4,7 @@ const buttonBaseStyle = {
     borderRadius: 0,
     whiteSpace: 'nowrap',
     fontSize: [1, 1, 2],
-    py: [4],
+    py: [1],
     cursor: 'pointer',
 };
 
@@ -42,11 +42,11 @@ export default {
         ...buttonAdminLinkStyle,
         color: '#fff',
         fontWeight: 'bold',
-        bg: '#222',
+        bg: '#000',
     },
     primary: {
         ...buttonBaseStyle,
-        bg: 'black.2',
+        bg: '#000',
         color: 'white.0',
         fontFamily: 'body',
         fontWeight: 'body',

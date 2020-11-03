@@ -122,7 +122,6 @@ const Form: React.FC<Props> = () => {
                         name="firstName"
                         type="text"
                         variant="variants.authInput"
-                        placeholder="First Name"
                         ref={register({
                             required: true,
                         })}
@@ -142,7 +141,6 @@ const Form: React.FC<Props> = () => {
                         name="lastName"
                         type="text"
                         variant="variants.authInput"
-                        placeholder="Last Name"
                         ref={register}
                     />
                 </Box>
@@ -157,7 +155,6 @@ const Form: React.FC<Props> = () => {
                         id="email"
                         type="email"
                         variant="variants.authInput"
-                        placeholder="Email"
                         ref={register({
                             required: true,
                         })}
@@ -177,7 +174,6 @@ const Form: React.FC<Props> = () => {
                         id="phone"
                         type="number"
                         variant="variants.authInput"
-                        placeholder="Phone Number"
                         ref={register({
                             required: true,
                         })}
@@ -198,7 +194,6 @@ const Form: React.FC<Props> = () => {
                     id="subject"
                     type="text"
                     variant="variants.authInput"
-                    placeholder="Subject"
                     ref={register({
                         required: true,
                     })}
@@ -215,7 +210,6 @@ const Form: React.FC<Props> = () => {
                     name="message"
                     id="message"
                     variant="variants.authInput"
-                    placeholder="Message"
                     className="custom-scrollbar"
                     sx={{
                         resize: 'vertical',

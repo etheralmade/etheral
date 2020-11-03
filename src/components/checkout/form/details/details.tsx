@@ -85,7 +85,13 @@ const Details: React.FC<Props> = () => {
                 borderTopWidth: [1, 1, 0],
             }}
         >
-            <Heading as="h3" variant="h4" fontSize={[1, 1, 3]} my={[6]}>
+            <Heading
+                as="h3"
+                variant="h4"
+                fontSize={[1, 1, 3]}
+                my={[6]}
+                textAlign="left"
+            >
                 SHIPPING ADDRESS
             </Heading>
 

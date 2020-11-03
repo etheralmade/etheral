@@ -143,6 +143,7 @@ const Product: React.FC<Props> = ({ item, currency, gridTemplate, first }) => {
                     ...textStyling,
                     gridColumn: ['3/4', '3/4', '4/5'],
                     gridRow: ['3/4', '3/4', '1/2'],
+                    transform: ['unset', 'unset', 'translateY(-12px)'],
 
                     '&::before': {
                         content: "'Quantity: '",

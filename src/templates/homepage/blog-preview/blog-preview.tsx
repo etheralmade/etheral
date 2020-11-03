@@ -47,7 +47,7 @@ const BlogPreview: React.FC<Props> = ({ blog }) => {
                         variant="h3"
                         fontSize={[2, 2, 3]}
                         data-testid="title"
-                        mb={[4]}
+                        my={[4]}
                     >
                         {title}
                     </Heading>
