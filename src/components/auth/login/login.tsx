@@ -113,9 +113,10 @@ const Login: React.FC<Props> = ({
                 role="button"
                 onClick={forgotPassword}
                 variant="text.formHeading"
-                fontSize={[10, 10, 1, 1]}
+                fontSize={[10, 10, 10, 10]}
                 textAlign="left"
                 my={[5]}
+                sx={{ cursor: 'pointer' }}
             >
                 FORGOT PASSWORD?
             </Text>

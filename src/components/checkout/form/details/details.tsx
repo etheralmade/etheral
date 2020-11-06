@@ -88,7 +88,7 @@ const Details: React.FC<Props> = () => {
             <Heading
                 as="h3"
                 variant="h4"
-                fontSize={[1, 1, 3]}
+                fontSize={[2, 2, 3]}
                 my={[6]}
                 textAlign="left"
             >
@@ -270,7 +270,7 @@ const Details: React.FC<Props> = () => {
                 {/* province */}
                 <Box width="32%">
                     <Label htmlFor="province" variant="text.formLabel">
-                        State / Region
+                        STATE / REGION
                     </Label>
                     <Controller
                         name="province"

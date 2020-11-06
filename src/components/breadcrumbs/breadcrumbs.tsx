@@ -29,6 +29,7 @@ const Breadcrumbs: React.FC<Props> = ({ location, append, appendText }) => {
                     variant="body"
                     fontWeight="regular"
                     ml={[1]}
+                    fontSize={[1, 1, 2]}
                     sx={{
                         svg: {
                             ml: [1],
@@ -44,7 +45,11 @@ const Breadcrumbs: React.FC<Props> = ({ location, append, appendText }) => {
             {locationSplitted.map((loc, i) => {
                 if (append && i === locationSplitted.length - 1) {
                     return (
-                        <Text variant="body" fontWeight="bold">
+                        <Text
+                            variant="body"
+                            fontWeight="bold"
+                            fontSize={[1, 1, 2]}
+                        >
                             {loc}
                         </Text>
                     );
@@ -70,6 +75,7 @@ const Breadcrumbs: React.FC<Props> = ({ location, append, appendText }) => {
                                         transform: 'translate(0, 4px)',
                                     },
                                 }}
+                                fontSize={[1, 1, 2]}
                             >
                                 {loc.toUpperCase()}
                                 {i !== locationSplitted.length - 1 && (

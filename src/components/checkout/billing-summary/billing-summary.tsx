@@ -62,7 +62,7 @@ const BillingSummary: React.FC<Props> = ({
                 mb={[6]}
                 textAlign="left"
             >
-                BILLNG SUMMARY
+                BILLING SUMMARY
             </Heading>
             {!discounted && <DiscountCodeInput db={db} applyCode={applyCode} />}
 

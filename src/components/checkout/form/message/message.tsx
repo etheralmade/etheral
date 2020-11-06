@@ -33,7 +33,7 @@ const Message: React.FC<Props> = () => {
             <Heading
                 as="h3"
                 variant="h4"
-                fontSize={[1, 1, 3]}
+                fontSize={[2, 2, 3]}
                 my={[6]}
                 textAlign="left"
             >

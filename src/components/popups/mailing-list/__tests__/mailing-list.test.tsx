@@ -35,6 +35,11 @@ describe('MailingList', () => {
     afterEach(cleanup);
     beforeEach(() => {
         useStaticQuery.mockImplementationOnce(() => ({
+            imgXS: {
+                childImageSharp: {
+                    fixed: {},
+                },
+            },
             imgS: {
                 childImageSharp: {
                     fixed: {},

@@ -45,6 +45,7 @@ const Product: React.FC<Props> = ({ item, currency, gridTemplate, first }) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
+        textAlign: ['left', 'left', 'center'],
     };
 
     return (
@@ -66,7 +67,6 @@ const Product: React.FC<Props> = ({ item, currency, gridTemplate, first }) => {
                     'auto',
                 ],
 
-                textAlign: ['left', 'left', 'center'],
                 whiteSpace: 'nowrap',
                 borderWidth: 0,
                 borderColor: 'black.1',
@@ -81,15 +81,18 @@ const Product: React.FC<Props> = ({ item, currency, gridTemplate, first }) => {
                     sx={{
                         gridColumn: ['2/3', '2/3', '1/2'],
                         gridRow: ['1/span 4', '1/span 4', '1/2'],
+                        width: 'fit-container',
                     }}
                 >
+                    {/* added responsive img here.. */}
                     <Img
-                        fixed={
-                            get(
-                                xs,
-                                'img[0].childImageSharp.fixed'
-                            ) as FixedObject
-                        }
+                        fixed={[
+                            {
+                                ...get(xs, 'img[0].childImageSharp.fixed'),
+                                media: '(max-width: 1200px)',
+                            } as FixedObject,
+                            get(s, 'img[0].childImageSharp.fixed'),
+                        ]}
                     />
                 </Box>
             )}
@@ -138,12 +141,10 @@ const Product: React.FC<Props> = ({ item, currency, gridTemplate, first }) => {
             <Text
                 variant="h4"
                 fontSize={[1, 1, 1]}
-                mt={[4]}
                 sx={{
                     ...textStyling,
                     gridColumn: ['3/4', '3/4', '4/5'],
                     gridRow: ['3/4', '3/4', '1/2'],
-                    transform: ['unset', 'unset', 'translateY(-12px)'],
 
                     '&::before': {
                         content: "'Quantity: '",
@@ -163,6 +164,10 @@ const Product: React.FC<Props> = ({ item, currency, gridTemplate, first }) => {
                     gridColumn: ['3/4', '3/4', '5/6'],
                     gridRow: ['4/5', '4/5', '1/2'],
                     svg: { ml: [4] },
+                    // textAlign: 'right',
+                    pr: 0,
+                    display: ['unset', 'unset', 'flex'],
+                    alignItems: ['unset', 'unset', 'flex-end'],
                 }}
             >
                 {currency} {getPrice(item, currency)}

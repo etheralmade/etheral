@@ -162,7 +162,7 @@ const forms = {
     formLabel: {
         fontFamily: 'heading',
         fontWeight: 'semiBold',
-        fontSize: [10, 10, 10],
+        fontSize: [1],
         mb: [3],
         mt: [5],
     },

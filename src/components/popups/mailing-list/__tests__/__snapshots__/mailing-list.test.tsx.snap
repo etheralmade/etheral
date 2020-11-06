@@ -2,7 +2,7 @@
 
 exports[`MailingList matches snapshot 1`] = `
 <div
-  className="css-1tw1h9e"
+  className="css-12ezjew"
 >
   <div
     aria-label="close-modal-button"
@@ -95,6 +95,9 @@ exports[`MailingList matches snapshot 1`] = `
       <source
         media="(min-height: 400px) and (min-width: 900px)"
       />
+      <source
+        media="(max-width: 340px)"
+      />
       <source />
       <img
         alt="bracelet"
@@ -118,13 +121,13 @@ exports[`MailingList matches snapshot 1`] = `
     <noscript
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<picture><source media=\\"(min-height: 400px) and (min-width: 900px)\\" srcset=\\"undefined\\" /><source srcset=\\"undefined\\" /><img loading=\\"lazy\\" src=\\"\\" alt=\\"bracelet\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture>",
+          "__html": "<picture><source media=\\"(min-height: 400px) and (min-width: 900px)\\" srcset=\\"undefined\\" /><source media=\\"(max-width: 340px)\\" srcset=\\"undefined\\" /><source srcset=\\"undefined\\" /><img loading=\\"lazy\\" src=\\"\\" alt=\\"bracelet\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture>",
         }
       }
     />
   </div>
   <div
-    className="css-146twly"
+    className="css-1d2tqow"
   >
     <div
       className="css-1lx7oj"
@@ -142,7 +145,7 @@ exports[`MailingList matches snapshot 1`] = `
       </div>
     </div>
     <form
-      className="css-rh7pv8"
+      className="css-d9xs30"
     >
       <input
         aria-labelledby="subscribe-newsletter-popup"

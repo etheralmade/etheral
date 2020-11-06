@@ -10,7 +10,7 @@ exports[`Breadcrumbs matches snapshot 1`] = `
     onClick={[Function]}
   >
     <div
-      className="css-1q0gllo"
+      className="css-10v0p1r"
     >
       HOME
       <svg
@@ -39,7 +39,7 @@ exports[`Breadcrumbs matches snapshot 1`] = `
     onClick={[Function]}
   >
     <div
-      className="css-1q0gllo"
+      className="css-10v0p1r"
     >
       SHOP
       <svg
@@ -68,7 +68,7 @@ exports[`Breadcrumbs matches snapshot 1`] = `
     onClick={[Function]}
   >
     <div
-      className="css-1q0gllo"
+      className="css-10v0p1r"
     >
       COLLECTION1
       <svg
@@ -97,7 +97,7 @@ exports[`Breadcrumbs matches snapshot 1`] = `
     onClick={[Function]}
   >
     <div
-      className="css-1vybdvu"
+      className="css-16mev7"
     >
       FALL
     </div>

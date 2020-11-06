@@ -14,7 +14,13 @@ const MailingList: React.FC<Props> = () => {
             <Box as="form">
                 <Flex
                     flexDirection={['column', 'row']}
-                    sx={{ "& > input[type='submit']": { border: 'none' } }}
+                    sx={{
+                        "& > input[type='submit']": { border: 'none' },
+                        '& >input[type=email]': {
+                            py: [1],
+                            textAlign: 'center',
+                        },
+                    }}
                 >
                     <Input
                         name="mailing-list-email"

@@ -39,7 +39,7 @@ exports[`Login component matches snapshot 1`] = `
     />
   </div>
   <div
-    className="css-b4n4pg"
+    className="css-1ge0f3l"
     onClick={[Function]}
     role="button"
   >

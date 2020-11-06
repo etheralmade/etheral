@@ -14,6 +14,13 @@ type Props = {
 const MailingList: React.FC<Props> = ({ closeModal }) => {
     const data = useStaticQuery(graphql`
         query {
+            imgXS: file(relativePath: { eq: "mail-popup.jpg" }) {
+                childImageSharp {
+                    fixed(height: 240, width: 240, quality: 100) {
+                        ...GatsbyImageSharpFixed
+                    }
+                }
+            }
             imgS: file(relativePath: { eq: "mail-popup.jpg" }) {
                 childImageSharp {
                     fixed(height: 300, width: 300, quality: 100) {
@@ -31,12 +38,16 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
         }
     `);
 
-    const { imgS, imgL } = data as any;
+    const { imgS, imgL, imgXS } = data as any;
     if (imgS && imgL) {
         const sources = [
             {
                 ...imgL.childImageSharp.fixed,
                 media: '(min-height: 400px) and (min-width: 900px)',
+            },
+            {
+                ...imgXS.childImageSharp.fixed,
+                media: '(max-width: 340px)',
             },
             imgS.childImageSharp.fixed,
         ];
@@ -45,6 +56,9 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
             <Flex
                 flexDirection={['column', 'row']}
                 sx={{ position: 'relative' }}
+                maxWidth="90vw"
+                maxHeight="90vh"
+                css={``}
             >
                 <Box
                     onClick={closeModal}
@@ -72,7 +86,8 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                 <Img fixed={sources} alt="bracelet" />
                 <Flex
                     bg="white.0"
-                    p={[4, 6, 6, 8]}
+                    px={[4, 6, 6, 8]}
+                    py={[4, 4, 6, 8]}
                     flexDirection="column"
                     css={`
                         height: fit-content;
@@ -83,6 +98,10 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                         /* edge space-evenly progressive enhancement. */
                         @supports not (-ms-ime-align: auto) {
                             justify-content: space-evenly;
+                        }
+
+                        @media screen and (max-width: 340px) {
+                            width: 240px;
                         }
 
                         @media screen and (min-width: 27em) {
@@ -114,7 +133,16 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                             To get your 10% off your first purchase
                         </Text>
                     </Box>
-                    <Box as="form" my={[6]}>
+                    <Box
+                        as="form"
+                        my={[6]}
+                        sx={{
+                            'input[type=email]': {
+                                fontSize: [1, 1, 2],
+                                textAlign: 'center',
+                            },
+                        }}
+                    >
                         <Input
                             type="email"
                             aria-labelledby="subscribe-newsletter-popup"

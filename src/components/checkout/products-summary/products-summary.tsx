@@ -30,7 +30,11 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
      */
     const data = flatten(cartMapped);
 
-    const gridTemplate = ['1fr', '1fr', 'repeat(5, minmax(120px, 1fr))'];
+    const gridTemplate = [
+        '1fr',
+        '1fr',
+        'repeat(4, minmax(120px, 1fr)) minmax(120px, auto)',
+    ];
 
     const gridHeadingSyling = {
         display: ['none', 'none', 'block'],
@@ -43,9 +47,11 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
         <Box>
             <Heading
                 as="h2"
-                variant="h3"
-                mb={[5]}
-                textAlign={['center', 'center', 'left']}
+                fontSize={[2, 2, 3]}
+                fontWeight="bold"
+                mt={[4, 4, 0]}
+                mb={[6]}
+                textAlign="center"
             >
                 ORDER SUMMARY
             </Heading>
@@ -85,7 +91,11 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
                 </Text>
                 <Text
                     variant="h3"
-                    sx={{ ...gridHeadingSyling, gridColumn: '5 / 6' }}
+                    sx={{
+                        ...gridHeadingSyling,
+                        gridColumn: '5 / 6',
+                        textAlign: 'right',
+                    }}
                 >
                     PRICE
                 </Text>
