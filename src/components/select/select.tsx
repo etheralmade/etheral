@@ -69,6 +69,7 @@ const Select: React.FC<Props> = ({
                 // eslint-disable-next-line @typescript-eslint/tslint/config
                 label: startCase(o.toLowerCase()),
             }))}
+            placeholder={placeholder.toUpperCase()}
             {...rest}
         />
     );

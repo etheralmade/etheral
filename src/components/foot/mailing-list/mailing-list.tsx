@@ -37,7 +37,7 @@ const MailingList: React.FC<Props> = () => {
                 id="mailing-list-input"
                 mt={[4]}
                 textAlign="center"
-                fontSize={[0, 0, 1]}
+                fontSize={[1]}
             >
                 Join mailing list to be the first to receive news bout our
                 offers

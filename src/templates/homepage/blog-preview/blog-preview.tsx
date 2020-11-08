@@ -52,7 +52,12 @@ const BlogPreview: React.FC<Props> = ({ blog }) => {
                         {title}
                     </Heading>
                     {/* summary */}
-                    <Text as="article" variant="body" data-testid="summary">
+                    <Text
+                        as="article"
+                        variant="body"
+                        data-testid="summary"
+                        fontSize={[1, 1]}
+                    >
                         {summary}
                     </Text>
                     <Link to={`/blogs/${slug}`}>

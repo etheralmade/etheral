@@ -95,6 +95,7 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
                         ...gridHeadingSyling,
                         gridColumn: '5 / 6',
                         textAlign: 'right',
+                        pr: [0, 0, 5],
                     }}
                 >
                     PRICE
