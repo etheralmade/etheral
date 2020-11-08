@@ -1,7 +1,7 @@
 import React from 'react';
 import Img, { FluidObject } from 'gatsby-image';
 
-import { Box, BoxProps, Text } from 'rebass';
+import { Box, BoxProps, Text, Flex } from 'rebass';
 
 import { Product } from 'helper/schema/product';
 import Tile from 'components/tile';
@@ -86,15 +86,16 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                     variant="productName"
                     width="100%"
                     my={[3, 3, 2]}
-                    textAlign={hidePrices ? 'center' : 'left'}
+                    textAlign="center"
                 >
                     {name}
                 </Text>
                 {!hidePrices && (
-                    <>
+                    <Flex flexDirection="column" alignItems="center">
                         <Text
                             variant="productPrice"
                             width="fit-content"
+                            textAlign="center"
                             color={
                                 discounted
                                     ? theme.colors.misc.discount
@@ -133,7 +134,7 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                                 )}
                             </Text>
                         )}
-                    </>
+                    </Flex>
                 )}
             </Box>
         );

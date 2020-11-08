@@ -71,7 +71,13 @@ const Payment: React.FC<Props> = ({ paymentError, handleClickPay }) => {
                 borderTopWidth: [1, 1, 0],
             }}
         >
-            <Heading as="h3" variant="h4" fontSize={[1, 1, 3]} mb={[6]}>
+            <Heading
+                as="h3"
+                variant="h4"
+                fontSize={[1, 1, 3]}
+                mb={[6]}
+                textAlign="left"
+            >
                 PAYMENT
             </Heading>
 

@@ -4,6 +4,7 @@ import { PageProps, graphql } from 'gatsby';
 import { Box } from 'rebass';
 
 import { Layout } from 'components/layout';
+import SizeGuide from 'templates/size-guide';
 
 const SizeGuidePage = ({ data }: PageProps) => {
     if (!data) {
@@ -22,6 +23,7 @@ const SizeGuidePage = ({ data }: PageProps) => {
                 sx={{ 'h1, h2, h3, h4, h5, h6': { fontFamily: 'heading' } }}
             >
                 <Box dangerouslySetInnerHTML={{ __html: pageContent }} />
+                <SizeGuide />
             </Box>
         </Layout>
     );

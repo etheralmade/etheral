@@ -47,12 +47,17 @@ const BlogPreview: React.FC<Props> = ({ blog }) => {
                         variant="h3"
                         fontSize={[2, 2, 3]}
                         data-testid="title"
-                        mb={[4]}
+                        my={[4]}
                     >
                         {title}
                     </Heading>
                     {/* summary */}
-                    <Text as="article" variant="body" data-testid="summary">
+                    <Text
+                        as="article"
+                        variant="body"
+                        data-testid="summary"
+                        fontSize={[1, 1]}
+                    >
                         {summary}
                     </Text>
                     <Link to={`/blogs/${slug}`}>

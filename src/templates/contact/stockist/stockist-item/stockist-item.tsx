@@ -37,7 +37,7 @@ const StockistItem: React.FC<Props> = ({
             </Text>
             <Text
                 as="p"
-                fontSize={[0, 0, 1]}
+                fontSize={[1]}
                 fontWeight="regular"
                 fontFamily="body"
                 width={['80%', '80%', '100%']}
@@ -54,7 +54,7 @@ const StockistItem: React.FC<Props> = ({
                 href={`http://${web}`}
                 mt={[1]}
                 sx={{
-                    fontSize: [0, 0, 1],
+                    fontSize: [1],
                     fontWeight: 'regular',
                     fontFamily: 'body',
                     textDecoration: 'none',

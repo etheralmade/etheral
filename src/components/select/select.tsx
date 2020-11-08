@@ -34,12 +34,10 @@ const Select: React.FC<Props> = ({
             transition: '.2s',
             padding: '8px 16px',
             borderRadius: 0,
-            backgroundColor: state.isSelected
-                ? '#333'
-                : state.isFocused
-                ? '#899'
-                : '#fff',
-            color: state.isSelected || state.isFocused ? '#fff' : '#222',
+            backgroundColor: '#fff',
+            color: '#222',
+            fontWeight: state.isSelected || state.isFocused ? 600 : 400,
+            cursor: 'pointer',
         }),
         control: () => ({
             // none of react-select's styles are passed to <Control />
@@ -71,6 +69,7 @@ const Select: React.FC<Props> = ({
                 // eslint-disable-next-line @typescript-eslint/tslint/config
                 label: startCase(o.toLowerCase()),
             }))}
+            placeholder={placeholder.toUpperCase()}
             {...rest}
         />
     );

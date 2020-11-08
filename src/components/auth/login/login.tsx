@@ -70,7 +70,6 @@ const Login: React.FC<Props> = ({
                     name="loginEmail"
                     id="login-email"
                     type="email"
-                    placeholder="EMAIL ADDRESS"
                     variant="variants.authInput"
                     ref={register({
                         required: true,
@@ -96,7 +95,6 @@ const Login: React.FC<Props> = ({
                     name="loginPassword"
                     id="login-password"
                     type="password"
-                    placeholder="PASSWORD"
                     variant="variants.authInput"
                     ref={register({
                         required: true,
@@ -115,9 +113,10 @@ const Login: React.FC<Props> = ({
                 role="button"
                 onClick={forgotPassword}
                 variant="text.formHeading"
-                fontSize={[10, 10, 1, 1]}
+                fontSize={[10, 10, 10, 10]}
                 textAlign="left"
                 my={[5]}
+                sx={{ cursor: 'pointer' }}
             >
                 FORGOT PASSWORD?
             </Text>
@@ -140,7 +139,7 @@ const Login: React.FC<Props> = ({
                             alignItems: 'center',
                             justifyContent: 'center',
                             svg: {
-                                height: [24, 24, 28],
+                                height: [24, 24, 24],
                                 mr: 4,
                             },
                         }}

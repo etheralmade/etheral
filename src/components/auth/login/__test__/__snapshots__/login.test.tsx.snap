@@ -23,7 +23,6 @@ exports[`Login component matches snapshot 1`] = `
       className="css-4y926w"
       id="login-email"
       name="loginEmail"
-      placeholder="EMAIL ADDRESS"
       type="email"
     />
     <label
@@ -36,12 +35,11 @@ exports[`Login component matches snapshot 1`] = `
       className="css-4y926w"
       id="login-password"
       name="loginPassword"
-      placeholder="PASSWORD"
       type="password"
     />
   </div>
   <div
-    className="css-b4n4pg"
+    className="css-1ge0f3l"
     onClick={[Function]}
     role="button"
   >

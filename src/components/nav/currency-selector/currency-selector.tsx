@@ -57,17 +57,14 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
             const { isFocused, isSelected } = state;
             return {
                 ...provided,
-                borderBottom: '1px solid rgba(0, 0, 0, .2)',
                 fontFamily: theme.fonts.heading,
                 padding: 8,
-                backgroundColor: isSelected
-                    ? '#333'
-                    : isFocused
-                    ? '#555'
-                    : '#fff',
-                color: isSelected ? '#fff' : !isFocused ? '#222' : '#fff',
-                fontWeight: isSelected ? 600 : 400,
+                backgroundColor: '#fff',
+                color: '#222',
+                fontWeight: isSelected || isFocused ? 600 : 400,
                 fontSize: '14px',
+                transition: '0.2s',
+                cursor: 'pointer',
             };
         },
         indicatorSeparator: () => ({

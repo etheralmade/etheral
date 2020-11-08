@@ -1,20 +1,20 @@
 import React from 'react';
 import { PageProps } from 'gatsby';
+
+import Thankyou, { Props } from 'templates/thankyou';
 import { Layout } from 'components/layout';
 
+/**
+ * Page component for thankyou page
+ * @param props State and Page query
+ */
 const ThankyouPage = (props: PageProps) => {
     const { state } = props.location;
 
     if (state) {
-        const { paymentNo, paymentName, expired, total } = state as any;
-
         return (
             <Layout>
-                <h2>Hi thank you for your order!</h2>
-                <p>
-                    Please transfer IDR {total} to {paymentNo} with the
-                    following name: {paymentName} before {expired}
-                </p>
+                <Thankyou {...(state as Props)} />
             </Layout>
         );
     } else {

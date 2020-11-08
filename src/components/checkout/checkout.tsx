@@ -67,9 +67,12 @@ const Checkout: React.FC<Props> = ({
     const [price, setPrice] = useState(0);
     const [currencyPrefix, setCurrencyPrefix] = useState(Currencies.IDR);
 
+    // user data(s) such as name, email, address, etc.
     const [userData, setUserData] = useState<
         (UserData & UserLocation) | undefined
     >(undefined);
+
+    // shipping cost
     const [shipping, setShipping] = useState(-1);
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -371,6 +374,7 @@ const Checkout: React.FC<Props> = ({
                     discountCode,
                     discountedAmount,
                     discount: discountValue,
+                    shippingCost: shipping,
                 };
 
                 // set order.message if userData.message is provided => error by firestore: firestore doesn't accept undefined!
@@ -435,6 +439,7 @@ const Checkout: React.FC<Props> = ({
                         paymentName,
                         expired,
                         total,
+                        currency,
                     },
                 }); // navigate to thank you page and use oid state!
             } catch (e) {

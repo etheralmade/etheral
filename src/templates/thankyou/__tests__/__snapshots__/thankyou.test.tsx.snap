@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Thankyou matches snapshot 1`] = `
+<div
+  className="content css-vurnku"
+>
+  <div
+    className="inner-wrapper css-iasgit"
+  >
+    <div
+      className="bg css-neasi4"
+    >
+      <img
+        alt="Thankyou"
+        className="thx-mobile"
+        src="test-file-stub"
+      />
+      <img
+        alt="Thankyou"
+        className="thx-desktop"
+        src="test-file-stub"
+      />
+    </div>
+    <div
+      className="css-4xdyao"
+    >
+      <h2
+        className="css-mk3a7k"
+      >
+        THANK YOU FOR YOUR PURCHASE!
+CHECK YOUR EMAIL FOR YOUR ORDER CONFIRMATION
+      </h2>
+      <div
+        className="css-r2xo4s"
+      >
+        Please transfer
+         
+        <strong>
+          IDR
+           
+          12000
+        </strong>
+         
+        before 
+        <strong>
+          12-3-4
+        </strong>
+         to:
+        <br />
+        Name: 
+        <strong>
+          Louis
+        </strong>
+        <br />
+        No: 
+        <strong>
+          123456
+        </strong>
+      </div>
+    </div>
+  </div>
+</div>
+`;

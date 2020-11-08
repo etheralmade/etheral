@@ -21,7 +21,6 @@ exports[`Form matches snapshot 1`] = `
         className="css-4y926w"
         id="first-name"
         name="firstName"
-        placeholder="First Name"
         type="text"
       />
     </div>
@@ -38,7 +37,6 @@ exports[`Form matches snapshot 1`] = `
         className="css-4y926w"
         id="last-name"
         name="lastName"
-        placeholder="Last Name"
         type="text"
       />
     </div>
@@ -55,7 +53,6 @@ exports[`Form matches snapshot 1`] = `
         className="css-4y926w"
         id="email"
         name="email"
-        placeholder="Email"
         type="email"
       />
     </div>
@@ -72,7 +69,6 @@ exports[`Form matches snapshot 1`] = `
         className="css-4y926w"
         id="phone"
         name="phone"
-        placeholder="Phone Number"
         type="number"
       />
     </div>
@@ -86,7 +82,6 @@ exports[`Form matches snapshot 1`] = `
       className="css-4y926w"
       id="subject"
       name="subject"
-      placeholder="Subject"
       type="text"
     />
     <label
@@ -99,7 +94,6 @@ exports[`Form matches snapshot 1`] = `
       className="custom-scrollbar css-1ef54ob"
       id="message"
       name="message"
-      placeholder="Message"
     />
   </div>
   <button

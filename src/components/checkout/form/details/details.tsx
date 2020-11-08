@@ -85,7 +85,13 @@ const Details: React.FC<Props> = () => {
                 borderTopWidth: [1, 1, 0],
             }}
         >
-            <Heading as="h3" variant="h4" fontSize={[1, 1, 3]} my={[6]}>
+            <Heading
+                as="h3"
+                variant="h4"
+                fontSize={[2, 2, 3]}
+                my={[6]}
+                textAlign="left"
+            >
                 SHIPPING ADDRESS
             </Heading>
 
@@ -100,7 +106,7 @@ const Details: React.FC<Props> = () => {
                         id="first-name"
                         name="firstName"
                         variant="variants.authInput"
-                        placeholder="First Name"
+                        placeholder="FIRST NAME"
                         ref={register({ required: true })}
                     />
                     {errors.firstName && (
@@ -118,7 +124,7 @@ const Details: React.FC<Props> = () => {
                         id="last-name"
                         name="lastName"
                         variant="variants.authInput"
-                        placeholder="Last Name"
+                        placeholder="LAST NAME"
                         ref={register}
                     />
                 </Box>
@@ -133,7 +139,7 @@ const Details: React.FC<Props> = () => {
                         id="phone"
                         name="phone"
                         variant="variants.authInput"
-                        placeholder="Phone"
+                        placeholder="PHONE"
                         ref={register({ required: true })}
                     />
                     {errors.phone && (
@@ -153,7 +159,7 @@ const Details: React.FC<Props> = () => {
                         id="country"
                         name="country"
                         variant="variants.authInput"
-                        placeholder="Country"
+                        placeholder="COUNTRY"
                         value="INDONESIA"
                         defaultValue="INDONESIA"
                         disabled={true}
@@ -171,7 +177,7 @@ const Details: React.FC<Props> = () => {
                         id="email"
                         name="email"
                         variant="variants.authInput"
-                        placeholder="Email address"
+                        placeholder="EMAIL ADDRESS"
                         ref={register}
                     />
                 </Box>
@@ -186,7 +192,7 @@ const Details: React.FC<Props> = () => {
                         id="company"
                         name="company"
                         variant="variants.authInput"
-                        placeholder="Company (optional)"
+                        placeholder="COMPANY (OPTIONAL)"
                         ref={register}
                     />
                 </Box>
@@ -201,7 +207,7 @@ const Details: React.FC<Props> = () => {
                         id="address"
                         name="address"
                         variant="variants.authInput"
-                        placeholder="Address"
+                        placeholder="ADDRESS"
                         ref={register({ required: true })}
                     />
                     {errors.address && (
@@ -219,7 +225,7 @@ const Details: React.FC<Props> = () => {
                         id="add-address"
                         name="addAddress"
                         variant="variants.authInput"
-                        placeholder="Apartment, Suite, etc. (optional)"
+                        placeholder="APARTMENT, SUITE, ETC (OPTIONAL)"
                         ref={register}
                     />
                 </Box>
@@ -243,7 +249,7 @@ const Details: React.FC<Props> = () => {
                         }}
                         render={({ onChange, onBlur, value }) => (
                             <Select
-                                placeholder="city"
+                                placeholder="CITY"
                                 handleChange={onChange}
                                 onBlur={onBlur}
                                 selected={value}
@@ -264,7 +270,7 @@ const Details: React.FC<Props> = () => {
                 {/* province */}
                 <Box width="32%">
                     <Label htmlFor="province" variant="text.formLabel">
-                        State / Region
+                        STATE / REGION
                     </Label>
                     <Controller
                         name="province"
@@ -276,7 +282,6 @@ const Details: React.FC<Props> = () => {
                         }}
                         render={({ onChange, onBlur, value }) => (
                             <Select
-                                placeholder="province"
                                 handleChange={val => {
                                     handleChangeProvince(val);
                                     onChange(val);
@@ -284,6 +289,7 @@ const Details: React.FC<Props> = () => {
                                 options={uniq(allProvinces)}
                                 onBlur={onBlur}
                                 selected={value}
+                                placeholder="PROVINCE"
                             />
                         )}
                     />
@@ -302,7 +308,7 @@ const Details: React.FC<Props> = () => {
                         id="postal"
                         name="postal"
                         variant="variants.authInput"
-                        placeholder="Postal code"
+                        placeholder="POSTAL CODE"
                         ref={register({ required: true })}
                     />
                     {errors.postal && (

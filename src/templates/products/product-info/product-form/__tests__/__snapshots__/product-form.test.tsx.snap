@@ -32,7 +32,7 @@ exports[`ProductForm matches snapshot 1`] = `
             <div
               className="custom-select__placeholder css-1wa3eu0-placeholder"
             >
-              Select...
+              SELECT SIZE
             </div>
             <div
               className="css-b8ldur-Input"
@@ -161,7 +161,7 @@ exports[`ProductForm matches snapshot 1`] = `
             <div
               className="custom-select__placeholder css-1wa3eu0-placeholder"
             >
-              Select...
+              SELECT QUANTITY
             </div>
             <div
               className="css-b8ldur-Input"

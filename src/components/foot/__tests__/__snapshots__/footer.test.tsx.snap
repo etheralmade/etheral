@@ -14,7 +14,7 @@ exports[`Footer element matches snapshot 1`] = `
         className="css-vurnku"
       >
         <div
-          className="css-11g0s0x"
+          className="css-171zudh"
         >
           <input
             aria-labelledby="mailing-list-input"
@@ -30,7 +30,7 @@ exports[`Footer element matches snapshot 1`] = `
         </div>
       </form>
       <div
-        className="css-1kwxgrq"
+        className="css-unq820"
         id="mailing-list-input"
       >
         Join mailing list to be the first to receive news bout our offers

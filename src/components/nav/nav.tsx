@@ -447,6 +447,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     height: '100vh',
                                     top: 0,
                                     transition: '0.2s',
+                                    overflowY: 'scroll',
                                     a: {
                                         textDecoration: 'none',
                                     },
@@ -554,8 +555,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                 <Flex
                                     alignItems="center"
                                     justifyContent="space-between"
-                                    mt="auto"
-                                    sx={{ position: 'relative', bottom: [8] }}
+                                    mt={[2]}
                                 >
                                     <Account user={user} desktop={false} />
                                     <CurrencySelector

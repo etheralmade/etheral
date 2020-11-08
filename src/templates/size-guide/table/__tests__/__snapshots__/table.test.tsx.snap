@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table matches snapshot 1`] = `
+<div
+  className="css-1119h9n"
+>
+  <div
+    className="css-1ps274q"
+  >
+    SIZE
+  </div>
+  <div
+    className="css-wv9yu9"
+  >
+    DIAMATER
+  </div>
+  <div
+    className="css-mo0fek"
+  >
+    CIRCUMFERENCE
+  </div>
+</div>
+`;

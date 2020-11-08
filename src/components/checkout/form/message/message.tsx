@@ -30,7 +30,13 @@ const Message: React.FC<Props> = () => {
 
     return (
         <Box width={['100%', '100%', '48%']}>
-            <Heading as="h3" variant="h4" fontSize={[1, 1, 3]} my={[6]}>
+            <Heading
+                as="h3"
+                variant="h4"
+                fontSize={[2, 2, 3]}
+                my={[6]}
+                textAlign="left"
+            >
                 PERSONALIZED MESSAGE (OPTIONAL)
             </Heading>
 
