@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from '@reach/router';
 import { useDispatch } from 'react-redux';
 
-import { Flex, Box, Button } from 'rebass';
+import { Flex, Box } from 'rebass';
 
 import Login from './login';
 import SignUp from './signup';
@@ -73,8 +73,6 @@ const Auth: React.FC<Props> = ({
                 } else {
                     await createNewUser(currentUser);
                 }
-
-                await navigate('/');
             })();
         }
     }, [uid]);
@@ -98,6 +96,8 @@ const Auth: React.FC<Props> = ({
                     .set(userData);
             } catch (e) {
                 console.error(e);
+            } finally {
+                navigate('/');
             }
         }
     };
@@ -115,27 +115,25 @@ const Auth: React.FC<Props> = ({
 
                 // fetch and checks for all undefined object.
                 if ((await docRef.exists) && userData) {
-                    const inCart = (await (userData.inCart as any)) as InCart;
-                    const onWishlist = (await (userData.wishlist as any)) as InCart;
+                    const inCart = (await (userData.inCart as any)) as InCart[];
+                    // const onWishlist = (await (userData.wishlist as any)) as InCart;
 
                     const filteredInCartData = await extractCartFirestore({
                         firestoreCartData: inCart,
-                        allProducts,
-                    });
-                    const filteredWishlistData = await extractCartFirestore({
-                        firestoreCartData: onWishlist,
                         allProducts,
                     });
 
                     await dispatch(
                         setCart({
                             cart: filteredInCartData,
-                            wishlist: filteredWishlistData,
+                            wishlist: [],
                         })
                     );
                 }
             } catch (e) {
                 console.error(e);
+            } finally {
+                navigate('/');
             }
         }
     };

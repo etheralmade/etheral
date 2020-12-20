@@ -48,9 +48,12 @@ const Cart: React.FC<Props & ICartState> = ({
             const value = loadSessionStorage();
             // new window -> fetch new items.
             if (!value) {
+                console.log('Calling fetchDatas');
                 fetchDatas();
             }
         }
+
+        console.log(user);
     }, []);
 
     useEffect(() => {
@@ -62,17 +65,11 @@ const Cart: React.FC<Props & ICartState> = ({
         }
     }, [cart]);
 
-    // useEffect(() => {
-    //     // sync with firestore just if the user is authenticated.
-    //     if (user) {
-    //         if (JSON.stringify(wishlist) !== wishlistSnapshot) {
-    //             updateWishlist();
-    //         }
-    //     }
-    // }, [wishlist]);
-
     const updateCart = () => {
-        if (user) {
+        const doUpdate =
+            window !== undefined && window.location.href !== 'auth';
+
+        if (user && doUpdate) {
             setIsLoadingCart(true);
             db.collection('user')
                 .doc(user.uid)
@@ -90,28 +87,11 @@ const Cart: React.FC<Props & ICartState> = ({
         }
     };
 
-    // const updateWishlist = () => {
-    //     if (user) {
-    //         setIsLoadingCart(true);
-    //         db.collection('user')
-    //             .doc(user.uid)
-    //             .update({
-    //                 wishlist: wishlist.map(wishlistItem => ({
-    //                     pid: wishlistItem.product.pid,
-    //                     amount: wishlistItem.amount,
-    //                     note: wishlistItem.note,
-    //                 })),
-    //             })
-    //             .then(() => {
-    //                 setWishlistSnapshot(JSON.stringify(wishlist));
-    //                 setIsLoadingCart(false);
-    //             });
-    //     }
-    // };
-
     // exactly the same function as auth.tsx -> fetchCartItems.
     // fetch items on cart and wishlist of the user => on new window and if logged in..
     const fetchDatas = async () => {
+        console.log('Fetching datas');
+
         if (user) {
             try {
                 await setIsLoadingCart(true);
@@ -123,17 +103,15 @@ const Cart: React.FC<Props & ICartState> = ({
                 const userData = await docRef.data();
 
                 if ((await docRef.exists) && userData) {
-                    const inCart = (await (userData.inCart as any)) as InCart;
+                    const inCart = (await (userData.inCart as any)) as InCart[];
                     // const onWishlist = (await (userData.wishlist as any)) as InCart;
 
                     const filteredInCartData = await extractCartFirestore({
                         firestoreCartData: inCart,
                         allProducts,
                     });
-                    // const filteredWishlistData = await extractCartFirestore({
-                    //     firestoreCartData: onWishlist,
-                    //     allProducts,
-                    // });
+
+                    console.log(filteredInCartData);
 
                     await dispatch(
                         setCart({
@@ -151,6 +129,8 @@ const Cart: React.FC<Props & ICartState> = ({
             }
         }
     };
+
+    console.log(cart);
 
     const loadSessionStorage = () => sessionStorage.getItem('isNewWindow');
 
