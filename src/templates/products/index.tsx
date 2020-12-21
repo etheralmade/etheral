@@ -5,11 +5,14 @@ import { connect } from 'react-redux';
 import { set } from 'lodash';
 import firebase from 'gatsby-plugin-firebase';
 
+import { Layout } from 'components/layout';
+import { SEO } from 'components/seo';
+
 import { Product } from 'helper/schema/product';
 import Products from './products';
-import { Layout } from 'components/layout';
 import { State as ReduxState } from 'state/createStore';
 import { IState as ICartState } from 'state/reducers/cart-reducer';
+
 /**
  * Product page templating.
  *
@@ -119,6 +122,10 @@ const ProductsTemplate: React.FC<PageProps & ICartState> = props => {
 
     return (
         <Layout>
+            <SEO
+                title={`Etheral | ${productData.name}`}
+                description={productData.description}
+            />
             <Products
                 {...productData}
                 availableAmount={actualAmount - cartAmount}

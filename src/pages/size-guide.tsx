@@ -3,6 +3,7 @@ import { PageProps, graphql } from 'gatsby';
 
 import { Box } from 'rebass';
 
+import { SEO } from 'components/seo';
 import { Layout } from 'components/layout';
 import SizeGuide from 'templates/size-guide';
 
@@ -17,6 +18,7 @@ const SizeGuidePage = ({ data }: PageProps) => {
 
     return (
         <Layout>
+            <SEO title="Etheral | Size Guide" />
             <Box
                 className="content"
                 px={[6, 9, 9, '10vw', '13vw']}

@@ -3,6 +3,7 @@ import { PageProps, graphql } from 'gatsby';
 
 import { Layout } from 'components/layout';
 import Shop, { ShopType } from 'templates/shop';
+import { SEO } from 'components/seo';
 
 import { Product } from 'helper/schema';
 
@@ -17,6 +18,7 @@ const BackInStockPage = ({ data }: PageProps) => {
 
     return (
         <Layout>
+            <SEO title="Etheral | Back In Stock" />
             <Shop
                 products={products as Product[]}
                 type={ShopType.BACK_IN_STOCK}

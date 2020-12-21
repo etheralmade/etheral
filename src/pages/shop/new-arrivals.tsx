@@ -3,6 +3,7 @@ import { PageProps, graphql } from 'gatsby';
 
 import { Layout } from 'components/layout';
 import Shop, { ShopType } from 'templates/shop';
+import { SEO } from 'components/seo';
 
 import { Product } from 'helper/schema';
 
@@ -17,6 +18,7 @@ const NewArrivalsPage = ({ data }: PageProps) => {
 
     return (
         <Layout>
+            <SEO title="Etheral | New Arrivals" />
             <Shop
                 products={products as Product[]}
                 type={ShopType.NEW_ARRIVALS}

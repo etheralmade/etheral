@@ -6,6 +6,7 @@ import firebase from 'gatsby-plugin-firebase'; // needed if no state is given.
 import { Box, Text } from 'rebass';
 import { Layout } from 'components/layout';
 
+import { SEO } from 'components/seo';
 import { Order as OrderSchema } from 'helper/schema';
 import Order from 'templates/order';
 
@@ -19,6 +20,7 @@ const OrderPage = (props: PageProps) => {
 
         return (
             <Layout>
+                <SEO title={`Erheral | Order ${order.oid}`} />
                 <Order order={order} />
             </Layout>
         );
@@ -38,6 +40,7 @@ const OrderPage = (props: PageProps) => {
 
         return (
             <Layout>
+                <SEO title={`Etheral | Order ${params[oidIndex][1]}`} />
                 <OrderPageAsync oid={params[oidIndex][1]} />
             </Layout>
         );

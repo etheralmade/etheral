@@ -2,6 +2,8 @@ import React from 'react';
 import { PageProps, graphql } from 'gatsby';
 
 import { Layout } from 'components/layout';
+import { SEO } from 'components/seo';
+
 import { Blog } from './blog';
 import { Blog as BlogSchema } from 'helper/schema';
 
@@ -13,6 +15,10 @@ const BlogPage = (props: PageProps) => {
 
         return (
             <Layout>
+                <SEO
+                    title={`Etheral | ${blog.title}`}
+                    description={blog.summary}
+                />
                 <Blog
                     blog={
                         {

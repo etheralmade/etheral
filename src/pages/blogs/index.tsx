@@ -3,6 +3,8 @@ import { PageProps, graphql } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 
 import { Layout } from 'components/layout';
+import { SEO } from 'components/seo';
+
 import AllBlogs from 'templates/all-blogs';
 import { Blog } from 'helper/schema';
 
@@ -85,6 +87,7 @@ const AllBlogsPage = (props: PageProps) => {
 
         return (
             <Layout>
+                <SEO title="Etheral | Blogs" />
                 <AllBlogs blogs={blogs} />
             </Layout>
         );

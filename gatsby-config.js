@@ -1,10 +1,23 @@
-const siteTitle = 'gatsby-starter-typescript-deluxe';
+const siteTitle = 'Etheral';
 const siteDescription =
-    'A Gatsby starter with TypeScript, Storybook, Styled Components, Framer Motion, Jest, and more.';
-const siteAuthor = '@gojutin';
+    'Handcrafted fine jewelry and made to last. Shop our new arrivals and best sellers. Every piece from Etheral is something exclusively made for you, with no other person in the world having the same jewelry as yours.';
+const siteAuthor = '@louisandrew';
 const siteUrl = 'https://gatsby-starter-typescript-deluxe.netlify.com';
 const siteImage = `${siteUrl}/icons/icon_512x512.png`;
-const siteKeywords = ['gatsby', 'typescript', 'starter', 'javascript', 'react'];
+const siteKeywords = [
+    'Etheral',
+    'Etheralmade',
+    'Etheral Made',
+    'Etheral Jewelry',
+    'Jewelry, Earrings',
+    'Necklace',
+    'Rings',
+    'Bracelet',
+    'Silver jewelry',
+    'Gold plated jewelry',
+    'Bali jewelry',
+    'Handmade jewelry',
+];
 
 const path = require('path');
 // provide firebase on ssr.

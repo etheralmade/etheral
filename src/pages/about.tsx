@@ -87,8 +87,8 @@ const AboutPage: React.FC<PageProps> = ({ data }) => {
         return (
             <Layout>
                 <SEO
-                    title="About gatsby-starter-template-deluxe"
-                    description="Examples using the gatsby-starter-template-deluxe."
+                    title="Etheral | About us"
+                    description="Learn more about etheral"
                 />
                 <About
                     firstParagraph={firstParagraph}

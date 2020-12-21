@@ -3,6 +3,7 @@ import { PageProps, graphql } from 'gatsby';
 
 import { Box } from 'rebass';
 
+import { SEO } from 'components/seo';
 import { Layout } from 'components/layout';
 
 const FAQPage = ({ data }: PageProps) => {
@@ -16,6 +17,7 @@ const FAQPage = ({ data }: PageProps) => {
 
     return (
         <Layout>
+            <SEO title="Etheral | Frequently Asked Question" />
             <Box
                 className="content"
                 px={[6, 9, 9, '10vw', '13vw']}

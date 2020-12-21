@@ -3,6 +3,7 @@ import { PageProps } from 'gatsby';
 
 import Thankyou, { Props } from 'templates/thankyou';
 import { Layout } from 'components/layout';
+import { SEO } from 'components/seo';
 
 /**
  * Page component for thankyou page
@@ -14,6 +15,7 @@ const ThankyouPage = (props: PageProps) => {
     if (state) {
         return (
             <Layout>
+                <SEO title="Etheral | Thank you for your purchase" />
                 <Thankyou {...(state as Props)} />
             </Layout>
         );
