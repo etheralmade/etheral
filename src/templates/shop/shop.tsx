@@ -118,7 +118,7 @@ const Shop: React.FC<Props> = ({ products, type, isCollectionPage }) => {
         calculateNumOfPages({ ...pagination }, store);
     }, [store, pagination]);
 
-    const debug = true;
+    const debug = false; // going into production, no more debug codes needed
 
     // debug mock products
     useEffect(() => {

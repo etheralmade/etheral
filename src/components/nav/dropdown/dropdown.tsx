@@ -210,6 +210,12 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                                 >
                                     <Text variant="link">Rings</Text>
                                 </Link>
+                                <Link
+                                    to="/shop?categories=earring"
+                                    onClick={handleClickWithQuery}
+                                >
+                                    <Text variant="link">Earrings</Text>
+                                </Link>
                             </Box>
                         </Box>
                         {/* end links for desktop */}

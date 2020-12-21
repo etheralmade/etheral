@@ -31,7 +31,7 @@ const Table: React.FC<Props> = ({ data }) => {
     return (
         <Box
             mb={[6, 6, 0]}
-            mr={[0, 0, 4, 9]}
+            mr={[0, 0, 8, 9]}
             sx={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, auto)',

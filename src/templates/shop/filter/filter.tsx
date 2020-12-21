@@ -26,7 +26,7 @@ export enum SortPrice {
     NONE = 'NONE',
 }
 // hard coded => change if needed?
-export const LIST_OF_CATEGORIES = ['BRACELET', 'RING', 'EARRINGS', 'NECKLACE'];
+export const LIST_OF_CATEGORIES = ['BRACELET', 'RING', 'EARRING', 'NECKLACE'];
 
 const Filter: React.FC<Props> = ({
     filters,

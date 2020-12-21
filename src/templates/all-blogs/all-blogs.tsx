@@ -36,10 +36,10 @@ const AllBlogs: React.FC<Props> = ({ blogs }) => {
     // to display products (filtered by pagination)
     const [display, setDisplay] = useState<Blog[]>([]);
 
+    const debug = false; // going into production, no debug code needed
+
     useEffect(() => {
         const duplicated = [...blogs, ...blogs, ...blogs, ...blogs];
-
-        const debug = true;
 
         setStore(debug ? duplicated : blogs);
     }, []);

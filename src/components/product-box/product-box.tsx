@@ -105,16 +105,36 @@ const ProductBox: React.FC<Props> = ({ item, currency, connectDispatch }) => {
                 justifyContent="space-between"
                 my={[3]}
                 py={[2, 3]}
-                px={[2, 3]}
+                px={[2, 3, 5, 5]}
                 width={[300, 340, 400]}
                 css={`
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                     position: relative;
+
+                    @-moz-document url-prefix() {
+                        padding-left: 20px !important;
+                        padding-right: 20px !important;
+
+                        .wrapper {
+                            @media screen and (min-width: 48em) {
+                                width: calc(300px - 140px) !important;
+                            }
+
+                            @media screen and (min-width: 64em) {
+                                width: calc(360px - 220px) !important;
+                            }
+                        }
+
+                        .remove {
+                            right: 20px !important;
+                        }
+                    }
                 `}
             >
                 <Img fixed={sources} />
                 <Box
                     width={[160, 'calc(340px - 140px)', 'calc(400px - 220px)']}
+                    className="wrapper"
                 >
                     {/* product name */}
                     <Text
@@ -234,13 +254,14 @@ const ProductBox: React.FC<Props> = ({ item, currency, connectDispatch }) => {
                     sx={{
                         position: 'absolute',
                         bottom: '6px',
-                        right: '6px',
+                        right: '16px',
                         textDecoration: 'underline',
                         '&:hover': {
                             cursor: 'pointer',
                         },
                     }}
                     onClick={handleRemoveAll}
+                    className="remove"
                 >
                     Remove
                 </Text>

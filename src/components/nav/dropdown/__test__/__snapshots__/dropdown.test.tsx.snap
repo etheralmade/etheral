@@ -119,6 +119,16 @@ exports[`Dropdown element matches snapshot 1`] = `
               Rings
             </div>
           </a>
+          <a
+            href="/shop?categories=earring"
+            onClick={[Function]}
+          >
+            <div
+              className="css-vurnku"
+            >
+              Earrings
+            </div>
+          </a>
         </div>
       </div>
       <div
