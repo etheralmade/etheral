@@ -24,7 +24,10 @@ const HeroImage: React.FC<Props> = ({ img, buttonLink, buttonText }) => {
             >
                 <Img
                     style={{ height: '100%', width: '100%' }}
-                    imgStyle={{ objectPosition: 'center' }}
+                    imgStyle={{
+                        // objectPosition: '30% 50%',
+                        objectFit: 'cover',
+                    }}
                     fluid={img.sources}
                 />
             </Box>

@@ -76,6 +76,7 @@ const Blog: React.FC<Props> = ({ blog }) => {
                         lineHeight: ['6px', '6px', '7px'],
                         img: {
                             height: 'auto',
+                            display: 'unset'
                         },
                     }}
                     dangerouslySetInnerHTML={{ __html: content }}

@@ -93,7 +93,12 @@ export const query = graphql`
             imgs {
                 url
                 childImageSharp {
-                    fluid(maxWidth: 600, maxHeight: 500, quality: 100) {
+                    fluid(
+                        maxWidth: 400
+                        maxHeight: 600
+                        quality: 100
+                        cropFocus: CENTER
+                    ) {
                         ...GatsbyImageSharpFluid
                     }
                 }
