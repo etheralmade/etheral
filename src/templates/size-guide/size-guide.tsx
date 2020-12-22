@@ -32,7 +32,7 @@ const SizeGuide: React.FC<Props> = () => {
         <Flex
             flexDirection={['column', 'column', 'row']}
             alignItems={['center', 'center']}
-            my={[6]}
+            my={[7]}
             justifyContent="center"
         >
             <Table data={data} />

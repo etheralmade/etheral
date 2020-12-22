@@ -149,7 +149,7 @@ const Description: React.FC<{ description: string }> = ({ description }) => (
 
 const Details: React.FC<{ productDetails: string }> = ({ productDetails }) => (
     <Box>
-        <Heading variant="productPageHeading" fontWeight={600} my={[5]}>
+        <Heading variant="productPageHeading" fontWeight={600} mt={[5]}>
             DETAILS
         </Heading>
         <Box
@@ -158,11 +158,11 @@ const Details: React.FC<{ productDetails: string }> = ({ productDetails }) => (
                 fontWeight: 300,
                 fontSize: [1, 1, 2],
                 color: '#000',
-                lineHeight: ['6px', '6px', '7px'],
+                lineHeight: '150%',
                 ul: {
-                    lineHeight: ['6px', '6px', '7px'],
+                    lineHeight: 0.4,
                     li: {
-                        lineHeight: ['6px', '6px', '7px'],
+                        lineHeight: 1.5,
                     },
                 },
             }}

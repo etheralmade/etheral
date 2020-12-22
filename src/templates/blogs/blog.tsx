@@ -73,10 +73,12 @@ const Blog: React.FC<Props> = ({ blog }) => {
                     id="blog-content"
                     sx={{
                         fontFamily: 'body',
-                        lineHeight: ['6px', '6px', '7px'],
                         img: {
                             height: 'auto',
-                            display: 'unset'
+                            display: 'unset',
+                        },
+                        '& *': {
+                            lineHeight: 1,
                         },
                     }}
                     dangerouslySetInnerHTML={{ __html: content }}
