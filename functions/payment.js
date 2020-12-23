@@ -82,6 +82,8 @@ exports.handler = async event => {
             }),
         };
     } catch (e) {
+        console.error(e);
+
         return await {
             statusCode: 404,
             body: JSON.stringify(e),
