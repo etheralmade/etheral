@@ -411,13 +411,16 @@ const Checkout: React.FC<Props> = ({
                 // calls verify-order
                 const verifyUrl =
                     process.env.NODE_ENV === 'production'
-                        ? ''
+                        ? '/.netlify/functions/verify-order'
                         : '/verify-order/';
 
                 const verifyBody = {
                     date: getDateReadable(orderDate),
-                    email: userData.email,
                     oid,
+                    channel,
+                    currency,
+                    ...ipaymuData,
+                    ...userData,
                 };
 
                 const req = await axios.post(verifyUrl, verifyBody);

@@ -12,11 +12,11 @@ const { LAMBDA_ENV } = process.env;
 exports.handler = async event => {
     // params that should be passed to the function
     const {
-        buyerName,
-        buyerEmail,
-        buyerPhone,
-        buyerAddr,
-        buyerPostal,
+        name,
+        email,
+        phone,
+        address,
+        postal,
         channel,
         total,
         currency,
@@ -25,6 +25,8 @@ exports.handler = async event => {
         paymentNo,
         paymentName,
     } = JSON.parse(event.body);
+
+    console.log(event.body);
 
     const webRoot =
         LAMBDA_ENV === 'production'
@@ -38,7 +40,7 @@ exports.handler = async event => {
                 <img style="height: 50px; width: 150px;" src="https://firebasestorage.googleapis.com/v0/b/etheral-dev-f86af.appspot.com/o/flamelink%2Fmedia%2FEtheral.png?alt=media&token=334b253c-ad82-4cca-809c-a7ee225ae5cb" />
                 <h2>Thank you for your order!</h2>
                 <p>
-                    Hello ${buyerName}, please make a payment to:
+                    Hello ${name}, please make a payment to:
                 </p>
 
                 <strong style="margin: 16px 0;">
@@ -68,17 +70,17 @@ exports.handler = async event => {
                     <div style="margin-right: 32px;">
                         <h4>CUSTOMER INFORMATION</h4>
                         <p>
-                            ${buyerName} <br />
-                            ${buyerPhone} <br />
-                            ${buyerEmail} <br />
+                            ${name} <br />
+                            ${phone} <br />
+                            ${email} <br />
                             Order date: ${date}
                         </p>
                     </div>
                     <div>
                         <h4>SHIPPING ADDRESS</h4>
                         <p>
-                            ${buyerAddr} <br />
-                            ${buyerPostal}
+                            ${address} <br />
+                            ${postal}
                         </p>
                     </div>
                 </div>
@@ -87,7 +89,9 @@ exports.handler = async event => {
     `;
 
     const emailFunctionUrl =
-        'https://fervent-minsky-bc0840.netlify.app/.netlify/functions';
+        LAMBDA_ENV === 'production'
+            ? 'https://fervent-minsky-bc0840.netlify.app/.netlify/functions'
+            : 'http://localhost:9000';
 
     try {
         const req = await fetch(
@@ -96,7 +100,7 @@ exports.handler = async event => {
                 method: 'POST',
                 body: JSON.stringify({
                     template,
-                    to: buyerEmail,
+                    to: email,
                 }),
             }
         );

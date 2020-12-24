@@ -64,11 +64,11 @@ exports.handler = async event => {
             body: JSON.stringify(bodyReq),
         }).then(rsp => rsp.json());
 
+        console.log(await req);
+
         const {
             Data: { SessionId, PaymentNo, PaymentName, Expired, Fee, Total },
         } = await req;
-
-        console.log(await req);
 
         return await {
             statusCode: 200,

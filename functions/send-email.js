@@ -11,6 +11,9 @@ const transporter = nodemailer.createTransport({
         user: MAIL_ADDR,
         pass: MAIL_PASS,
     },
+    tls: {
+        rejectUnauthorized: false,
+    },
 });
 
 const createTimestamp = () => {
@@ -195,17 +198,29 @@ exports.handler = (event, context, callback) => {
         `,
     };
 
-    transporter.sendMail(mailOptions, (e, info) => {
-        if (e) {
-            callback(null, {
-                statusCode: 400,
-                body: JSON.stringify(e),
-            });
-        }
+    try {
+        transporter.sendMail(mailOptions, (e, info) => {
+            if (e) {
+                console.error(e);
+                callback(null, {
+                    statusCode: 400,
+                    body: JSON.stringify(e),
+                });
+            }
 
-        callback(null, {
-            statusCode: 200,
-            body: 'Success',
+            console.log(info);
+
+            callback(null, {
+                statusCode: 200,
+                body: 'Success',
+            });
         });
-    });
+    } catch (e) {
+        console.error(e);
+        console.error(e);
+        callback(null, {
+            statusCode: 400,
+            body: JSON.stringify(e),
+        });
+    }
 };
