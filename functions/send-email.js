@@ -6,7 +6,9 @@ require('dotenv').config();
 const { MAIL_ADDR, MAIL_PASS } = process.env;
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp-relay.sendinblue.com',
+    port: 587,
+    secure: false,
     auth: {
         user: MAIL_ADDR,
         pass: MAIL_PASS,
