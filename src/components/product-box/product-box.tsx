@@ -151,7 +151,10 @@ const ProductBox: React.FC<Props> = ({ item, currency, connectDispatch }) => {
                         as="section"
                     >
                         {/* render details of the product => conditional. */}
-                        Size: {details.size}
+                        Size:{' '}
+                        {details.size === 'ALL_SIZE'
+                            ? 'All size'
+                            : details.size}
                         {details.gemType && (
                             <>
                                 <br />

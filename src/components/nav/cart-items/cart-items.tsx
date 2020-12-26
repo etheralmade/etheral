@@ -31,8 +31,6 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
     console.log(cart);
 
     const cartMapped = cart.map(item => {
-        console.log(item);
-
         const notes = item.note.map(o => ({ ...item, ...o, note: undefined }));
 
         return notes;

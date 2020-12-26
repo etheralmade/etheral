@@ -87,7 +87,7 @@ const OrderPageAsync: React.FC<{ oid: string }> = ({ oid }) => {
             }
 
             // if data is available: set order with data provided
-            setOrder({ ...data, date: data.date.toDate() } as OrderSchema);
+            setOrder({ ...data, date: data?.date.toDate() } as OrderSchema);
         }
     };
 
