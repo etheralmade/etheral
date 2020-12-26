@@ -501,7 +501,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                         />
                                     </CSSTransition>
                                 </Box>
-                                <Link to="/blog">
+                                <Link to="/blogs">
                                     <Text
                                         variant={
                                             currLocation.includes('blog')
@@ -526,7 +526,7 @@ const Navigation: React.FC<Props & ICartState> = ({
                                     </Text>
                                 </Link>
 
-                                <Link to="/">
+                                <Link to="/faq">
                                     <Text
                                         variant={
                                             currLocation.includes('faq')

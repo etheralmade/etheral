@@ -49,9 +49,9 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
                 as="h2"
                 fontSize={[2, 2, 3]}
                 fontWeight="bold"
-                mt={[4, 4, 0]}
+                mt={[4]}
                 mb={[6]}
-                textAlign="center"
+                textAlign="left"
             >
                 ORDER SUMMARY
             </Heading>
