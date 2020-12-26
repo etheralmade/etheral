@@ -5,6 +5,8 @@ require('dotenv').config();
 
 const { MAIL_ADDR, MAIL_PASS } = process.env;
 
+console.log({ MAIL_ADDR, MAIL_PASS });
+
 const transporter = nodemailer.createTransport({
     host: 'smtp-relay.sendinblue.com',
     port: 587,
