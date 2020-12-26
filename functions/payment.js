@@ -12,7 +12,7 @@ const {
 exports.handler = async event => {
     const url =
         LAMBDA_ENV === 'production'
-            ? 'https://my.ipaymu.com/api/v2/payment'
+            ? 'https://my.ipaymu.com/api/v2/payment/direct'
             : 'https://sandbox.ipaymu.com/api/v2/payment/direct';
 
     const { body } = event;
