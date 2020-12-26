@@ -42,9 +42,9 @@ const Thankyou: React.FC<Props> = ({
                 sx={{
                     position: 'relative',
                     overflow: 'hidden',
-                    height: ['80vh', '120vh', '55vh', '65vh'],
-                    minHeight: ['unset', 'unset', '400px'],
-                    maxHeight: ['unset', '380px', 'unset', '740px'],
+                    height: ['60vh', '70vh', '300px', '400px', '60vh'],
+                    minHeight: ['unset', 'unset', 'unset'],
+                    maxHeight: ['unset', '380px', 'unset'],
                 }}
             >
                 <Box
@@ -66,13 +66,6 @@ const Thankyou: React.FC<Props> = ({
                             '&.thx-desktop': {
                                 display: ['none', 'block'],
                             },
-                            transform: [
-                                'unset',
-                                'unset',
-                                'unset',
-                                'unset',
-                                'translateY(-200px)',
-                            ],
                         },
                     }}
                 >
