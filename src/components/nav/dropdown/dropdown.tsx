@@ -9,8 +9,6 @@ import { Box, Flex, Text } from 'rebass';
 import { InlineIcon } from '@iconify/react';
 import arrowDownSLine from '@iconify/icons-ri/arrow-down-s-line';
 
-import { createUrlParam } from 'helper/url-param';
-
 type Props = {
     currLocation: string;
     goBack: () => void;
@@ -252,7 +250,7 @@ const Dropdown: React.FC<Props> = ({ currLocation }) => {
                                     {collections.map(collection => (
                                         <Link
                                             key={collection}
-                                            to={`shop?collections=${createUrlParam(
+                                            to={`shop/${nameToSlug(
                                                 collection
                                             )}`}
                                             onClick={handleClickWithQuery}
