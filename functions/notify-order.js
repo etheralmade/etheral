@@ -33,7 +33,7 @@ exports.handler = async event => {
             const sendEmailUrl =
                 LAMBDA_ENV === 'production'
                     ? 'https://fervent-minsky-bc0840.netlify.app/.netlify/functions/send-email' // error: only absolute url is supported..
-                    : 'localhost:9000/send-email';
+                    : 'http://localhost:9000/send-email';
             try {
                 // if it exists, set to TRUE.
                 await dbRef.update({
@@ -41,7 +41,7 @@ exports.handler = async event => {
                 });
 
                 const req = await fetch(
-                    `http://${sendEmailUrl}?type=PAYMENT_NOTIF&oid=${oid}`,
+                    `${sendEmailUrl}?type=PAYMENT_NOTIF&oid=${oid}`,
                     {
                         method: 'POST',
                         body: '{ "to": "" }',
@@ -58,7 +58,7 @@ exports.handler = async event => {
                 };
             } catch (e) {
                 console.error(e);
-                fetch(`http://${sendEmailUrl}?type=ERROR`, JSON.stringify(e));
+                fetch(`${sendEmailUrl}?type=ERROR`, JSON.stringify(e));
                 return await {
                     statusCode: 404,
                     body: JSON.stringify({ message: 'Error' }),

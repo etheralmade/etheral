@@ -27,7 +27,7 @@ exports.handler = async event => {
     } = JSON.parse(body);
 
     const notifyUrl =
-        'https://fervent-minsky-bc0840.netlify.app/.netlify/functions/send-email';
+        'https://fervent-minsky-bc0840.netlify.app/.netlify/functions/notify-order';
 
     const bodyReq = {
         notifyUrl: `${notifyUrl}?oid=${oid}`,
