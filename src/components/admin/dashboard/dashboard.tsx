@@ -72,7 +72,7 @@ const Dashboard: React.FC<Props> = ({ logout, db, adminEmail }) => {
             </Box>
             <Box
                 width="100%"
-                height={['90vh', '90vh', '100vh']}
+                height={['80vh', '80vh', '100vh']}
                 flex={1}
                 p={[5, 5, 7]}
                 bg="white.1"
