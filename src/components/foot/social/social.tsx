@@ -7,9 +7,9 @@ import { Facebook, Pinterest, Instagram } from './assets';
 type Props = {};
 
 const Social: React.FC<Props> = () => {
-    const INSTAGRAM = 'localhost:9001';
-    const FACEBOOK = 'localhost:9001';
-    const PINTEREST = 'localhost:9001';
+    const INSTAGRAM = 'https://www.instagram.com/etheralmade/';
+    const FACEBOOK = 'https://www.facebook.com/etheralmade';
+    const PINTEREST = 'https://pin.it/NrIwTvY';
 
     return (
         <Flex
@@ -24,13 +24,13 @@ const Social: React.FC<Props> = () => {
                 },
             }}
         >
-            <a href={INSTAGRAM}>
+            <a href={INSTAGRAM} target="_blank">
                 <Instagram />
             </a>
-            <a href={FACEBOOK}>
+            <a href={FACEBOOK} target="_blank">
                 <Facebook />
             </a>
-            <a href={PINTEREST}>
+            <a href={PINTEREST} target="_blank">
                 <Pinterest />
             </a>
         </Flex>
