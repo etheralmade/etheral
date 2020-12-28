@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import axios from 'axios';
 
+import Img from 'gatsby-image';
 import { Flex, Box, Text, Heading } from 'rebass';
 import { Input } from '@rebass/forms';
 import { Icon } from '@iconify/react';
@@ -39,6 +40,29 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
     `);
 
     const { imgS, imgL, imgXS } = data as any;
+
+    const [email, setEmail] = useState('');
+
+    /**
+     * Subscribe to mailing list function..
+     */
+    const subscribe = async (event: React.FormEvent<HTMLDivElement>) => {
+        event.preventDefault();
+
+        // call the serverless function
+        const url =
+            process.env.NODE_ENV === 'production'
+                ? ''
+                : '/subscribe-mailing-list/';
+
+        try {
+            await axios.post(`${url}?email=${email}`);
+            await closeModal();
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     if (imgS && imgL) {
         const sources = [
             {
@@ -142,6 +166,7 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                                 textAlign: 'center',
                             },
                         }}
+                        onSubmit={subscribe}
                     >
                         <Input
                             type="email"
@@ -150,6 +175,9 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
                             variant="variants.textInput"
                             width={['100%']}
                             maxWidth="100%"
+                            onChange={e => {
+                                setEmail(e.target.value);
+                            }}
                         />
                         <Input
                             type="submit"

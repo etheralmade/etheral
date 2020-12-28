@@ -350,7 +350,7 @@ const Checkout: React.FC<Props> = ({
                     oid,
                     buyerName: userData.name,
                     buyerEmail: userData.email,
-                    buyerPhone: userData.phone,
+                    buyerPhone: `0${userData.phone}`,
                     buyerUId: user ? user.uid : 'admin',
                     buyerAddr: userData.address,
                     buyerPostal: userData.postal,

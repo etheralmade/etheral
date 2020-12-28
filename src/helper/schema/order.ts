@@ -28,7 +28,7 @@ export interface Order {
     oid: string;
     buyerName: string;
     buyerEmail: string;
-    buyerPhone: number;
+    buyerPhone: number | string;
     buyerUId?: string;
     buyerAddr: string;
     buyerPostal: number;

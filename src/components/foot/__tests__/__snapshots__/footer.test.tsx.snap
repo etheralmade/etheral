@@ -12,6 +12,7 @@ exports[`Footer element matches snapshot 1`] = `
     >
       <form
         className="css-vurnku"
+        onSubmit={[Function]}
       >
         <div
           className="css-171zudh"
@@ -20,6 +21,7 @@ exports[`Footer element matches snapshot 1`] = `
             aria-labelledby="mailing-list-input"
             className="css-4y926w"
             name="mailing-list-email"
+            onChange={[Function]}
             placeholder="Insert your email here"
             type="email"
           />

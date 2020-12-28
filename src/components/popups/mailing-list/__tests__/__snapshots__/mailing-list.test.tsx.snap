@@ -146,10 +146,12 @@ exports[`MailingList matches snapshot 1`] = `
     </div>
     <form
       className="css-d9xs30"
+      onSubmit={[Function]}
     >
       <input
         aria-labelledby="subscribe-newsletter-popup"
         className="css-1pr8502"
+        onChange={[Function]}
         placeholder="Enter your email address here"
         type="email"
       />
