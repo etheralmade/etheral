@@ -52,7 +52,7 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
         // call the serverless function
         const url =
             process.env.NODE_ENV === 'production'
-                ? ''
+                ? '/.netlify/functions/subscribe-mailing-list'
                 : '/subscribe-mailing-list/';
 
         try {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from '@reach/router';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import { Flex, Box } from 'rebass';
 
@@ -10,6 +11,9 @@ import useAllProducts from 'helper/use-all-products';
 import { FirebaseUserData, InCart } from 'helper/schema/firebase-user';
 import { setCart } from 'state/actions/cart';
 import extractCartFirestore from 'helper/extract-cart-firestore';
+
+import Modal from 'components/modal';
+import { ResetPassword } from 'components/popups';
 
 type Props = {
     auth: firebase.auth.Auth;
@@ -43,6 +47,9 @@ const Auth: React.FC<Props> = ({
 }) => {
     const [uid, setUid] = useState('');
     const [isNewUser, setIsNewUser] = useState(false);
+    // used to reset password .
+    const [showPassResetModal, setShowPassResetModal] = useState(false);
+    const [resetPassText, setResetPassText] = useState('');
 
     // state to store errror msg.
     const [error, setError] = useState<firebase.auth.Error | undefined>(
@@ -181,7 +188,16 @@ const Auth: React.FC<Props> = ({
 
             if (await signupNewsletter) {
                 // call cloud function to sign this acc to newsletter up
-                console.log('Do signup newsletter here');
+                const url =
+                    process.env.NODE_ENV === 'production'
+                        ? '/.netlify/functions/subscribe-mailing-list'
+                        : '/subscribe-mailing-list/';
+
+                try {
+                    await axios.post(`${url}?email=${email}`);
+                } catch (e) {
+                    console.error(e);
+                }
             }
         } catch (e) {
             setErrTarget(ErrorTarget.SIGN_UP);
@@ -207,6 +223,27 @@ const Auth: React.FC<Props> = ({
         }
     };
 
+    /**
+     * Function to be called when user clicked on the forgot password button
+     */
+    const forgotPassword = () => {
+        setShowPassResetModal(true);
+    };
+
+    const resetPassword = async (email: string) => {
+        const SUCCESS_TEXT =
+            '💡 Password reset email has been sent to your email address.';
+        const FAIL_TEXT = 'Oops, something went wrong. Please try again later';
+
+        try {
+            await auth.sendPasswordResetEmail(email);
+            await setResetPassText(SUCCESS_TEXT);
+        } catch (e) {
+            console.error(e);
+            setResetPassText(FAIL_TEXT);
+        }
+    };
+
     return (
         <Flex
             width={['100%', '100%', '100%', '70%', '60%']}
@@ -215,6 +252,17 @@ const Auth: React.FC<Props> = ({
             px={[4, 4, 6]}
             m="0 auto"
         >
+            {showPassResetModal && (
+                <Modal center={true}>
+                    <ResetPassword
+                        text={resetPassText}
+                        close={() => {
+                            setShowPassResetModal(false);
+                        }}
+                        resetPassword={resetPassword}
+                    />
+                </Modal>
+            )}
             <Box width={['100%', '100%', '48%', '45%', '44%']} my={[5]}>
                 <SignUp
                     signup={signupWithEmail}
@@ -231,6 +279,7 @@ const Auth: React.FC<Props> = ({
                 <Login
                     login={loginWithEmail}
                     withGoogle={withGoogle}
+                    forgotPassword={forgotPassword}
                     firebaseError={
                         errTarget === ErrorTarget.LOGIN ? error : undefined
                     }

@@ -11,7 +11,7 @@ exports[`Login component matches snapshot 1`] = `
     LOGIN
   </h3>
   <div
-    className="css-vurnku"
+    className="css-f5thiz"
   >
     <label
       className="css-knfhfe"
@@ -39,8 +39,7 @@ exports[`Login component matches snapshot 1`] = `
     />
   </div>
   <div
-    className="css-1ge0f3l"
-    onClick={[Function]}
+    className="css-1ajfgo6"
     role="button"
   >
     FORGOT PASSWORD?

@@ -5,7 +5,8 @@ exports[`Social matches snapshot 1`] = `
   className="css-29mlpl"
 >
   <a
-    href="localhost:9001"
+    href="https://www.instagram.com/etheralmade/"
+    target="_blank"
   >
     <svg
       height="1em"
@@ -26,7 +27,8 @@ exports[`Social matches snapshot 1`] = `
     </svg>
   </a>
   <a
-    href="localhost:9001"
+    href="https://www.facebook.com/etheralmade"
+    target="_blank"
   >
     <svg
       height="1em"
@@ -39,7 +41,8 @@ exports[`Social matches snapshot 1`] = `
     </svg>
   </a>
   <a
-    href="localhost:9001"
+    href="https://pin.it/NrIwTvY"
+    target="_blank"
   >
     <svg
       height="1em"

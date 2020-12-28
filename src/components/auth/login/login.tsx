@@ -15,6 +15,7 @@ type Props = {
     firebaseError?: firebase.auth.Error;
     login: (args: LoginProps) => void;
     withGoogle?: () => void;
+    forgotPassword?: () => void;
 };
 
 type Inputs = {
@@ -25,6 +26,7 @@ type Inputs = {
 const Login: React.FC<Props> = ({
     login,
     withGoogle,
+    forgotPassword,
     submitValue,
     firebaseError,
 }) => {
@@ -37,10 +39,6 @@ const Login: React.FC<Props> = ({
             email: loginEmail,
             password: loginPassword,
         });
-    };
-
-    const forgotPassword = () => {
-        console.log('Forgot password');
     };
 
     const textAlignAttr: 'left' | 'center' = 'left';
@@ -62,7 +60,7 @@ const Login: React.FC<Props> = ({
                 LOGIN
             </Heading>
 
-            <Box>
+            <Box mb={5}>
                 <Label htmlFor="login-email" variant="text.formLabel">
                     EMAIL
                 </Label>
@@ -109,17 +107,19 @@ const Login: React.FC<Props> = ({
                     <Text {...errorStyling}>Wrong password</Text>
                 ) : null}
             </Box>
-            <Text
-                role="button"
-                onClick={forgotPassword}
-                variant="text.formHeading"
-                fontSize={[10, 10, 10, 10]}
-                textAlign="left"
-                my={[5]}
-                sx={{ cursor: 'pointer' }}
-            >
-                FORGOT PASSWORD?
-            </Text>
+            {window !== undefined && window.location.pathname !== '/admin' ? (
+                <Text
+                    role="button"
+                    onClick={forgotPassword}
+                    variant="text.formHeading"
+                    fontSize={[10, 10, 10, 10]}
+                    textAlign="left"
+                    mb={[5]}
+                    sx={{ cursor: 'pointer' }}
+                >
+                    FORGOT PASSWORD?
+                </Text>
+            ) : null}
             <Flex width="60%" flexDirection="column" m="0 auto">
                 <Button type="submit" py={[4]}>
                     {submitValue || 'LOGIN'}
