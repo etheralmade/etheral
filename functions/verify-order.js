@@ -28,10 +28,7 @@ exports.handler = async event => {
 
     console.log(event.body);
 
-    const webRoot =
-        LAMBDA_ENV === 'production'
-            ? 'https://fervent-minsky-bc0840.netlify.app'
-            : 'http://localhost:8000';
+    const webRoot = 'https://etheralmade.com';
 
     const template = `
         <div>

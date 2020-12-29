@@ -116,7 +116,7 @@ exports.handler = (event, context, callback) => {
             html = `
                 <h1>Order ${oid} has been paid on ${createTimestamp()}</h1>
                 <br />
-                <p>Please procceed to fullfil the order. Click <a href='/'>Here</a> to directly go to the admin link.</p>
+                <p>Please procceed to fullfil the order. Click <a href='https://etheralmade.com/admin'>Here</a> to directly go to the admin link.</p>
             `;
             break;
         case 'ERROR':
