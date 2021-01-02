@@ -10,7 +10,10 @@ import useFonts from 'helper/use-fonts';
 import Footer from 'components/foot';
 // import firebaseConfig from 'lib/firebase-config';
 
-const Layout: React.FC = ({ children }) => {
+const Layout: React.FC<{ isShowingBlog?: boolean }> = ({
+    children,
+    isShowingBlog = false,
+}) => {
     const data = useStaticQuery(graphql`
         query SiteTitleQuery {
             site {
@@ -22,22 +25,17 @@ const Layout: React.FC = ({ children }) => {
         }
     `);
 
-    // const { title, description } = data.site.siteMetadata;
-
-    // const firebaseApp = firebase.initializeApp(firebaseConfig);
-
     useFonts();
 
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyles />
             {/* <CSSDebugger />  */}
-            {/* <FirebaseAppProvider firebaseApp={firebaseApp}>
-                <SuspenseWithPerf fallback={<></>} traceId="0">
-                    <main>{children}</main>
-                </SuspenseWithPerf>
-    </FirebaseAppProvider> */}
-            <main>
+            <main
+                style={{
+                    backgroundColor: isShowingBlog ? '#fff' : '',
+                }}
+            >
                 <Navigation />
                 {children}
                 <Footer />

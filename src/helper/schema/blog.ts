@@ -11,5 +11,6 @@ export interface Blog {
             fixed?: FixedObject[] | FixedObject;
             fluid?: FluidObject[] | FluidObject;
         };
+        url?: string;
     };
 }

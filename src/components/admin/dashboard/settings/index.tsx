@@ -101,11 +101,6 @@ const Settings: React.FC<{}> = () => {
             );
             const discountCodeRef = db.collection('discount');
 
-            // const homepageRef = contentRef.where(
-            //     '_fl_meta_.schema',
-            //     '==',
-            //     'homepage'
-            // );
             const blogsRef = contentRef.where('_fl_meta_.schema', '==', 'blog');
 
             let collectionDocs: firebase.firestore.DocumentData[] = [];
@@ -195,6 +190,7 @@ const Settings: React.FC<{}> = () => {
                                     lastUpdate)
                     )
                     .map(blog => ({
+                        ...blog,
                         slug: blog.slug,
                         lastModifiedDate: blog._fl_meta_.lastModifiedDate
                             ? blog._fl_meta_.lastModifiedDate.toDate()

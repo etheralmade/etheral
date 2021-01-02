@@ -9,21 +9,24 @@ import { Box } from 'rebass';
 type Props = {
     children: React.ReactNode;
     center?: boolean;
+    /**
+     * Identifier if the position of the modal should be absolute rather than fixed
+     */
+    absolute?: boolean;
 };
 
-const Modal: React.FC<Props> = ({ children, center }) => {
+const Modal: React.FC<Props> = ({ children, center, absolute = false }) => {
     const portal =
         typeof document !== `undefined`
             ? document.getElementById('portal')
             : null;
 
-    // TODO: which element to render within modal?
     const Element = (
         <Box
             id="modal"
             sx={{
                 zIndex: 1000,
-                position: 'fixed',
+                position: absolute ? 'absolute' : 'fixed',
                 top: 0,
                 height: '100vh',
                 width: '100vw',
@@ -32,7 +35,7 @@ const Modal: React.FC<Props> = ({ children, center }) => {
         >
             <Box
                 css={`
-                    position: fixed;
+                    position: ${absolute ? 'absolute' : 'fixed'};
                     z-index: 1000;
                     ${center !== undefined &&
                         `

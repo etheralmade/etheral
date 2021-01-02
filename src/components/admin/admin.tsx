@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { sha256 } from 'js-sha256';
 
 import { Box, Text } from 'rebass';
@@ -26,6 +26,16 @@ const Admin: React.FC<Props> = ({ db }) => {
     const [isUnauthorized, setIsUnauthorized] = useState(false);
 
     const adminUserDbRef = db.collection('admin-user');
+
+    const debug = true;
+
+    useEffect(() => {
+        // skipping login on debug
+        if (debug) {
+            setIsAuthenticated(true);
+            setAdminEmail('asketheral@gmail.com');
+        }
+    }, []);
 
     // password encrypted with sha256!!
     const login = async ({ email, password }: LoginProps) => {

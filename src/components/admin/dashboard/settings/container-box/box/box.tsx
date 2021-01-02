@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Box as ReBox, Text, Flex, Button } from 'rebass';
 
+import { Blog as BlogSchema } from 'helper/schema';
+
 import DeleteButton from 'components/admin/dashboard/delete-button';
+import Modal from 'components/modal';
+import { Blog } from 'templates/blogs/blog';
+import { Layout } from 'components/layout';
 
 import { Type } from '..';
 import StatusBadge, { BadgeTypes } from '../../../orders/status-badge';
@@ -17,9 +22,13 @@ type Props = {
 };
 
 const Box: React.FC<Props> = ({ item, type, bg, removeDiscountCode }) => {
-    // handleClick preview blog
+    const [isPreviewingBlog, setIsPreviewingBlog] = useState(false);
+
+    /**
+     * Function to open preview modal for blogs
+     */
     const previewBlog = () => {
-        console.log('Preview');
+        setIsPreviewingBlog(true);
     };
 
     const textStyling = {
@@ -86,6 +95,31 @@ const Box: React.FC<Props> = ({ item, type, bg, removeDiscountCode }) => {
                 px={[2]}
                 py={[2]}
             >
+                {isPreviewingBlog && (
+                    <Modal absolute={true}>
+                        <Layout isShowingBlog={true}>
+                            <ReBox width="100vw">
+                                <Blog
+                                    blog={item as BlogSchema}
+                                    isPreviewing={true}
+                                />
+                            </ReBox>
+                        </Layout>
+                        <Button
+                            sx={{
+                                position: 'fixed',
+                                bottom: 32,
+                                right: 32,
+                                zIndex: 1111,
+                            }}
+                            onClick={() => {
+                                setIsPreviewingBlog(false);
+                            }}
+                        >
+                            Close preview
+                        </Button>
+                    </Modal>
+                )}
                 <Text sx={{ gridColumn: '1/2' }} {...textStyling}>
                     {item.slug}
                 </Text>

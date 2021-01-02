@@ -8,10 +8,17 @@ import { useAllBlogs } from 'helper/use-all-blogs';
 import { getDateReadable } from 'helper/get-date';
 
 type Props = {
+    /**
+     * Actual content(s) of the blog
+     */
     blog: BlogSchema;
+    /**
+     * Identifier to show if the date has been formatted and blog should be rendered as a preview
+     */
+    isPreviewing?: boolean;
 };
 
-const Blog: React.FC<Props> = ({ blog }) => {
+const Blog: React.FC<Props> = ({ blog, isPreviewing = false }) => {
     const { getQueryImgs } = useAllBlogs();
 
     const imgs = getQueryImgs(blog); // returns fluid images in sources.
@@ -64,7 +71,7 @@ const Blog: React.FC<Props> = ({ blog }) => {
                             {title}
                         </Heading>
                         <Text as="h4" variant="blogDate">
-                            {getDateReadable(date)}
+                            {isPreviewing ? date : getDateReadable(date)}
                         </Text>
                     </Flex>
                 </Box>
