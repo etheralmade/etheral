@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import firebase from 'gatsby-plugin-firebase';
 import { set } from 'lodash';
 
+import LoadingScreen from 'components/popups/loading-screen';
+
 import { Orders as OrdersEl } from './orders';
 import { Order } from 'helper/schema/order';
 
@@ -61,7 +63,7 @@ const Orders: React.FC<Props> = ({ db }) => {
             rerenderParent={() => setRerender(true)}
         />
     ) : (
-        <h1>Loading</h1>
+        <LoadingScreen />
     );
 };
 

@@ -4,7 +4,7 @@ import { ThemeProvider } from 'emotion-theming';
 
 import { theme, GlobalStyles } from 'styles';
 // Components
-import { CSSDebugger } from '../css-debugger';
+// import { CSSDebugger } from '../css-debugger';
 import Navigation from 'components/nav';
 import useFonts from 'helper/use-fonts';
 import Footer from 'components/foot';

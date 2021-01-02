@@ -4,6 +4,8 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'gatsby-plugin-firebase';
 
+import LoadingScreen from 'components/popups/loading-screen';
+
 import { Settings as SettingsEl } from './settings';
 
 export enum Status {
@@ -37,7 +39,7 @@ export type DiscountCodes = {
     code: string;
 };
 
-const Settings: React.FC<{}> = () => {
+const Settings: React.FC = () => {
     const [db, setDb] = useState<firebase.firestore.Firestore | null>(null);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -246,7 +248,7 @@ const Settings: React.FC<{}> = () => {
         );
     }
 
-    return <h1>Wait, loading</h1>;
+    return <LoadingScreen />;
 };
 
 export default Settings;

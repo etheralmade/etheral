@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Box } from 'rebass';
+import { Flex, Box, Text } from 'rebass';
 
 import Orders from './orders';
 import Links from './links';
@@ -44,10 +44,18 @@ const Dashboard: React.FC<Props> = ({ logout, db, adminEmail }) => {
             toRender = <Settings />;
             break;
         case StateViews.NONE:
-            toRender = <h1>None</h1>;
+            toRender = (
+                <Text mt={[4]} variant="h1" fontSize={[6, 6, 6]}>
+                    Welcome to admin dashboard
+                </Text>
+            );
             break;
         default:
-            toRender = <h1>None</h1>;
+            toRender = (
+                <Text mt={[4]} variant="h1" fontSize={[6, 6, 6]}>
+                    Welcome to admin dashboard
+                </Text>
+            );
             break;
     }
 
