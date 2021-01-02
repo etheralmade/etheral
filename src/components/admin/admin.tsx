@@ -27,7 +27,7 @@ const Admin: React.FC<Props> = ({ db }) => {
 
     const adminUserDbRef = db.collection('admin-user');
 
-    const debug = true;
+    const debug = false;
 
     useEffect(() => {
         // skipping login on debug
