@@ -33,7 +33,7 @@
         "@rebass/forms": "^4.0.6",
         "@types/react-select": "^3.0.19",
         "@types/rebass": "^4.0.6",
-        "axios": "^0.20.0",
+        "axios": "^0.21.1",
         "babel-plugin-transform-regenerator": "^6.26.0",
         "babel-plugin-transform-runtime": "^6.23.0",
         "babel-polyfill": "^6.26.0",
