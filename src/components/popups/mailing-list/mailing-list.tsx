@@ -60,6 +60,7 @@ const MailingList: React.FC<Props> = ({ closeModal }) => {
             await closeModal();
         } catch (e) {
             console.error(e);
+            closeModal();
         }
     };
 
