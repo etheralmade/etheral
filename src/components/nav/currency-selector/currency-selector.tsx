@@ -110,7 +110,7 @@ const CurrencySelector: React.FC<Props & ICurrencyState> = ({
     // display IDR - Indonesia => just on menu => hardcoded id => on styles.scss
     const options = [
         { value: Currencies.IDR, label: 'IDR', className: 'ID' },
-        { value: Currencies.AUD, label: 'AUD', className: 'AU' },
+        // { value: Currencies.AUD, label: 'AUD', className: 'AU' }, uncomment this when AUD support is coming.
     ];
 
     // default value => fetched from global state
