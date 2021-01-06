@@ -2,7 +2,7 @@ const siteTitle = 'Etheral';
 const siteDescription =
     'Handcrafted fine jewelry and made to last. Shop our new arrivals and best sellers. Every piece from Etheral is something exclusively made for you, with no other person in the world having the same jewelry as yours.';
 const siteAuthor = '@louisandrew';
-const siteUrl = 'https://gatsby-starter-typescript-deluxe.netlify.com';
+const siteUrl = 'https://etheralmade.com';
 const siteImage = `${siteUrl}/icons/icon_512x512.png`;
 const siteKeywords = [
     'Etheral',
