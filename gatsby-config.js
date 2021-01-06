@@ -139,8 +139,8 @@ module.exports = {
                 short_name: siteTitle,
                 description: siteDescription,
                 start_url: `/`,
-                background_color: `#663399`,
-                theme_color: `#663399`,
+                background_color: `#fff`,
+                theme_color: `#fff`,
                 display: `minimal-ui`,
                 icon: 'src/images/icon.png',
                 icons: [
