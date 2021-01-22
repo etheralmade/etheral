@@ -50,9 +50,9 @@ const Invoice: React.FC<Props> = ({
         };
     });
 
-    const ETHERAL_PHONE = '12345678';
-    const ETHERAL_MAIL = 'etheraletheraletheral';
-    const ETHERAL_WEB = 'akdlawdmlasd';
+    const ETHERAL_PHONE = '085780801330';
+    const ETHERAL_MAIL = 'asketheral@gmail.com';
+    const ETHERAL_WEB = 'etheralmade.com';
 
     const styling = {
         fontFamily: 'body',
