@@ -5,7 +5,7 @@
 import React, { useRef, useState } from 'react';
 import { findIndex } from 'lodash';
 // import styling libs
-import { Box, Flex, Heading, Text, Button } from 'rebass';
+import { Box, Flex, Heading, Text, Button, Link } from 'rebass';
 // import local components
 import { Order as OrderSchema } from 'helper/schema';
 import { getDateReadable } from 'helper/get-date';
@@ -52,7 +52,7 @@ const Invoice: React.FC<Props> = ({
 
     const ETHERAL_PHONE = '085780801330';
     const ETHERAL_MAIL = 'asketheral@gmail.com';
-    const ETHERAL_WEB = 'etheralmade.com';
+    const ETHERAL_WEB = 'www.etheralmade.com';
 
     const styling = {
         fontFamily: 'body',
@@ -117,9 +117,13 @@ const Invoice: React.FC<Props> = ({
                         <Text {...mediumStyling}>
                             {ETHERAL_PHONE}
                             <br />
-                            {ETHERAL_MAIL}
+                            <Link href={`mailto:${ETHERAL_MAIL}`}>
+                                {ETHERAL_MAIL}
+                            </Link>
                             <br />
-                            {ETHERAL_WEB}
+                            <Link href={`http://${ETHERAL_WEB}`}>
+                                {ETHERAL_WEB}
+                            </Link>
                         </Text>
                     </Box>
                 </Flex>
