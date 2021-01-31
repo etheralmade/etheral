@@ -12,6 +12,8 @@ import './footer.scss';
 type Props = {};
 
 const Footer: React.FC<Props> = () => {
+    const currentYear = new Date().getFullYear();
+
     return (
         <Flex variant="outerWrapper" as="footer" bg="#fff" my={[0]}>
             <Flex
@@ -32,8 +34,9 @@ const Footer: React.FC<Props> = () => {
                     textAlign="center"
                     fontSize={[0, 0, 1]}
                     role="contentinfo"
+                    as="small"
                 >
-                    Copyright
+                    Copyright &copy; {currentYear} Etheral. All Rights Reserved
                 </Text>
             </Flex>
         </Flex>

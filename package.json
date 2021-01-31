@@ -12,7 +12,6 @@
     },
     "scripts": {
         "develop": "gatsby develop",
-        "dev": "npm run develop",
         "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
         "lint": "eslint . --ext ts --ext tsx --ext js --ext jsx",
         "lint:watch": "esw -w . --ext ts --ext tsx --ext js --ext jsx",
