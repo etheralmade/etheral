@@ -126,12 +126,14 @@ exports[`Footer element matches snapshot 1`] = `
         </svg>
       </a>
     </div>
-    <div
+    <small
       className="copyright css-3u5913"
       role="contentinfo"
     >
-      Copyright
-    </div>
+      Copyright © 
+      2021
+       Etheral. All Rights Reserved
+    </small>
   </div>
 </footer>
 `;

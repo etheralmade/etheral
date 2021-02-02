@@ -32,8 +32,16 @@
 
         position: absolute;
         opacity: 0.7;
-        top: 50%;
+        top: calc(50% - 15px);
         transform: translateY(-50%);
+
+        @media screen and (min-width: 48em) {
+            top: calc(50% - 30px);
+        }
+
+        @media screen and (min-width: 48em) {
+            top: calc(50% - 40px);
+        }
 
         & > svg {
             height: 24px;
@@ -46,6 +54,10 @@
 
         &.carousel-back {
             left: 2%;
+        }
+
+        &:focus {
+            outline: none;
         }
     }
 
