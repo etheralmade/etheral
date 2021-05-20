@@ -13,6 +13,7 @@ import { withDiscount } from 'helper/with-discount';
 import { theme } from 'styles';
 
 import './product-card.scss';
+import { formatPrice } from 'helper/format-price';
 
 export type Props = BoxProps & {
     product: Product;
@@ -119,7 +120,7 @@ const ProductCard: React.FC<ICurrencyState & Props> = ({
                         `}
                             `}
                         >
-                            {price}
+                            {currency} {formatPrice(price)}
                         </Text>
                         {discounted && (
                             <Text

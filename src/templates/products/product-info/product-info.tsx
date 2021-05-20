@@ -10,6 +10,7 @@ import { theme } from 'styles';
 import { withDiscount } from 'helper/with-discount';
 import ProductForm from './product-form';
 import { ProductNote } from 'state/reducers/cart-reducer';
+import { formatPrice } from 'helper/format-price';
 
 export type Props = {
     productName: string;
@@ -91,7 +92,9 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
                     `}
                 >
                     {currency}{' '}
-                    {currency === Currencies.IDR ? idrPrice : ausPrice}
+                    {formatPrice(
+                        currency === Currencies.IDR ? idrPrice : ausPrice
+                    )}
                 </Heading>
                 {discounted && (
                     <Heading
@@ -101,9 +104,13 @@ const ProductInfo: React.FC<Props & ICurrencyState> = ({
                         ml={[9]}
                     >
                         {currency}{' '}
-                        {withDiscount(
-                            currency === Currencies.IDR ? idrPrice : ausPrice,
-                            discountPercentage
+                        {formatPrice(
+                            withDiscount(
+                                currency === Currencies.IDR
+                                    ? idrPrice
+                                    : ausPrice,
+                                discountPercentage
+                            )
                         )}
                     </Heading>
                 )}

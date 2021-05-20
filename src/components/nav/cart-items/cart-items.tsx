@@ -5,13 +5,10 @@ import { flatten } from 'lodash';
 import { Box, Text, Button, Flex, Heading } from 'rebass';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
-import {
-    IState as ICurrencyState,
-    Currencies,
-} from 'state/reducers/currency-reducer';
+import { IState as ICurrencyState } from 'state/reducers/currency-reducer';
 // import CartProduct from './cart-product';
 import Modal from 'components/modal';
-import { getTotalPriceIdr, getTotalPriceAud } from 'helper/get-total-price';
+import { getTotal } from 'helper/get-total-price';
 import ProductBox from 'components/product-box';
 
 export type Props = {
@@ -28,8 +25,6 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
     currency,
     closeCart,
 }) => {
-    console.log(cart);
-
     const cartMapped = cart.map(item => {
         const notes = item.note.map(o => ({ ...item, ...o, note: undefined }));
 
@@ -41,10 +36,7 @@ const CartItems: React.FC<ICurrencyState & Props> = ({
      */
     const data = flatten(cartMapped);
 
-    const subtotal =
-        currency === Currencies.IDR
-            ? `IDR ${getTotalPriceIdr(data)}`
-            : `AUD ${getTotalPriceAud(data)}`;
+    const subtotal = getTotal(data, currency);
 
     return (
         <Modal>
