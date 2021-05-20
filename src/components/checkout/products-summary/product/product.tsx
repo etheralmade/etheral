@@ -11,6 +11,7 @@ import { Product as ProductSchema } from 'helper/schema';
 import useAllProductImages from 'helper/use-all-product-images';
 import { getPrice } from 'helper/get-total-price';
 import { theme } from 'styles';
+import { formatPrice } from 'helper/format-price';
 
 type Props = {
     // item props => taken from cart-items.tsx
@@ -170,7 +171,7 @@ const Product: React.FC<Props> = ({ item, currency, gridTemplate, first }) => {
                     alignItems: ['unset', 'unset', 'flex-end'],
                 }}
             >
-                {currency} {getPrice(item, currency)}
+                {currency} {formatPrice(getPrice(item, currency))}
                 {product.prices.discountPercentage > 0 && (
                     <InlineIcon
                         icon={priceTag3Fill}

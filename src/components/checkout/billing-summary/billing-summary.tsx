@@ -5,6 +5,7 @@ import { Box, Heading, Flex, Text } from 'rebass';
 import DiscountCodeInput from '../discount-code-input';
 
 import { Currencies } from 'state/reducers/currency-reducer';
+import { formatPrice } from 'helper/format-price';
 
 type Discounts = {
     discounted: boolean;
@@ -70,7 +71,7 @@ const BillingSummary: React.FC<Props> = ({
                 <Flex justifyContent="space-between">
                     <Text {...textStyling}>Items Total</Text>
                     <Text {...textStyling}>
-                        {currencyPrefix} {price}
+                        {currencyPrefix} {formatPrice(price)}
                     </Text>
                 </Flex>
 
@@ -85,7 +86,7 @@ const BillingSummary: React.FC<Props> = ({
                             ({discountValue}%)
                         </Text>
                         <Text {...textStyling} color="misc.discount">
-                            -{currencyPrefix} {discountedAmount}
+                            -{currencyPrefix} {formatPrice(discountedAmount)}
                         </Text>
                     </Flex>
                 )}
@@ -95,7 +96,7 @@ const BillingSummary: React.FC<Props> = ({
                     <Flex justifyContent="space-between">
                         <Text {...textStyling}>Shipping (JNE)</Text>
                         <Text {...textStyling}>
-                            {currencyPrefix} {shipping}
+                            {currencyPrefix} {formatPrice(shipping)}
                         </Text>
                     </Flex>
                 )}

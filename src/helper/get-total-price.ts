@@ -1,6 +1,8 @@
 import { Product } from 'helper/schema';
 import { withDiscount } from './with-discount';
 import { Currencies } from 'state/reducers/currency-reducer';
+import { ProductNote } from 'state/reducers/cart-reducer';
+import { formatPrice } from './format-price';
 
 type HelperArgs = {
     [key: string]: any;
@@ -77,4 +79,31 @@ const getPrice = (args: HelperArgs, currency: Currencies) => {
     }
 };
 
-export { getTotalPriceIdr, getTotalPriceAud, getPrice };
+type Data = {
+    note?: any;
+    details: ProductNote;
+    amount: number;
+    product: Product;
+}[];
+
+const getTotal = (data: Data, currency: Currencies) => {
+    const R: Record<
+        Currencies,
+        { currencyPrefix: Currencies; fn: typeof getTotalPriceAud }
+    > = {
+        IDR: {
+            currencyPrefix: Currencies.IDR,
+            fn: getTotalPriceIdr,
+        },
+        AUD: {
+            currencyPrefix: Currencies.AUD,
+            fn: getTotalPriceAud,
+        },
+    };
+
+    const { currencyPrefix, fn } = R[currency];
+
+    return `${currencyPrefix} ${formatPrice(fn(data))}`;
+};
+
+export { getTotalPriceIdr, getTotalPriceAud, getPrice, getTotal };

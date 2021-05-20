@@ -7,7 +7,7 @@ import Product from './product';
 
 import { IState as ICartState } from 'state/reducers/cart-reducer';
 import { Currencies } from 'state/reducers/currency-reducer';
-import { getTotalPriceIdr, getTotalPriceAud } from 'helper/get-total-price';
+import { getTotal } from 'helper/get-total-price';
 
 type Props = ICartState & {
     currency: Currencies;
@@ -130,9 +130,10 @@ const ProductsSummary: React.FC<Props> = ({ cart, currency }) => {
                     TOTAL
                 </Text>
                 <Text variant="h4" fontSize={[1, 1, 1]}>
-                    {currency === Currencies.IDR
+                    {/* {currency === Currencies.IDR
                         ? `IDR ${getTotalPriceIdr(data)}`
-                        : `AUD ${getTotalPriceAud(data)}`}
+                        : `AUD ${getTotalPriceAud(data)}`} */}
+                    {getTotal(data, currency)}
                 </Text>
             </Flex>
         </Box>

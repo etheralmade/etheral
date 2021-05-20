@@ -132,6 +132,11 @@ exports.sourceNodes = async ({
 
     // mapping consignment data(s) from db to a variable.
     await consignments.get().then(docs => {
+        if (docs.length === 0) {
+            consignmentDocs = [];
+            return;
+        }
+
         docs.forEach(doc => {
             if (doc.exists) {
                 consignmentDocs = [...consignmentDocs, doc.data()];
@@ -277,17 +282,25 @@ exports.sourceNodes = async ({
         });
     });
 
+    // catch error if consignment is not filled
+    const c =
+        consignmentDocs.length === 0
+            ? [
+                  {
+                      id: '-1',
+                      address: '',
+                      phoneNumber: '',
+                      zipCode: '',
+                      location: '',
+                      name: '',
+                      web: '',
+                  },
+              ]
+            : consignmentDocs;
+
     // source stockists/consignments data from db
-    const createNodesConsignments = await consignmentDocs.map(async data => {
-        const {
-            id,
-            address,
-            phoneNumber,
-            zipCode,
-            location,
-            name,
-            web,
-        } = await data;
+    const createNodesConsignments = await c.map(async data => {
+        const { id, address, phoneNumber, zipCode, location, name, web } = data;
 
         const nodeFields = {
             address,
@@ -549,6 +562,8 @@ exports.sourceNodes = async ({
             console.error(e);
         }
     };
+
+    console.log(createNodesConsignments);
 
     // wait for all source operations to be done before creating pages.
     await Promise.all(

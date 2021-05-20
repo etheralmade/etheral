@@ -18,6 +18,7 @@ import {
 } from 'state/reducers/currency-reducer';
 import { withDiscount } from 'helper/with-discount';
 import { theme } from 'styles';
+import { formatPrice } from 'helper/format-price';
 
 export type Props = ICurrencyState & {
     item: {
@@ -227,7 +228,7 @@ const ProductBox: React.FC<Props> = ({ item, currency, connectDispatch }) => {
                                 fontWeight="semiBold"
                                 sx={{ svg: { ml: [4] } }}
                             >
-                                {price}
+                                {price.split(' ')[0]} {formatPrice(price)}
                                 {discounted && (
                                     <InlineIcon
                                         icon={priceTag3Fill}
