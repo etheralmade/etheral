@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LouisAndrew/personal-site-2022/main/.metadata/metadata.schema.json",
+  "moreInfoPath": "https://raw.githubusercontent.com/etheralmade/etheral/master/.metadata/info.md",
+  "tags": [
+    "react",
+    "firebase"
+  ],
+  "projectUrl": "https://github.com/etheralmade/etheral",
+  "type": "single",
+  "assets": {
+    "previewImage": "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral__main-mailinglist.png",
+    "images": [
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral__main-dropdown.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_product.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_category.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_cart.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_checkout.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_order-overview.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_orders.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_auth.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_admin-admins.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_admin-settings.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_order-admin.png",
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/etheral_auth-admin.png"
+    ],
+    "videos": [
+      "https://raw.githubusercontent.com/LouisAndrew/portfolio/master/static/img/vid_20210102_173057.mp4"
+    ]
+  }
+}
